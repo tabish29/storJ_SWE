@@ -39,4 +39,12 @@ public class UtentiController implements UtentiApi {
 
         return new ResponseEntity<>(utenteMapper.utenteDTOToUtente(utenteDTO), HttpStatus.OK);
     }
+
+    public ResponseEntity<Utente> utentePayment(String username) {
+        log.info("method userPayment()");
+
+        UtenteDTO utenteDTO = utenteBL.utentePayment(username);
+
+        return new ResponseEntity<>(utenteMapper.utenteDTOToUtente(utenteDTO), HttpStatus.OK);
+    }
 }

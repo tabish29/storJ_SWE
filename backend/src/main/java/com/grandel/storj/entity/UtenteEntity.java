@@ -19,4 +19,7 @@ public class UtenteEntity {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "statopagamento")
+    private boolean statoPagamento;
 }

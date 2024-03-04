@@ -4,6 +4,7 @@ public class UtenteDTO {
     private Long id;
     private String username;
     private String password;
+    private boolean statoPagamento;
 
     public Long getId() {
         return id;
@@ -27,5 +28,13 @@ public class UtenteDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isStatoPagamento() {
+        return statoPagamento;
+    }
+
+    public void setStatoPagamento(boolean statoPagamento) {
+        this.statoPagamento = statoPagamento;
     }
 }

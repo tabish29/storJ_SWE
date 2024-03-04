@@ -97,6 +97,50 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
+  '/utenti/{usernameUtente}/pagamento':
+    post:
+      tags:
+        - "Utenti"
+      operationId: utentePayment
+      parameters:
+        - in: path
+          name: usernameUtente
+          required: true
+          description: "effettua il pagamento per lo specifico utente"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Utente"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
 components:
 
   schemas:
@@ -107,6 +151,7 @@ components:
         - id
         - username
         - password
+        - statoPagamento
       properties:
         id:
           type: integer
@@ -115,6 +160,9 @@ components:
           type: string
         password:
           type: string
+        statoPagamento:
+          type: boolean
+          default: false
 
     Error:
       type: object
