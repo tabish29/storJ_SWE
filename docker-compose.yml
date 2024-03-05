@@ -24,6 +24,16 @@ services:
     ports:
       - "8080:8080"
 
+  angular:
+    build: frontend
+    container_name: angular
+    depends_on:
+      - app
+    networks:
+      - storjnetwork
+    ports:
+      - "4201:4200"
+
 networks:
     storjnetwork:
       driver: bridge
