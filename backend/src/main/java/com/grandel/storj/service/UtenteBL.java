@@ -1,10 +1,13 @@
 package com.grandel.storj.service;
 
+import com.grandel.storj.dto.PaymentRequestDTO;
 import com.grandel.storj.dto.UtenteDTO;
 import com.grandel.storj.entity.UtenteEntity;
 import com.grandel.storj.error.ErrorEnum;
 import com.grandel.storj.error.ErrorException;
+import com.grandel.storj.mapper.PaymentRequestMapper;
 import com.grandel.storj.mapper.UtenteMapper;
+import com.grandel.storj.payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,12 @@ public class UtenteBL {
 
     @Autowired
     private UtenteMapper utenteMapper;
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private PaymentRequestMapper paymentRequestMapper;
 
     public UtenteDTO getUtenteDTOByUsername(String username){
         List<UtenteEntity> list = utenteService.findByUsername(username);
@@ -39,7 +48,7 @@ public class UtenteBL {
         return utenteMapper.utenteEntityToUtenteDTO(utenteEntity);
     }
 
-    public UtenteDTO utentePayment(String username){
+    public UtenteDTO utentePayment(String username, PaymentRequestDTO paymentRequestDTO){
         List<UtenteEntity> list = utenteService.findByUsername(username);
 
         if(list.isEmpty()){
@@ -52,9 +61,9 @@ public class UtenteBL {
             throw new ErrorException(ErrorEnum.UTENTEALREADYPAID);
         }
 
-        //Generazione numero randomico nell'intervallo [0,1], in modo da simulare il fallimento del pagamento
-        int coin = (int)(Math.random()*2);
-        if(coin == 0){
+        boolean esito = paymentService.makePayment(paymentRequestMapper.paymentRequestDTOToPaymentRequestE(paymentRequestDTO));
+
+        if(!esito){
             throw new ErrorException(ErrorEnum.PAYMENTFAILED);
         }
 

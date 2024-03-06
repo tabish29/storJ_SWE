@@ -62,7 +62,7 @@ paths:
         - in: path
           name: usernameUtente
           required: true
-          description: "restituisce l'utente tramite il suo username"
+          description: "username dell'utente"
           schema:
             type: string
       responses:
@@ -106,9 +106,15 @@ paths:
         - in: path
           name: usernameUtente
           required: true
-          description: "effettua il pagamento per lo specifico utente"
+          description: "username dell'utente"
           schema:
             type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentRequest"
       responses:
         '200':
           description: "Success"
@@ -163,6 +169,24 @@ components:
         statoPagamento:
           type: boolean
           default: false
+
+    PaymentRequest:
+      type: object
+      required:
+        - amount
+        - cardHolder
+        - cardNumber
+        - cvv
+      properties:
+        amount:
+          type: number
+          format: double
+        cardHolder:
+          type: string
+        cardNumber:
+          type: string
+        cvv:
+          type: string
 
     Error:
       type: object
