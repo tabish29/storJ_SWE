@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { StorJPageComponent } from './components/stor-jpage/stor-jpage.component';
+import { PaymentPageComponent } from './components/payment-page/payment-page.component';
 
 const routes: Routes = [
   {
@@ -20,8 +21,13 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
+    //mettere la guardia 
     path: 'storJPage',
     component: StorJPageComponent,
+  },
+  {
+    path: 'payment',
+    component: PaymentPageComponent,
   },
   {
     path: '', 

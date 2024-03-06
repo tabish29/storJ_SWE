@@ -1,0 +1,22 @@
+<div class="payment-container">
+    <h1>Form per il pagamento</h1>
+    <form class="payment-form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="amount" id="amount" name="amount" required [(ngModel)]="amount">
+        </div>
+        <div class="form-group">
+            <label for="cardHolder">Card Holder:</label>
+            <input type="cardHolder" id="cardHolder" name="cardHolder" required  [(ngModel)]="cardHolder">
+        </div>
+        <div class="form-group">
+            <label for="cardNumber">Card Number:</label>
+            <input type="cardNumber" id="cardNumber" name="cardNumber" required  [(ngModel)]="cardNumber">
+        </div>
+        <div class="form-group">
+            <label for="cvv">cvv:</label>
+            <input type="cvv" id="cvv" name="cvv" required  [(ngModel)]="cvv">
+        </div>
+        <button type="submit" class="btn-payment">Paga</button>
+    </form>
+</div>

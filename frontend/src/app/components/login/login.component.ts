@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UserService } from '../../userservice';
+import { UserService } from '../../services/userservice';
 import { user } from '../../user';
 import { Router } from '@angular/router';
 

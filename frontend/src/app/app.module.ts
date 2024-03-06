@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { StorJPageComponent } from './components/stor-jpage/stor-jpage.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { PaymentPageComponent } from './components/payment-page/payment-page.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     HomeComponent,
     NavbarComponent,
     NotFoundComponent,
-    StorJPageComponent
+    StorJPageComponent,
+    PaymentPageComponent
   ],
   imports: [
     BrowserModule,
