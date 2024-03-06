@@ -1,36 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <div class="parent">
-        <div class="container">
-            <div class="login-box">
-                <h2>Login</h2>
-                <form action="#">
-                    <div class="input-box">
-                        <label>username</label>
-                        <input type="username" [(ngModel)]="loginObj.username" name="username" required>
-                      
-                    </div>
-                    <div class="input-box">
-                        <label>Password</label>
-                        <input type="password" [(ngModel)]="loginObj.Password" name="Password" required>
-                       
-                    </div>
-                    
-                    <button type="button" class="btn" (click)="onLogin()" >Login</button>
-                     
-                </form>
 
-                <p>Non sei registrato? <a href="/register">Registrati qui</a></p>
-                <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-            </div>
-            
-        </div>
+<h1>Login</h1>
+<form (ngSubmit)="onLogin()">
+    <div>
+        <label for="Username">Username:</label>
+        <input type="text" id="username" name="Username" required [(ngModel)]="username">
     </div>
-</body>
-</html>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required  [(ngModel)]="password">
+    </div>
+    <button type="submit">Login</button>
+</form>
+<p>Non sei registrato? <a href="/register">Registrati qui</a></p>

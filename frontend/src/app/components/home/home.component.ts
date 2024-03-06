@@ -14,11 +14,6 @@ export class HomeComponent implements OnInit{
   data: any[]=[];
 
   ngOnInit(): void {
-    this.fetchData();
-  }
 
-  fetchData(){
-    this.httpClient.get("http://localhost:8080/api/v1/utenti/davide").subscribe((data:any) =>{console.log(data); this.data=data});
   }
-
 }

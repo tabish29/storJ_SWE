@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../AuthService';
+
 
 @Component({
   selector: 'app-navbar',
@@ -8,13 +8,10 @@ import { AuthService } from '../../../AuthService';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router) {
   }
 
   
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn(); // Assumi che il servizio di autenticazione abbia un metodo isLoggedIn()
-  }
 
   logout() {
     // Rimuovi il token di accesso memorizzato in localStorage

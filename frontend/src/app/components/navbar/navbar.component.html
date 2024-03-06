@@ -2,10 +2,7 @@
     <div class="logo">
         <h1>storj</h1>
     </div>
-    <div class="logout" *ngIf="isLoggedIn()">
-        <a href="/login" (click)="logout()">Logout</a>
-    </div>
-    <div class="login" *ngIf="!isLoggedIn()">
+    <div class="login">
         <a href="/login">Login</a>
     </div>
 </nav>
