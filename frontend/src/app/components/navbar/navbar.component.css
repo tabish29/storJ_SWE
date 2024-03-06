@@ -1,23 +1,22 @@
 .navbar {
-    background-color: #333; /* Colore di sfondo della navbar */
-    color: #fff; /* Colore del testo */
-    padding: 10px; /* Spazio interno della navbar */
-    display: flex; /* Utilizza il layout flessibile */
-    justify-content: space-between; /* Allinea gli elementi alla sinistra e alla destra */
-    align-items: center; /* Allinea verticalmente gli elementi */
-  }
-  
-  .logo a {
-    color: #fff; /* Colore del testo del logo */
-    text-decoration: none; /* Rimuove la sottolineatura dei link */
-  }
-  
-  .logout a {
-    color: #fff; /* Colore del testo del logout */
-    text-decoration: none; /* Rimuove la sottolineatura dei link */
-  }
-  
-  .logout a:hover {
-    text-decoration: underline; /* Sottolinea il testo al passaggio del mouse */
-  }
-  
+  background-color: #3661d8c3; /* Colore di sfondo della navbar */
+  color: #fff; /* Colore del testo */
+  padding: 10px; /* Spazio interno della navbar */
+  display: flex; /* Utilizza il layout flessibile */
+  justify-content: space-between; /* Allinea gli elementi alla sinistra e alla destra */
+  align-items: center; /* Allinea verticalmente gli elementi */
+}
+
+.logo a {
+  color: #fff; /* Colore del testo del logo */
+  text-decoration: none; /* Rimuove la sottolineatura dei link */
+  font-size: 24px; /* Dimensione del testo del logo */
+  font-weight: bold; /* Grassetto */
+}
+
+.login{
+  color: #fff; /* Colore del testo del logo */
+  text-decoration: none; /* Rimuove la sottolineatura dei link */
+  font-size: 18px; /* Dimensione del testo del logo */
+  font-weight: bold; /* Grassetto */
+}

@@ -21,7 +21,7 @@ export class LoginComponent {
         if(response.password === this.password){
           alert("Ciao " + response.username);
           //redirect to pagina home!
-          this.router.navigateByUrl('/home'); // Usa il Router per il redirect
+          this.router.navigateByUrl('/storJPage'); // Usa il Router per il redirect
         }else{
           alert("Username o Password errata!");
         }

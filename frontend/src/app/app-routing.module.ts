@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { StorJPageComponent } from './components/stor-jpage/stor-jpage.component';
 
 const routes: Routes = [
   {
@@ -19,11 +20,18 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: '', redirectTo: 'home', pathMatch: 'full'
+    path: 'storJPage',
+    component: StorJPageComponent,
+  },
+  {
+    path: '', 
+    redirectTo: 'home',
+     pathMatch: 'full'
   },
   {
     //tutti i path che non rientrano tra quelli specificati sopra
-    path: '**', component: NotFoundComponent
+    path: '**', 
+    component: NotFoundComponent,
   }
 ];
 
