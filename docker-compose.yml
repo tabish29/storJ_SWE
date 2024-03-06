@@ -14,6 +14,16 @@ services:
       - ./db/volumes/data:/var/lib/postgresql/data
       - ./db/sql/:/docker-entrypoint-initdb.d/
 
+  paymentservice:
+    build: payment
+    container_name: paymentservice
+    depends_on:
+      - app
+    networks:
+      - storjnetwork
+    ports:
+      - "6789:6789"
+
   app:
     build: backend
     container_name: storj
