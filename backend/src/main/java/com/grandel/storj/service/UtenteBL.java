@@ -1,6 +1,6 @@
 package com.grandel.storj.service;
 
-import com.grandel.storj.dto.PaymentRequestDTO;
+import com.grandel.storj.payment.PaymentRequestDTO;
 import com.grandel.storj.dto.UtenteDTO;
 import com.grandel.storj.entity.UtenteEntity;
 import com.grandel.storj.error.ErrorEnum;

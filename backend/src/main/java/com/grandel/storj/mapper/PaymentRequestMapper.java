@@ -1,6 +1,6 @@
 package com.grandel.storj.mapper;
 
-import com.grandel.storj.dto.PaymentRequestDTO;
+import com.grandel.storj.payment.PaymentRequestDTO;
 import com.grandel.storj.payment.PaymentRequestE;
 import org.mapstruct.Mapper;
 

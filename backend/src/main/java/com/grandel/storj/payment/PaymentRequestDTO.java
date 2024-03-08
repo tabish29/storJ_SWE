@@ -1,4 +1,4 @@
-package com.grandel.storj.dto;
+package com.grandel.storj.payment;
 
 public class PaymentRequestDTO {
     Double amount;
