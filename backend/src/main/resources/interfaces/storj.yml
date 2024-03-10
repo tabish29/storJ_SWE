@@ -369,19 +369,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  '/storie/{idStoria}/scenari':
+  '/scenari':
     post:
       tags:
         - "Scenari"
       operationId: postScenario
-      parameters:
-        - in: path
-          name: idStoria
-          required: true
-          description: "ID della storia"
-          schema:
-            type: integer
-            format: int64
       requestBody:
         required: true
         content:
@@ -419,6 +411,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+
+  '/storie/{idStoria}/scenari':
     get:
       tags:
         - "Scenari"
@@ -602,19 +596,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  '/scenari/{idScenario}/scelte':
+  '/scelte':
     post:
       tags:
         - "Scelte"
       operationId: postScelta
-      parameters:
-        - in: path
-          name: idScenario
-          required: true
-          description: "ID dello scenario"
-          schema:
-            type: integer
-            format: int64
       requestBody:
         required: true
         content:
@@ -652,6 +638,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+
+  '/scenari/{idScenario}/scelte':
     get:
       tags:
         - "Scelte"
@@ -835,19 +823,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  '/storie/{idStoria}/oggetti':
+  '/oggetti':
     post:
       tags:
         - "Oggetti"
       operationId: postOggetto
-      parameters:
-        - in: path
-          name: idStoria
-          required: true
-          description: "ID della storia"
-          schema:
-            type: integer
-            format: int64
       requestBody:
         required: true
         content:
@@ -885,6 +865,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+
+  '/storie/{idStoria}/oggetti':
     get:
       tags:
         - "Oggetti"
@@ -1068,19 +1050,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  '/utenti/{idUtente}/partite':
+  '/partite':
     post:
       tags:
         - "Partite"
       operationId: postPartita
-      parameters:
-        - in: path
-          name: idUtente
-          required: true
-          description: "ID dell'utente"
-          schema:
-            type: integer
-            format: int64
       requestBody:
         required: true
         content:
@@ -1118,6 +1092,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+
+  '/utenti/{idUtente}/partite':
     get:
       tags:
         - "Partite"
@@ -1359,7 +1335,7 @@ components:
       type: object
       required:
         - id
-        - id_utente
+        - id_creatore
         - id_scenario_iniziale
         - categoria
         - numero_scenari
@@ -1368,7 +1344,7 @@ components:
         id:
           type: integer
           format: int64
-        id_utente:
+        id_creatore:
           type: integer
           format: int64
         id_scenario_iniziale:

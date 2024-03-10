@@ -10,12 +10,12 @@ CREATE TABLE IF NOT EXISTS utente(
 
 CREATE TABLE IF NOT EXISTS storia(
     id SERIAL PRIMARY KEY,
-    id_utente INTEGER NOT NULL,
+    id_creatore INTEGER NOT NULL,
     id_scenario_iniziale INTEGER NOT NULL,
     categoria VARCHAR(50) NOT NULL,
     numero_scenari INTEGER NOT NULL,
     stato_completamento BOOLEAN NOT NULL,
-    FOREIGN KEY (id_utente) REFERENCES utente(id)
+    FOREIGN KEY (id_creatore) REFERENCES utente(id)
 );
 
 CREATE TABLE IF NOT EXISTS scenario(
