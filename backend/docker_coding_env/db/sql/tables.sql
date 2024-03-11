@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS utente(
 CREATE TABLE IF NOT EXISTS storia(
     id SERIAL PRIMARY KEY,
     id_creatore INTEGER NOT NULL,
-    id_scenario_iniziale INTEGER NOT NULL,
+    titolo VARCHAR(255) NOT NULL,
     categoria VARCHAR(50) NOT NULL,
     numero_scenari INTEGER NOT NULL,
     stato_completamento BOOLEAN NOT NULL,
@@ -69,6 +69,5 @@ CREATE TABLE IF NOT EXISTS partita(
     FOREIGN KEY (id_scenario_corrente) REFERENCES scenario(id)
 );
 
-ALTER TABLE storia ADD CONSTRAINT fk_storia_scenario FOREIGN KEY (id_scenario_iniziale) REFERENCES scenario(id);
 ALTER TABLE scenario ADD CONSTRAINT fk_scenario_storia FOREIGN KEY (id_storia) REFERENCES storia(id);
 ALTER TABLE scenario ADD CONSTRAINT fk_scenario_oggetto FOREIGN KEY (id_oggetto_droppato) REFERENCES oggetto(id);
