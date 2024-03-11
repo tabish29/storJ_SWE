@@ -198,6 +198,19 @@ paths:
       tags:
         - "Storie"
       operationId: getStorie
+      parameters:
+        - name: autore
+          in: query
+          description: 'filtro autore'
+          schema:
+            type: string
+          required: false
+        - name: categoria
+          in: query
+          description: 'filtro categoria'
+          schema:
+            type: string
+          required: false
       responses:
         '200':
           description: "Success"
@@ -340,10 +353,6 @@ paths:
       responses:
         '200':
           description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Storia"
         '400':
           description: "Bad Request"
           content:
@@ -527,7 +536,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Storia"
+                $ref: "#/components/schemas/Scenario"
         '400':
           description: "Bad Request"
           content:
@@ -567,10 +576,6 @@ paths:
       responses:
         '200':
           description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Scenario"
         '400':
           description: "Bad Request"
           content:
@@ -794,10 +799,6 @@ paths:
       responses:
         '200':
           description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Scelta"
         '400':
           description: "Bad Request"
           content:
@@ -1021,10 +1022,6 @@ paths:
       responses:
         '200':
           description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Oggetto"
         '400':
           description: "Bad Request"
           content:
@@ -1248,10 +1245,6 @@ paths:
       responses:
         '200':
           description: "Success"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Partita"
         '400':
           description: "Bad Request"
           content:
@@ -1336,7 +1329,7 @@ components:
       required:
         - id
         - id_creatore
-        - id_scenario_iniziale
+        - titolo
         - categoria
         - numero_scenari
         - statoCompletamento
@@ -1347,13 +1340,13 @@ components:
         id_creatore:
           type: integer
           format: int64
-        id_scenario_iniziale:
-          type: integer
-          format: int64
+        titolo:
+          type: string
         categoria:
           type: string
         numero_scenari:
           type: integer
+          default: 0
         statoCompletamento:
           type: boolean
           default: false
@@ -1363,7 +1356,6 @@ components:
       required:
         - id
         - id_storia
-        - id_oggetto_droppato
         - testo
         - tipo_risposta
         - tipo_scenario
@@ -1377,6 +1369,7 @@ components:
         id_oggetto_droppato:
           type: integer
           format: int64
+          default: 0
         testo:
           type: string
         tipo_risposta:
@@ -1389,11 +1382,8 @@ components:
       required:
         - id
         - id_scenario
-        - id_oggetto_richiesto
         - testo
         - id_scenario_successivo
-        - risposta
-        - id_scenario_risposta_sbagliata
       properties:
         id:
           type: integer
@@ -1404,6 +1394,7 @@ components:
         id_oggetto_richiesto:
           type: integer
           format: int64
+          default: 0
         testo:
           type: string
         id_scenario_successivo:
@@ -1414,6 +1405,7 @@ components:
         id_scenario_risposta_sbagliata:
           type: integer
           format: int64
+          default: 0
 
     Oggetto:
       type: object

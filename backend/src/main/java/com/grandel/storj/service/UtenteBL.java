@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UtenteBL {
@@ -27,6 +28,15 @@ public class UtenteBL {
 
     @Autowired
     private PaymentRequestMapper paymentRequestMapper;
+
+    public UtenteDTO getUtenteDTObyId(Long id) {
+        Optional<UtenteEntity> utente = utenteService.findById(id);
+        if (!utente.isPresent()) {
+            throw new ErrorException(ErrorEnum.UTENTENOTFOUND);
+        }
+
+        return utenteMapper.utenteEntityToUtenteDTO(utente.get());
+    }
 
     public UtenteDTO getUtenteDTOByUsername(String username){
         List<UtenteEntity> list = utenteService.findByUsername(username);
