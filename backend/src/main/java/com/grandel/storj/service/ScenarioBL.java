@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -51,5 +53,21 @@ public class ScenarioBL {
         if(getScenarioDTOById(id) != null){
             scenarioService.deleteScenario(id);
         }
+    }
+
+    public List<ScenarioDTO> getScenariByStoria(Long idStoria, String tipologia) {
+        List<ScenarioDTO> scenari = new ArrayList<>();
+
+        if(tipologia != null){
+            for (ScenarioEntity x : scenarioService.getScenariByTipologia(idStoria, tipologia)) {
+                scenari.add(scenarioMapper.scenarioEntityToScenarioDTO(x));
+            }
+        }else{
+            for (ScenarioEntity x : scenarioService.getScenariByStoria(idStoria)) {
+                scenari.add(scenarioMapper.scenarioEntityToScenarioDTO(x));
+            }
+        }
+
+        return scenari;
     }
 }

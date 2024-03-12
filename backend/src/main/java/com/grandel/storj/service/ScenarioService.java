@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -28,5 +29,13 @@ public class ScenarioService {
 
     public void deleteScenario(Long id){
         scenarioRepository.deleteById(id);
+    }
+
+    public List<ScenarioEntity> getScenariByStoria(Long idStoria){
+        return scenarioRepository.find(idStoria);
+    }
+
+    public List<ScenarioEntity> getScenariByTipologia(Long idStoria, String tipologia){
+        return scenarioRepository.findByTipoScenario(idStoria, ScenarioEntity.TipoScenarioEnum.valueOf(tipologia.toUpperCase()));
     }
 }

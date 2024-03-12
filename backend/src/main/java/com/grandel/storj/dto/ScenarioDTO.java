@@ -8,7 +8,6 @@ import storj.model.TipoScenarioEnum;
 public class ScenarioDTO {
     private Long id;
     private StoriaEntity idStoria;
-    private OggettoEntity idOggettoDroppato;
     private String testo;
     private TipoRispostaEnum tipoRisposta;
     private TipoScenarioEnum tipoScenario;
@@ -27,14 +26,6 @@ public class ScenarioDTO {
 
     public void setIdStoria(StoriaEntity idStoria) {
         this.idStoria = idStoria;
-    }
-
-    public OggettoEntity getIdOggettoDroppato() {
-        return idOggettoDroppato;
-    }
-
-    public void setIdOggettoDroppato(OggettoEntity idOggettoDroppato) {
-        this.idOggettoDroppato = idOggettoDroppato;
     }
 
     public String getTesto() {

@@ -1,7 +1,10 @@
 package com.grandel.storj.api;
 
+import com.grandel.storj.dto.DropDTO;
 import com.grandel.storj.dto.ScenarioDTO;
+import com.grandel.storj.mapper.DropMapper;
 import com.grandel.storj.mapper.ScenarioMapper;
+import com.grandel.storj.service.DropBL;
 import com.grandel.storj.service.ScenarioBL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import storj.api.ScenariApi;
-import storj.model.Scelta;
+import storj.model.Drop;
+import storj.model.Indovinello;
+import storj.model.Multipla;
 import storj.model.Scenario;
 
 import java.util.List;
@@ -25,7 +30,10 @@ public class ScenariController implements ScenariApi {
     private ScenarioBL scenarioBL;
     @Autowired
     private ScenarioMapper scenarioMapper;
-
+    @Autowired
+    private DropMapper dropMapper;
+    @Autowired
+    private DropBL dropBL;
     public ResponseEntity<Scenario> getScenarioById(Long idScenario) {
         log.info("method getScenarioById()");
 
@@ -58,11 +66,27 @@ public class ScenariController implements ScenariApi {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Scelta>> getScelteByScenario(Long idScenario) {
-        log.info("method getScelteByScenario()");
+    public ResponseEntity<Indovinello> getSceltaIndovinelloByScenario(Long idScenario) {
+        log.info("method getSceltaIndovinelloByScenario()");
 
         //TO-DO
 
-        return ScenariApi.super.getScelteByScenario(idScenario);
+        return ScenariApi.super.getSceltaIndovinelloByScenario(idScenario);
+    }
+
+    public ResponseEntity<List<Multipla>> getScelteMultipleByScenario(Long idScenario) {
+        log.info("method getScelteMultipleByScenario()");
+
+        //TO-DO
+
+        return ScenariApi.super.getScelteMultipleByScenario(idScenario);
+    }
+
+    public ResponseEntity<Drop> getDropByScenario(Long idScenario) {
+        log.info("method getDropByScenario()");
+
+        DropDTO dropDTO = dropBL.getDropByScenario(idScenario);
+
+        return new ResponseEntity<>(dropMapper.dropDTOToDrop(dropDTO), HttpStatus.OK);
     }
 }

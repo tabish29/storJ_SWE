@@ -36,19 +36,4 @@ public abstract class ScenarioMapper {
     public Long mapS(StoriaEntity storiaEntity){
         return storiaEntity.getId();
     }
-
-    public OggettoEntity mapO(Long id){
-        if(id == 0){
-            OggettoEntity oggettoEntity = new OggettoEntity();
-            oggettoEntity.setId(0L);
-            return oggettoEntity;
-        }
-
-        OggettoDTO oggettoDTO = oggettoBL.getOggettoDTOById(id);
-        return oggettoMapper.oggettoDTOToOggettoEntity(oggettoDTO);
-    }
-
-    public Long mapO(OggettoEntity oggettoEntity){
-        return oggettoEntity.getId();
-    }
 }

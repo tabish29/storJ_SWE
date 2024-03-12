@@ -21,10 +21,6 @@ public class ScenarioEntity {
     @JoinColumn(name = "id_storia", nullable = false)
     private StoriaEntity idStoria;
 
-    @ManyToOne
-    @JoinColumn(name = "id_oggetto_droppato", nullable = false)
-    private OggettoEntity idOggettoDroppato;
-
     @Column(name = "testo")
     private String testo;
 
