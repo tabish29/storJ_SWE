@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -51,5 +53,15 @@ public class OggettoBL {
         if(getOggettoDTOById(id) != null){
             oggettoService.deleteOggetto(id);
         }
+    }
+
+    public List<OggettoDTO> getOggettiByStoria(Long idStoria) {
+        List<OggettoDTO> oggetti = new ArrayList<>();
+
+        for (OggettoEntity x : oggettoService.getOggettiByStoria(idStoria)) {
+            oggetti.add(oggettoMapper.oggettoEntityToOggettoDTO(x));
+        }
+
+        return oggetti;
     }
 }

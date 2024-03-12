@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -28,5 +29,9 @@ public class OggettoService {
 
     public void deleteOggetto(Long id){
         oggettoRepository.deleteById(id);
+    }
+
+    public List<OggettoEntity> getOggettiByStoria(Long idStoria){
+        return oggettoRepository.findByStoria(idStoria);
     }
 }
