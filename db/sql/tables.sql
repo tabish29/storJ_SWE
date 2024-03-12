@@ -15,16 +15,16 @@ CREATE TABLE IF NOT EXISTS storia(
     categoria VARCHAR(50) NOT NULL,
     numero_scenari INTEGER NOT NULL,
     stato_completamento BOOLEAN NOT NULL,
-    FOREIGN KEY (id_creatore) REFERENCES utente(id)
+    FOREIGN KEY (id_creatore) REFERENCES utente(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS scenario(
     id SERIAL PRIMARY KEY,
     id_storia INTEGER NOT NULL,
-    id_oggetto_droppato INTEGER NOT NULL,
     testo VARCHAR(255) NOT NULL,
     tipo_risposta TIPO_RISPOSTA NOT NULL,
-    tipo_scenario TIPO_SCENARIO NOT NULL
+    tipo_scenario TIPO_SCENARIO NOT NULL,
+    FOREIGN KEY (id_storia) REFERENCES storia(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS oggetto(
@@ -32,21 +32,44 @@ CREATE TABLE IF NOT EXISTS oggetto(
     id_storia INTEGER NOT NULL,
     nome VARCHAR(50) NOT NULL,
     descrizione VARCHAR(255) NOT NULL,
-    FOREIGN KEY (id_storia) REFERENCES storia(id)
+    FOREIGN KEY (id_storia) REFERENCES storia(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS scelta(
+CREATE TABLE IF NOT EXISTS drop(
     id SERIAL PRIMARY KEY,
     id_scenario INTEGER NOT NULL,
-    id_oggetto_richiesto INTEGER NOT NULL,
+    id_oggetto INTEGER NOT NULL,
+    FOREIGN KEY (id_scenario) REFERENCES scenario(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_oggetto) REFERENCES oggetto(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS multipla(
+    id SERIAL PRIMARY KEY,
+    id_scenario INTEGER NOT NULL,
     testo VARCHAR(50) NOT NULL,
     id_scenario_successivo INTEGER NOT NULL,
+    FOREIGN KEY (id_scenario) REFERENCES scenario(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_scenario_successivo) REFERENCES scenario(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS required(
+    id SERIAL PRIMARY KEY,
+    id_scelta INTEGER NOT NULL,
+    id_oggetto INTEGER NOT NULL,
+    FOREIGN KEY (id_scelta) REFERENCES multipla(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_oggetto) REFERENCES oggetto(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS indovinello(
+    id SERIAL PRIMARY KEY,
+    id_scenario INTEGER NOT NULL,
+    testo VARCHAR(50) NOT NULL,
     risposta VARCHAR(50),
+    id_scenario_risposta_corretta INTEGER NOT NULL,
     id_scenario_risposta_sbagliata INTEGER,
     FOREIGN KEY (id_scenario) REFERENCES scenario(id),
-    FOREIGN KEY (id_oggetto_richiesto) REFERENCES oggetto(id),
-    FOREIGN KEY (id_scenario_successivo) REFERENCES scenario(id),
-    FOREIGN KEY (id_scenario_risposta_sbagliata) REFERENCES scenario(id)
+    FOREIGN KEY (id_scenario_risposta_corretta) REFERENCES scenario(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_scenario_risposta_sbagliata) REFERENCES scenario(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS inventario(
@@ -54,9 +77,9 @@ CREATE TABLE IF NOT EXISTS inventario(
     id_storia INTEGER NOT NULL,
     id_utente INTEGER NOT NULL,
     id_oggetto INTEGER NOT NULL,
-    FOREIGN KEY (id_storia) REFERENCES storia(id),
-    FOREIGN KEY (id_utente) REFERENCES utente(id),
-    FOREIGN KEY (id_oggetto) REFERENCES oggetto(id)
+    FOREIGN KEY (id_storia) REFERENCES storia(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_oggetto) REFERENCES oggetto(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS partita(
@@ -64,10 +87,9 @@ CREATE TABLE IF NOT EXISTS partita(
     id_storia INTEGER NOT NULL,
     id_utente INTEGER NOT NULL,
     id_scenario_corrente INTEGER NOT NULL,
-    FOREIGN KEY (id_storia) REFERENCES storia(id),
-    FOREIGN KEY (id_utente) REFERENCES utente(id),
-    FOREIGN KEY (id_scenario_corrente) REFERENCES scenario(id)
+    id_inventario INTEGER NOT NULL,
+    FOREIGN KEY (id_storia) REFERENCES storia(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_scenario_corrente) REFERENCES scenario(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_inventario) REFERENCES inventario(id) ON DELETE CASCADE
 );
-
-ALTER TABLE scenario ADD CONSTRAINT fk_scenario_storia FOREIGN KEY (id_storia) REFERENCES storia(id);
-ALTER TABLE scenario ADD CONSTRAINT fk_scenario_oggetto FOREIGN KEY (id_oggetto_droppato) REFERENCES oggetto(id);

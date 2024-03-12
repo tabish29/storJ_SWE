@@ -434,6 +434,12 @@ paths:
           schema:
             type: integer
             format: int64
+        - in: query
+          name: tipologia
+          description: 'tipo scenario'
+          schema:
+            type: string
+          required: false
       responses:
         '200':
           description: "Success"
@@ -601,24 +607,24 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  '/scelte':
+  '/drop':
     post:
       tags:
-        - "Scelte"
-      operationId: postScelta
+        - "Scenari"
+      operationId: postDrop
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Scelta"
+              $ref: "#/components/schemas/Drop"
       responses:
         '200':
           description: "Success"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Scelta"
+                $ref: "#/components/schemas/Drop"
         '400':
           description: "Bad Request"
           content:
@@ -644,11 +650,275 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  '/scenari/{idScenario}/scelte':
+  '/scenari/{idScenario}/drop':
+    get:
+      tags:
+        - "Scenari"
+      operationId: getDropByScenario
+      parameters:
+        - in: path
+          name: idScenario
+          required: true
+          description: "ID dello scenario"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Drop"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  '/drop/{idDrop}':
+    get:
+      tags:
+        - "Scenari"
+      operationId: getDropById
+      parameters:
+        - in: path
+          name: idDrop
+          required: true
+          description: "ID del drop"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Drop"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - "Scenari"
+      operationId: putDrop
+      parameters:
+        - in: path
+          name: idDrop
+          required: true
+          description: "ID del drop"
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Drop"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Drop"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - "Scenari"
+      operationId: deleteDrop
+      parameters:
+        - in: path
+          name: idDrop
+          required: true
+          description: "ID del drop"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  '/scelte/multipla':
+    post:
+      tags:
+        - "Scelte"
+      operationId: postSceltaMultipla
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Multipla"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Multipla"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  '/scelte/indovinello':
+    post:
+      tags:
+        - "Scelte"
+      operationId: postSceltaIndovinello
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Indovinello"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Indovinello"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  '/scenari/{idScenario}/scelte/multipla':
     get:
       tags:
         - "Scelte"
-      operationId: getScelteByScenario
+      operationId: getScelteMultipleByScenario
       parameters:
         - in: path
           name: idScenario
@@ -665,7 +935,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Scelta"
+                  $ref: "#/components/schemas/Multipla"
         '400':
           description: "Bad Request"
           content:
@@ -691,11 +961,56 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  '/scelte/{idScelta}':
+  '/scenari/{idScenario}/scelte/indovinello':
     get:
       tags:
         - "Scelte"
-      operationId: getSceltaById
+      operationId: getSceltaIndovinelloByScenario
+      parameters:
+        - in: path
+          name: idScenario
+          required: true
+          description: "ID dello scenario"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Indovinello"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  '/scelte/{idScelta}/multipla':
+    get:
+      tags:
+        - "Scelte"
+      operationId: getSceltaMultiplaById
       parameters:
         - in: path
           name: idScelta
@@ -710,7 +1025,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Scelta"
+                $ref: "#/components/schemas/Multipla"
         '400':
           description: "Bad Request"
           content:
@@ -738,7 +1053,7 @@ paths:
     put:
       tags:
         - "Scelte"
-      operationId: putScelta
+      operationId: putSceltaMultipla
       parameters:
         - in: path
           name: idScelta
@@ -752,14 +1067,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Scelta"
+              $ref: "#/components/schemas/Multipla"
       responses:
         '200':
           description: "Success"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Scelta"
+                $ref: "#/components/schemas/Multipla"
         '400':
           description: "Bad Request"
           content:
@@ -787,7 +1102,140 @@ paths:
     delete:
       tags:
         - "Scelte"
-      operationId: deleteScelta
+      operationId: deleteSceltaMultipla
+      parameters:
+        - in: path
+          name: idScelta
+          required: true
+          description: "ID della scelta"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  '/scelte/{idScelta}/indovinello':
+    get:
+      tags:
+        - "Scelte"
+      operationId: getSceltaIndovinelloById
+      parameters:
+        - in: path
+          name: idScelta
+          required: true
+          description: "ID della scelta"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Indovinello"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - "Scelte"
+      operationId: putSceltaIndovinello
+      parameters:
+        - in: path
+          name: idScelta
+          required: true
+          description: "ID della scelta"
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Indovinello"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Indovinello"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - "Scelte"
+      operationId: deleteSceltaIndovinello
       parameters:
         - in: path
           name: idScelta
@@ -1366,10 +1814,6 @@ components:
         id_storia:
           type: integer
           format: int64
-        id_oggetto_droppato:
-          type: integer
-          format: int64
-          default: 0
         testo:
           type: string
         tipo_risposta:
@@ -1377,7 +1821,24 @@ components:
         tipo_scenario:
           $ref: "#/components/schemas/TipoScenarioEnum"
 
-    Scelta:
+    Drop:
+      type: object
+      required:
+        - id
+        - id_scenario
+        - id_oggetto
+      properties:
+        id:
+          type: integer
+          format: int64
+        id_scenario:
+          type: integer
+          format: int64
+        id_oggetto:
+          type: integer
+          format: int64
+
+    Multipla:
       type: object
       required:
         - id
@@ -1391,21 +1852,55 @@ components:
         id_scenario:
           type: integer
           format: int64
-        id_oggetto_richiesto:
-          type: integer
-          format: int64
-          default: 0
         testo:
           type: string
         id_scenario_successivo:
           type: integer
           format: int64
+
+    Required:
+      type: object
+      required:
+        - id
+        - id_scelta
+        - id_oggetto
+      properties:
+        id:
+          type: integer
+          format: int64
+        id_scelta:
+          type: integer
+          format: int64
+        id_oggetto:
+          type: integer
+          format: int64
+
+    Indovinello:
+      type: object
+      required:
+        - id
+        - id_scenario
+        - testo
+        - risposta
+        - id_scenario_risposta_corretta
+        - id_scenario_risposta_sbagliata
+      properties:
+        id:
+          type: integer
+          format: int64
+        id_scenario:
+          type: integer
+          format: int64
+        testo:
+          type: string
         risposta:
           type: string
+        id_scenario_risposta_corretta:
+          type: integer
+          format: int64
         id_scenario_risposta_sbagliata:
           type: integer
           format: int64
-          default: 0
 
     Oggetto:
       type: object
@@ -1426,6 +1921,27 @@ components:
         descrizione:
           type: string
 
+    Inventario:
+      type: object
+      required:
+        - id
+        - id_storia
+        - id_utente
+        - id_oggetto
+      properties:
+        id:
+          type: integer
+          format: int64
+        id_storia:
+          type: integer
+          format: int64
+        id_utente:
+          type: integer
+          format: int64
+        id_oggetto:
+          type: integer
+          format: int64
+
     Partita:
       type: object
       required:
@@ -1433,6 +1949,7 @@ components:
         - id_storia
         - id_utente
         - id_scenario_corrente
+        - id_inventario
       properties:
         id:
           type: integer
@@ -1444,6 +1961,9 @@ components:
           type: integer
           format: int64
         id_scenario_corrente:
+          type: integer
+          format: int64
+        id_inventario:
           type: integer
           format: int64
 

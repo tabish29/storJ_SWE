@@ -15,7 +15,9 @@ public enum ErrorEnum {
     FILTROERROR("FiltroError", "Errore nei filtri!", 400),
     SCENARIONOTFOUND("ScenarioNotFound", "Scenario non trovato!", 404),
     OGGETTONOTFOUND("OggettoNotFound", "Oggetto non trovato!", 404),
-    ENUMERROR("EnumError", "Valore errato negli ENUM!", 400);
+    ENUMERROR("EnumError", "Valore errato negli ENUM!", 400),
+    DROPNOTFOUND("DropNotFound", "Drop non trovato!", 404);
+
 
 
 
