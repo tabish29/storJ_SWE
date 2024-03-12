@@ -25,7 +25,7 @@ public class StoriaEntity {
     private String categoria;
 
     @Column(name = "numero_scenari")
-    private Integer numeroScenari;
+    private Integer numeroScenari = 0;
 
     @Column(name = "stato_completamento")
     private Boolean statoCompletamento = false;

@@ -1,7 +1,13 @@
 package com.grandel.storj.api;
 
+import com.grandel.storj.dto.OggettoDTO;
+import com.grandel.storj.dto.ScenarioDTO;
 import com.grandel.storj.dto.StoriaDTO;
+import com.grandel.storj.mapper.OggettoMapper;
+import com.grandel.storj.mapper.ScenarioMapper;
 import com.grandel.storj.mapper.StoriaMapper;
+import com.grandel.storj.service.OggettoBL;
+import com.grandel.storj.service.ScenarioBL;
 import com.grandel.storj.service.StoriaBL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +33,14 @@ public class StorieController implements StorieApi {
     private StoriaBL storiaBL;
     @Autowired
     private StoriaMapper storiaMapper;
+    @Autowired
+    private ScenarioBL scenarioBL;
+    @Autowired
+    private ScenarioMapper scenarioMapper;
+    @Autowired
+    private OggettoBL oggettoBL;
+    @Autowired
+    OggettoMapper oggettoMapper;
 
     public ResponseEntity<Storia> getStoriaById(Long idStoria) {
         log.info("method getStoriaById()");
@@ -75,16 +89,24 @@ public class StorieController implements StorieApi {
     public ResponseEntity<List<Oggetto>> getOggettiByStoria(Long idStoria) {
         log.info("method getOggettiByStoria()");
 
-        //TO-DO
+        List<Oggetto> oggetti = new ArrayList<>();
 
-        return StorieApi.super.getOggettiByStoria(idStoria);
+        for (OggettoDTO x : oggettoBL.getOggettiByStoria(idStoria)) {
+            oggetti.add(oggettoMapper.oggettoDTOToOggetto(x));
+        }
+
+        return new ResponseEntity<>(oggetti, HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Scenario>> getScenariByStoria(Long idStoria) {
+    public ResponseEntity<List<Scenario>> getScenariByStoria(Long idStoria, String tipologia) {
         log.info("method getScenariByStoria()");
 
-        //TO-DO
+        List<Scenario> scenari = new ArrayList<>();
 
-        return StorieApi.super.getScenariByStoria(idStoria);
+        for (ScenarioDTO x : scenarioBL.getScenariByStoria(idStoria, tipologia)) {
+            scenari.add(scenarioMapper.scenarioDTOToScenario(x));
+        }
+
+        return new ResponseEntity<>(scenari, HttpStatus.OK);
     }
 }
