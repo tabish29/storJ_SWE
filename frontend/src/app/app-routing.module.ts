@@ -6,6 +6,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { StorJPageComponent } from './components/stor-jpage/stor-jpage.component';
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
+import { accessGuard } from './access.guard';
+
 
 const routes: Routes = [
   {
@@ -24,10 +26,12 @@ const routes: Routes = [
     //mettere la guardia 
     path: 'storJPage',
     component: StorJPageComponent,
+    canActivate: [accessGuard]
   },
   {
     path: 'payment',
     component: PaymentPageComponent,
+    canActivate: [accessGuard]
   },
   {
     path: '', 

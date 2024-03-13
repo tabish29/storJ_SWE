@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaymentService } from '../../services/payment.service';
 import { PaymentInfo } from '../../paymentInfo';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-payment-page',
@@ -15,14 +16,18 @@ export class PaymentPageComponent {
   cardNumber: string='';
   cvv: string='';
 
-  constructor(private http: HttpClient,private paymentService: PaymentService,private router: Router) { }
+  constructor(private http: HttpClient,private paymentService: PaymentService,private router: Router,private dataService:DataService) { }
 
   public savePayment(paymentInfo: PaymentInfo): void{
     this.paymentService.doPayment(paymentInfo).subscribe(
       (response: PaymentInfo) => {
-        alert(response)
-        //redirect login!
-        this.router.navigateByUrl('/login');
+        alert("Pagamento andato a buon fine")
+        console.log(response)
+
+        // Aggiorna lo stato di pagamento dell'utente a true
+        this.dataService.updateUserPaymentStatus(true);
+        
+        this.router.navigateByUrl('/storJPage');
 
       },
       (error: HttpErrorResponse) => {
