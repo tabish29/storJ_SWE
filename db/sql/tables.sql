@@ -87,9 +87,7 @@ CREATE TABLE IF NOT EXISTS partita(
     id_storia INTEGER NOT NULL,
     id_utente INTEGER NOT NULL,
     id_scenario_corrente INTEGER NOT NULL,
-    id_inventario INTEGER NOT NULL,
     FOREIGN KEY (id_storia) REFERENCES storia(id) ON DELETE CASCADE,
     FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_scenario_corrente) REFERENCES scenario(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_inventario) REFERENCES inventario(id) ON DELETE CASCADE
+    FOREIGN KEY (id_scenario_corrente) REFERENCES scenario(id) ON DELETE CASCADE
 );
