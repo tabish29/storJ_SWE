@@ -19,7 +19,8 @@ public enum ErrorEnum {
     DROPNOTFOUND("DropNotFound", "Drop non trovato!", 404),
     MULTIPLANOTFOUND("MultiplaNotFound", "Multipla non trovata!", 404),
     INDOVINELLONOTFOUND("IndovinelloNotFound", "Indovinello non trovato!", 404),
-    REQUIREDNOTFOUND("RequiredNotFound", "Required non trovato!", 404);
+    REQUIREDNOTFOUND("RequiredNotFound", "Required non trovato!", 404),
+    PARTITANOTFOUND("PartitaNotFound", "Partita non trovata!", 404);
 
 
 
