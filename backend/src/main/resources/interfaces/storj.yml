@@ -9,9 +9,13 @@ tags:
   - name: Utenti
   - name: Storie
   - name: Scenari
+  - name: Drop
   - name: Scelte
+  - name: Required
   - name: Oggetti
+  - name: Inventari
   - name: Partite
+
 
 paths:
 
@@ -610,7 +614,7 @@ paths:
   '/drop':
     post:
       tags:
-        - "Scenari"
+        - "Drop"
       operationId: postDrop
       requestBody:
         required: true
@@ -653,7 +657,7 @@ paths:
   '/scenari/{idScenario}/drop':
     get:
       tags:
-        - "Scenari"
+        - "Drop"
       operationId: getDropByScenario
       parameters:
         - in: path
@@ -698,7 +702,7 @@ paths:
   '/drop/{idDrop}':
     get:
       tags:
-        - "Scenari"
+        - "Drop"
       operationId: getDropById
       parameters:
         - in: path
@@ -741,7 +745,7 @@ paths:
                 $ref: "#/components/schemas/Error"
     put:
       tags:
-        - "Scenari"
+        - "Drop"
       operationId: putDrop
       parameters:
         - in: path
@@ -790,7 +794,7 @@ paths:
                 $ref: "#/components/schemas/Error"
     delete:
       tags:
-        - "Scenari"
+        - "Drop"
       operationId: deleteDrop
       parameters:
         - in: path
