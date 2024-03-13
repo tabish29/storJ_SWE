@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS indovinello(
     risposta VARCHAR(50),
     id_scenario_risposta_corretta INTEGER NOT NULL,
     id_scenario_risposta_sbagliata INTEGER,
-    FOREIGN KEY (id_scenario) REFERENCES scenario(id),
+    FOREIGN KEY (id_scenario) REFERENCES scenario(id) ON DELETE CASCADE,
     FOREIGN KEY (id_scenario_risposta_corretta) REFERENCES scenario(id) ON DELETE CASCADE,
     FOREIGN KEY (id_scenario_risposta_sbagliata) REFERENCES scenario(id) ON DELETE CASCADE
 );
