@@ -12,9 +12,18 @@ export class DataService {
   constructor() { }
 
   private loadInitialUser(): user | null {
-    //recupero i dati dal localStorage e poi li converto nel return
-    const userDataJson = localStorage.getItem('currentUser');
-    return userDataJson ? JSON.parse(userDataJson) : null;
+    //controllo necessario per evitare localstorage undefined 
+
+    if (typeof window !== 'undefined') {
+      const userDataJson = localStorage.getItem('currentUser');
+      if(userDataJson != null) {
+
+        //recupero i dati dal localStorage e poi li converto nel return
+        const str = JSON.parse(userDataJson);
+        return str;
+      }
+    }
+    return null;
   }
   
   changeUser(newUser: user | null) {

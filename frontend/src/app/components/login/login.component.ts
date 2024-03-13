@@ -24,7 +24,7 @@ export class LoginComponent {
           this.authService.setAuthStatus(true);
           this.dataService.changeUser(response); 
           alert("Ciao " + response.username);
-          //redirect to pagina home!
+          //redirect to pagina storJPage!
           this.router.navigateByUrl('/storJPage'); // Usa il Router per il redirect
         }else{
           this.authService.setAuthStatus(false);

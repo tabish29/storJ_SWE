@@ -4,7 +4,6 @@
     </div>
     <div class="login">
          <!-- Mostra questi pulsanti solo se l'utente NON è autenticato -->
-         <!-- Mostra questi pulsanti solo se l'utente NON è autenticato -->
          <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Sign In</button>
          <button mat-button routerLink="/register" *ngIf="!isAuthenticated()">Sign Up</button>
 
@@ -13,8 +12,5 @@
  
          <!-- Mostra questo pulsante solo se l'utente è autenticato -->
          <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
-
-         
- 
     </div>
 </nav>

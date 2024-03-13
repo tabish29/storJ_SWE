@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Mantiene lo spazio tra i box */
+    justify-content: center; /* Centra i box se non occupano l'intera larghezza */
+    margin-top: 30px; /* Aggiunge spazio tra la navbar e i contenuti */
+    padding: 0 20px; /* Aggiunge un po' di spazio ai lati del contenitore */
+}
+
+.story-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: calc(50% - 20px); /* Calcola la larghezza per 2 box per riga */
+    box-sizing: border-box;
+}
+
+.info {
+    display: block; /* Ogni informazione occupa una riga intera */
+}
+
+.play-button {
+    margin-top: auto; 
+    text-align: right; 
+}

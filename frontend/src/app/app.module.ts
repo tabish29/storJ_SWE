@@ -14,6 +14,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { StorJPageComponent } from './components/stor-jpage/stor-jpage.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
+import { CreateStoryComponent } from './components/create-story/create-story.component';
+import { HandlerPlaypageComponent } from './components/handler-playpage/handler-playpage.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { PaymentPageComponent } from './components/payment-page/payment-page.com
     NavbarComponent,
     NotFoundComponent,
     StorJPageComponent,
-    PaymentPageComponent
+    PaymentPageComponent,
+    CreateStoryComponent,
+    HandlerPlaypageComponent
   ],
   imports: [
     BrowserModule,

@@ -52,7 +52,4 @@ export class PaymentPageComponent {
     this.savePayment(paymentData);
     }
 
-   
   }
-
-

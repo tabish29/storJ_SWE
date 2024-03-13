@@ -7,6 +7,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { StorJPageComponent } from './components/stor-jpage/stor-jpage.component';
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
 import { accessGuard } from './access.guard';
+import { HandlerPlaypageComponent } from './components/handler-playpage/handler-playpage.component';
+import { CreateStoryComponent } from './components/create-story/create-story.component';
 
 
 const routes: Routes = [
@@ -23,7 +25,6 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    //mettere la guardia 
     path: 'storJPage',
     component: StorJPageComponent,
     canActivate: [accessGuard]
@@ -31,6 +32,16 @@ const routes: Routes = [
   {
     path: 'payment',
     component: PaymentPageComponent,
+    canActivate: [accessGuard]
+  },
+  {
+    path: 'handlerPlaypage',
+    component: HandlerPlaypageComponent,
+    canActivate: [accessGuard]
+  },
+  {
+    path: 'createStory',
+    component: CreateStoryComponent,
     canActivate: [accessGuard]
   },
   {

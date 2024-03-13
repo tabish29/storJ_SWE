@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
       } else {
         // Se user è null, imposta showPaymentButton a false
         this.showPaymentButton = false;
-        console.log("Nessun utente loggato");
+        
       }
 
     },error=>{
