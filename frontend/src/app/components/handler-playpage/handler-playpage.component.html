@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+<body>
+    <div class="container">
+        <div *ngFor="let item of stories" class="story-box">
+            <div class="info">
+                <div><label>{{ item.id }}</label></div>
+                <div><label>{{ item.id_creatore }}</label></div>
+                <div><label>{{ item.id_scenario_iniziale }}</label></div>
+                <div><label>{{ item.categoria }}</label></div>
+                <div><label>{{ item.numero_scenari }}</label></div>
+                <div><label>{{ item.statoCompletamento }}</label></div>
+            </div>
+            <div class="play-button"><button>Gioca Storia</button></div>
+        </div>
+    </div>
+</body>

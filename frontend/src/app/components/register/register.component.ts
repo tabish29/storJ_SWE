@@ -39,7 +39,7 @@ export class RegisterComponent {
         id: 0,
         username: this.username,
         password: this.password,
-        paid: false
+        statoPagamento: false
     };
 
     this.saveUser(userData);

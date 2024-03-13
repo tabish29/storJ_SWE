@@ -3,7 +3,14 @@
         <h1>storj</h1>
     </div>
     <div class="login">
-        
-        <button mat-button routerLink="/login">Login</button>
+         <!-- Mostra questi pulsanti solo se l'utente NON è autenticato -->
+         <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Sign In</button>
+         <button mat-button routerLink="/register" *ngIf="!isAuthenticated()">Sign Up</button>
+
+         <!-- Mostra il bottone "Paga" solo se showPaymentButton è true -->
+         <button mat-button routerLink="/payment" *ngIf="showPaymentButton">Paga</button>
+ 
+         <!-- Mostra questo pulsante solo se l'utente è autenticato -->
+         <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
     </div>
 </nav>
