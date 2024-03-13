@@ -1,10 +1,16 @@
 package com.grandel.storj.api;
 
 import com.grandel.storj.dto.DropDTO;
+import com.grandel.storj.dto.IndovinelloDTO;
+import com.grandel.storj.dto.MultiplaDTO;
 import com.grandel.storj.dto.ScenarioDTO;
 import com.grandel.storj.mapper.DropMapper;
+import com.grandel.storj.mapper.IndovinelloMapper;
+import com.grandel.storj.mapper.MultiplaMapper;
 import com.grandel.storj.mapper.ScenarioMapper;
 import com.grandel.storj.service.DropBL;
+import com.grandel.storj.service.IndovinelloBL;
+import com.grandel.storj.service.MultiplaBL;
 import com.grandel.storj.service.ScenarioBL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +25,7 @@ import storj.model.Indovinello;
 import storj.model.Multipla;
 import storj.model.Scenario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -34,6 +41,15 @@ public class ScenariController implements ScenariApi {
     private DropMapper dropMapper;
     @Autowired
     private DropBL dropBL;
+    @Autowired
+    private MultiplaMapper multiplaMapper;
+    @Autowired
+    private MultiplaBL multiplaBL;
+    @Autowired
+    private IndovinelloMapper indovinelloMapper;
+    @Autowired
+    private IndovinelloBL indovinelloBL;
+
     public ResponseEntity<Scenario> getScenarioById(Long idScenario) {
         log.info("method getScenarioById()");
 
@@ -69,17 +85,21 @@ public class ScenariController implements ScenariApi {
     public ResponseEntity<Indovinello> getSceltaIndovinelloByScenario(Long idScenario) {
         log.info("method getSceltaIndovinelloByScenario()");
 
-        //TO-DO
+        IndovinelloDTO indovinelloDTO = indovinelloBL.getIndovinelloByScenario(idScenario);
 
-        return ScenariApi.super.getSceltaIndovinelloByScenario(idScenario);
+        return new ResponseEntity<>(indovinelloMapper.indovinelloDTOToIndovinello(indovinelloDTO), HttpStatus.OK);
     }
 
     public ResponseEntity<List<Multipla>> getScelteMultipleByScenario(Long idScenario) {
         log.info("method getScelteMultipleByScenario()");
 
-        //TO-DO
+        List<Multipla> multiple = new ArrayList<>();
 
-        return ScenariApi.super.getScelteMultipleByScenario(idScenario);
+        for (MultiplaDTO x : multiplaBL.getMultipleByScenario(idScenario)) {
+            multiple.add(multiplaMapper.multiplaDTOToMultipla(x));
+        }
+
+        return new ResponseEntity<>(multiple, HttpStatus.OK);
     }
 
     public ResponseEntity<Drop> getDropByScenario(Long idScenario) {

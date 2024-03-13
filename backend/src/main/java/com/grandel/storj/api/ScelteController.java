@@ -1,7 +1,15 @@
 package com.grandel.storj.api;
 
+import com.grandel.storj.dto.IndovinelloDTO;
+import com.grandel.storj.dto.MultiplaDTO;
+import com.grandel.storj.mapper.IndovinelloMapper;
+import com.grandel.storj.mapper.MultiplaMapper;
+import com.grandel.storj.service.IndovinelloBL;
+import com.grandel.storj.service.MultiplaBL;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,37 +22,76 @@ import storj.model.Multipla;
 @EnableAutoConfiguration
 @RequestMapping("/api/v1")
 public class ScelteController implements ScelteApi {
-
+    @Autowired
+    private MultiplaMapper multiplaMapper;
+    @Autowired
+    private MultiplaBL multiplaBL;
+    @Autowired
+    private IndovinelloMapper indovinelloMapper;
+    @Autowired
+    private IndovinelloBL indovinelloBL;
 
     public ResponseEntity<Indovinello> getSceltaIndovinelloById(Long idScelta) {
-        return ScelteApi.super.getSceltaIndovinelloById(idScelta);
+        log.info("method getSceltaIndovinelloById()");
+
+        IndovinelloDTO indovinelloDTO = indovinelloBL.getIndovinelloDTOById(idScelta);
+
+        return new ResponseEntity<>(indovinelloMapper.indovinelloDTOToIndovinello(indovinelloDTO), HttpStatus.OK);
     }
 
     public ResponseEntity<Multipla> getSceltaMultiplaById(Long idScelta) {
-        return ScelteApi.super.getSceltaMultiplaById(idScelta);
+        log.info("method getSceltaMultiplaById()");
+
+        MultiplaDTO multiplaDTO = multiplaBL.getMultiplaDTOById(idScelta);
+
+        return new ResponseEntity<>(multiplaMapper.multiplaDTOToMultipla(multiplaDTO), HttpStatus.OK);
     }
 
     public ResponseEntity<Indovinello> postSceltaIndovinello(Indovinello indovinello) {
-        return ScelteApi.super.postSceltaIndovinello(indovinello);
+        log.info("method postSceltaIndovinello()");
+
+        IndovinelloDTO indovinelloDTO = indovinelloBL.postIndovinello(indovinelloMapper.indovinelloToIndovinelloDTO(indovinello));
+
+        return new ResponseEntity<>(indovinelloMapper.indovinelloDTOToIndovinello(indovinelloDTO), HttpStatus.OK);
     }
 
     public ResponseEntity<Multipla> postSceltaMultipla(Multipla multipla) {
-        return ScelteApi.super.postSceltaMultipla(multipla);
+        log.info("method postSceltaMultipla()");
+
+        MultiplaDTO multiplaDTO = multiplaBL.postMultipla(multiplaMapper.multiplaToMultiplaDTO(multipla));
+
+        return new ResponseEntity<>(multiplaMapper.multiplaDTOToMultipla(multiplaDTO), HttpStatus.OK);
     }
 
     public ResponseEntity<Indovinello> putSceltaIndovinello(Long idScelta, Indovinello indovinello) {
-        return ScelteApi.super.putSceltaIndovinello(idScelta, indovinello);
+        log.info("method putSceltaIndovinello()");
+
+        IndovinelloDTO indovinelloDTO = indovinelloBL.putIndovinello(idScelta, indovinelloMapper.indovinelloToIndovinelloDTO(indovinello));
+
+        return new ResponseEntity<>(indovinelloMapper.indovinelloDTOToIndovinello(indovinelloDTO), HttpStatus.OK);
     }
 
     public ResponseEntity<Multipla> putSceltaMultipla(Long idScelta, Multipla multipla) {
-        return ScelteApi.super.putSceltaMultipla(idScelta, multipla);
+        log.info("method putSceltaMultipla()");
+
+        MultiplaDTO multiplaDTO = multiplaBL.putMultipla(idScelta, multiplaMapper.multiplaToMultiplaDTO(multipla));
+
+        return new ResponseEntity<>(multiplaMapper.multiplaDTOToMultipla(multiplaDTO), HttpStatus.OK);
     }
 
     public ResponseEntity<Void> deleteSceltaIndovinello(Long idScelta) {
-        return ScelteApi.super.deleteSceltaIndovinello(idScelta);
+        log.info("method deleteSceltaIndovinello()");
+
+        indovinelloBL.deleteIndovinello(idScelta);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     public ResponseEntity<Void> deleteSceltaMultipla(Long idScelta) {
-        return ScelteApi.super.deleteSceltaMultipla(idScelta);
+        log.info("method deleteSceltaMultipla()");
+
+        multiplaBL.deleteMultipla(idScelta);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
