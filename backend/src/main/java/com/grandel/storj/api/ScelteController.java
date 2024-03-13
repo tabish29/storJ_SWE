@@ -2,10 +2,13 @@ package com.grandel.storj.api;
 
 import com.grandel.storj.dto.IndovinelloDTO;
 import com.grandel.storj.dto.MultiplaDTO;
+import com.grandel.storj.dto.RequiredDTO;
 import com.grandel.storj.mapper.IndovinelloMapper;
 import com.grandel.storj.mapper.MultiplaMapper;
+import com.grandel.storj.mapper.RequiredMapper;
 import com.grandel.storj.service.IndovinelloBL;
 import com.grandel.storj.service.MultiplaBL;
+import com.grandel.storj.service.RequiredBL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import storj.api.ScelteApi;
 import storj.model.Indovinello;
 import storj.model.Multipla;
+import storj.model.Required;
 
 @Slf4j
 @Controller
@@ -30,6 +34,10 @@ public class ScelteController implements ScelteApi {
     private IndovinelloMapper indovinelloMapper;
     @Autowired
     private IndovinelloBL indovinelloBL;
+    @Autowired
+    private RequiredBL requiredBL;
+    @Autowired
+    private RequiredMapper requiredMapper;
 
     public ResponseEntity<Indovinello> getSceltaIndovinelloById(Long idScelta) {
         log.info("method getSceltaIndovinelloById()");
@@ -93,5 +101,13 @@ public class ScelteController implements ScelteApi {
         multiplaBL.deleteMultipla(idScelta);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Required> getRequiredByScelta(Long idScelta) {
+        log.info("method getRequiredByScelta()");
+
+        RequiredDTO requiredDTO = requiredBL.getRequiredByScelta(idScelta);
+
+        return new ResponseEntity<>(requiredMapper.requiredDTOToRequired(requiredDTO), HttpStatus.OK);
     }
 }
