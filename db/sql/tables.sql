@@ -72,16 +72,6 @@ CREATE TABLE IF NOT EXISTS indovinello(
     FOREIGN KEY (id_scenario_risposta_sbagliata) REFERENCES scenario(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS inventario(
-    id SERIAL PRIMARY KEY,
-    id_storia INTEGER NOT NULL,
-    id_utente INTEGER NOT NULL,
-    id_oggetto INTEGER NOT NULL,
-    FOREIGN KEY (id_storia) REFERENCES storia(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_oggetto) REFERENCES oggetto(id) ON DELETE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS partita(
     id SERIAL PRIMARY KEY,
     id_storia INTEGER NOT NULL,
@@ -90,4 +80,12 @@ CREATE TABLE IF NOT EXISTS partita(
     FOREIGN KEY (id_storia) REFERENCES storia(id) ON DELETE CASCADE,
     FOREIGN KEY (id_utente) REFERENCES utente(id) ON DELETE CASCADE,
     FOREIGN KEY (id_scenario_corrente) REFERENCES scenario(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS inventario(
+    id SERIAL PRIMARY KEY,
+    id_partita INTEGER NOT NULL,
+    id_oggetto INTEGER NOT NULL,
+    FOREIGN KEY (id_partita) REFERENCES partita(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_oggetto) REFERENCES oggetto(id) ON DELETE CASCADE
 );
