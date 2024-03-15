@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -6,9 +7,9 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private isLoggedIn = false;
 
-  constructor() {}
+  constructor(private localStorageService:LocalStorageService) {}
 
-  // Metodo per impostare lo stato di autenticazione e setto un token da memorizzare nel localStorage per la persistenza tra le pagines
+  // Metodo per impostare lo stato di autenticazione e setto un token da memorizzare nel localStorage per la persistenza tra le pagines(importare il servizio localStorage,non ho capito perchè se metto il servizio non funziona più(da capire))
   setAuthStatus(isAuthenticated: boolean, token: string = 'tokenTest'): void {
     if (isAuthenticated) {
       localStorage.setItem('authToken',token);
@@ -22,15 +23,15 @@ export class AuthService {
   isAuthenticated(): boolean {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('authToken');
-      return !!token;
+      this.isLoggedIn=!!token;
+      return this.isLoggedIn;
     }
-    // Ritorna un valore predefinito o gestisci il caso in cui il codice è eseguito lato server
-    return false;
+    
+    return this.isLoggedIn;
   }
 
   logout(): void {
     this.isLoggedIn = false;
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
   }
 }

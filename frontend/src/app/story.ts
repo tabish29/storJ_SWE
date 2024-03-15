@@ -1,8 +1,8 @@
-export class stories {
+export class story {
     constructor(
     public id:number,
     public id_creatore:number,
-    public id_scenario_iniziale:number,
+    public titolo:string,
     public categoria:string,
     public numero_scenari:number,
     public statoCompletamento:boolean
