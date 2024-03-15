@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { stories } from '../../stories';
+import { story } from '../../story';
+import { StoryService } from '../../services/story.service';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-handler-playpage',
@@ -10,87 +14,60 @@ import { stories } from '../../stories';
 //QUANDO CLICCI GIOCA CHIAMATA API PER PRENDERE TUTTE LE STORIE, DA CUI SI PRENDERANNO NOME, AUTORE, NUMERO SCENARI E BOTTONE --> GIOCA
 
 export class HandlerPlaypageComponent {
-  //array di storie con dati fittizi
-  stories= [
-                {
-                  id: 1,
-                  id_creatore: 1, 
-                  id_scenario_iniziale: 1, 
-                  categoria: 'thriller',
-                  numero_scenari: 12,
-                  statoCompletamento: false
-                },
-                {
-                  id: 2,
-                  id_creatore: 2, 
-                  id_scenario_iniziale: 5, 
-                  categoria: 'avventura',
-                  numero_scenari: 8,
-                  statoCompletamento: true
-                },
-                {
-                  id: 3,
-                  id_creatore: 3, 
-                  id_scenario_iniziale: 2, 
-                  categoria: 'fantasy',
-                  numero_scenari: 15,
-                  statoCompletamento: false
-                },
-                {
-                  id: 4,
-                  id_creatore: 4, 
-                  id_scenario_iniziale: 3, 
-                  categoria: 'sci-fi',
-                  numero_scenari: 10,
-                  statoCompletamento: true
-                },
-                {
-                  id: 5,
-                  id_creatore: 5, 
-                  id_scenario_iniziale: 4, 
-                  categoria: 'horror',
-                  numero_scenari: 6,
-                  statoCompletamento: false
-                },
-                {
-                  id: 6,
-                  id_creatore: 1, 
-                  id_scenario_iniziale: 6, 
-                  categoria: 'giallo',
-                  numero_scenari: 9,
-                  statoCompletamento: true
-                },
-                {
-                  id: 7,
-                  id_creatore: 2, 
-                  id_scenario_iniziale: 7, 
-                  categoria: 'storico',
-                  numero_scenari: 5,
-                  statoCompletamento: false
-                },
-                {
-                  id: 8,
-                  id_creatore: 3, 
-                  id_scenario_iniziale: 8, 
-                  categoria: 'azione',
-                  numero_scenari: 11,
-                  statoCompletamento: true
-                },
-                {
-                  id: 9,
-                  id_creatore: 4, 
-                  id_scenario_iniziale: 9, 
-                  categoria: 'mistero',
-                  numero_scenari: 7,
-                  statoCompletamento: false
-                },
-                {
-                  id: 10,
-                  id_creatore: 5, 
-                  id_scenario_iniziale: 10, 
-                  categoria: 'romantico',
-                  numero_scenari: 4,
-                  statoCompletamento: true
-                }
-              ];
+  stories: story[] = [];
+  filterAuthor: string | undefined;
+  filterCategory: string | undefined;
+  noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
+
+  constructor(private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService) { }
+
+  ngOnInit(): void {
+    this.loadStories();
+  }
+
+  loadStories(): void {
+    this.storyService.getAllstories().subscribe(
+      (stories: story[]) => {
+        this.stories = stories;
+      },
+      error => {
+        console.error('Errore nel caricamento delle storie', error);
+      }
+    );
+  }
+
+  playStory(story: story): void {
+    this.storyService.changeStory(story);
+
+    // Reindirizzamento all'URL di gioco della storia
+    this.router.navigateByUrl(`storJPage`);
+  }
+
+  filterStories(filterAuthor?: string, filterCategory?: string): void {
+    this.storyService.filterStories(filterAuthor, filterCategory)
+      .subscribe(
+        stories => {
+          // Successo: aggiorna le storie visualizzate
+          this.stories = stories;
+          if(stories.length === 0){
+            this.noStoriesFound = true;
+          }else{
+            this.noStoriesFound = false;
+          }
+        },
+        (error: HttpErrorResponse) => {
+            // Inserire i vari codici di errore dell'api di Davide(da fare)
+            switch(error.error.code) {
+              case "UtenteNotFound":
+                alert(error.error.message);
+                break;
+              default:
+                alert("Errore durante il filtraggio delle storie.");
+            }
+
+          //per vedere i codici di errore(da eliminare)
+          console.error('Errore HTTP:', error.message);
+        }
+      );
+    }
 }

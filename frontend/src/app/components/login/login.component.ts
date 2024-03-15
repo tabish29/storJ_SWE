@@ -4,7 +4,6 @@ import { UserService } from '../../services/userservice';
 import { user } from '../../user';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +15,14 @@ export class LoginComponent {
   password: string = '';
 
   
-  constructor(private http: HttpClient,private userService: UserService,private authService:AuthService, private dataService: DataService,private router: Router) { }
+  constructor(private http: HttpClient,private userService: UserService,private authService:AuthService,private router: Router) { }
+  
   public getUser(): void {
     this.userService.getUserByUsername(this.username).subscribe(
       (response: user) => {
         if(response.password === this.password){
           this.authService.setAuthStatus(true);
-          this.dataService.changeUser(response); 
+          this.userService.changeUser(response); 
           alert("Ciao " + response.username);
           //redirect to pagina storJPage!
           this.router.navigateByUrl('/storJPage'); // Usa il Router per il redirect
