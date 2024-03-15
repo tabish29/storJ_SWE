@@ -33,7 +33,7 @@ public abstract class PartitaMapper {
     public abstract PartitaDTO partitaToPartitaDTO(Partita partita);
     public abstract PartitaDTO partitaEntityToPartitaDTO(PartitaEntity partitaEntity);
     public abstract Partita partitaDTOToPartita(PartitaDTO partitaDTO);
-    public abstract PartitaEntity partitaEntityDTOToPartita(PartitaDTO partitaDTO);
+    public abstract PartitaEntity partitaDTOToPartitaEntity(PartitaDTO partitaDTO);
 
     public StoriaEntity mapSt(Long id){
         StoriaDTO storiaDTO = storiaBL.getStoriaDTOById(id);

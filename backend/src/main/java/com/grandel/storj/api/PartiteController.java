@@ -1,7 +1,10 @@
 package com.grandel.storj.api;
 
+import com.grandel.storj.dto.OggettoDTO;
 import com.grandel.storj.dto.PartitaDTO;
+import com.grandel.storj.mapper.OggettoMapper;
 import com.grandel.storj.mapper.PartitaMapper;
+import com.grandel.storj.service.InventarioBL;
 import com.grandel.storj.service.PartitaBL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import storj.api.PartiteApi;
+import storj.model.Oggetto;
 import storj.model.Partita;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -23,6 +30,10 @@ public class PartiteController implements PartiteApi {
     private PartitaMapper partitaMapper;
     @Autowired
     private PartitaBL partitaBL;
+    @Autowired
+    private InventarioBL inventarioBL;
+    @Autowired
+    private OggettoMapper oggettoMapper;
 
     public ResponseEntity<Partita> getPartitaById(Long idPartita) {
         log.info("method getPartitaById()");
@@ -54,5 +65,17 @@ public class PartiteController implements PartiteApi {
         partitaBL.deletePartita(idPartita);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Oggetto>> getOggettiByPartita(Long idPartita) {
+        log.info("method getOggettiByPartita()");
+
+        List<Oggetto> oggetti = new ArrayList<>();
+
+        for (OggettoDTO x : inventarioBL.getOggettiByPartita(idPartita)) {
+            oggetti.add(oggettoMapper.oggettoDTOToOggetto(x));
+        }
+
+        return new ResponseEntity<>(oggetti, HttpStatus.OK);
     }
 }

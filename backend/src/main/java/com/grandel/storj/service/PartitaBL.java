@@ -31,7 +31,7 @@ public class PartitaBL {
     }
 
     public PartitaDTO postPartita(PartitaDTO partitaDTO){
-        PartitaEntity partitaEntity = partitaMapper.partitaEntityDTOToPartita(partitaDTO);
+        PartitaEntity partitaEntity = partitaMapper.partitaDTOToPartitaEntity(partitaDTO);
         partitaEntity = partitaService.postPartita(partitaEntity);
         return partitaMapper.partitaEntityToPartitaDTO(partitaEntity);
     }
@@ -43,7 +43,7 @@ public class PartitaBL {
         }
 
         partitaDTO.setId(id);
-        PartitaEntity partitaEntity = partitaMapper.partitaEntityDTOToPartita(partitaDTO);
+        PartitaEntity partitaEntity = partitaMapper.partitaDTOToPartitaEntity(partitaDTO);
         partitaEntity = partitaService.putPartita(partitaEntity);
 
         return partitaMapper.partitaEntityToPartitaDTO(partitaEntity);
