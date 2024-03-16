@@ -16,29 +16,30 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class ScenarioBL {
+
     @Autowired
     private ScenarioService scenarioService;
     @Autowired
     private ScenarioMapper scenarioMapper;
 
-    public ScenarioDTO getScenarioDTOById(Long id){
+    public ScenarioDTO getScenarioDTOById(Long id) {
         Optional<ScenarioEntity> scenario = scenarioService.findById(id);
-        if(!scenario.isPresent()){
+        if (!scenario.isPresent()) {
             throw new ErrorException(ErrorEnum.SCENARIONOTFOUND);
         }
 
         return scenarioMapper.scenarioEntityToScenarioDTO(scenario.get());
     }
 
-    public ScenarioDTO postScenario(ScenarioDTO scenarioDTO){
+    public ScenarioDTO postScenario(ScenarioDTO scenarioDTO) {
         ScenarioEntity scenarioEntity = scenarioMapper.scenarioDTOToScenarioEntity(scenarioDTO);
         scenarioEntity = scenarioService.postScenario(scenarioEntity);
         return scenarioMapper.scenarioEntityToScenarioDTO(scenarioEntity);
     }
 
-    public ScenarioDTO putScenario(Long id, ScenarioDTO scenarioDTO){
+    public ScenarioDTO putScenario(Long id, ScenarioDTO scenarioDTO) {
         Optional<ScenarioEntity> scenario = scenarioService.findById(id);
-        if(!scenario.isPresent()){
+        if (!scenario.isPresent()) {
             throw new ErrorException(ErrorEnum.SCENARIONOTFOUND);
         }
 
@@ -49,8 +50,8 @@ public class ScenarioBL {
         return scenarioMapper.scenarioEntityToScenarioDTO(scenarioEntity);
     }
 
-    public void deleteScenario(Long id){
-        if(getScenarioDTOById(id) != null){
+    public void deleteScenario(Long id) {
+        if (getScenarioDTOById(id) != null) {
             scenarioService.deleteScenario(id);
         }
     }
@@ -58,11 +59,11 @@ public class ScenarioBL {
     public List<ScenarioDTO> getScenariByStoria(Long idStoria, String tipologia) {
         List<ScenarioDTO> scenari = new ArrayList<>();
 
-        if(tipologia != null){
+        if (tipologia != null) {
             for (ScenarioEntity x : scenarioService.getScenariByTipologia(idStoria, tipologia)) {
                 scenari.add(scenarioMapper.scenarioEntityToScenarioDTO(x));
             }
-        }else{
+        } else {
             for (ScenarioEntity x : scenarioService.getScenariByStoria(idStoria)) {
                 scenari.add(scenarioMapper.scenarioEntityToScenarioDTO(x));
             }

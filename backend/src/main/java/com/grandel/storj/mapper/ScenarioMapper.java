@@ -14,6 +14,7 @@ import storj.model.Scenario;
 
 @Mapper(componentModel = "spring")
 public abstract class ScenarioMapper {
+
     @Autowired
     StoriaMapper storiaMapper;
     @Autowired
@@ -24,16 +25,19 @@ public abstract class ScenarioMapper {
     OggettoBL oggettoBL;
 
     public abstract ScenarioDTO scenarioEntityToScenarioDTO(ScenarioEntity scenarioEntity);
+
     public abstract ScenarioDTO scenarioToScenarioDTO(Scenario scenario);
+
     public abstract Scenario scenarioDTOToScenario(ScenarioDTO scenarioDTO);
+
     public abstract ScenarioEntity scenarioDTOToScenarioEntity(ScenarioDTO scenarioDTO);
 
-    public StoriaEntity mapS(Long id){
+    public StoriaEntity mapS(Long id) {
         StoriaDTO storiaDTO = storiaBL.getStoriaDTOById(id);
         return storiaMapper.storiaDTOToStoriaEntity(storiaDTO);
     }
 
-    public Long mapS(StoriaEntity storiaEntity){
+    public Long mapS(StoriaEntity storiaEntity) {
         return storiaEntity.getId();
     }
 }

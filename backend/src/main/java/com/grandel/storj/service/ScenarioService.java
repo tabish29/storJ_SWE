@@ -12,30 +12,31 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class ScenarioService {
+
     @Autowired
     private ScenarioRepository scenarioRepository;
 
-    public ScenarioEntity postScenario(ScenarioEntity scenarioEntity){
+    public ScenarioEntity postScenario(ScenarioEntity scenarioEntity) {
         return scenarioRepository.save(scenarioEntity);
     }
 
-    public Optional<ScenarioEntity> findById(Long id){
+    public Optional<ScenarioEntity> findById(Long id) {
         return scenarioRepository.findById(id);
     }
 
-    public ScenarioEntity putScenario(ScenarioEntity scenarioEntity){
+    public ScenarioEntity putScenario(ScenarioEntity scenarioEntity) {
         return scenarioRepository.save(scenarioEntity);
     }
 
-    public void deleteScenario(Long id){
+    public void deleteScenario(Long id) {
         scenarioRepository.deleteById(id);
     }
 
-    public List<ScenarioEntity> getScenariByStoria(Long idStoria){
+    public List<ScenarioEntity> getScenariByStoria(Long idStoria) {
         return scenarioRepository.find(idStoria);
     }
 
-    public List<ScenarioEntity> getScenariByTipologia(Long idStoria, String tipologia){
+    public List<ScenarioEntity> getScenariByTipologia(Long idStoria, String tipologia) {
         return scenarioRepository.findByTipoScenario(idStoria, ScenarioEntity.TipoScenarioEnum.valueOf(tipologia.toUpperCase()));
     }
 }

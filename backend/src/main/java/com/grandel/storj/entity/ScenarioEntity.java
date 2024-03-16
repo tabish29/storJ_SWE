@@ -2,6 +2,7 @@ package com.grandel.storj.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,8 +11,9 @@ import javax.persistence.*;
 @Table(name = "scenario")
 public class ScenarioEntity {
 
-    public enum TipoRispostaEnum{INDOVINELLO,MULTIPLA}
-    public enum TipoScenarioEnum{INIZIALE,NORMALE,FINALE}
+    public enum TipoRispostaEnum {INDOVINELLO, MULTIPLA}
+
+    public enum TipoScenarioEnum {INIZIALE, NORMALE, FINALE}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -33,6 +33,7 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping("/api/v1")
 public class ScenariController implements ScenariApi {
+
     @Autowired
     private ScenarioBL scenarioBL;
     @Autowired

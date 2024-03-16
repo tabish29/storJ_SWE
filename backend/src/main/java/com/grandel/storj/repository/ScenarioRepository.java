@@ -16,4 +16,5 @@ public interface ScenarioRepository extends JpaRepository<ScenarioEntity, Long> 
 
     @Query("SELECT s FROM ScenarioEntity s WHERE s.idStoria.id = :idStoria AND s.tipoScenario = :tipologia")
     List<ScenarioEntity> findByTipoScenario(@Param("idStoria") Long idStoria, @Param("tipologia") ScenarioEntity.TipoScenarioEnum tipologia);
+
 }

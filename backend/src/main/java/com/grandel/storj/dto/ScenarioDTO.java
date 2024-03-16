@@ -6,6 +6,7 @@ import storj.model.TipoRispostaEnum;
 import storj.model.TipoScenarioEnum;
 
 public class ScenarioDTO {
+
     private Long id;
     private StoriaEntity idStoria;
     private String testo;
