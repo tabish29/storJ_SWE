@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorEnum {
 
-    UTENTENOTFOUND("UtenteNotFound", "Utente non registrato!" , 404),
-    UTENTEALREADYSIGNED("UtenteAlreadySigned", "Utente già registrato!" , 400),
+    UTENTENOTFOUND("UtenteNotFound", "Utente non registrato!", 404),
+    UTENTEALREADYSIGNED("UtenteAlreadySigned", "Utente già registrato!", 400),
     UTENTEALREADYPAID("UtenteAlreadyPaid", "Utente ha già effettuato il pagamento!", 400),
     PAYMENTFAILED("PaymentFailed", "Pagamento non andato a buon fine!", 400),
     STORIANOTFOUND("StoriaNotFound", "Storia non trovata!", 404),
@@ -22,9 +22,6 @@ public enum ErrorEnum {
     REQUIREDNOTFOUND("RequiredNotFound", "Required non trovato!", 404),
     PARTITANOTFOUND("PartitaNotFound", "Partita non trovata!", 404),
     INVENTARIONOTFOUND("InventarioNotFound", "Inventario non trovato!", 404);
-
-
-
 
     private String code;
     private String message;
