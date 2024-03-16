@@ -9,8 +9,20 @@
 
          <!-- Mostra il bottone "Paga" solo se showPaymentButton è true -->
          <button mat-button routerLink="/payment" *ngIf="showPaymentButton">Paga</button>
- 
-         <!-- Mostra questo pulsante solo se l'utente è autenticato -->
+
+         <!-- Mostra questo pulsante solo se l'utente è autenticato e ha effettuato il pagamento  -->
+         <button mat-button routerLink="/handlerPlaypage" *ngIf="isAuthenticated() && !showPaymentButton">Gioca</button>
+
+         <!-- Mostra questi pulsanti solo se l'utente è autenticato -->
+         <button mat-button routerLink="/homeStories" *ngIf="isAuthenticated()">Crea</button>
          <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
+         
+
+        
+
+         <!-- Mostra il bottone "Crea Scenario" solo se l'utente è su "/createStory" (TEST FUNZIONANTE)-->
+         <button mat-button routerLink="/createScenario" *ngIf="currentUrl === '/createStory' && isAuthenticated()">Crea Scenario</button>
+
+         
     </div>
 </nav>

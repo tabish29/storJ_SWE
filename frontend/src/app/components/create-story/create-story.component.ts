@@ -43,7 +43,7 @@ export class CreateStoryComponent{
 
     const storyData: story = {
       id: 0,
-      id_creatore: this.idCreatore, //angular lo prende dal localstorage
+      id_creatore: this.idCreatore, //dal localstorage
       titolo: this.titolo, //dal form
       categoria: this.categoria, //dal form
       numero_scenari: 0,

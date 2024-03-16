@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/userservice';
 import { user } from '../../user';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -14,9 +15,14 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 export class NavbarComponent implements OnInit, OnDestroy{
   showPaymentButton = false;
   private userSub!: Subscription;
+  currentUrl!: string;
+  private subscription: Subscription = new Subscription();
 
 
-  constructor(private router: Router, private authService: AuthService,private userService: UserService) {}
+  constructor(private router: Router, private authService: AuthService,private userService: UserService) {
+     // Imposta l'URL corrente al valore iniziale
+     this.currentUrl = router.url;
+  }
 
   ngOnDestroy(): void {
       this.userSub.unsubscribe(); // elimina la sottoscrizione
@@ -24,6 +30,15 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+     // Ascolta gli eventi di navigazione per aggiornare l'URL corrente
+     this.subscription.add(
+      this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
+        if (event instanceof NavigationEnd) { 
+          this.currentUrl = event.url;
+        }
+      })
+    );
+    
     this.userSub=this.userService.currentUser.subscribe((user: user | null) => {
       if (user) {
         this.showPaymentButton = !user.statoPagamento;
@@ -36,6 +51,7 @@ export class NavbarComponent implements OnInit, OnDestroy{
     },error=>{
       console.log('error:',error);
     });
+    console.log('valore del current url'+this.currentUrl)
   }
 
   // Metodo per verificare se l'utente è autenticato

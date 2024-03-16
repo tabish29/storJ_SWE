@@ -9,6 +9,7 @@ import { PaymentPageComponent } from './components/payment-page/payment-page.com
 import { accessGuard } from './access.guard';
 import { HandlerPlaypageComponent } from './components/handler-playpage/handler-playpage.component';
 import { CreateStoryComponent } from './components/create-story/create-story.component';
+import { HomeStoriesComponent } from './components/home-stories/home-stories.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,12 @@ const routes: Routes = [
     component: PaymentPageComponent,
     canActivate: [accessGuard]
   },
+  {
+    path: 'homeStories',
+    component: HomeStoriesComponent,
+    canActivate: [accessGuard]
+  },
+  
   {
     path: 'handlerPlaypage',
     component: HandlerPlaypageComponent,

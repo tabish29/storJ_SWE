@@ -16,6 +16,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
 import { CreateStoryComponent } from './components/create-story/create-story.component';
 import { HandlerPlaypageComponent } from './components/handler-playpage/handler-playpage.component';
+import { HomeStoriesComponent } from './components/home-stories/home-stories.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { HandlerPlaypageComponent } from './components/handler-playpage/handler-
     StorJPageComponent,
     PaymentPageComponent,
     CreateStoryComponent,
-    HandlerPlaypageComponent
+    HandlerPlaypageComponent,
+    HomeStoriesComponent
   ],
   imports: [
     BrowserModule,

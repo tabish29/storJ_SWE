@@ -12,12 +12,10 @@
     <div *ngFor="let item of stories" class="story-box">
         <div class="info">
             <div><label>Titolo: {{ item.titolo }}</label></div>
-            <div><label>ID: {{ item.id }}</label></div>
-            <div><label>ID_Creatore: {{ item.id_creatore }}</label></div>
             <div><label>Categoria: {{ item.categoria }}</label></div>
             <div><label>Numero Scenari: {{ item.numero_scenari }}</label></div>
-            <div><label>Stato Completamento: {{ item.statoCompletamento ? 'Completato' : 'da giocare' }}</label></div>
         </div>
+        <div class="play-button"><button>Vedi Primo Scenario</button></div>
         <div class="play-button"><button (click)="playStory(item)">Gioca Storia</button></div>
     </div>
 </div>
