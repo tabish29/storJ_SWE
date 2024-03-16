@@ -17,6 +17,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class StoriaBL {
+
     @Autowired
     private StoriaService storiaService;
     @Autowired
@@ -24,24 +25,24 @@ public class StoriaBL {
     @Autowired
     private UtenteBL utenteBL;
 
-    public StoriaDTO getStoriaDTOById(Long id){
+    public StoriaDTO getStoriaDTOById(Long id) {
         Optional<StoriaEntity> storia = storiaService.findById(id);
-        if(!storia.isPresent()){
+        if (!storia.isPresent()) {
             throw new ErrorException(ErrorEnum.STORIANOTFOUND);
         }
 
         return storiaMapper.storiaEntityToStoriaDTO(storia.get());
     }
 
-    public StoriaDTO postStoria(StoriaDTO storiaDTO){
+    public StoriaDTO postStoria(StoriaDTO storiaDTO) {
         StoriaEntity storiaEntity = storiaMapper.storiaDTOToStoriaEntity(storiaDTO);
         storiaEntity = storiaService.postStoria(storiaEntity);
         return storiaMapper.storiaEntityToStoriaDTO(storiaEntity);
     }
 
-    public StoriaDTO putStoria(Long id, StoriaDTO storiaDTO){
+    public StoriaDTO putStoria(Long id, StoriaDTO storiaDTO) {
         Optional<StoriaEntity> storia = storiaService.findById(id);
-        if(!storia.isPresent()){
+        if (!storia.isPresent()) {
             throw new ErrorException(ErrorEnum.STORIANOTFOUND);
         }
 
@@ -52,26 +53,26 @@ public class StoriaBL {
         return storiaMapper.storiaEntityToStoriaDTO(storiaEntity);
     }
 
-    public void deleteStoria(Long id){
-        if(getStoriaDTOById(id) != null){
+    public void deleteStoria(Long id) {
+        if (getStoriaDTOById(id) != null) {
             storiaService.deleteStoria(id);
         }
     }
 
-    public List<StoriaDTO> getStorie(String autore, String categoria){
-        if(autore == null && categoria == null){
+    public List<StoriaDTO> getStorie(String autore, String categoria) {
+        if (autore == null && categoria == null) {
             return findAll();
         } else if (autore != null && categoria == null) {
             UtenteDTO utenteDTO = utenteBL.getUtenteDTOByUsername(autore);
             return filterAutore(utenteDTO.getId());
-        }else if (autore != null && categoria != null){
+        } else if (autore != null && categoria != null) {
             throw new ErrorException(ErrorEnum.FILTROERROR);
-        }else{
+        } else {
             return filterCategoria(categoria);
         }
     }
 
-    private List<StoriaDTO> findAll(){
+    private List<StoriaDTO> findAll() {
         List<StoriaEntity> storie = storiaService.getStorie();
         List<StoriaDTO> storieDTO = new ArrayList<>();
 
@@ -82,7 +83,7 @@ public class StoriaBL {
         return storieDTO;
     }
 
-    private List<StoriaDTO> filterAutore(Long autore){
+    private List<StoriaDTO> filterAutore(Long autore) {
         List<StoriaEntity> storie = storiaService.getStorieFilterAutore(autore);
         List<StoriaDTO> storieDTO = new ArrayList<>();
 
@@ -93,7 +94,7 @@ public class StoriaBL {
         return storieDTO;
     }
 
-    private List<StoriaDTO> filterCategoria(String categoria){
+    private List<StoriaDTO> filterCategoria(String categoria) {
         List<StoriaEntity> storie = storiaService.getStorieFilterCategoria(categoria);
         List<StoriaDTO> storieDTO = new ArrayList<>();
 

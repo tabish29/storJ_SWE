@@ -3,6 +3,7 @@ package com.grandel.storj.dto;
 import com.grandel.storj.entity.UtenteEntity;
 
 public class StoriaDTO {
+
     private Long id;
 
     private UtenteEntity idCreatore;

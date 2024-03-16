@@ -16,6 +16,7 @@ import storj.model.Storia;
 
 @Mapper(componentModel = "spring")
 public abstract class StoriaMapper {
+
     @Autowired
     UtenteMapper utenteMapper;
     @Autowired
@@ -29,12 +30,12 @@ public abstract class StoriaMapper {
 
     public abstract Storia storiaDTOToStoria(StoriaDTO storiaDTO);
 
-    public UtenteEntity mapU(Long id){
+    public UtenteEntity mapU(Long id) {
         UtenteDTO utenteDTO = utenteBL.getUtenteDTObyId(id);
         return utenteMapper.utenteDTOToUtenteEntity(utenteDTO);
     }
 
-    public Long mapU(UtenteEntity utenteEntity){
+    public Long mapU(UtenteEntity utenteEntity) {
         return utenteEntity.getId();
     }
 }

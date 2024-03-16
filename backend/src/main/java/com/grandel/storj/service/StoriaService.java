@@ -12,34 +12,35 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class StoriaService {
+
     @Autowired
     private StoriaRepository storiaRepository;
 
-    public StoriaEntity postStoria(StoriaEntity storiaEntity){
+    public StoriaEntity postStoria(StoriaEntity storiaEntity) {
         return storiaRepository.save(storiaEntity);
     }
 
-    public List<StoriaEntity> getStorie(){
+    public List<StoriaEntity> getStorie() {
         return storiaRepository.findAll();
     }
 
-    public List<StoriaEntity> getStorieFilterAutore(Long autore){
+    public List<StoriaEntity> getStorieFilterAutore(Long autore) {
         return storiaRepository.findByAutore(autore);
     }
 
-    public List<StoriaEntity> getStorieFilterCategoria(String categoria){
+    public List<StoriaEntity> getStorieFilterCategoria(String categoria) {
         return storiaRepository.findByCategoria(categoria);
     }
 
-    public Optional<StoriaEntity> findById(Long id){
+    public Optional<StoriaEntity> findById(Long id) {
         return storiaRepository.findById(id);
     }
 
-    public StoriaEntity putStoria(StoriaEntity storiaEntity){
+    public StoriaEntity putStoria(StoriaEntity storiaEntity) {
         return storiaRepository.save(storiaEntity);
     }
 
-    public void deleteStoria(Long id){
+    public void deleteStoria(Long id) {
         storiaRepository.deleteById(id);
     }
 }

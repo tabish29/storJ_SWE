@@ -29,6 +29,7 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping("/api/v1")
 public class StorieController implements StorieApi {
+
     @Autowired
     private StoriaBL storiaBL;
     @Autowired

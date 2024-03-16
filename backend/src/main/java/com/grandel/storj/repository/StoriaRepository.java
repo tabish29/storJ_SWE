@@ -16,4 +16,5 @@ public interface StoriaRepository extends JpaRepository<StoriaEntity, Long> {
 
     @Query("SELECT s FROM StoriaEntity s WHERE s.categoria = :categoria")
     List<StoriaEntity> findByCategoria(@Param("categoria") String categoria);
+
 }
