@@ -26,6 +26,7 @@ import storj.model.Required;
 @EnableAutoConfiguration
 @RequestMapping("/api/v1")
 public class ScelteController implements ScelteApi {
+
     @Autowired
     private MultiplaMapper multiplaMapper;
     @Autowired

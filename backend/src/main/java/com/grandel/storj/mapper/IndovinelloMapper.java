@@ -11,22 +11,26 @@ import storj.model.Indovinello;
 
 @Mapper(componentModel = "spring")
 public abstract class IndovinelloMapper {
+
     @Autowired
     ScenarioMapper scenarioMapper;
     @Autowired
     ScenarioBL scenarioBL;
 
     public abstract IndovinelloDTO indovinelloToIndovinelloDTO(Indovinello indovinello);
+
     public abstract IndovinelloDTO indovinelloEntityToIndovinelloDTO(IndovinelloEntity indovinelloEntity);
+
     public abstract Indovinello indovinelloDTOToIndovinello(IndovinelloDTO indovinelloDTO);
+
     public abstract IndovinelloEntity indovinelloDTOToIndovinelloEntity(IndovinelloDTO indovinelloDTO);
 
-    public ScenarioEntity mapS(Long id){
+    public ScenarioEntity mapS(Long id) {
         ScenarioDTO scenarioDTO = scenarioBL.getScenarioDTOById(id);
         return scenarioMapper.scenarioDTOToScenarioEntity(scenarioDTO);
     }
 
-    public Long mapS(ScenarioEntity scenarioEntity){
+    public Long mapS(ScenarioEntity scenarioEntity) {
         return scenarioEntity.getId();
     }
 }

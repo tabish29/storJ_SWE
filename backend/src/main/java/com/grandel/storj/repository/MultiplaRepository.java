@@ -13,4 +13,5 @@ public interface MultiplaRepository extends JpaRepository<MultiplaEntity, Long> 
 
     @Query("SELECT m FROM MultiplaEntity m WHERE m.idScenario.id = :idScenario")
     List<MultiplaEntity> findByScenario(@Param("idScenario") Long idScenario);
+
 }

@@ -11,4 +11,5 @@ public interface IndovinelloRepository extends JpaRepository<IndovinelloEntity, 
 
     @Query("SELECT i FROM IndovinelloEntity i WHERE i.idScenario.id = :idScenario")
     IndovinelloEntity findByScenario(@Param("idScenario") Long idScenario);
+
 }

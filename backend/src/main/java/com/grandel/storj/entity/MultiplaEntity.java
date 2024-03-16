@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "multipla")
 public class MultiplaEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

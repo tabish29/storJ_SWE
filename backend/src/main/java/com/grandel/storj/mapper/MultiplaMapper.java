@@ -11,22 +11,26 @@ import storj.model.Multipla;
 
 @Mapper(componentModel = "spring")
 public abstract class MultiplaMapper {
+
     @Autowired
     ScenarioMapper scenarioMapper;
     @Autowired
     ScenarioBL scenarioBL;
 
     public abstract MultiplaDTO multiplaToMultiplaDTO(Multipla multipla);
+
     public abstract MultiplaDTO multiplaEntityToMultiplaDTO(MultiplaEntity multiplaEntity);
+
     public abstract Multipla multiplaDTOToMultipla(MultiplaDTO multiplaDTO);
+
     public abstract MultiplaEntity multiplaDTOToMultiplaEntity(MultiplaDTO multiplaDTO);
 
-    public ScenarioEntity mapS(Long id){
+    public ScenarioEntity mapS(Long id) {
         ScenarioDTO scenarioDTO = scenarioBL.getScenarioDTOById(id);
         return scenarioMapper.scenarioDTOToScenarioEntity(scenarioDTO);
     }
 
-    public Long mapS(ScenarioEntity scenarioEntity){
+    public Long mapS(ScenarioEntity scenarioEntity) {
         return scenarioEntity.getId();
     }
 }

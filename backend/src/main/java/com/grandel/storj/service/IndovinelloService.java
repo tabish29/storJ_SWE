@@ -11,26 +11,27 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class IndovinelloService {
+
     @Autowired
     private IndovinelloRepository indovinelloRepository;
 
-    public Optional<IndovinelloEntity> findById(Long id){
+    public Optional<IndovinelloEntity> findById(Long id) {
         return indovinelloRepository.findById(id);
     }
 
-    public IndovinelloEntity postIndovinello(IndovinelloEntity indovinelloEntity){
+    public IndovinelloEntity postIndovinello(IndovinelloEntity indovinelloEntity) {
         return indovinelloRepository.save(indovinelloEntity);
     }
 
-    public IndovinelloEntity putIndovinello(IndovinelloEntity indovinelloEntity){
+    public IndovinelloEntity putIndovinello(IndovinelloEntity indovinelloEntity) {
         return indovinelloRepository.save(indovinelloEntity);
     }
 
-    public void deleteIndovinello(Long id){
+    public void deleteIndovinello(Long id) {
         indovinelloRepository.deleteById(id);
     }
 
-    public IndovinelloEntity findByScenario(Long idScenario){
+    public IndovinelloEntity findByScenario(Long idScenario) {
         return indovinelloRepository.findByScenario(idScenario);
     }
 }

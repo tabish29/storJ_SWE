@@ -12,26 +12,27 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class MultiplaService {
+
     @Autowired
     private MultiplaRepository multiplaRepository;
 
-    public Optional<MultiplaEntity> findById(Long id){
+    public Optional<MultiplaEntity> findById(Long id) {
         return multiplaRepository.findById(id);
     }
 
-    public MultiplaEntity postMultipla(MultiplaEntity multiplaEntity){
+    public MultiplaEntity postMultipla(MultiplaEntity multiplaEntity) {
         return multiplaRepository.save(multiplaEntity);
     }
 
-    public MultiplaEntity putMultipla(MultiplaEntity multiplaEntity){
+    public MultiplaEntity putMultipla(MultiplaEntity multiplaEntity) {
         return multiplaRepository.save(multiplaEntity);
     }
 
-    public void deleteMultipla(Long id){
+    public void deleteMultipla(Long id) {
         multiplaRepository.deleteById(id);
     }
 
-    public List<MultiplaEntity> findByScenario(Long idScenario){
+    public List<MultiplaEntity> findByScenario(Long idScenario) {
         return multiplaRepository.findByScenario(idScenario);
     }
 }

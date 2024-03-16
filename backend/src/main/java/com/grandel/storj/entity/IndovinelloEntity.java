@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "indovinello")
 public class IndovinelloEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

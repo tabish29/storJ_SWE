@@ -16,29 +16,30 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class MultiplaBL {
+
     @Autowired
     private MultiplaMapper multiplaMapper;
     @Autowired
     private MultiplaService multiplaService;
 
-    public MultiplaDTO getMultiplaDTOById(Long id){
+    public MultiplaDTO getMultiplaDTOById(Long id) {
         Optional<MultiplaEntity> multipla = multiplaService.findById(id);
-        if(!multipla.isPresent()){
+        if (!multipla.isPresent()) {
             throw new ErrorException(ErrorEnum.MULTIPLANOTFOUND);
         }
 
         return multiplaMapper.multiplaEntityToMultiplaDTO(multipla.get());
     }
 
-    public MultiplaDTO postMultipla(MultiplaDTO multiplaDTO){
+    public MultiplaDTO postMultipla(MultiplaDTO multiplaDTO) {
         MultiplaEntity multiplaEntity = multiplaMapper.multiplaDTOToMultiplaEntity(multiplaDTO);
         multiplaEntity = multiplaService.postMultipla(multiplaEntity);
         return multiplaMapper.multiplaEntityToMultiplaDTO(multiplaEntity);
     }
 
-    public MultiplaDTO putMultipla(Long id, MultiplaDTO multiplaDTO){
+    public MultiplaDTO putMultipla(Long id, MultiplaDTO multiplaDTO) {
         Optional<MultiplaEntity> multipla = multiplaService.findById(id);
-        if(!multipla.isPresent()){
+        if (!multipla.isPresent()) {
             throw new ErrorException(ErrorEnum.MULTIPLANOTFOUND);
         }
 
@@ -49,13 +50,13 @@ public class MultiplaBL {
         return multiplaMapper.multiplaEntityToMultiplaDTO(multiplaEntity);
     }
 
-    public void deleteMultipla(Long id){
-        if(getMultiplaDTOById(id) != null){
+    public void deleteMultipla(Long id) {
+        if (getMultiplaDTOById(id) != null) {
             multiplaService.deleteMultipla(id);
         }
     }
 
-    public List<MultiplaDTO> getMultipleByScenario(Long idScenario){
+    public List<MultiplaDTO> getMultipleByScenario(Long idScenario) {
         List<MultiplaDTO> multiple = new ArrayList<>();
 
         for (MultiplaEntity x : multiplaService.findByScenario(idScenario)) {
