@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    justify-content: center;
+    margin-top: 30px; 
+    padding: 0 20px; 
+}
+
+.story-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: calc(50% - 20px); 
+    box-sizing: border-box;
+}
+
+.info {
+    display: block; 
+}
+
+.play-button {
+    margin-top: auto; 
+    text-align: right; 
+}
+
+.no-stories-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Centra il testo all'interno del div */
+    height: 50vh; /* Occupa metà dello spazio verticale disponibile */
+    font-size: 4vw; /* Adatta la dimensione del testo alla larghezza della viewport */
+  }
+  
+  /* Stili aggiuntivi per garantire che il messaggio sia visibile e leggibile */
+  .no-stories-message {
+    padding: 20px;
+    border: 2px solid #000;
+    border-radius: 10px;
+  }

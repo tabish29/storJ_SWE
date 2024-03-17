@@ -1,6 +1,4 @@
-enum responseType {
-    INDOVINELLO = "INDOVINELLO",
-    MULTIPLA = "MULTIPLA",
-  }
-  
-  
+export enum responseType {
+  INDOVINELLO = "INDOVINELLO",
+  MULTIPLA = "MULTIPLA"
+}

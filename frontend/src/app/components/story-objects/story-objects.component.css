@@ -1,28 +1,29 @@
 .container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; 
+    gap: 20px;
     justify-content: center;
-    margin-top: 30px; 
-    padding: 0 20px; 
+    margin-top: 30px;
+    padding: 0 20px;
 }
 
-.scenario-box {
+.story-object-box {
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: calc(50% - 20px); 
+    width: calc(50% - 20px);
     box-sizing: border-box;
+    background-color: #f9f9f9;
 }
 
 .info {
-    display: block; 
+    display: block;
 }
 
 .remove-button {
-    margin-top: auto; 
-    text-align: right; 
+    margin-top: auto;
+    text-align: right;
 }

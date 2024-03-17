@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<div class="scenario-container">
+    <h1>Inserisci le informazioni dello scenario</h1>
+    <form class="scenario-form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="testo">Testo dello Scenario:</label>
+            <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="tipoRisposta">Tipo di Risposta:</label>
+            <select id="tipoRisposta" name="tipoRisposta" required [(ngModel)]="tipoRisposta">
+                <option value="INDOVINELLO">INDOVINELLO</option>
+                <option value="MULTIPLA">MULTIPLA</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="tipoScenario">Tipo di Scenario:</label>
+            <select id="tipoScenario" name="tipoScenario" required [(ngModel)]="tipoScenario">
+                <option value="INIZIALE">INIZIALE</option>
+                <option value="NORMALE">NORMALE</option>
+                <option value="FINALE">FINALE</option>
+            </select>
+        </div>
+        <button type="submit" class="btn-creazione">Crea Scenario</button>
+    </form>
+</div>

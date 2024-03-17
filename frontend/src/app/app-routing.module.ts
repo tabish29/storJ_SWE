@@ -10,6 +10,14 @@ import { accessGuard } from './access.guard';
 import { HandlerPlaypageComponent } from './components/handler-playpage/handler-playpage.component';
 import { CreateStoryComponent } from './components/create-story/create-story.component';
 import { HomeStoriesComponent } from './components/home-stories/home-stories.component';
+import { FormStoryComponent } from './components/form-story/form-story.component';
+import { FormScenarioComponent } from './components/form-scenario/form-scenario.component';
+import { StoryObjectsComponent } from './components/story-objects/story-objects.component';
+import { FormStoryObjectComponent } from './components/form-story-object/form-story-object.component';
+import { MultipleChoiceComponent } from './components/multiple-choice/multiple-choice.component';
+import { SingleChoiceComponent } from './components/single-choice/single-choice.component';
+import { FormMultipleChoiceComponent } from './components/form-multiple-choice/form-multiple-choice.component';
+import { FormSingleChoiceComponent } from './components/form-single-choice/form-single-choice.component';
 
 
 const routes: Routes = [
@@ -47,8 +55,49 @@ const routes: Routes = [
     canActivate: [accessGuard]
   },
   {
+    path: 'formStory',
+    component: FormStoryComponent,
+    canActivate: [accessGuard]
+  },
+  {
     path: 'createStory',
     component: CreateStoryComponent,
+    canActivate: [accessGuard]
+  },
+  {
+    path: 'formScenario',
+    component: FormScenarioComponent,
+    canActivate: [accessGuard]
+  },
+  {
+    path: 'storyObjects',
+    component: StoryObjectsComponent,
+    canActivate: [accessGuard]
+  },
+  {
+    path: 'formStoryObject',
+    component: FormStoryObjectComponent,
+    canActivate: [accessGuard]
+  },
+  {
+    path: 'multiplechoice',
+    component: MultipleChoiceComponent,
+    canActivate: [accessGuard]
+  },
+  {
+    path: 'formMultipleChoice',
+    component: FormMultipleChoiceComponent,
+    canActivate: [accessGuard]
+  },
+  {
+    path: 'formSingleChoice',
+    component: FormSingleChoiceComponent,
+    canActivate: [accessGuard]
+  },
+  
+  {
+    path: 'singlechoice',
+    component: SingleChoiceComponent,
     canActivate: [accessGuard]
   },
   {

@@ -1,0 +1,10 @@
+<app-navbar></app-navbar>
+<div class="container" *ngIf="singleChoice">
+    <div class="singleChoice-box">
+        <div class="info">
+            <div><label>id_scenario: {{ singleChoice.id_scenario }}</label></div>
+            <div><label>Testo: {{ singleChoice.testo }}</label></div>
+        </div>
+        <div class="remove-button"><button (click)="removeSingleChoice(singleChoice.id)">Rimuovi</button></div>
+    </div>
+</div>

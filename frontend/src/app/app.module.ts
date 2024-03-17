@@ -17,6 +17,14 @@ import { PaymentPageComponent } from './components/payment-page/payment-page.com
 import { CreateStoryComponent } from './components/create-story/create-story.component';
 import { HandlerPlaypageComponent } from './components/handler-playpage/handler-playpage.component';
 import { HomeStoriesComponent } from './components/home-stories/home-stories.component';
+import { FormStoryComponent } from './components/form-story/form-story.component';
+import { FormScenarioComponent } from './components/form-scenario/form-scenario.component';
+import { StoryObjectsComponent } from './components/story-objects/story-objects.component';
+import { FormStoryObjectComponent } from './components/form-story-object/form-story-object.component';
+import { MultipleChoiceComponent } from './components/multiple-choice/multiple-choice.component';
+import { SingleChoiceComponent } from './components/single-choice/single-choice.component';
+import { FormMultipleChoiceComponent } from './components/form-multiple-choice/form-multiple-choice.component';
+import { FormSingleChoiceComponent } from './components/form-single-choice/form-single-choice.component';
 
 
 @NgModule({
@@ -31,7 +39,15 @@ import { HomeStoriesComponent } from './components/home-stories/home-stories.com
     PaymentPageComponent,
     CreateStoryComponent,
     HandlerPlaypageComponent,
-    HomeStoriesComponent
+    HomeStoriesComponent,
+    FormStoryComponent,
+    FormScenarioComponent,
+    StoryObjectsComponent,
+    FormStoryObjectComponent,
+    MultipleChoiceComponent,
+    SingleChoiceComponent,
+    FormMultipleChoiceComponent,
+    FormSingleChoiceComponent
   ],
   imports: [
     BrowserModule,

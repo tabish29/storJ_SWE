@@ -1,1 +1,20 @@
-<p>home-stories works!</p>
+<app-navbar></app-navbar>
+<div class="filters">
+    <input type="text" placeholder="Autore" [(ngModel)]="filterAuthor">
+    <input type="text" placeholder="Categoria" [(ngModel)]="filterCategory">
+    <button (click)="filterStories(filterAuthor, filterCategory)">Filtra</button>
+</div>
+<div *ngIf="noStoriesFound" class="no-stories-container">
+    <div class="no-stories-message">Nessuna storia trovata</div>
+</div>
+
+<div class="container">
+    <div *ngFor="let item of stories" class="story-box">
+        <div class="info">
+            <div><label>Titolo: {{ item.titolo }}</label></div>
+            <div><label>Categoria: {{ item.categoria }}</label></div>
+            <div><label>Numero Scenari: {{ item.numero_scenari }}</label></div>
+        </div>
+        <div class="play-button"><button (click)="playStory(item)">Modifica testo</button></div>
+    </div>
+</div>

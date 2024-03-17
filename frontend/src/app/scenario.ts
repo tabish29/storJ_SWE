@@ -1,3 +1,6 @@
+import { responseType } from "./responseType";
+import { scenarioType } from "./scenarioType";
+
 export class scenario {
     
     constructor(

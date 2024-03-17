@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<div class="single-choice-container">
+    <h1>Inserisci le informazioni per l'indovinello</h1>
+    <form class="single-choice-form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="testo">Testo dell'Indovinello:</label>
+            <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="risposta">Risposta:</label>
+            <input type="text" id="risposta" name="risposta" required [(ngModel)]="risposta" placeholder="Inserisci la risposta corretta">
+        </div>
+        <div class="form-group">
+            <label for="idScenarioRispostaCorretta">ID Scenario Risposta Corretta:</label>
+            <select id="idScenarioRispostaCorretta" name="idScenarioRispostaCorretta" required [(ngModel)]="idScenarioRispostaCorretta">
+                <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} (ID: {{scenario.id }})</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="idScenarioRispostaSbagliata">ID Scenario Risposta Sbagliata:</label>
+            <select id="idScenarioRispostaSbagliata" name="idScenarioRispostaSbagliata" required [(ngModel)]="idScenarioRispostaSbagliata">
+                <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} (ID: {{scenario.id }})</option>
+            </select>
+        </div>
+        <button type="submit" class="btn-creazione">Crea Indovinello</button>
+    </form>
+</div>

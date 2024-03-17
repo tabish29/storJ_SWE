@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { StoryService } from '../../services/story.service';
-import { story } from '../../story';
+import { ScenarioService } from '../../services/scenario.service';
+import { scenario } from '../../scenario';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 
 @Component({
@@ -11,46 +12,50 @@ import { story } from '../../story';
   styleUrl: './create-story.component.css'
 })
 export class CreateStoryComponent{
-  //inserire le variabili che servono nel form della creazione della storia 
+  
+//Da modificare fare in modo che vengano visualizzate solo le storie dell'utente loggato
+scenarios: scenario[] = [];
+storyId!: number;
 
-  idCreatore = 3; //valore predefinito(gestire il caso in cui non si recuperi il dato da localstorage)
-  titolo = ''; //dal form
-  categoria = ''; //dal form
+constructor(private scenarioService: ScenarioService, private router: Router, private localStorageService: LocalStorageService) { }
 
-  constructor(private http: HttpClient, private storyService: StoryService, private router: Router) { }
+ngOnInit(): void {
+  // Recupera l'ID della storia corrente dal localStorage
+  const currentStory = this.localStorageService.getItem('currentStory');
+  this.storyId = currentStory.id;
+  this.loadscenarios();
+}
 
+loadscenarios(): void {
+  this.scenarioService.getScenarioByStoryId(this.storyId).subscribe(
+    (scenarios: scenario[]) => {
+      this.scenarios = scenarios;
+    },
+    error => {
+      console.error('Errore nel caricamento delle storie', error);
+    }
+  );
+}
 
-  public savestory(story: story): void {
-    this.storyService.addstory(story).subscribe(
-      (response: story) => {
-        alert("Storia creata con successo!")
-        //redirect 
-        this.router.navigateByUrl('/storJPage');
+removeScenario(scenarioId: number): void {
+  this.scenarioService.deleteScenario(scenarioId);
+  this.loadscenarios();
+  location.reload(); //per fare il refresh dell'applicazione
+}
 
-      },
-      (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http
-        if (error.error.code == "UtenteAlreadySigned") {
-          alert(error.error.message);
-        } else {
-          alert(error.error.message);
-        }
-      }
-    );
+redirectToScenarioType(scenario:scenario,type: string): void {
+  this.changeScenario(scenario);
+  if (type === 'MULTIPLA') {
+    this.router.navigateByUrl('/multiplechoice');
+  } else if (type === 'INDOVINELLO') {
+    this.router.navigateByUrl('/singlechoice');
+  } else {
+    console.warn('Tipo di risposta non riconosciuto:', type);
   }
+}
 
-  onSubmit() {
-
-    const storyData: story = {
-      id: 0,
-      id_creatore: this.idCreatore, //dal localstorage
-      titolo: this.titolo, //dal form
-      categoria: this.categoria, //dal form
-      numero_scenari: 0,
-      statoCompletamento: false
-    };
-
-    this.savestory(storyData);
-  }
+changeScenario(newscenario:scenario){
+  this.scenarioService.changescenario(newscenario);
+}
 
 }
