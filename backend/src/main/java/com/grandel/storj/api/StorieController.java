@@ -51,12 +51,12 @@ public class StorieController implements StorieApi {
         return new ResponseEntity<>(storiaMapper.storiaDTOToStoria(storiaDTO), HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Storia>> getStorie(String autore, String categoria) {
+    public ResponseEntity<List<Storia>> getStorie(String autore, String categoria, Integer numScenari) {
         log.info("method getStorie()");
 
         List<Storia> storie = new ArrayList<>();
 
-        for (StoriaDTO x : storiaBL.getStorie(autore, categoria)) {
+        for (StoriaDTO x : storiaBL.getStorie(autore, categoria, numScenari)) {
             storie.add(storiaMapper.storiaDTOToStoria(x));
         }
 

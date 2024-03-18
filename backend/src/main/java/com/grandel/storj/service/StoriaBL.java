@@ -59,16 +59,20 @@ public class StoriaBL {
         }
     }
 
-    public List<StoriaDTO> getStorie(String autore, String categoria) {
-        if (autore == null && categoria == null) {
+    public List<StoriaDTO> getStorie(String autore, String categoria, Integer num_scenari) {
+        if (autore != null && categoria != null && num_scenari != null) {
+            throw new ErrorException(ErrorEnum.FILTROERROR);
+        }
+
+        if (autore == null && categoria == null && num_scenari == null) {
             return findAll();
-        } else if (autore != null && categoria == null) {
+        } else if (autore != null) {
             UtenteDTO utenteDTO = utenteBL.getUtenteDTOByUsername(autore);
             return filterAutore(utenteDTO.getId());
-        } else if (autore != null && categoria != null) {
-            throw new ErrorException(ErrorEnum.FILTROERROR);
-        } else {
+        } else if (categoria != null) {
             return filterCategoria(categoria);
+        } else {
+            return filterNumScenari(num_scenari);
         }
     }
 
@@ -96,6 +100,17 @@ public class StoriaBL {
 
     private List<StoriaDTO> filterCategoria(String categoria) {
         List<StoriaEntity> storie = storiaService.getStorieFilterCategoria(categoria);
+        List<StoriaDTO> storieDTO = new ArrayList<>();
+
+        for (StoriaEntity x : storie) {
+            storieDTO.add(storiaMapper.storiaEntityToStoriaDTO(x));
+        }
+
+        return storieDTO;
+    }
+
+    private List<StoriaDTO> filterNumScenari(int num_scenari) {
+        List<StoriaEntity> storie = storiaService.getStorieFilterNumScenari(num_scenari);
         List<StoriaDTO> storieDTO = new ArrayList<>();
 
         for (StoriaEntity x : storie) {

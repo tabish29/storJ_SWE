@@ -32,6 +32,10 @@ public class StoriaService {
         return storiaRepository.findByCategoria(categoria);
     }
 
+    public List<StoriaEntity> getStorieFilterNumScenari(int num_scenari) {
+        return storiaRepository.findByScenari(num_scenari);
+    }
+
     public Optional<StoriaEntity> findById(Long id) {
         return storiaRepository.findById(id);
     }

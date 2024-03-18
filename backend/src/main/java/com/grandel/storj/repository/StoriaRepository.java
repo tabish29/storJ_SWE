@@ -14,7 +14,10 @@ public interface StoriaRepository extends JpaRepository<StoriaEntity, Long> {
     @Query("SELECT s FROM StoriaEntity s WHERE s.idCreatore.id = :autore")
     List<StoriaEntity> findByAutore(@Param("autore") Long autore);
 
-    @Query("SELECT s FROM StoriaEntity s WHERE s.categoria = :categoria")
+    @Query("SELECT s FROM StoriaEntity s WHERE LOWER(s.categoria) = LOWER(:categoria)")
     List<StoriaEntity> findByCategoria(@Param("categoria") String categoria);
+
+    @Query("SELECT s FROM StoriaEntity s WHERE s.numeroScenari = :numScenari")
+    List<StoriaEntity> findByScenari(@Param("numScenari") int numScenari);
 
 }
