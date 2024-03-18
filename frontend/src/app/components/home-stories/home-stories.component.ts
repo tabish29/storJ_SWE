@@ -11,10 +11,10 @@ import { StoryService } from '../../services/story.service';
   styleUrl: './home-stories.component.css'
 })
 export class HomeStoriesComponent {
-  //Da modificare fare in modo che vengano visualizzate solo le storie dell'utente loggato
+  //Da modificare fare in modo che vengano visualizzate solo le storie dell'utente loggato(da fare)
   stories: story[] = [];
-  filterAuthor: string | undefined;
-  filterCategory: string | undefined;
+  filterType='';
+  filterValue='';
   noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
 
   constructor(private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService) { }
@@ -40,8 +40,8 @@ export class HomeStoriesComponent {
     this.router.navigateByUrl(`storJPage`);
   }
 
-  filterStories(filterAuthor?: string, filterCategory?: string): void {
-    this.storyService.filterStories(filterAuthor, filterCategory)
+  filterStories(filterType: string, filterValue: string): void {
+    this.storyService.filterStories(filterType, filterValue)
       .subscribe(
         stories => {
           // Successo: aggiorna le storie visualizzate
@@ -67,5 +67,7 @@ export class HomeStoriesComponent {
         }
       );
     }
+
+    
 
 }

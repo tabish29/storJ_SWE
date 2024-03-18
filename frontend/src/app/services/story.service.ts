@@ -26,15 +26,23 @@ export class StoryService {
     return this.http.post<story>(this.apiServerUrl + '/storie', story); 
   }
 
-  public filterStories(filterAuthor?: string, filterCategory?: string): Observable<story[]> {
+  public filterStories(filterType: string, filterValue: string): Observable<story[]> {
     let queryParams = '';
-    if (filterAuthor) {
-      queryParams += `autore=${encodeURIComponent(filterAuthor)}&`;
+  
+    switch(filterType) {
+      case 'Autore':
+        queryParams += `autore=${encodeURIComponent(filterValue)}`;
+        break;
+      case 'Categoria':
+        queryParams += `categoria=${encodeURIComponent(filterValue)}`;
+        break;
+      case 'Numero Scenari':
+        queryParams += `numScenari=${encodeURIComponent(filterValue)}`;
+        break;
+      default:
+        console.error('Tipo di filtro non supportato');
     }
-    if (filterCategory) {
-      queryParams += `categoria=${encodeURIComponent(filterCategory)}`;
-    }
-
+  
     return this.http.get<story[]>(`${this.apiServerUrl}/storie?${queryParams}`);
   }
 

@@ -4,6 +4,7 @@ import { StoryService } from '../../services/story.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-handler-playpage',
@@ -15,8 +16,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class HandlerPlaypageComponent {
   stories: story[] = [];
-  filterAuthor: string | undefined;
-  filterCategory: string | undefined;
+  filterType = '';
+  filterValue = '';
   noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
 
   constructor(private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService) { }
@@ -43,31 +44,35 @@ export class HandlerPlaypageComponent {
     this.router.navigateByUrl(`storJPage`);
   }
 
-  filterStories(filterAuthor?: string, filterCategory?: string): void {
-    this.storyService.filterStories(filterAuthor, filterCategory)
-      .subscribe(
-        stories => {
-          // Successo: aggiorna le storie visualizzate
-          this.stories = stories;
-          if(stories.length === 0){
-            this.noStoriesFound = true;
-          }else{
-            this.noStoriesFound = false;
-          }
-        },
-        (error: HttpErrorResponse) => {
-            // Inserire i vari codici di errore dell'api di Davide(da fare)
-            switch(error.error.code) {
-              case "UtenteNotFound":
-                alert(error.error.message);
-                break;
-              default:
-                alert("Errore durante il filtraggio delle storie.");
-            }
-
-          //per vedere i codici di errore(da eliminare)
-          console.error('Errore HTTP:', error.message);
+  filterStories(filterType: string, filterValue: string): void {
+    this.filterType = filterType;
+    this.filterValue = filterValue;
+    this.storyService.filterStories(this.filterType, this.filterValue).subscribe(
+      stories => {
+        //In caso di successo aggiorna le storie visualizzate
+        this.stories = stories;
+        if (stories.length === 0) {
+          this.noStoriesFound = true;
+        } else {
+          this.noStoriesFound = false;
         }
-      );
-    }
+      },
+      (error: HttpErrorResponse) => {
+        this.stories = [];
+        this.noStoriesFound = true;
+        // Inserire i vari codici di errore dell'api di Davide(da fare)
+        switch (error.error.code) {
+          case "UtenteNotFound":
+            //alert(error.error.message);
+            break;
+          default:
+            alert("Errore durante il filtraggio delle storie.");
+        }
+
+        //per vedere i codici di errore(da eliminare)
+        console.error('Errore HTTP:', error.error.code);
+      }
+    );
+  }
+
 }
