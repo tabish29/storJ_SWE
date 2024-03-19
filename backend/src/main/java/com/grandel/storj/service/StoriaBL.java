@@ -1,5 +1,6 @@
 package com.grandel.storj.service;
 
+import com.grandel.storj.dto.ScenarioDTO;
 import com.grandel.storj.dto.StoriaDTO;
 import com.grandel.storj.dto.UtenteDTO;
 import com.grandel.storj.entity.StoriaEntity;
@@ -9,6 +10,7 @@ import com.grandel.storj.mapper.StoriaMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import storj.model.TipoRispostaEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,17 @@ public class StoriaBL {
         if (getStoriaDTOById(id) != null) {
             storiaService.deleteStoria(id);
         }
+    }
+
+    public List<StoriaDTO> getStorieByUtente(Long idUtente) {
+        List<StoriaEntity> storie = storiaService.getStorieByUtente(idUtente);
+        List<StoriaDTO> storieDTO = new ArrayList<>();
+
+        for (StoriaEntity x : storie) {
+            storieDTO.add(storiaMapper.storiaEntityToStoriaDTO(x));
+        }
+
+        return storieDTO;
     }
 
     public List<StoriaDTO> getStorie(String autore, String categoria, Integer num_scenari) {

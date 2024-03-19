@@ -7,6 +7,7 @@ import com.grandel.storj.mapper.OggettoMapper;
 import com.grandel.storj.mapper.ScenarioMapper;
 import com.grandel.storj.mapper.StoriaMapper;
 import com.grandel.storj.service.OggettoBL;
+import com.grandel.storj.service.SavingService;
 import com.grandel.storj.service.ScenarioBL;
 import com.grandel.storj.service.StoriaBL;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,9 @@ public class StorieController implements StorieApi {
     @Autowired
     private OggettoBL oggettoBL;
     @Autowired
-    OggettoMapper oggettoMapper;
+    private OggettoMapper oggettoMapper;
+    @Autowired
+    private SavingService savingService;
 
     public ResponseEntity<Storia> getStoriaById(Long idStoria) {
         log.info("method getStoriaById()");
@@ -109,5 +112,13 @@ public class StorieController implements StorieApi {
         }
 
         return new ResponseEntity<>(scenari, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Void> saveStoria(Long idStoria) {
+        log.info("method saveStoria()");
+
+        savingService.saveStoria(idStoria);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

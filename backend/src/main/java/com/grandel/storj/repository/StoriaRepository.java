@@ -11,13 +11,19 @@ import java.util.List;
 @Repository
 public interface StoriaRepository extends JpaRepository<StoriaEntity, Long> {
 
-    @Query("SELECT s FROM StoriaEntity s WHERE s.idCreatore.id = :autore")
+    @Query("SELECT s FROM StoriaEntity s WHERE s.statoCompletamento = true")
+    List<StoriaEntity> findAllCompleted();
+
+    @Query("SELECT s FROM StoriaEntity s WHERE s.idCreatore.id = :idUtente")
+    List<StoriaEntity> findByUtente(@Param("idUtente") Long idUtente);
+
+    @Query("SELECT s FROM StoriaEntity s WHERE s.idCreatore.id = :autore AND s.statoCompletamento = true")
     List<StoriaEntity> findByAutore(@Param("autore") Long autore);
 
-    @Query("SELECT s FROM StoriaEntity s WHERE LOWER(s.categoria) = LOWER(:categoria)")
+    @Query("SELECT s FROM StoriaEntity s WHERE LOWER(s.categoria) = LOWER(:categoria) AND s.statoCompletamento = true")
     List<StoriaEntity> findByCategoria(@Param("categoria") String categoria);
 
-    @Query("SELECT s FROM StoriaEntity s WHERE s.numeroScenari = :numScenari")
+    @Query("SELECT s FROM StoriaEntity s WHERE s.numeroScenari = :numScenari AND s.statoCompletamento = true")
     List<StoriaEntity> findByScenari(@Param("numScenari") int numScenari);
 
 }

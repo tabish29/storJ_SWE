@@ -21,7 +21,7 @@ public class StoriaService {
     }
 
     public List<StoriaEntity> getStorie() {
-        return storiaRepository.findAll();
+        return storiaRepository.findAllCompleted();
     }
 
     public List<StoriaEntity> getStorieFilterAutore(Long autore) {
@@ -34,6 +34,10 @@ public class StoriaService {
 
     public List<StoriaEntity> getStorieFilterNumScenari(int num_scenari) {
         return storiaRepository.findByScenari(num_scenari);
+    }
+
+    public List<StoriaEntity> getStorieByUtente(Long idUtente){
+        return storiaRepository.findByUtente(idUtente);
     }
 
     public Optional<StoriaEntity> findById(Long id) {
