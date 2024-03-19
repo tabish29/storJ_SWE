@@ -1,16 +1,4 @@
 <app-navbar></app-navbar>
-<div class="filters">
-    <select [(ngModel)]="filterType">
-        <option value="autore">Autore</option>
-        <option value="categoria">Categoria</option>
-    </select>
-    <input type="text" [(ngModel)]="filterValue" placeholder="Valore del filtro">
-    <button (click)="filterStories(filterType, filterValue)">Filtra</button>
-</div>
-<div *ngIf="noStoriesFound" class="no-stories-container">
-    <div class="no-stories-message">Nessuna storia trovata</div>
-</div>
-
 <div class="container">
     <div *ngFor="let item of stories" class="story-box">
         <div class="info">
@@ -18,6 +6,7 @@
             <div><label>Categoria: {{ item.categoria }}</label></div>
             <div><label>Numero Scenari: {{ item.numero_scenari }}</label></div>
         </div>
-        <div class="play-button"><button (click)="playStory(item)">Modifica testo</button></div>
+        <div class="edit-button" *ngIf="!item.statoCompletamento"><button (click)="editStory(item)">Modifica Storia</button></div>
+        <div class="editText-button" *ngIf="item.statoCompletamento"><button (click)="editText()">Modifica Testo Storia</button></div>
     </div>
 </div>

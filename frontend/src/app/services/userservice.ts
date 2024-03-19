@@ -15,7 +15,7 @@ export class UserService {
   constructor(private http: HttpClient,private localStorageService: LocalStorageService) { }
 
   public getUserByUsername(username: string): Observable<user>{
-    return this.http.get<user>(this.apiServerUrl + '/utenti/' + username);
+    return this.http.get<user>(this.apiServerUrl + '/utenti/username/' + username);
   }
 
   public addUser(user: user): Observable<user>{

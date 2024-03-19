@@ -3,20 +3,33 @@
   color: #fff; /* Colore del testo */
   padding: 10px; /* Spazio interno della navbar */
   display: flex; /* Utilizza il layout flessibile */
-  justify-content: space-between; /* Allinea gli elementi alla sinistra e alla destra */
+  justify-content: space-between; /* Spazia uniformemente i contenuti */
   align-items: center; /* Allinea verticalmente gli elementi */
 }
 
-.logo a {
-  color: #fff; /* Colore del testo del logo */
+.logo {
+  display: flex; /* Rendi anche il logo e l'icona freccia parte del layout flessibile */
+  align-items: center; /* Allinea verticalmente gli elementi del logo */
+  gap: 10px; /* Distanza tra il logo e l'icona freccia */
+}
+
+.logo a, .arrow {
+  color: #fff; /* Colore del testo del logo e dell'icona freccia */
   text-decoration: none; /* Rimuove la sottolineatura dei link */
   font-size: 24px; /* Dimensione del testo del logo */
   font-weight: bold; /* Grassetto */
 }
 
-.login{
-  color: #fff; /* Colore del testo del logo */
-  text-decoration: none; /* Rimuove la sottolineatura dei link */
-  font-size: 18px; /* Dimensione del testo del logo */
-  font-weight: bold; /* Grassetto */
+.arrow {
+  color: black; /* Imposta il colore dell'icona freccia a nero */
+}
+
+.login {
+  display: flex; /* Utilizza il layout flessibile per gli elementi all'interno */
+  align-items: center; /* Allinea verticalmente gli elementi */
+  gap: 10px; /* Distanza tra gli elementi all'interno della classe .login */
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
 }

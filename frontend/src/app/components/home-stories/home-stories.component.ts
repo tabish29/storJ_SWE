@@ -11,10 +11,8 @@ import { StoryService } from '../../services/story.service';
   styleUrl: './home-stories.component.css'
 })
 export class HomeStoriesComponent {
-  //Da modificare fare in modo che vengano visualizzate solo le storie dell'utente loggato(da fare)
+  
   stories: story[] = [];
-  filterType='';
-  filterValue='';
   noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
 
   constructor(private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService) { }
@@ -24,7 +22,8 @@ export class HomeStoriesComponent {
   }
 
   loadStories(): void {
-    this.storyService.getAllstories().subscribe(
+    const currentUser=this.localStorageService.getItem('currentUser');
+    this.storyService.getStoriesByUsername(currentUser.id).subscribe(
       (stories: story[]) => {
         this.stories = stories;
       },
@@ -34,40 +33,14 @@ export class HomeStoriesComponent {
     );
   }
 
-  //da modificare mettere la modifica del testo
-  playStory(story: story): void {
-    this.storyService.changeStory(story);
-    this.router.navigateByUrl(`storJPage`);
+  editStory(newStory:story){
+    this.storyService.changeStory(newStory);
+    this.router.navigateByUrl('createStory');
   }
 
-  filterStories(filterType: string, filterValue: string): void {
-    this.storyService.filterStories(filterType, filterValue)
-      .subscribe(
-        stories => {
-          // Successo: aggiorna le storie visualizzate
-          this.stories = stories;
-          if(stories.length === 0){
-            this.noStoriesFound = true;
-          }else{
-            this.noStoriesFound = false;
-          }
-        },
-        (error: HttpErrorResponse) => {
-            // Inserire i vari codici di errore dell'api di Davide(da fare)
-            switch(error.error.code) {
-              case "UtenteNotFound":
-                alert(error.error.message);
-                break;
-              default:
-                alert("Errore durante il filtraggio delle storie.");
-            }
+  //(da fare) metodo da implementare 
+  editText(){
 
-          //per vedere i codici di errore(da eliminare)
-          console.error('Errore HTTP:', error.message);
-        }
-      );
-    }
-
-    
+  }
 
 }
