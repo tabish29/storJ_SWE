@@ -58,6 +58,25 @@ public class UtenteBL {
         return utenteMapper.utenteEntityToUtenteDTO(utenteEntity);
     }
 
+    public UtenteDTO putUtente(Long id, UtenteDTO utenteDTO){
+        Optional<UtenteEntity> utente = utenteService.findById(id);
+        if (!utente.isPresent()) {
+            throw new ErrorException(ErrorEnum.UTENTENOTFOUND);
+        }
+
+        utenteDTO.setId(id);
+        UtenteEntity utenteEntity = utenteMapper.utenteDTOToUtenteEntity(utenteDTO);
+        utenteEntity = utenteService.putUtente(utenteEntity);
+
+        return utenteMapper.utenteEntityToUtenteDTO(utenteEntity);
+    }
+
+    public void deleteUtente(Long id){
+        if(getUtenteDTObyId(id) != null){
+            utenteService.deleteUtente(id);
+        }
+    }
+
     public UtenteDTO utentePayment(String username, PaymentRequestDTO paymentRequestDTO){
         List<UtenteEntity> list = utenteService.findByUsername(username);
 

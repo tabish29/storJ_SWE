@@ -26,4 +26,12 @@ public class UtenteService {
     public UtenteEntity saveUtente(UtenteEntity utenteEntity){
         return utenteRepository.save(utenteEntity);
     }
+
+    public UtenteEntity putUtente(UtenteEntity utenteEntity){
+        return utenteRepository.save(utenteEntity);
+    }
+
+    public void deleteUtente(Long id){
+        utenteRepository.deleteById(id);
+    }
 }

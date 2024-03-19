@@ -21,8 +21,12 @@ public enum ErrorEnum {
     INDOVINELLONOTFOUND("IndovinelloNotFound", "Indovinello non trovato!", 404),
     REQUIREDNOTFOUND("RequiredNotFound", "Required non trovato!", 404),
     PARTITANOTFOUND("PartitaNotFound", "Partita non trovata!", 404),
-    INVENTARIONOTFOUND("InventarioNotFound", "Inventario non trovato!", 404);
-
+    INVENTARIONOTFOUND("InventarioNotFound", "Inventario non trovato!", 404),
+    SALVATAGGIOFAILEDSCIN("SalvataggioFailedScenarioIniziale", "Salvataggio storia fallito. Non sono presenti scenari iniziali, o ne è presente più di uno!", 400),
+    SALVATAGGIOFAILEDSCFI("SalvataggioFailedScenarioFinale", "Salvataggio storia fallito. Devono esserci degli scenari finali!", 400),
+    SALVATAGGIOFAILEDMULT("SalvataggioFailedMultipla", "Salvataggio storia fallito. In ogni scenario multiplo devono essere presenti almeno due scelte!", 400),
+    SALVATAGGIOFAILEDINDO("SalvataggioFailedIndovinello", "Salvataggio storia fallito. In ogni scenario indovinello deve essere presente una scelta!", 400);
+    
     private String code;
     private String message;
     private int httpStatus;

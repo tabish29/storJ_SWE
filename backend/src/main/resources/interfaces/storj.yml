@@ -62,7 +62,140 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  '/utenti/{usernameUtente}':
+  '/utenti/{idUtente}':
+    get:
+      tags:
+        - "Utenti"
+      operationId: getUtenteById
+      parameters:
+        - in: path
+          name: idUtente
+          required: true
+          description: "ID dell'utente"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Utente"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - "Utenti"
+      operationId: putUtente
+      parameters:
+        - in: path
+          name: idUtente
+          required: true
+          description: "ID dell'utente"
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Utente"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Utente"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - "Utenti"
+      operationId: deleteUtente
+      parameters:
+        - in: path
+          name: idUtente
+          required: true
+          description: "ID dell'utente"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  '/utenti/username/{usernameUtente}':
     get:
       tags:
         - "Utenti"
@@ -352,6 +485,94 @@ paths:
       tags:
         - "Storie"
       operationId: deleteStoria
+      parameters:
+        - in: path
+          name: idStoria
+          required: true
+          description: "ID della storia"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  '/utenti/{idUtente}/storie':
+    get:
+      tags:
+        - "Storie"
+      operationId: getStorieByUtente
+      parameters:
+        - in: path
+          name: idUtente
+          required: true
+          description: "ID dell'utente"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Storia"
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '503':
+          description: "Service Unavailable"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  '/storie/{idStoria}/save':
+    post:
+      tags:
+        - "Storie"
+      operationId: saveStoria
       parameters:
         - in: path
           name: idStoria
