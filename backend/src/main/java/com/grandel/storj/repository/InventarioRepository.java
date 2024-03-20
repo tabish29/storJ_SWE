@@ -15,4 +15,5 @@ public interface InventarioRepository extends JpaRepository<InventarioEntity, Lo
 
     @Query("SELECT i.idOggetto FROM InventarioEntity i WHERE i.idPartita.id = :idPartita")
     List<OggettoEntity> getOggettiByPartita(@Param("idPartita") Long idPartita);
+
 }

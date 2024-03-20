@@ -19,6 +19,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class InventarioBL {
+
     @Autowired
     private InventarioService inventarioService;
     @Autowired
@@ -26,41 +27,41 @@ public class InventarioBL {
     @Autowired
     private OggettoMapper oggettoMapper;
 
-    public InventarioDTO getInventarioDTOById(Long id){
+    public InventarioDTO getInventarioDTOById(Long id) {
         Optional<InventarioEntity> inventario = inventarioService.findById(id);
-        if(!inventario.isPresent()){
+        if (!inventario.isPresent()) {
             throw new ErrorException(ErrorEnum.INVENTARIONOTFOUND);
         }
 
         return inventarioMapper.inventarioEntityToInventarioDTO(inventario.get());
     }
 
-    public InventarioDTO postInventario(InventarioDTO inventarioDTO){
+    public InventarioDTO postInventario(InventarioDTO inventarioDTO) {
         InventarioEntity inventarioEntity = inventarioMapper.inventarioDTOTOInventarioEntity(inventarioDTO);
         inventarioEntity = inventarioService.postInventario(inventarioEntity);
         return inventarioMapper.inventarioEntityToInventarioDTO(inventarioEntity);
     }
 
-    public InventarioDTO putInventario(Long id, InventarioDTO inventarioDTO){
+    public InventarioDTO putInventario(Long id, InventarioDTO inventarioDTO) {
         Optional<InventarioEntity> inventario = inventarioService.findById(id);
-        if(!inventario.isPresent()){
+        if (!inventario.isPresent()) {
             throw new ErrorException(ErrorEnum.INVENTARIONOTFOUND);
         }
 
         inventarioDTO.setId(id);
         InventarioEntity inventarioEntity = inventarioMapper.inventarioDTOTOInventarioEntity(inventarioDTO);
-        inventarioEntity = inventarioService.postInventario(inventarioEntity);
+        inventarioEntity = inventarioService.putInventario(inventarioEntity);
 
         return inventarioMapper.inventarioEntityToInventarioDTO(inventarioEntity);
     }
 
-    public void deleteInventario(Long id){
-        if(getInventarioDTOById(id) != null) {
+    public void deleteInventario(Long id) {
+        if (getInventarioDTOById(id) != null) {
             inventarioService.deleteInventario(id);
         }
     }
 
-    public List<OggettoDTO> getOggettiByPartita(Long idPartita){
+    public List<OggettoDTO> getOggettiByPartita(Long idPartita) {
         List<OggettoDTO> oggetti = new ArrayList<>();
 
         for (OggettoEntity x : inventarioService.getOggettiByPartita(idPartita)) {
