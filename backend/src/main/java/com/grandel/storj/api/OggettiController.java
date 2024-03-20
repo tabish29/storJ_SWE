@@ -18,6 +18,7 @@ import storj.model.Oggetto;
 @EnableAutoConfiguration
 @RequestMapping("/api/v1")
 public class OggettiController implements OggettiApi {
+
     @Autowired
     private OggettoBL oggettoBL;
     @Autowired

@@ -16,29 +16,30 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class OggettoBL {
+
     @Autowired
     private OggettoService oggettoService;
     @Autowired
     private OggettoMapper oggettoMapper;
 
-    public OggettoDTO getOggettoDTOById(Long id){
+    public OggettoDTO getOggettoDTOById(Long id) {
         Optional<OggettoEntity> oggetto = oggettoService.findById(id);
-        if(!oggetto.isPresent()){
+        if (!oggetto.isPresent()) {
             throw new ErrorException(ErrorEnum.OGGETTONOTFOUND);
         }
 
         return oggettoMapper.oggettoEntityToOggettoDTO(oggetto.get());
     }
 
-    public OggettoDTO postOggetto(OggettoDTO oggettoDTO){
+    public OggettoDTO postOggetto(OggettoDTO oggettoDTO) {
         OggettoEntity oggettoEntity = oggettoMapper.oggettoDTOToOggettoEntity(oggettoDTO);
         oggettoEntity = oggettoService.postOggetto(oggettoEntity);
         return oggettoMapper.oggettoEntityToOggettoDTO(oggettoEntity);
     }
 
-    public OggettoDTO putOggetto(Long id, OggettoDTO oggettoDTO){
+    public OggettoDTO putOggetto(Long id, OggettoDTO oggettoDTO) {
         Optional<OggettoEntity> oggetto = oggettoService.findById(id);
-        if(!oggetto.isPresent()){
+        if (!oggetto.isPresent()) {
             throw new ErrorException(ErrorEnum.OGGETTONOTFOUND);
         }
 
@@ -49,8 +50,8 @@ public class OggettoBL {
         return oggettoMapper.oggettoEntityToOggettoDTO(oggettoEntity);
     }
 
-    public void deleteOggetto(Long id){
-        if(getOggettoDTOById(id) != null){
+    public void deleteOggetto(Long id) {
+        if (getOggettoDTOById(id) != null) {
             oggettoService.deleteOggetto(id);
         }
     }

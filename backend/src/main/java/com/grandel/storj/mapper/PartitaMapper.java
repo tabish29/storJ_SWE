@@ -17,6 +17,7 @@ import storj.model.Partita;
 
 @Mapper(componentModel = "spring")
 public abstract class PartitaMapper {
+
     @Autowired
     StoriaMapper storiaMapper;
     @Autowired
@@ -31,34 +32,37 @@ public abstract class PartitaMapper {
     ScenarioBL scenarioBL;
 
     public abstract PartitaDTO partitaToPartitaDTO(Partita partita);
+
     public abstract PartitaDTO partitaEntityToPartitaDTO(PartitaEntity partitaEntity);
+
     public abstract Partita partitaDTOToPartita(PartitaDTO partitaDTO);
+
     public abstract PartitaEntity partitaDTOToPartitaEntity(PartitaDTO partitaDTO);
 
-    public StoriaEntity mapSt(Long id){
+    public StoriaEntity mapSt(Long id) {
         StoriaDTO storiaDTO = storiaBL.getStoriaDTOById(id);
         return storiaMapper.storiaDTOToStoriaEntity(storiaDTO);
     }
 
-    public Long mapSt(StoriaEntity storiaEntity){
+    public Long mapSt(StoriaEntity storiaEntity) {
         return storiaEntity.getId();
     }
 
-    public UtenteEntity mapU(Long id){
+    public UtenteEntity mapU(Long id) {
         UtenteDTO utenteDTO = utenteBL.getUtenteDTObyId(id);
         return utenteMapper.utenteDTOToUtenteEntity(utenteDTO);
     }
 
-    public Long mapU(UtenteEntity utenteEntity){
+    public Long mapU(UtenteEntity utenteEntity) {
         return utenteEntity.getId();
     }
 
-    public ScenarioEntity mapSc(Long id){
+    public ScenarioEntity mapSc(Long id) {
         ScenarioDTO scenarioDTO = scenarioBL.getScenarioDTOById(id);
         return scenarioMapper.scenarioDTOToScenarioEntity(scenarioDTO);
     }
 
-    public Long mapSc(ScenarioEntity scenarioEntity){
+    public Long mapSc(ScenarioEntity scenarioEntity) {
         return scenarioEntity.getId();
     }
 }

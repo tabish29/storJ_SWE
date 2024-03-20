@@ -13,4 +13,5 @@ public interface PartitaRepository extends JpaRepository<PartitaEntity, Long> {
 
     @Query("SELECT p FROM PartitaEntity p WHERE p.idUtente.id = :idUtente")
     List<PartitaEntity> getPartiteByUtente(@Param("idUtente") Long idUtente);
+
 }

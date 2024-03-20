@@ -11,4 +11,5 @@ public interface RequiredRepository extends JpaRepository<RequiredEntity, Long> 
 
     @Query("SELECT r FROM RequiredEntity r WHERE r.idScelta.id = :idScelta")
     RequiredEntity getRequiredByScelta(@Param("idScelta") Long idScelta);
+
 }

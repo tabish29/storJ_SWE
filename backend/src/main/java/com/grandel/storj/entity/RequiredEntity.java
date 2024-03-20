@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "required")
 public class RequiredEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

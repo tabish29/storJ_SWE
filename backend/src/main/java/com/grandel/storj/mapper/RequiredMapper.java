@@ -14,6 +14,7 @@ import storj.model.Required;
 
 @Mapper(componentModel = "spring")
 public abstract class RequiredMapper {
+
     @Autowired
     MultiplaMapper multiplaMapper;
     @Autowired
@@ -24,25 +25,28 @@ public abstract class RequiredMapper {
     OggettoBL oggettoBL;
 
     public abstract RequiredDTO requiredToRequiredDTO(Required required);
+
     public abstract RequiredDTO requiredEntityToRequiredDTO(RequiredEntity requiredEntity);
+
     public abstract Required requiredDTOToRequired(RequiredDTO requiredDTO);
+
     public abstract RequiredEntity requiredDTOToRequiredEntity(RequiredDTO requiredDTO);
 
-    public MultiplaEntity mapM(Long id){
+    public MultiplaEntity mapM(Long id) {
         MultiplaDTO multiplaDTO = multiplaBL.getMultiplaDTOById(id);
         return multiplaMapper.multiplaDTOToMultiplaEntity(multiplaDTO);
     }
 
-    public Long mapM(MultiplaEntity multiplaEntity){
+    public Long mapM(MultiplaEntity multiplaEntity) {
         return multiplaEntity.getId();
     }
 
-    public OggettoEntity mapO(Long id){
+    public OggettoEntity mapO(Long id) {
         OggettoDTO oggettoDTO = oggettoBL.getOggettoDTOById(id);
         return oggettoMapper.oggettoDTOToOggettoEntity(oggettoDTO);
     }
 
-    public Long mapO(OggettoEntity oggettoEntity){
+    public Long mapO(OggettoEntity oggettoEntity) {
         return oggettoEntity.getId();
     }
 }

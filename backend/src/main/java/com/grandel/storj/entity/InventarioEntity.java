@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "inventario")
 public class InventarioEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

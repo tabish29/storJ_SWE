@@ -14,6 +14,7 @@ import storj.model.Drop;
 
 @Mapper(componentModel = "spring")
 public abstract class DropMapper {
+
     @Autowired
     ScenarioMapper scenarioMapper;
     @Autowired
@@ -24,25 +25,28 @@ public abstract class DropMapper {
     OggettoBL oggettoBL;
 
     public abstract DropDTO dropToDropDTO(Drop drop);
+
     public abstract DropDTO dropEntityToDropDTO(DropEntity dropEntity);
+
     public abstract Drop dropDTOToDrop(DropDTO dropDTO);
+
     public abstract DropEntity dropDTOToDropEntity(DropDTO dropDTO);
 
-    public ScenarioEntity mapS(Long id){
+    public ScenarioEntity mapS(Long id) {
         ScenarioDTO scenarioDTO = scenarioBL.getScenarioDTOById(id);
         return scenarioMapper.scenarioDTOToScenarioEntity(scenarioDTO);
     }
 
-    public Long mapS(ScenarioEntity scenarioEntity){
+    public Long mapS(ScenarioEntity scenarioEntity) {
         return scenarioEntity.getId();
     }
 
-    public OggettoEntity mapO(Long id){
+    public OggettoEntity mapO(Long id) {
         OggettoDTO oggettoDTO = oggettoBL.getOggettoDTOById(id);
         return oggettoMapper.oggettoDTOToOggettoEntity(oggettoDTO);
     }
 
-    public Long mapO(OggettoEntity oggettoEntity){
+    public Long mapO(OggettoEntity oggettoEntity) {
         return oggettoEntity.getId();
     }
 }

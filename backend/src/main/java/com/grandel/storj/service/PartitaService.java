@@ -12,26 +12,27 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class PartitaService {
+
     @Autowired
     private PartitaRepository partitaRepository;
 
-    public Optional<PartitaEntity> findById(Long id){
+    public Optional<PartitaEntity> findById(Long id) {
         return partitaRepository.findById(id);
     }
 
-    public PartitaEntity postPartita(PartitaEntity partitaEntity){
+    public PartitaEntity postPartita(PartitaEntity partitaEntity) {
         return partitaRepository.save(partitaEntity);
     }
 
-    public PartitaEntity putPartita(PartitaEntity partitaEntity){
+    public PartitaEntity putPartita(PartitaEntity partitaEntity) {
         return partitaRepository.save(partitaEntity);
     }
 
-    public void deletePartita(Long id){
+    public void deletePartita(Long id) {
         partitaRepository.deleteById(id);
     }
 
-    public List<PartitaEntity> getPartiteByUtente(Long idUtente){
+    public List<PartitaEntity> getPartiteByUtente(Long idUtente) {
         return partitaRepository.getPartiteByUtente(idUtente);
     }
 }

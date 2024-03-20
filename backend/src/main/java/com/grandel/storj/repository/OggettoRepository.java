@@ -13,4 +13,5 @@ public interface OggettoRepository extends JpaRepository<OggettoEntity, Long> {
 
     @Query("SELECT o FROM OggettoEntity o WHERE o.idStoria.id = :idStoria")
     List<OggettoEntity> findByStoria(@Param("idStoria") Long idStoria);
+
 }

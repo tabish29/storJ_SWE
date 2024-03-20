@@ -14,6 +14,7 @@ import storj.model.Inventario;
 
 @Mapper(componentModel = "spring")
 public abstract class InventarioMapper {
+
     @Autowired
     OggettoMapper oggettoMapper;
     @Autowired
@@ -24,25 +25,28 @@ public abstract class InventarioMapper {
     PartitaBL partitaBL;
 
     public abstract InventarioDTO inventarioToInventarioDTO(Inventario inventario);
+
     public abstract InventarioDTO inventarioEntityToInventarioDTO(InventarioEntity inventarioEntity);
+
     public abstract Inventario inventarioDTOToInventario(InventarioDTO inventarioDTO);
+
     public abstract InventarioEntity inventarioDTOTOInventarioEntity(InventarioDTO inventarioDTO);
 
-    public PartitaEntity mapP(Long id){
+    public PartitaEntity mapP(Long id) {
         PartitaDTO partitaDTO = partitaBL.getPartitaDTOById(id);
         return partitaMapper.partitaDTOToPartitaEntity(partitaDTO);
     }
 
-    public Long mapP(PartitaEntity partitaEntity){
+    public Long mapP(PartitaEntity partitaEntity) {
         return partitaEntity.getId();
     }
 
-    public OggettoEntity mapO(Long id){
+    public OggettoEntity mapO(Long id) {
         OggettoDTO oggettoDTO = oggettoBL.getOggettoDTOById(id);
         return oggettoMapper.oggettoDTOToOggettoEntity(oggettoDTO);
     }
 
-    public Long mapO(OggettoEntity oggettoEntity){
+    public Long mapO(OggettoEntity oggettoEntity) {
         return oggettoEntity.getId();
     }
 }

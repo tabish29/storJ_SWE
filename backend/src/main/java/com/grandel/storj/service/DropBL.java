@@ -14,29 +14,30 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class DropBL {
+
     @Autowired
     private DropMapper dropMapper;
     @Autowired
     private DropService dropService;
 
-    public DropDTO getDropDTOById(Long id){
+    public DropDTO getDropDTOById(Long id) {
         Optional<DropEntity> drop = dropService.findById(id);
-        if(!drop.isPresent()){
+        if (!drop.isPresent()) {
             throw new ErrorException(ErrorEnum.DROPNOTFOUND);
         }
 
         return dropMapper.dropEntityToDropDTO(drop.get());
     }
 
-    public DropDTO postDrop(DropDTO dropDTO){
+    public DropDTO postDrop(DropDTO dropDTO) {
         DropEntity dropEntity = dropMapper.dropDTOToDropEntity(dropDTO);
         dropEntity = dropService.postDrop(dropEntity);
         return dropMapper.dropEntityToDropDTO(dropEntity);
     }
 
-    public DropDTO putDrop(Long id, DropDTO dropDTO){
+    public DropDTO putDrop(Long id, DropDTO dropDTO) {
         Optional<DropEntity> drop = dropService.findById(id);
-        if(!drop.isPresent()){
+        if (!drop.isPresent()) {
             throw new ErrorException(ErrorEnum.DROPNOTFOUND);
         }
 
@@ -47,13 +48,13 @@ public class DropBL {
         return dropMapper.dropEntityToDropDTO(dropEntity);
     }
 
-    public void deleteDrop(Long id){
-        if(getDropDTOById(id) != null){
+    public void deleteDrop(Long id) {
+        if (getDropDTOById(id) != null) {
             dropService.deleteDrop(id);
         }
     }
 
-    public DropDTO getDropByScenario(Long idScenario){
+    public DropDTO getDropByScenario(Long idScenario) {
         DropEntity dropEntity = dropService.getDropByScenario(idScenario);
         return dropMapper.dropEntityToDropDTO(dropEntity);
     }
