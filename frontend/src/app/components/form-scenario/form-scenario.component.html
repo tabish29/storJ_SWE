@@ -21,6 +21,13 @@
                 <option value="FINALE">FINALE</option>
             </select>
         </div>
+        <!-- Sezione per la selezione di un oggetto -->
+        <div class="form-group">
+            <label for="objectSelect">Oggetto Droppato:</label>
+            <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
+                <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
+            </select>
+        </div>
         <button type="submit" class="btn-creazione">Crea Scenario</button>
     </form>
 </div>

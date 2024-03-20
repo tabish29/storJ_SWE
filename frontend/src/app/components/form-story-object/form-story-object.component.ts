@@ -36,7 +36,7 @@ export class FormStoryObjectComponent {
  
    public savestoryObject(storyObject: storyObject): void {
  
-     this.storyObjectService.addstoryObject(storyObject).subscribe(
+     this.storyObjectService.addStoryObject(storyObject).subscribe(
        (response: storyObject) => {
          this.storyObjectService.changestoryObject(response);
          alert("storyObject creato con successo!")

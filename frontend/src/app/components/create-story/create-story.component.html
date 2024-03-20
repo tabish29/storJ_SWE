@@ -2,11 +2,15 @@
 <div class="container">
     <div *ngFor="let item of scenarios" class="scenario-box">
         <div class="info">
+            <div><label>Id: {{ item.id }}</label></div>
             <div><label>Testo: {{ item.testo }}</label></div>
             <div><label>Tipo_risposta: {{ item.tipo_risposta }}</label></div>
             <div><label>Tipo_scenario: {{ item.tipo_scenario }}</label></div>
+            <div *ngIf="scenarioHasDrop(item.id)"><label>Drop: {{ dropMap.get(item.id) }}</label></div>
+            
         </div>
         <div class="remove-button"><button (click)="removeScenario(item.id)">Rimuovi</button></div>
-        <div class="remove-button"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">scelte</button></div>
+        <div class="remove-button"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">scelte</button>
+        </div>
     </div>
 </div>

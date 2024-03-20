@@ -9,22 +9,27 @@ import { storyObject } from '../storyObject';
 }) export class storyObjectService {
 
   private apiServerUrl = 'http://localhost:8080/api/v1';
-  private storyObjectSource = new BehaviorSubject<storyObject | null>(this.loadInitialstoryObject());
+  private storyObjectSource = new BehaviorSubject<storyObject | null>(this.loadInitialStoryObject());
   currentstoryObject = this.storyObjectSource.asObservable();
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
-  public getstoryObjectByStoryId(idStoria: number): Observable<storyObject[]> {
-    //mettere l'url del metodo get da una storia specifica(prendere l'id della storia)
+  public getStoryObjectByStoryId(idStoria: number): Observable<storyObject[]> {
+
     return this.http.get<storyObject[]>(this.apiServerUrl + '/storie/' + idStoria + '/oggetti');
   }
 
-  public addstoryObject(storyObject: storyObject): Observable<storyObject> {
-    //mettere l'url del metodo post 
+  public getStoryObject(idStoryObject: number): Observable<storyObject> {
+
+    return this.http.get<storyObject>(this.apiServerUrl + '/oggetti/' + idStoryObject);
+  }
+
+  public addStoryObject(storyObject: storyObject): Observable<storyObject> {
+
     return this.http.post<storyObject>(this.apiServerUrl + '/oggetti', storyObject);
   }
 
-  deletestoryObject(storyObjectId: number): void {
+  deleteStoryObject(storyObjectId: number): void {
     this.http.delete(this.apiServerUrl + '/oggetti/' + storyObjectId).subscribe({
       next: () => {
         alert('storyObject eliminato con successo');
@@ -36,7 +41,7 @@ import { storyObject } from '../storyObject';
 
   }
 
-  loadInitialstoryObject(): storyObject | null {
+  loadInitialStoryObject(): storyObject | null {
     return this.localStorageService.getItem('currentstoryObject');
   }
 

@@ -3,9 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ScenarioService } from '../../services/scenario.service';
 import { scenario } from '../../scenario';
+import { storyObject } from '../../storyObject';
+import { drop } from '../../drop';
 import { scenarioType } from '../../scenarioType';
 import { responseType } from '../../responseType';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { storyObjectService } from '../../services/story-object.service';
+import { DropService } from '../../services/drop.service';
 
 @Component({
   selector: 'app-form-scenario',
@@ -19,11 +23,14 @@ export class FormScenarioComponent implements OnInit {
   testo = '';
   tipoRisposta!: responseType;
   tipoScenario!: scenarioType;
+  storyObjects:storyObject[]=[];
+  selectedObjectId: number= -1; 
 
-  constructor(private http: HttpClient, private scenarioService: ScenarioService, private router: Router, private localStorageService: LocalStorageService) { }
+  constructor(private http: HttpClient, private scenarioService: ScenarioService,private storyObjectService:storyObjectService,private dropService:DropService,private router: Router, private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.loadStoryId();
+    this.loadStoryObjects();
 
   }
 
@@ -36,13 +43,49 @@ export class FormScenarioComponent implements OnInit {
     }
   }
 
+  loadStoryObjects() {
+    const currentStoryId = this.localStorageService.getItem('currentStory')?.id;
+    if (currentStoryId) {
+      this.storyObjectService.getStoryObjectByStoryId(currentStoryId).subscribe(
+        (objects) => {
+          this.storyObjects = objects;
+        },
+        (error) => alert('Errore nel caricamento degli oggetti')//(Da modificare) 
+      );
+    }
+  }
+
+  public saveDrop(drop:drop){
+
+    this.dropService.addDrop(drop).subscribe(
+      (response: drop) => {
+        this.dropService.changeDrop(response);
+        console.log("Drop creato con successo!");
+
+      },
+      (error: HttpErrorResponse) => {
+        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
+       console.log("c'è stato un errore nella crezione del drop"+error.error.message)
+      }
+    );
+  }
 
   public savescenario(scenario: scenario): void {
 
     this.scenarioService.addscenario(scenario).subscribe(
       (response: scenario) => {
         this.scenarioService.changescenario(response);
-        alert("Scenario creato con successo!")
+        alert("Scenario creato con successo!");
+
+        if(this.selectedObjectId != -1){
+          const objDrop: drop={
+            id: 0,
+            id_scenario: response.id,//id dello scenario appena creato
+            id_oggetto: this.selectedObjectId
+          };
+          this.saveDrop(objDrop);
+    
+        }
 
         this.router.navigateByUrl('/createStory');
 
@@ -59,7 +102,7 @@ export class FormScenarioComponent implements OnInit {
   }
 
   onSubmit() {
-
+    //mettere anche il salvataggio di drop nel caso venisse creato 
     //decidere se servono le infomazioni che vengono aggiunte direttamente dal backend(da decidere)
     const scenarioData: scenario = {
       id: 0,
