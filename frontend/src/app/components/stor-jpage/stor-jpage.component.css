@@ -1,3 +1,17 @@
+div {
+    position: static;
+}
+
+.hidden-visible:hover span {
+    color: blue;
+    visibility: visible;
+}
+
+.visible-hidden {
+    margin-left: 10px;
+    visibility: hidden;
+}
+
 .messaggio {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;

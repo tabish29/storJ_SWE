@@ -26,7 +26,7 @@ ngOnInit(): void {
 }
 
 loadstoryObjects(): void {
-  this.storyObjectService.getstoryObjectByStoryId(this.storyId).subscribe(
+  this.storyObjectService.getStoryObjectByStoryId(this.storyId).subscribe(
     (storyObjects: storyObject[]) => {
       this.storyObjects = storyObjects;
     },
@@ -37,7 +37,7 @@ loadstoryObjects(): void {
 }
 
 removestoryObject(storyObjectId: number): void {
-  this.storyObjectService.deletestoryObject(storyObjectId);
+  this.storyObjectService.deleteStoryObject(storyObjectId);
   this.loadstoryObjects();
   location.reload(); //per fare il refresh dell'applicazione
 }

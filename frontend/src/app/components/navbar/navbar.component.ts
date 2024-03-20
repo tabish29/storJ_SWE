@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
+
 export class NavbarComponent implements OnInit, OnDestroy {
   showPaymentButton = false;
   private userSub!: Subscription;
@@ -47,9 +48,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       } else {
         // Se user è null, imposta showPaymentButton a false
         this.showPaymentButton = false;
-
       }
-
     }, error => {
       console.log('error:', error);
     });
@@ -73,7 +72,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         alert('salvataggio avvenuto con successo')
       },
       (error: HttpErrorResponse) => {
-
         switch (error.error.code) {
           case "SalvataggioFailedScenarioIniziale":
             alert(error.error.message);
@@ -92,9 +90,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
             alert(error.error.message);
             break;
         }
-
       });
-
   }
 
   //(da decidere)Se tenere la freccia in tutte le pagine oppure solo in quelle presenti nel metodo
@@ -109,8 +105,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
       case '/createStory':
         this.router.navigateByUrl('homeStories');
         break;
+      case '/formStory':
+        this.router.navigateByUrl('homeStories');
+        break;
+      case '/formScenario':
+        this.router.navigateByUrl('createStory');
+        break;
       case '/storyObjects':
         this.router.navigateByUrl('createStory');
+        break;
+      case '/formStoryObject':
+        this.router.navigateByUrl('storyObjects');
         break;
       case '/multiplechoice':
         this.router.navigateByUrl('createStory');
@@ -118,14 +123,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
       case '/singlechoice':
         this.router.navigateByUrl('createStory');
         break;
+      case '/formMultipleChoice':
+        this.router.navigateByUrl('multiplechoice');
+        break;
+      case '/formSingleChoice':
+        this.router.navigateByUrl('singlechoice');
+        break;
       default:
         this.router.navigateByUrl('storJPage');
         break;
-
-
-
     }
-
   }
-
 }
