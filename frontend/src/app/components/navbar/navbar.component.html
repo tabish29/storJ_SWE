@@ -1,14 +1,14 @@
 <nav class="navbar">
     <div class="logo">
-        <h1>storj</h1>
         <div class="arrow">
             <!-- Icona freccia indietro per utenti autenticati -->
-            <button mat-button  *ngIf="isAuthenticated() && currentUrl != '/storJPage'" (click)="goBack(currentUrl)"> <mat-icon>arrow_back</mat-icon></button>
+            <button mat-button *ngIf="isAuthenticated() && currentUrl != '/storJPage'" (click)="goBack(currentUrl)">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
         </div>
     </div>
-    
-    <div class="login">
 
+    <div class="login">
         <!-- Mostra questi pulsanti solo se l'utente NON è autenticato -->
         <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Sign In</button>
         <button mat-button routerLink="/register" *ngIf="!isAuthenticated()">Sign Up</button>
@@ -32,25 +32,20 @@
         <button mat-button routerLink="/handlerPlaypage"
             *ngIf="currentUrl === '/storJPage' &&  isAuthenticated() && !showPaymentButton">Gioca</button>
 
-
         <button mat-button routerLink="/homeStories"
             *ngIf="currentUrl === '/storJPage' && isAuthenticated()">Crea</button>
-        <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
-
 
         <!-- Mostra questo pulsante solo se l'utente si trova in homestories-->
-        <button mat-button routerLink="/formStory" *ngIf="currentUrl === '/homeStories' && isAuthenticated()">Crea
-            storia</button>
+        <button mat-button routerLink="/formStory" *ngIf="currentUrl === '/homeStories' && isAuthenticated()">Crea storia</button>
 
-        <!-- Mostra questo pulsante solo se l'utente si trova in multipleChoices-->
+        <!-- Mostra questo pulsante solo se l'utente si trova in formMultipleChoices-->
         <button mat-button routerLink="/formMultipleChoice"
-            *ngIf="currentUrl === '/multiplechoice' && isAuthenticated()">Crea scelta</button>
+            *ngIf="currentUrl === '/multiplechoice' && isAuthenticated()">Crea storia</button>
 
-        <!-- Mostra questo pulsante solo se l'utente si trova in singleChoice-->
+        <!-- Mostra questo pulsante solo se l'utente si trova in formSingleChoice-->
         <button mat-button routerLink="/formSingleChoice"
             *ngIf="currentUrl === '/singlechoice' && isAuthenticated()">Crea scelta</button>
-
-
-
+            
+        <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
     </div>
 </nav>
