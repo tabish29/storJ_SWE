@@ -123,6 +123,17 @@
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
 					<version>0.8.8</version>
+					<configuration>
+						<excludes>
+							<exclude>storj/model/**</exclude>
+							<exclude>storj/api/**</exclude>
+							<exclude>com/grandel/storj/api/**</exclude>
+							<exclude>com/grandel/storj/error/**</exclude>
+							<exclude>com/grandel/storj/entity/**</exclude>
+							<exclude>com/grandel/storj/dto/**</exclude>
+							<exclude>com/grandel/storj/payment/**</exclude>
+						</excludes>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
