@@ -15,6 +15,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class SavingService {
+
     @Autowired
     private MultiplaBL multiplaBL;
     @Autowired
@@ -34,13 +35,13 @@ public class SavingService {
         List<ScenarioDTO> scenari = scenarioBL.getScenariByStoria(id, null);
 
         for (ScenarioDTO x : scenari) {
-            if(!x.getTipoScenario().equals(TipoScenarioEnum.FINALE)){
+            if (!x.getTipoScenario().equals(TipoScenarioEnum.FINALE)) {
                 if (x.getTipoRisposta().equals(TipoRispostaEnum.MULTIPLA)) {
                     if (multiplaBL.getMultipleByScenario(x.getId()).size() < 2) {
                         throw new ErrorException(ErrorEnum.SALVATAGGIOFAILEDMULT);
                     }
                 } else {
-                    if(indovinelloBL.getIndovinelloByScenario(x.getId()) == null){
+                    if (indovinelloBL.getIndovinelloByScenario(x.getId()) == null) {
                         throw new ErrorException(ErrorEnum.SALVATAGGIOFAILEDINDO);
                     }
                 }
