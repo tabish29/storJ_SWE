@@ -11,22 +11,26 @@ import storj.model.Oggetto;
 
 @Mapper(componentModel = "spring")
 public abstract class OggettoMapper {
+
     @Autowired
     StoriaMapper storiaMapper;
     @Autowired
     StoriaBL storiaBL;
 
     public abstract OggettoDTO oggettoToOggettoDTO(Oggetto oggetto);
+
     public abstract OggettoDTO oggettoEntityToOggettoDTO(OggettoEntity oggettoEntity);
+
     public abstract Oggetto oggettoDTOToOggetto(OggettoDTO oggettoDTO);
+
     public abstract OggettoEntity oggettoDTOToOggettoEntity(OggettoDTO oggettoDTO);
 
-    public StoriaEntity map(Long id){
+    public StoriaEntity map(Long id) {
         StoriaDTO storiaDTO = storiaBL.getStoriaDTOById(id);
         return storiaMapper.storiaDTOToStoriaEntity(storiaDTO);
     }
 
-    public Long map(StoriaEntity storiaEntity){
+    public Long map(StoriaEntity storiaEntity) {
         return storiaEntity.getId();
     }
 }

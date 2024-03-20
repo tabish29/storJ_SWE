@@ -12,26 +12,27 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class OggettoService {
+
     @Autowired
     private OggettoRepository oggettoRepository;
 
-    public OggettoEntity postOggetto(OggettoEntity oggettoEntity){
+    public OggettoEntity postOggetto(OggettoEntity oggettoEntity) {
         return oggettoRepository.save(oggettoEntity);
     }
 
-    public Optional<OggettoEntity> findById(Long id){
+    public Optional<OggettoEntity> findById(Long id) {
         return oggettoRepository.findById(id);
     }
 
-    public OggettoEntity putOggetto(OggettoEntity oggettoEntity){
+    public OggettoEntity putOggetto(OggettoEntity oggettoEntity) {
         return oggettoRepository.save(oggettoEntity);
     }
 
-    public void deleteOggetto(Long id){
+    public void deleteOggetto(Long id) {
         oggettoRepository.deleteById(id);
     }
 
-    public List<OggettoEntity> getOggettiByStoria(Long idStoria){
+    public List<OggettoEntity> getOggettiByStoria(Long idStoria) {
         return oggettoRepository.findByStoria(idStoria);
     }
 }
