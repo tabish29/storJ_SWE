@@ -11,4 +11,5 @@ public interface DropRepository extends JpaRepository<DropEntity, Long> {
 
     @Query("SELECT d FROM DropEntity d WHERE d.idScenario.id = :idScenario")
     DropEntity getDropByScenario(@Param("idScenario") Long idScenario);
+
 }

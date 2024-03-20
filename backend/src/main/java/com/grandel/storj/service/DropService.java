@@ -11,26 +11,27 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class DropService {
+
     @Autowired
     private DropRepository dropRepository;
 
-    public Optional<DropEntity> findById(Long id){
+    public Optional<DropEntity> findById(Long id) {
         return dropRepository.findById(id);
     }
 
-    public DropEntity postDrop(DropEntity dropEntity){
+    public DropEntity postDrop(DropEntity dropEntity) {
         return dropRepository.save(dropEntity);
     }
 
-    public DropEntity putDrop(DropEntity dropEntity){
+    public DropEntity putDrop(DropEntity dropEntity) {
         return dropRepository.save(dropEntity);
     }
 
-    public void deleteDrop(Long id){
+    public void deleteDrop(Long id) {
         dropRepository.deleteById(id);
     }
 
-    public DropEntity getDropByScenario(Long idScenario){
+    public DropEntity getDropByScenario(Long idScenario) {
         return dropRepository.getDropByScenario(idScenario);
     }
 }

@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "drop")
 public class DropEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
