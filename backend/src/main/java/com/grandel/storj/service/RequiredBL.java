@@ -14,46 +14,47 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class RequiredBL {
+
     @Autowired
     private RequiredMapper requiredMapper;
     @Autowired
     private RequiredService requiredService;
 
-    public RequiredDTO getRequiredDTOById(Long id){
+    public RequiredDTO getRequiredDTOById(Long id) {
         Optional<RequiredEntity> required = requiredService.findById(id);
-        if(!required.isPresent()){
+        if (!required.isPresent()) {
             throw new ErrorException(ErrorEnum.REQUIREDNOTFOUND);
         }
 
         return requiredMapper.requiredEntityToRequiredDTO(required.get());
     }
 
-    public RequiredDTO postRequired(RequiredDTO requiredDTO){
+    public RequiredDTO postRequired(RequiredDTO requiredDTO) {
         RequiredEntity requiredEntity = requiredMapper.requiredDTOToRequiredEntity(requiredDTO);
         requiredEntity = requiredService.postRequired(requiredEntity);
         return requiredMapper.requiredEntityToRequiredDTO(requiredEntity);
     }
 
-    public RequiredDTO putRequired(Long id, RequiredDTO requiredDTO){
+    public RequiredDTO putRequired(Long id, RequiredDTO requiredDTO) {
         Optional<RequiredEntity> required = requiredService.findById(id);
-        if(!required.isPresent()){
+        if (!required.isPresent()) {
             throw new ErrorException(ErrorEnum.REQUIREDNOTFOUND);
         }
 
         requiredDTO.setId(id);
         RequiredEntity requiredEntity = requiredMapper.requiredDTOToRequiredEntity(requiredDTO);
-        requiredEntity = requiredService.postRequired(requiredEntity);
+        requiredEntity = requiredService.putRequired(requiredEntity);
 
         return requiredMapper.requiredEntityToRequiredDTO(requiredEntity);
     }
 
-    public void deleteRequired(Long id){
-        if(getRequiredDTOById(id) != null){
+    public void deleteRequired(Long id) {
+        if (getRequiredDTOById(id) != null) {
             requiredService.deleteRequired(id);
         }
     }
 
-    public RequiredDTO getRequiredByScelta(Long idScelta){
+    public RequiredDTO getRequiredByScelta(Long idScelta) {
         RequiredEntity requiredEntity = requiredService.getRequiredByScelta(idScelta);
         return requiredMapper.requiredEntityToRequiredDTO(requiredEntity);
     }
