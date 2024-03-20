@@ -89,30 +89,3 @@ CREATE TABLE IF NOT EXISTS inventario(
     FOREIGN KEY (id_partita) REFERENCES partita(id) ON DELETE CASCADE,
     FOREIGN KEY (id_oggetto) REFERENCES oggetto(id) ON DELETE CASCADE
 );
-
-CREATE OR REPLACE FUNCTION update_numero_scenari()
-    RETURNS TRIGGER AS $$
-BEGIN
-    IF TG_OP = 'INSERT' THEN
-        UPDATE storia
-        SET numero_scenari = numero_scenari + 1
-        WHERE id = NEW.id_storia;
-    ELSIF TG_OP = 'DELETE' THEN
-        UPDATE storia
-        SET numero_scenari = numero_scenari - 1
-        WHERE id = OLD.id_storia;
-    END IF;
-
-    RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER increment_numero_scenari_trigger
-    AFTER INSERT ON scenario
-    FOR EACH ROW
-EXECUTE FUNCTION update_numero_scenari();
-
-CREATE TRIGGER decrement_numero_scenari_trigger
-    AFTER DELETE ON scenario
-    FOR EACH ROW
-EXECUTE FUNCTION update_numero_scenari();

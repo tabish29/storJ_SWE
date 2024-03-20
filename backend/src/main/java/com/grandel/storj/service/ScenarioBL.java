@@ -5,6 +5,7 @@ import com.grandel.storj.entity.ScenarioEntity;
 import com.grandel.storj.error.ErrorEnum;
 import com.grandel.storj.error.ErrorException;
 import com.grandel.storj.mapper.ScenarioMapper;
+import com.grandel.storj.mapper.StoriaMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class ScenarioBL {
     private ScenarioService scenarioService;
     @Autowired
     private ScenarioMapper scenarioMapper;
+    @Autowired
+    private StoriaMapper storiaMapper;
+    @Autowired
+    private StoriaBL storiaBL;
 
     public ScenarioDTO getScenarioDTOById(Long id) {
         Optional<ScenarioEntity> scenario = scenarioService.findById(id);
@@ -34,6 +39,9 @@ public class ScenarioBL {
     public ScenarioDTO postScenario(ScenarioDTO scenarioDTO) {
         ScenarioEntity scenarioEntity = scenarioMapper.scenarioDTOToScenarioEntity(scenarioDTO);
         scenarioEntity = scenarioService.postScenario(scenarioEntity);
+
+        storiaBL.increaseNumScen(scenarioEntity.getIdStoria().getId());
+
         return scenarioMapper.scenarioEntityToScenarioDTO(scenarioEntity);
     }
 
@@ -52,7 +60,10 @@ public class ScenarioBL {
 
     public void deleteScenario(Long id) {
         if (getScenarioDTOById(id) != null) {
+            Long idStoria = storiaBL.getStoriaDTOById(getScenarioDTOById(id).getIdStoria().getId()).getId();
             scenarioService.deleteScenario(id);
+
+            storiaBL.decreaseNumScen(idStoria);
         }
     }
 

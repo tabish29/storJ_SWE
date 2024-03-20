@@ -72,6 +72,18 @@ public class StoriaBL {
         return storieDTO;
     }
 
+    public void increaseNumScen(Long id){
+        StoriaDTO storiaDTO = getStoriaDTOById(id);
+        storiaDTO.setNumeroScenari(storiaDTO.getNumeroScenari() + 1);
+        postStoria(storiaDTO);
+    }
+
+    public void decreaseNumScen(Long id){
+        StoriaDTO storiaDTO = getStoriaDTOById(id);
+        storiaDTO.setNumeroScenari(storiaDTO.getNumeroScenari() - 1);
+        postStoria(storiaDTO);
+    }
+
     public List<StoriaDTO> getStorie(String autore, String categoria, Integer num_scenari) {
         if (autore != null && categoria != null && num_scenari != null) {
             throw new ErrorException(ErrorEnum.FILTROERROR);
