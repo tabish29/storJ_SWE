@@ -97,7 +97,7 @@ export class FormMultipleChoiceComponent {
     
         }
 
-        this.router.navigateByUrl('/createStory');
+        this.router.navigateByUrl('/multiplechoice');
 
       },
       (error: HttpErrorResponse) => {
