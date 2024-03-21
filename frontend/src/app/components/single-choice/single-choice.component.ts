@@ -27,6 +27,7 @@ export class SingleChoiceComponent {
     this.singleChoiceService.getSingleChoiceByScenarioId(this.scenarioId).subscribe(
       (singleChoice: singleChoice) => {
         this.singleChoice = singleChoice;
+       
       },
       error => {
         console.error('Errore nel caricamento delle scelte', error);
@@ -36,6 +37,7 @@ export class SingleChoiceComponent {
 
   removeSingleChoice(singleChoiceId: number): void {
     this.singleChoiceService.deleteSingleChoice(singleChoiceId);
+    this.singleChoiceService.setIsChoiceCreated(false);
     this.loadSingleChoice();
     location.reload();
   }

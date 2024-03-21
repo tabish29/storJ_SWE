@@ -7,6 +7,6 @@
             <div><label>Numero Scenari: {{ item.numero_scenari }}</label></div>
         </div>
         <div class="edit-button" *ngIf="!item.statoCompletamento"><button (click)="editStory(item)">Modifica Storia</button></div>
-        <div class="editText-button" *ngIf="item.statoCompletamento"><button (click)="editText()">Modifica Testo Storia</button></div>
+        <div class="edit-button" *ngIf="item.statoCompletamento"><button (click)="editText()">Modifica Testo Storia</button></div>
     </div>
 </div>

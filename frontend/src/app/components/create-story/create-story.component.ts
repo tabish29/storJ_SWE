@@ -53,7 +53,7 @@ export class CreateStoryComponent {
                     if(storyObject){
                     this.dropMap.set(scenario.id, storyObject.nome);
                   }
-                    console.log("Oggetto individuato:", storyObject);
+                    
                 } catch (error) {
                     console.error("Errore nel caricamento del nome dell'oggetto da drop", error);
                 }

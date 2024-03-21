@@ -9,26 +9,27 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class SingleChoiceService {
 
-  
+
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private singleChoiceSource = new BehaviorSubject<singleChoice | null>(this.loadInitialSingleChoice());
+  private isChoiceCreated!: boolean;
   currentsingleChoice = this.singleChoiceSource.asObservable();
 
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public getSingleChoiceByScenarioId(idScenario: number): Observable<singleChoice> {
-   
+
     return this.http.get<singleChoice>(this.apiServerUrl + '/scenari/' + idScenario + '/scelte/indovinello');
   }
 
   public addSingleChoice(singleChoice: singleChoice): Observable<singleChoice> {
-    
+
     return this.http.post<singleChoice>(this.apiServerUrl + '/scelte/indovinello', singleChoice);
   }
 
   deleteSingleChoice(singleChoiceId: number): void {
-    this.http.delete(this.apiServerUrl + '/scelte/' + singleChoiceId+'/indovinello').subscribe({ 
+    this.http.delete(this.apiServerUrl + '/scelte/' + singleChoiceId + '/indovinello').subscribe({
       next: () => {
         alert('singleChoice eliminato con successo');
       },
@@ -52,6 +53,14 @@ export class SingleChoiceService {
 
   getCurrentsingleChoice(): singleChoice | null {
     return this.singleChoiceSource.value;
+  }
+
+  setIsChoiceCreated(isChoiceCreated: boolean): void {
+    this.isChoiceCreated = isChoiceCreated;
+  }
+
+  getIsChoiceCreated() {
+    return this.isChoiceCreated;
   }
 
 }

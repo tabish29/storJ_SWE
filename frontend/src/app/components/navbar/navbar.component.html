@@ -40,11 +40,11 @@
 
         <!-- Mostra questo pulsante solo se l'utente si trova in formMultipleChoices-->
         <button mat-button routerLink="/formMultipleChoice"
-            *ngIf="currentUrl === '/multiplechoice' && isAuthenticated()">Crea storia</button>
+            *ngIf="currentUrl === '/multiplechoice' && isAuthenticated()">Crea scelta</button>
 
         <!-- Mostra questo pulsante solo se l'utente si trova in formSingleChoice-->
         <button mat-button routerLink="/formSingleChoice"
-            *ngIf="currentUrl === '/singlechoice' && isAuthenticated()">Crea scelta</button>
+            *ngIf="currentUrl === '/singlechoice' && isAuthenticated() && !getIsSingleChoiceCreated()">Crea scelta</button>
             
         <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
     </div>

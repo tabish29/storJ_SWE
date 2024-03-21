@@ -56,9 +56,10 @@ export class FormSingleChoiceComponent {
     this.singleChoiceService.addSingleChoice(singleChoice).subscribe(
       (response: singleChoice) => {
         this.singleChoiceService.changeSingleChoice(response);
+        this.singleChoiceService.setIsChoiceCreated(true);
         alert("singleChoice creato con successo!")
 
-        this.router.navigateByUrl('/createStory');
+        this.router.navigateByUrl('/createStory');//(da modificare)
 
       },
       (error: HttpErrorResponse) => {

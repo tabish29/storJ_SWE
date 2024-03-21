@@ -7,6 +7,7 @@ import { Subscription, throwError } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
 import { StoryService } from '../../services/story.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SingleChoiceService } from '../../services/single-choice.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
 
-  constructor(private router: Router, private authService: AuthService, private userService: UserService, private storyService: StoryService) {
+  constructor(private router: Router, private authService: AuthService, private userService: UserService, private storyService: StoryService,private singleChoiceService:SingleChoiceService) {
     // Imposta l'URL corrente al valore iniziale
     this.currentUrl = router.url;
   }
@@ -64,6 +65,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']); // Reindirizza l'utente alla pagina di login dopo il logout
+  }
+
+  getIsSingleChoiceCreated():boolean{
+    return this.singleChoiceService.getIsChoiceCreated();
   }
 
   saveStory(): void {

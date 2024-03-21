@@ -22,7 +22,7 @@
     display: block; 
 }
 
-.play-button {
+.edit-button {
     margin-top: auto; 
     text-align: right; 
 }
@@ -36,7 +36,7 @@
     font-size: 4vw; /* Adatta la dimensione del testo alla larghezza della viewport */
   }
   
-  /* Stili aggiuntivi per garantire che il messaggio sia visibile e leggibile */
+  
   .no-stories-message {
     padding: 20px;
     border: 2px solid #000;
