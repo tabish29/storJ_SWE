@@ -2,6 +2,7 @@
 <div class="container">
     <div *ngFor="let item of storyObjects" class="story-object-box">
         <div class="info">
+            <div><label>Nome: {{ item.id }}</label></div>
             <div><label>Nome: {{ item.nome }}</label></div>
             <div><label>Descrizione: {{ item.descrizione }}</label></div>
         </div>

@@ -70,17 +70,17 @@ export class FormScenarioComponent implements OnInit {
     );
   }
 
-  public savescenario(scenario: scenario): void {
+  public saveScenario(scenario: scenario): void {
 
-    this.scenarioService.addscenario(scenario).subscribe(
+    this.scenarioService.addScenario(scenario).subscribe(
       (response: scenario) => {
-        this.scenarioService.changescenario(response);
+        this.scenarioService.changeScenario(response);
         alert("Scenario creato con successo!");
 
         if(this.selectedObjectId != -1){
           const objDrop: drop={
             id: 0,
-            id_scenario: response.id,//id dello scenario appena creato
+            id_scenario: response.id,
             id_oggetto: this.selectedObjectId
           };
           this.saveDrop(objDrop);
@@ -112,7 +112,7 @@ export class FormScenarioComponent implements OnInit {
       tipo_scenario: this.tipoScenario
     };
 
-    this.savescenario(scenarioData);
+    this.saveScenario(scenarioData);
   }
 
 

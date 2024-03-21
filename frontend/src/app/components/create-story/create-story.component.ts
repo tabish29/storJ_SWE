@@ -91,7 +91,7 @@ export class CreateStoryComponent implements OnInit {
   }
 
   changeScenario(newscenario: scenario) {
-    this.scenarioService.changescenario(newscenario);
+    this.scenarioService.changeScenario(newscenario);
   }
 
 }

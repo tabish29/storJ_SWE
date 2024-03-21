@@ -12,6 +12,13 @@
                 <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} (ID: {{scenario.id }})</option>
             </select>
         </div>
+         <!-- Sezione per la selezione di un oggetto -->
+         <div class="form-group">
+            <label for="objectSelect">Oggetto Richiesto:</label>
+            <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
+                <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
+            </select>
+        </div>
        
         <button type="submit" class="btn-creazione">Crea Scelta Multipla</button>
     </form>

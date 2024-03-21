@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { scenario } from '../../scenario';
 import { singleChoice } from '../../singleChoice';
+import { storyObject } from '../../storyObject';
+import { storyObjectService } from '../../services/story-object.service';
 
 @Component({
   selector: 'app-form-single-choice',
@@ -21,13 +23,16 @@ export class FormSingleChoiceComponent {
   idScenarioRispostaCorretta = 0;
   idScenarioRispostaSbagliata = 0;
   storyScenarios: scenario[] = [];
+  storyObjects: storyObject[] = [];
+  selectedObjectId: number = -1;
 
 
-  constructor(private http: HttpClient, private singleChoiceService: SingleChoiceService, private scenarioService: ScenarioService, private router: Router, private localStorageService: LocalStorageService) { }
+  constructor(private http: HttpClient, private singleChoiceService: SingleChoiceService, private scenarioService: ScenarioService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.loadScenarioId();
     this.loadStoryScenarios(this.idScenario);
+    this.loadStoryObjects();
 
   }
 
@@ -40,8 +45,20 @@ export class FormSingleChoiceComponent {
     }
   }
 
+  loadStoryObjects() {
+    const currentStoryId = this.localStorageService.getItem('currentStory')?.id;
+    if (currentStoryId) {
+      this.storyObjectService.getStoryObjectByStoryId(currentStoryId).subscribe(
+        (objects) => {
+          this.storyObjects = objects;
+        },
+        (error) => alert('Errore nel caricamento degli oggetti')//(Da modificare) 
+      );
+    }
+  }
 
-  loadStoryScenarios(idScenario:number) {
+
+  loadStoryScenarios(idScenario: number) {
     const currentStoryId = this.localStorageService.getItem('currentStory').id;
     if (currentStoryId) {
       this.scenarioService.getScenarioByStoryId(currentStoryId).subscribe(scenarios => {
@@ -57,7 +74,7 @@ export class FormSingleChoiceComponent {
       (response: singleChoice) => {
         this.singleChoiceService.changeSingleChoice(response);
         this.singleChoiceService.setIsChoiceCreated(true);
-        alert("singleChoice creato con successo!")
+        alert("singleChoice creato con successo!");
 
         this.router.navigateByUrl('/createStory');//(da modificare)
 
@@ -74,7 +91,6 @@ export class FormSingleChoiceComponent {
   }
 
   onSubmit() {
-
     //decidere se servono le infomazioni che vengono aggiunte direttamente dal backend(da decidere)
     const singleChoiceData: singleChoice = {
       id: 0,
