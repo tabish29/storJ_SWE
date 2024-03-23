@@ -6,22 +6,28 @@ pipeline {
         PASSWORD_VM = credentials("password_vm")
         USERNAME_VM_DEPLOY = credentials("username_vm_deploy")
         IP_VM_DEPLOY = credentials("ip_vm_deploy")
-        JENKINS_PATH = "/home/jenkins_home/jenkins/workspace/storj/CD_storj/storj_SWE"
+        JENKINS_PATH = "/home/jenkins_home/jenkins/workspace/storj/CD_storj"
     }
     
     stages {
         stage('Git') {
             steps {
-                sh "cd /home/jenkins_home/jenkins/workspace/storj/CD_storj/ && git clone https://github.com/DavideDeRosa/storj_SWE && git checkout ${branch}"
+                git branch: "${branch}", url: "https://github.com/DavideDeRosa/storj_SWE"
             }
         }
         
         stage('Package') {
             steps {
-                sh "cd ${JENKINS_PATH} && rm -rf ${JENKINS_PATH}/Dockerfile"
-                sh "cd ${JENKINS_PATH} && rm -rf ${JENKINS_PATH}/pipeline_ci.txt"
-                sh "cd ${JENKINS_PATH} && rm -rf ${JENKINS_PATH}/pipeline_cd.txt"
-                sh "zip -r storj.zip ${JENKINS_PATH}/*"
+                sh "rm -rf ${JENKINS_PATH}/backend"
+                sh "rm -rf ${JENKINS_PATH}/frontend"
+                sh "rm -rf ${JENKINS_PATH}/db"
+                sh "rm -rf ${JENKINS_PATH}/payment"
+                sh "rm -rf ${JENKINS_PATH}/.dockerignore"
+                sh "rm -rf ${JENKINS_PATH}/.gitignore"
+                sh "rm -rf ${JENKINS_PATH}/docker-compose.yml"
+                sh "rm -rf ${JENKINS_PATH}/README.md"
+                sh "cd ${JENKINS_PATH} && ls -la"
+                sh "cd ${JENKINS_PATH} && zip -r storj.zip CI_CD/*"
             }
         }
         
@@ -34,29 +40,17 @@ pipeline {
             } 
         }
         
-        stage('Teardown'){
-            steps{
-                script{
-                    sh """sshpass -p $PASSWORD_VM ssh -p 22 $USERNAME_VM_DEPLOY@$IP_VM_DEPLOY << EOF 
-                    cd storj/
-                    if [ -d "storj_SWE/sql" ]; then cd vm-jenkins/ && docker-compose down; fi
-                    exit
-                    EOF"""
-                }
-            }
-        }
-        
         stage('Deploy'){
             steps{
                 script{
                     sh """sshpass -p $PASSWORD_VM ssh -p 22 $USERNAME_VM_DEPLOY@$IP_VM_DEPLOY << EOF 
                     cd storj/
-                    rm -rf storj_SWE/
+                    rm -rf CI_CD/
                     unzip -o storj.zip
-                    cd storj_SWE/
+                    cd CI_CD/
                     ls -la
                     echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-                    docker-compose up -d
+                    docker-compose up --build -d
                     cd ..
                     rm storj.zip
                     exit
@@ -67,7 +61,7 @@ pipeline {
         
         stage('House keeping') {
             steps {
-                sh "rm -rf ${JENKINS_PATH}"
+                sh "rm -rf ${JENKINS_PATH}/*"
             }
         }
     }

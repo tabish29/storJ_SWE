@@ -13,7 +13,8 @@ pipeline {
     stages {
         stage('Git') {
             steps {
-                sh "cd /home/jenkins_home/jenkins/workspace/storj/CI_storj/ && git clone https://github.com/DavideDeRosa/storj_SWE && git checkout ${branch}"
+                sh "cd /home/jenkins_home/jenkins/workspace/storj/CI_storj/ && git clone https://github.com/DavideDeRosa/storj_SWE"
+                sh "cd ${JENKINS_PATH} && git checkout ${branch} && git pull"
             }
         }
         
