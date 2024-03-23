@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+    
+    tools{
+        maven "m3"
+    }
+    
+    environment{
+        DOCKERHUB_CREDENTIALS = credentials("dockerhub-imolasportiva")
+        JENKINS_PATH = "/home/jenkins_home/jenkins/workspace/storj/CI_storj/storj_SWE"
+    }
+    
+    stages {
+        stage('Git') {
+            steps {
+                sh "cd /home/jenkins_home/jenkins/workspace/storj/CI_storj/ && git clone https://github.com/DavideDeRosa/storj_SWE && git checkout ${branch}"
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                sh "cd ${JENKINS_PATH}/backend/ && mvn clean package"
+            }
+        }
+        
+        stage('Download Dockerfile') {
+            steps {
+                sh "curl --location 'https://raw.githubusercontent.com/DavideDeRosa/storJ_SWE/develop/CI_CD/Dockerfile' --output ${JENKINS_PATH}/Dockerfile"
+            }
+        }
+        
+        stage('Copy .jar') {
+            steps {
+                sh "cp -r ${JENKINS_PATH}/backend/target/*.jar ${JENKINS_PATH}"
+                sh "cd ${JENKINS_PATH} && mv *.jar storj.jar"
+            }
+        }
+        
+        stage('Docker Login') {
+            steps {
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+            }
+        }
+        
+        stage('Docker Build and Push') {
+            steps {
+                script{
+                    sh "cd ${JENKINS_PATH} && docker build -t davidederosa24/storj:latest ."
+                    sh "docker push davidederosa24/storj:latest"
+                    
+                    sh "docker rmi -f davidederosa24/storj:latest"
+                }
+            }
+        }
+    }
+    
+    post{
+        always{
+            sh "docker logout"
+            sh "rm -rf ${JENKINS_PATH}"
+        }
+    }
+}

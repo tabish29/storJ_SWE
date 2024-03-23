@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+    
+    environment{
+        DOCKERHUB_CREDENTIALS = credentials("dockerhub-imolasportiva")
+        PASSWORD_VM = credentials("password_vm")
+        USERNAME_VM_DEPLOY = credentials("username_vm_deploy")
+        IP_VM_DEPLOY = credentials("ip_vm_deploy")
+        JENKINS_PATH = "/home/jenkins_home/jenkins/workspace/storj/CD_storj/storj_SWE"
+    }
+    
+    stages {
+        stage('Git') {
+            steps {
+                sh "cd /home/jenkins_home/jenkins/workspace/storj/CD_storj/ && git clone https://github.com/DavideDeRosa/storj_SWE && git checkout ${branch}"
+            }
+        }
+        
+        stage('Package') {
+            steps {
+                sh "cd ${JENKINS_PATH} && rm -rf ${JENKINS_PATH}/Dockerfile"
+                sh "cd ${JENKINS_PATH} && rm -rf ${JENKINS_PATH}/pipeline_ci.txt"
+                sh "cd ${JENKINS_PATH} && rm -rf ${JENKINS_PATH}/pipeline_cd.txt"
+                sh "zip -r storj.zip ${JENKINS_PATH}/*"
+            }
+        }
+        
+        stage('Sending zip'){ 
+            steps{ 
+                script{ 
+                    def output = sh(script: 'sshpass -p "$PASSWORD_VM" scp ${JENKINS_PATH}/storj.zip $USERNAME_VM_DEPLOY@$IP_VM_DEPLOY:storj/', returnStdout: true) 
+                    echo output
+                } 
+            } 
+        }
+        
+        stage('Teardown'){
+            steps{
+                script{
+                    sh """sshpass -p $PASSWORD_VM ssh -p 22 $USERNAME_VM_DEPLOY@$IP_VM_DEPLOY << EOF 
+                    cd storj/
+                    if [ -d "storj_SWE/sql" ]; then cd vm-jenkins/ && docker-compose down; fi
+                    exit
+                    EOF"""
+                }
+            }
+        }
+        
+        stage('Deploy'){
+            steps{
+                script{
+                    sh """sshpass -p $PASSWORD_VM ssh -p 22 $USERNAME_VM_DEPLOY@$IP_VM_DEPLOY << EOF 
+                    cd storj/
+                    rm -rf storj_SWE/
+                    unzip -o storj.zip
+                    cd storj_SWE/
+                    ls -la
+                    echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                    docker-compose up -d
+                    cd ..
+                    rm storj.zip
+                    exit
+                    EOF"""
+                }
+            }
+        }
+        
+        stage('House keeping') {
+            steps {
+                sh "rm -rf ${JENKINS_PATH}"
+            }
+        }
+    }
+}
