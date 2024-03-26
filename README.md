@@ -35,7 +35,7 @@ Progetto per il corso di Ingegneria del Software, Informatica per il Management 
 ## Deploy
 Unico requisito per il deploy dell'applicativo è [Docker](https://www.docker.com/get-started/).
 
-Una volta scaricata la repository, eseguire all'interno della cartella il comando
+Scaricata la repository, eseguire all'interno della cartella il comando
 ```bash
 docker-compose up --build
 ```
@@ -45,3 +45,7 @@ Una volta avviati i diversi servizi, sarà possibile accedere alla piattaforma t
 http://localhost:4201/
 ```
 
+Per terminare l'esecuzione, eseguire all'interno della cartella il comando
+```bash
+docker-compose down
+```
