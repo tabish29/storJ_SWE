@@ -2,10 +2,10 @@
 Progetto per il corso di Ingegneria del Software, Informatica per il Management anno 2023/2024
 
 ### Realizzato dagli studenti:
-- Matteo Canghiari
-- Davide De Rosa
-- Tabish Ghazanfar
-- Ossama Nadifi
+- Canghiari Matteo
+- De Rosa Davide
+- Ghazanfar Tabish
+- Nadifi Ossama
 
 [Specifiche tecniche del progetto](https://docs.google.com/document/d/e/2PACX-1vQT60002z4ymBNlmkg-5S2xZ4z1RUGPX2GqMxegJK7sw6_dsQEfgzr_lN7A0EqXwLioOlCCS_aSB3rO/pub)
 
