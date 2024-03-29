@@ -1,32 +1,59 @@
 <app-navbar></app-navbar>
-<div class="story-object-container" *ngIf="!isInTextEditMode">
-    <h1>Inserisci le informazioni dell'Oggetto Storia</h1>
-    <form class="story-object-form" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="nome">Nome dell'Oggetto:</label>
-            <input type="text" id="nome" name="nome" required [(ngModel)]="nome">
+
+<div class="container" *ngIf="currentScenario">
+    <div class="scenario-box">
+        <div class="info">
+            <div><label>Id: {{ currentScenario.id }}</label></div>
+            <div><label>Testo: {{ currentScenario.testo }}</label></div>
+            <div><label>Tipo_risposta: {{ currentScenario.tipo_risposta }}</label></div>
+            <div><label>Tipo_scenario: {{ currentScenario.tipo_scenario }}</label></div>
         </div>
-        <div class="form-group">
-            <label for="descrizione">Descrizione dell'Oggetto:</label>
-            <textarea id="descrizione" name="descrizione" required [(ngModel)]="descrizione"></textarea>
-        </div>
-        <button type="submit" class="btn-creazione">Crea Oggetto Storia</button>
-    </form>
+    </div>
+
+    <!-- Messaggio di complimenti -->
+    <div *ngIf="currentScenario.tipo_scenario === 'FINALE'" class="final-message">
+        <h2>Complimenti, hai finito la storia!</h2>
+    </div>
 </div>
 
 
-<!--se mi trovo nella modalità di modifica testo oggetto-->
-<div class="story-object-container" *ngIf="isInTextEditMode">
-    <h1>Aggiorna le informazioni dell'Oggetto Storia</h1>
-    <form class="story-object-form" (ngSubmit)="updateStoryObjectText()">
-        <div class="form-group">
-            <label for="nome">Nome dell'Oggetto:</label>
-            <input *ngIf="currentStoryObject" type="text" id="nome" name="nome" required [ngModel]="currentStoryObject.nome" (ngModelChange)="onNameChange($event)"> 
+<!-- Div per la visualizzazione delle scelte multiple dello scenario -->
+<div class="multipleChoiceContainer">
+    <div *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA' && currentScenario?.tipo_scenario != 'FINALE'">
+        <h2>Scelte multiple:</h2>
+        <div *ngFor="let item of multipleChoices" class="multipleChoice-box">
+            <div class="info">
+                <div><label>id_scenario: {{ item.id_scenario }}</label></div>
+                <div><label>Testo: {{ item.testo }}</label></div>
+                <div><label>id_scenario_successivo: {{ item.id_scenario_successivo }}</label></div>
+            </div>
+            <div class="remove-button tooltip-container"
+                [class.disabled-tooltip-container]="requiredMap.get(item.id) !== 'Nessun oggetto richiesto'">
+                <button (click)="loadChoice(item.id_scenario_successivo)"
+                    [disabled]="requiredMap.get(item.id) !== 'Nessun oggetto richiesto'">Scegli questo</button>
+                <span class="tooltiptext">Non possiedi l'oggetto per fare questa scelta</span>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="descrizione">Descrizione dell'Oggetto:</label>
-            <textarea *ngIf="currentStoryObject" id="descrizione" name="descrizione" required [ngModel]="currentStoryObject.descrizione" (ngModelChange)="onDescriptionChange($event)"></textarea>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Div per la visualizzazione del'indovinello dello scenario -->
+<div class="singleChoiceContainer">
+    <div class="singleChoice-box" *ngIf="currentScenario?.tipo_risposta === 'INDOVINELLO' && singleChoice">
+        <h2>Rispondi all'indovinello</h2>
+        <div class="info">
+            <div><label>id_scenario: {{ singleChoice.id_scenario }}</label></div>
+            <div><label>Testo: {{ singleChoice.testo }}</label></div>
         </div>
-        <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna Oggetto Storia</button>
-    </form>
+        <form (submit)="submitUserAnswer()">
+            <input type="text" [(ngModel)]="userAnswer" name="userAnswer" required
+                placeholder="Inserisci la tua risposta qui...">
+            <button type="submit">Invia risposta</button>
+        </form>
+    </div>
 </div>
