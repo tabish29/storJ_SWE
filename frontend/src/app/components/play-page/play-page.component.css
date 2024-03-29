@@ -1,0 +1,95 @@
+.container,
+.singleChoiceContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+    /* Modificato per distribuire equamente i box */
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+.scenario-box,
+.multipleChoice-box,
+.singleChoice-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: calc(50% - 40px);
+    box-sizing: border-box;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.info {
+    display: block;
+    width: 100%;
+}
+
+.remove-button,
+.editScenarioText-button {
+    margin-top: auto;
+    text-align: right;
+    width: 100%;
+}
+
+/* Adattamenti per dispositivi con schermi più piccoli */
+@media (max-width: 768px) {
+
+    .scenario-box,
+    .multipleChoice-box,
+    .singleChoice-box {
+        width: calc(100% - 40px);
+        /* Occupano l'intera larghezza del container su schermi più piccoli */
+        flex-direction: column;
+        /* Migliora la leggibilità su dispositivi più piccoli */
+    }
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.disabled-tooltip-container:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Posizionamento */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -100px;
+
+    /* Transizioni per un'apparizione graduale */
+    opacity: 0;
+    transition: opacity 1.0s;
+}
+
+.disabled-tooltip-container button:disabled {
+    cursor: not-allowed;
+}
+
+
+.final-message {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    /* Aggiusta lo spazio dal contenitore precedente */
+    padding: 20px;
+    box-sizing: border-box;
+}

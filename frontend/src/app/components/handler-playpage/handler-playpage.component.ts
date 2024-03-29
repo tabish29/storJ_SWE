@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, PipeTransform } from '@angular/core';
 import { story } from '../../story';
 import { StoryService } from '../../services/story.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { filter } from 'rxjs';
+import { UserService } from '../../services/userservice';
+import { Observable, map } from 'rxjs';
+import { user } from '../../user';
 
 @Component({
   selector: 'app-handler-playpage',
@@ -19,29 +21,50 @@ export class HandlerPlaypageComponent {
   filterType = '';
   filterValue = '';
   noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
+  authorMap: Map<number, String | undefined> = new Map();
 
-  constructor(private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService) { }
+  constructor(private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService, private userService: UserService) { }
 
-  ngOnInit(): void {
-    this.loadStories();
+  async ngOnInit(): Promise<void> {
+    await this.loadStories();
+    await this.loadAuthorName(this.stories);
   }
 
-  loadStories(): void {
-    this.storyService.getAllstories().subscribe(
-      (stories: story[]) => {
-        this.stories = stories;
-      },
-      error => {
-        console.error('Errore nel caricamento delle storie', error);
+  async loadStories(): Promise<void> {
+    try {
+      const stories = await (this.storyService.getAllstories()).toPromise();
+      if (stories) {
+        // Ordino gli scenari in base all'Id delle storie slavate
+        this.stories = stories.sort((a, b) => a.id - b.id);
       }
-    );
+
+    } catch (error) {
+      console.log('Errore nel caricamento delle storie Salvate', error);
+    }
+  }
+
+  async loadAuthorName(stories: story[]): Promise<void> {
+    for (const story of stories) {
+      try {
+        const authorName = await this.userService.getUserById(story.id_creatore).toPromise();
+        if (authorName) {
+
+          this.authorMap.set(story.id, authorName.username);
+
+        } else {
+          this.authorMap.set(story.id, "Nessun Autore");
+        }
+      } catch (error) {
+        console.log("Errore nel caricamento dei nome dell'autore per la storia " + story.id + ": " + error);
+      }
+    }
   }
 
   playStory(story: story): void {
     this.storyService.changeStory(story);
 
     // Reindirizzamento all'URL di gioco della storia
-    this.router.navigateByUrl(`storJPage`);
+    this.router.navigateByUrl(`playPage`);
   }
 
   filterStories(filterType: string, filterValue: string): void {
@@ -74,5 +97,6 @@ export class HandlerPlaypageComponent {
       }
     );
   }
+
 
 }

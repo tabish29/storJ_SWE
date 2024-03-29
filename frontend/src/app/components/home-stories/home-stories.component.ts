@@ -11,7 +11,7 @@ import { StoryService } from '../../services/story.service';
   styleUrl: './home-stories.component.css'
 })
 export class HomeStoriesComponent {
-  
+
   stories: story[] = [];
   noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
 
@@ -22,7 +22,7 @@ export class HomeStoriesComponent {
   }
 
   loadStories(): void {
-    const currentUser=this.localStorageService.getItem('currentUser');
+    const currentUser = this.localStorageService.getItem('currentUser');
     this.storyService.getStoriesByUsername(currentUser.id).subscribe(
       (stories: story[]) => {
         this.stories = stories;
@@ -33,14 +33,8 @@ export class HomeStoriesComponent {
     );
   }
 
-  editStory(newStory:story){
+  editStory(newStory: story) {
     this.storyService.changeStory(newStory);
     this.router.navigateByUrl('createStory');
   }
-
-  //(da fare) metodo da implementare 
-  editText(){
-
-  }
-
 }
