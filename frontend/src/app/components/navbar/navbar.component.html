@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="logo">
-        <label>storJ</label>
+        <label *ngIf="currentUrl === '/home' || currentUrl === '/storJPage'" >storJ</label>
         <div class="arrow">
             <!-- Icona freccia indietro per utenti autenticati -->
             <button mat-button *ngIf="isAuthenticated() && currentUrl != '/storJPage'" (click)="goBack(currentUrl)">
