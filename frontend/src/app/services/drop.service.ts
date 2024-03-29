@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { drop } from '../drop';
+import { ScenarioService } from './scenario.service';
+import { storyObjectService } from './story-object.service';
+import { scenario } from '../scenario';
 
 
 @Injectable({
@@ -13,9 +16,9 @@ export class DropService {
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private dropSource = new BehaviorSubject<drop | null>(this.loadInitialDrop());
   currentdrop = this.dropSource.asObservable();
+  dropMap: Map<number, string | undefined> = new Map();
 
-
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService,private scenarioService:ScenarioService,private storyObjectService:storyObjectService) { }
 
   public getDropByScenarioId(idScenario: number): Observable<drop> {
 
@@ -57,5 +60,4 @@ export class DropService {
   getCurrentDrop(): drop | null {
     return this.dropSource.value;
   }
-
 }

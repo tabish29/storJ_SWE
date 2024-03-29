@@ -12,9 +12,6 @@ export class StoryService {
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private storySource = new BehaviorSubject<story | null>(this.loadInitialStory());
   currentStory = this.storySource.asObservable();
-  private message = '';
-
-
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
@@ -35,7 +32,7 @@ export class StoryService {
 
   public saveStory(): Observable<story> {
     const currentStory: story = this.localStorageService.getItem('currentStory');
-    const url = this.apiServerUrl + '/storie/'+currentStory.id+'/save';
+    const url = this.apiServerUrl + '/storie/' + currentStory.id + '/save';
 
     return this.http.post<story>(url, null);
   }
@@ -74,4 +71,14 @@ export class StoryService {
     return this.storySource.value;
   }
 
+  public isStoryCompleted(): boolean {
+    // Recupero la storia corrente dal localStorage
+    const currentStory: story = this.localStorageService.getItem('currentStory');
+
+    if (currentStory && currentStory.statoCompletamento) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

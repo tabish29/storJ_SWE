@@ -29,6 +29,11 @@ import { storyObject } from '../storyObject';
     return this.http.post<storyObject>(this.apiServerUrl + '/oggetti', storyObject);
   }
 
+  //metodo per poter aggiornare il testo dello scenario
+  public updateStoryObject(storyObject: storyObject): Observable<storyObject> {
+    return this.http.put<storyObject>(this.apiServerUrl + '/oggetti/' + storyObject.id, storyObject);
+  }
+
   deleteStoryObject(storyObjectId: number): void {
     this.http.delete(this.apiServerUrl + '/oggetti/' + storyObjectId).subscribe({
       next: () => {
@@ -54,5 +59,4 @@ import { storyObject } from '../storyObject';
   getCurrentstoryObject(): storyObject | null {
     return this.storyObjectSource.value;
   }
-
 }

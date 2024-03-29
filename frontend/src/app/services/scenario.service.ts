@@ -17,13 +17,24 @@ export class ScenarioService {
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public getScenarioByStoryId(idStoria: number): Observable<scenario[]> {
-    //mettere l'url del metodo get da una storia specifica(prendere l'id della storia)
+
     return this.http.get<scenario[]>(this.apiServerUrl + '/storie/' + idStoria + '/scenari');
   }
 
+  public getFirstScenario(idStoria: number): Observable<scenario[]> {
+
+    return this.http.get<scenario[]>(this.apiServerUrl + '/storie/' + idStoria + '/scenari?tipologia=INIZIALE');
+  }
+
+
   public addScenario(scenario: scenario): Observable<scenario> {
-    //mettere l'url del metodo post 
+
     return this.http.post<scenario>(this.apiServerUrl + '/scenari', scenario);
+  }
+
+  //metodo per poter aggiornare il testo dello scenario
+  public updateScenario(scenario: scenario): Observable<scenario> {
+    return this.http.put<scenario>(this.apiServerUrl + '/scenari/' + scenario.id, scenario);
   }
 
   deleteScenario(scenarioId: number): void {
@@ -64,5 +75,4 @@ export class ScenarioService {
   getCurrentScenario(): scenario | null {
     return this.scenarioSource.value;
   }
-
 }

@@ -27,6 +27,11 @@ export class MultipleChoiceService {
     return this.http.post<multipleChoice>(this.apiServerUrl + '/scelte/multipla', multipleChoice);
   }
 
+  public updateMultipleChoice(multipleChoice: multipleChoice): Observable<multipleChoice> {
+    
+    return this.http.put<multipleChoice>(this.apiServerUrl + '/scelte/'+multipleChoice.id+'/multipla', multipleChoice);
+  }
+
   deletemultipleChoice(multipleChoiceId: number): void {
     this.http.delete(this.apiServerUrl + '/scelte/' + multipleChoiceId+'/multipla').subscribe({ 
       next: () => {
@@ -53,5 +58,4 @@ export class MultipleChoiceService {
   getCurrentmultipleChoice(): multipleChoice | null {
     return this.multipleChoiceSource.value;
   }
-
 }
