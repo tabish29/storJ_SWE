@@ -12,7 +12,7 @@ import { scenario } from '../scenario';
   providedIn: 'root'
 })
 export class DropService {
-
+  
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private dropSource = new BehaviorSubject<drop | null>(this.loadInitialDrop());
   currentdrop = this.dropSource.asObservable();
