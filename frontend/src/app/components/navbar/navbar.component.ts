@@ -8,6 +8,7 @@ import { catchError, filter } from 'rxjs/operators';
 import { StoryService } from '../../services/story.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SingleChoiceService } from '../../services/single-choice.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 
 @Component({
@@ -21,20 +22,23 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
   currentUrl!: string;
   private subscription: Subscription = new Subscription();
+  scenarioId!: number;
+  isInTextEditMode!: boolean;
 
 
-  constructor(private router: Router, private authService: AuthService, private userService: UserService, private storyService: StoryService,private singleChoiceService:SingleChoiceService) {
-    // Imposta l'URL corrente al valore iniziale
+  constructor(private router: Router, private authService: AuthService, private userService: UserService, private storyService: StoryService, private singleChoiceService: SingleChoiceService, private localStorageService: LocalStorageService) {
+    // Imposta l'URL corrente a currentUrl
     this.currentUrl = router.url;
   }
 
   ngOnDestroy(): void {
-    this.userSub.unsubscribe(); // elimina la sottoscrizione
+    this.userSub.unsubscribe();
 
   }
 
   ngOnInit() {
-    // Ascolta gli eventi di navigazione per aggiornare l'URL corrente
+
+    //Per ottenere l'URL della pagina in cui si trova l'applicazione
     this.subscription.add(
       this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
         if (event instanceof NavigationEnd) {
@@ -53,7 +57,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }, error => {
       console.log('error:', error);
     });
-    console.log('valore del current url' + this.currentUrl)
+
+    //imposto il valore dell'id dello scenario corrente per poter utilizzare il metodo isSingleChoiceCreated
+    const currentscenario = this.localStorageService.getItem('currentScenario');
+    if (currentscenario) {
+      this.scenarioId = currentscenario.id;
+
+      //imposto il valore di isSingleChoiceCreated
+      this.isSingleChoiceCreated(this.scenarioId);
+
+    }
+
+    //per capire se mostare o meno i bottoni Crea nella navbar
+    this.isInTextEditMode = this.storyService.isStoryCompleted();
+
+
+    console.log("valore dell'url current: " + this.currentUrl);
   }
 
   // Metodo per verificare se l'utente è autenticato
@@ -67,9 +86,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']); // Reindirizza l'utente alla pagina di login dopo il logout
   }
 
-  getIsSingleChoiceCreated():boolean{
+  getIsSingleChoiceCreated(): boolean {
     return this.singleChoiceService.getIsChoiceCreated();
   }
+
+  isSingleChoiceCreated(scenarioID: number): void {
+    if (scenarioID) {
+      this.singleChoiceService.getSingleChoiceByScenarioId(scenarioID).subscribe({
+        next: (response) => {
+          if (response) {
+            this.singleChoiceService.setIsChoiceCreated(true);
+          } else {
+            this.singleChoiceService.setIsChoiceCreated(false);
+          }
+        },
+        error: (error) => {
+          console.error('Errore nel metodo getSingleChoiceByScenarioId: ', error);
+          this.singleChoiceService.setIsChoiceCreated(false);
+        }
+      });
+    } else {
+      console.error("Non c'è un id dello scenario corrente");
+    }
+  }
+
 
   saveStory(): void {
     this.storyService.saveStory().subscribe(
@@ -96,6 +136,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
             break;
         }
       });
+
+      this.router.navigateByUrl('/homeStories');
   }
 
   //(da decidere)Se tenere la freccia in tutte le pagine oppure solo in quelle presenti nel metodo
