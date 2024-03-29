@@ -6,6 +6,7 @@ import { scenario } from '../../scenario';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { DropService } from '../../services/drop.service';
 import { storyObjectService } from '../../services/story-object.service';
+import { StoryService } from '../../services/story.service';
 
 
 @Component({
@@ -19,13 +20,10 @@ export class CreateStoryComponent implements OnInit {
   scenarios: scenario[] = [];
   storyId!: number;
   dropMap: Map<number, string | undefined> = new Map();
-  dropName!: string;
-  countTEST = 0;
-  countMetodiLoad=0;
-  isloadCompleted!: boolean;
+  isInTextEditMode!: boolean;
 
 
-  constructor(private scenarioService: ScenarioService, private dropService: DropService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService) { }
+  constructor(private scenarioService: ScenarioService, private dropService: DropService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
 
   async ngOnInit(): Promise<void> {
     // Recupera l'ID della storia corrente dal localStorage
@@ -33,6 +31,7 @@ export class CreateStoryComponent implements OnInit {
     this.storyId = currentStory.id;
     await this.loadScenarios();
     await this.loadDrop(this.scenarios);
+    this.isInTextEditMode = this.storyService.isStoryCompleted();
 
   }
 
@@ -40,9 +39,9 @@ export class CreateStoryComponent implements OnInit {
   async loadScenarios(): Promise<void> {
     try {
       const scenarios = await (this.scenarioService.getScenarioByStoryId(this.storyId)).toPromise();
-      this.countMetodiLoad++;
       if (scenarios) {
-        this.scenarios = scenarios;
+        // Ordino gli scenari in base all'Id
+        this.scenarios = scenarios.sort((a, b) => a.id - b.id);
       }
     } catch (error) {
       console.log('Errore nel caricamento dei scenari', error);
@@ -53,7 +52,6 @@ export class CreateStoryComponent implements OnInit {
     for (const scenario of scenarios) {
       try {
         const drop = await this.dropService.getDropByScenarioId(scenario.id).toPromise();
-        this.countMetodiLoad++;
         if (drop) {
           try {
             const storyObject = await this.storyObjectService.getStoryObject(drop.id_oggetto).toPromise();
@@ -90,8 +88,12 @@ export class CreateStoryComponent implements OnInit {
     }
   }
 
+  editScenarioText(newScenario: scenario) {
+    this.changeScenario(newScenario);
+    this.router.navigateByUrl("/formScenario");
+  }
+
   changeScenario(newscenario: scenario) {
     this.scenarioService.changeScenario(newscenario);
   }
-
 }

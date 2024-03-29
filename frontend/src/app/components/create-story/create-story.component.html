@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="container">
+<div class="container" *ngIf="!isInTextEditMode">
     <div *ngFor="let item of scenarios" class="scenario-box">
         <div class="info">
             <div><label>Id: {{ item.id }}</label></div>
@@ -12,3 +12,19 @@
             </div>
         </div>
     </div>
+</div>
+
+ <!--se mi trovo nella modalità di modifica testo storia--> 
+<div class="container" *ngIf="isInTextEditMode">
+    <div *ngFor="let item of scenarios" class="scenario-box">
+        <div class="info">
+            <div><label>Id: {{ item.id }}</label></div>
+            <div><label>Testo: {{ item.testo }}</label></div>
+            <div><label>Tipo_risposta: {{ item.tipo_risposta }}</label></div>
+            <div><label>Tipo_scenario: {{ item.tipo_scenario }}</label></div>
+            <div><label>Drop: {{ dropMap.get(item.id) }}</label></div>
+            <div class="editScenarioText-button"><button (click)="editScenarioText(item)">Modifica testo Scenario</button></div>
+            <div class="remove-button"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Modifica testo scelte</button>
+        </div>
+    </div>
+</div>
