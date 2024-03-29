@@ -1,11 +1,25 @@
 <app-navbar></app-navbar>
-<div class="container">
-    <div *ngFor="let item of multipleChoice" class="multipleChoice-box">
+<div class="container" *ngIf="!isInTextEditMode">
+    <div *ngFor="let item of multipleChoices" class="multipleChoice-box">
         <div class="info">
             <div><label>id_scenario: {{ item.id_scenario }}</label></div>
             <div><label>Testo: {{ item.testo }}</label></div>
             <div><label>id_scenario_successivo: {{ item.id_scenario_successivo }}</label></div>
+            <div><label>Oggetto richiesto: {{ requiredMap.get(item.id) }}</label></div>
         </div>
-        <div class="remove-button"><button (click)="removemultipleChoice(item.id)">Rimuovi</button></div>
+        <div class="remove-button"><button (click)="removeMultipleChoice(item.id)">Rimuovi</button></div>
+    </div>
+</div>
+
+ <!--se mi trovo nella modalità di modifica testo storia--> 
+<div class="container" *ngIf="isInTextEditMode">
+    <div *ngFor="let item of multipleChoices" class="multipleChoice-box">
+        <div class="info">
+            <div><label>id_scenario: {{ item.id_scenario }}</label></div>
+            <div><label>Testo: {{ item.testo }}</label></div>
+            <div><label>id_scenario_successivo: {{ item.id_scenario_successivo }}</label></div>
+            <div><label>Oggetto richiesto: {{ requiredMap.get(item.id) }}</label></div>
+        </div>
+        <div class="remove-button"><button (click)="editMultipleChoicheText(item)">Aggiorna testo Scelta</button></div>
     </div>
 </div>

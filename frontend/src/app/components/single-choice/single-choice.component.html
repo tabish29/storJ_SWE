@@ -1,10 +1,25 @@
 <app-navbar></app-navbar>
-<div class="container" *ngIf="singleChoice">
+<div class="container" *ngIf="singleChoice && !isInTextEditMode" >
     <div class="singleChoice-box">
         <div class="info">
             <div><label>id_scenario: {{ singleChoice.id_scenario }}</label></div>
             <div><label>Testo: {{ singleChoice.testo }}</label></div>
+            <div><label>id scenario corretto: {{ singleChoice.id_scenario_risposta_corretta }}</label></div>
+            <div><label>id scenario sba: {{ singleChoice.id_scenario_risposta_sbagliata }}</label></div>
         </div>
         <div class="remove-button"><button (click)="removeSingleChoice(singleChoice.id)">Rimuovi</button></div>
+    </div>
+</div>
+
+ <!--se mi trovo nella modalità di modifica testo storia--> 
+<div class="container" *ngIf="singleChoice && isInTextEditMode">
+    <div class="singleChoice-box">
+        <div class="info">
+            <div><label>id_scenario: {{ singleChoice.id_scenario }}</label></div>
+            <div><label>Testo: {{ singleChoice.testo }}</label></div>
+            <div><label>id scenario corretto: {{ singleChoice.id_scenario_risposta_corretta }}</label></div>
+            <div><label>id scenario sba: {{ singleChoice.id_scenario_risposta_sbagliata }}</label></div>
+        </div>
+        <div class="remove-button"><button (click)="editSingleChoicheText(singleChoice)">Modifica testo indovinello</button></div>
     </div>
 </div>

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { singleChoice } from '../../singleChoice';
 import { SingleChoiceService } from '../../services/single-choice.service';
+import { StoryService } from '../../services/story.service';
 
 
 @Component({
@@ -14,13 +15,15 @@ export class SingleChoiceComponent {
 
   singleChoice!: singleChoice;
   scenarioId!: number;
+  isInTextEditMode!: boolean;
 
-  constructor(private singleChoiceService: SingleChoiceService, private router: Router, private localStorageService: LocalStorageService) { }
+  constructor(private singleChoiceService: SingleChoiceService, private router: Router, private localStorageService: LocalStorageService,private storyService:StoryService) { }
 
   ngOnInit(): void {
     const currentscenario = this.localStorageService.getItem('currentScenario');
     this.scenarioId = currentscenario.id;
     this.loadSingleChoice();
+    this.isInTextEditMode = this.storyService.isStoryCompleted();
   }
 
   loadSingleChoice(): void {
@@ -41,6 +44,14 @@ export class SingleChoiceComponent {
     this.loadSingleChoice();
     location.reload();
   }
+  
 
+  editSingleChoicheText(newSingleChoice: singleChoice) {
+    this.changeSingleChoiche(newSingleChoice);
+    this.router.navigateByUrl("/formSingleChoice");
+  }
 
+  changeSingleChoiche(newSingleChoice: singleChoice) {
+    this.singleChoiceService.changeSingleChoice(newSingleChoice);
+  }
 }

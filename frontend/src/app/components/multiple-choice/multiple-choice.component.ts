@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { MultipleChoiceService } from '../../services/multiple-choice.service';
 import { multipleChoice } from '../../multipleChoice';
+import { RequiredService } from '../../services/required.service';
+import { storyObjectService } from '../../services/story-object.service';
+import { StoryService } from '../../services/story.service';
 
 @Component({
   selector: 'app-multiple-choice',
@@ -10,33 +13,70 @@ import { multipleChoice } from '../../multipleChoice';
   styleUrl: './multiple-choice.component.css'
 })
 export class MultipleChoiceComponent {
-    
-multipleChoice: multipleChoice[] = [];
-scenarioId!: number;
 
-constructor(private multipleChoiceService: MultipleChoiceService, private router: Router, private localStorageService: LocalStorageService) { }
+  multipleChoices: multipleChoice[] = [];
+  scenarioId!: number;
+  requiredMap: Map<number, string | undefined> = new Map();
+  isInTextEditMode!: boolean;
 
-ngOnInit(): void {
-  const currentscenario = this.localStorageService.getItem('currentScenario');
-  this.scenarioId = currentscenario.id;
-  this.loadMultipleChoices();
-}
+  constructor(private multipleChoiceService: MultipleChoiceService, private requiredService: RequiredService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
 
-loadMultipleChoices(): void {
-  this.multipleChoiceService.getmultipleChoiceByScenarioId(this.scenarioId).subscribe(
-    (multpliChoices: multipleChoice[]) => {
-      this.multipleChoice = multpliChoices;
-    },
-    error => {
-      console.error('Errore nel caricamento delle scelte', error);
+  async ngOnInit(): Promise<void> {
+    const currentscenario = this.localStorageService.getItem('currentScenario');
+    this.scenarioId = currentscenario.id;
+    await this.loadMultipleChoices()
+    await this.loadRequired(this.multipleChoices);
+    this.isInTextEditMode = this.storyService.isStoryCompleted();
+  }
+
+
+  async loadMultipleChoices(): Promise<void> {
+    try {
+      const multipleChoices = await (this.multipleChoiceService.getmultipleChoiceByScenarioId(this.scenarioId)).toPromise();
+      if (multipleChoices) {
+        // Ordino in base all'Id delle sclete multiple
+        this.multipleChoices = multipleChoices.sort((a, b) => a.id - b.id);
+      }
+    } catch (error) {
+      console.log('Errore nel caricamento dei scenari', error);
     }
-  );
-}
+  }
 
-removemultipleChoice(multpliChoiceId: number): void {
-  this.multipleChoiceService.deletemultipleChoice(multpliChoiceId);
-  this.loadMultipleChoices();
-  location.reload(); 
-}
+  async loadRequired(multipleChoices: multipleChoice[]): Promise<void> {
+    for (const multipleChoice of multipleChoices) {
+      try {
+        const required = await this.requiredService.getRequiredByScenarioId(multipleChoice.id).toPromise();
+        if (required) {
+          try {
+            const storyObject = await this.storyObjectService.getStoryObject(required.id_oggetto).toPromise();
+            if (storyObject) {
+              this.requiredMap.set(multipleChoice.id, storyObject.nome);
+            }
 
+          } catch (error) {
+            console.log("Errore nel caricamento del nome dell'oggetto da required: " + error);
+          }
+        } else {
+          this.requiredMap.set(multipleChoice.id, "Nessun oggetto richiesto");
+        }
+      } catch (error) {
+        console.log("Errore nel caricamento dei required per la scelta " + multipleChoice.id + ": " + error);
+      }
+    }
+  }
+
+  removeMultipleChoice(multpliChoiceId: number): void {
+    this.multipleChoiceService.deletemultipleChoice(multpliChoiceId);
+    this.loadMultipleChoices();
+    location.reload();
+  }
+
+  editMultipleChoicheText(newMultipleChoice: multipleChoice) {
+    this.changeMultipleChoiche(newMultipleChoice);
+    this.router.navigateByUrl("/formMultipleChoice");
+  }
+
+  changeMultipleChoiche(newMultipleChoice: multipleChoice) {
+    this.multipleChoiceService.changemultipleChoice(newMultipleChoice);
+  }
 }

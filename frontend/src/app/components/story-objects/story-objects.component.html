@@ -1,11 +1,23 @@
 <app-navbar></app-navbar>
-<div class="container">
+<div class="container"  *ngIf="!isInTextEditMode">
     <div *ngFor="let item of storyObjects" class="story-object-box">
         <div class="info">
-            <div><label>Nome: {{ item.id }}</label></div>
+            <div><label>Id_oggetto: {{ item.id }}</label></div>
             <div><label>Nome: {{ item.nome }}</label></div>
             <div><label>Descrizione: {{ item.descrizione }}</label></div>
         </div>
         <div class="remove-button"><button (click)="removestoryObject(item.id)">Rimuovi</button></div>
+    </div>
+</div>
+
+ <!--se mi trovo nella modalità di modifica testo storia--> 
+<div class="container" *ngIf="isInTextEditMode">
+    <div *ngFor="let item of storyObjects" class="story-object-box">
+        <div class="info">
+            <div><label>Id_oggetto: {{ item.id }}</label></div>
+            <div><label>Nome: {{ item.nome }}</label></div>
+            <div><label>Descrizione: {{ item.descrizione }}</label></div>
+        </div>
+        <div class="remove-button"><button (click)="editStoryObjectText(item)">Modifica nome/descrizione</button></div>
     </div>
 </div>
