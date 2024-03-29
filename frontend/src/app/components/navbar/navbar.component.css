@@ -1,45 +1,62 @@
-button {
-  transition: .5s;
-}
-
-button:hover {
-  color: white;
-  background-color: transparent;
-  border: 0.5px solid white;
+* {
+  font-family: Arial, sans-serif;
 }
 
 .navbar {
-  background-color: #3661d8c3; /* Colore di sfondo della navbar */
-  color: #fff; /* Colore del testo */
-  padding: 10px; /* Spazio interno della navbar */
-  display: flex; /* Utilizza il layout flessibile */
-  justify-content: space-between; /* Spazia uniformemente i contenuti */
-  align-items: center; /* Allinea verticalmente gli elementi */
+  display: inline;
+  justify-content: space-between;
+  width: auto;
+  height: auto;
+  padding: 15px;
+  background-color: white; 
 }
 
 .logo {
-  display: flex; /* Rendi anche il logo e l'icona freccia parte del layout flessibile */
-  align-items: center; /* Allinea verticalmente gli elementi del logo */
-  gap: 10px; /* Distanza tra il logo e l'icona freccia */
+  float: left;
+  margin-top: 1rem;
+  margin-left: 2rem;
 }
 
-.logo a, .arrow {
-  color: #fff; /* Colore del testo del logo e dell'icona freccia */
-  text-decoration: none; /* Rimuove la sottolineatura dei link */
-  font-size: 24px; /* Dimensione del testo del logo */
-  font-weight: bold; /* Grassetto */
+label {
+  font-size: 12pt;
+}
+
+label:hover {
+  transition: color 0.5s;
+  color: red;
 }
 
 .arrow {
-  color: black; /* Imposta il colore dell'icona freccia a nero */
+  font-weight: bold;
+  color: black;
+}
+
+.logo a, .arrow {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold; 
+}
+
+button {
+  font-family: Arial, sans-serif;
+  font-size: 8pt;
+  font-weight: bold;
+  width: auto;
+  height: auto;
+  box-shadow: none !important;
+  border-radius: 0%;
+}
+
+button:hover {
+  transform: border 2s;
+  border-bottom: 1px solid black;
 }
 
 .login {
-  display: flex; /* Utilizza il layout flessibile per gli elementi all'interno */
-  align-items: center; /* Allinea verticalmente gli elementi */
-  gap: 10px; /* Distanza tra gli elementi all'interno della classe .login */
-  color: #fff;
+  float: right;
   text-decoration: none;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  gap: 0.5rem;
   font-size: 18px;
-  font-weight: bold;
 }
