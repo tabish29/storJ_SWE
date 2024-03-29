@@ -12,9 +12,10 @@ import { UserService } from '../../services/userservice';
 })
 export class PaymentPageComponent {
   amount: number = 0;
-  cardHolder: string = '';
-  cardNumber: string = '';
-  cvv: string = '';
+  cardHolder: string = ' ';
+  cardNumber: string = ' ';
+  cvv: string = ' ';
+  message: string = ' ';
 
   constructor(private http: HttpClient, private paymentService: PaymentService, private router: Router, private userService: UserService) { }
 
@@ -31,12 +32,13 @@ export class PaymentPageComponent {
 
       },
       (error: HttpErrorResponse) => {
-        if (error.error.code == "UtenteAlreadySigned") {
-          alert(error.error.message);
-        } else if (error.error.code === "400") {
-          alert("Inserisci tutti i campi")
-        } else {
-          alert(error.error.massage)
+
+        const message = error.error.message; 
+
+      if (error.error.code === "PaymentFailed") {
+          alert(message);
+        }else{
+          alert("errore diverso da UtenteAlreadySigned e PaymentFailed: " + message);
         }
       }
     );
@@ -51,6 +53,14 @@ export class PaymentPageComponent {
       cvv: this.cvv,
     };
 
-    this.savePayment(paymentData);
+    if (this.cardHolder !== ' ' && this.cardNumber !== ' ' && this.cvv !== ' ') {
+      if (this.amount <= 0) {
+        alert("Il valore di amount deve essere maggiore di 0");
+      } else {
+        this.savePayment(paymentData);
+      }
+    } else {
+      alert("Inserisci tutti i campi");
+    }
   }
 }
