@@ -8,6 +8,7 @@ import { scenario } from '../../scenario';
 import { singleChoice } from '../../singleChoice';
 import { storyObject } from '../../storyObject';
 import { storyObjectService } from '../../services/story-object.service';
+import { StoryService } from '../../services/story.service';
 
 @Component({
   selector: 'app-form-single-choice',
@@ -25,14 +26,24 @@ export class FormSingleChoiceComponent {
   storyScenarios: scenario[] = [];
   storyObjects: storyObject[] = [];
   selectedObjectId: number = -1;
+  isInTextEditMode!: boolean;
+  currentSingleChoiche!: singleChoice | null;
+  isBottonDisabled:boolean=true; //per il bottone dell'aggironameto dei campi testuali
 
 
-  constructor(private http: HttpClient, private singleChoiceService: SingleChoiceService, private scenarioService: ScenarioService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService) { }
+  constructor(private http: HttpClient, private singleChoiceService: SingleChoiceService, private scenarioService: ScenarioService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
 
   ngOnInit(): void {
     this.loadScenarioId();
     this.loadStoryScenarios(this.idScenario);
     this.loadStoryObjects();
+    this.isInTextEditMode = this.storyService.isStoryCompleted();
+    this.loadCurrentSingleChoice();
+
+  }
+
+  loadCurrentSingleChoice(): void {
+    this.currentSingleChoiche = this.localStorageService.getItem("currentSingleChoice");
 
   }
 
@@ -104,5 +115,64 @@ export class FormSingleChoiceComponent {
     this.saveSingleChoice(singleChoiceData);
   }
 
+  onTextChange(newTesto: string): void {
+    if (this.currentSingleChoiche) {
+      this.currentSingleChoiche.testo = newTesto;
+      //console.log("sono dentro on textchange");
+    }
+    this.testo = newTesto;
+    this.isBottonDisabled=false;
+   //console.log("nuovo valore di testo: "+this.testo);
+  }
+
+  onAnswerChange(newAnswer: string): void {
+    if (this.currentSingleChoiche) {
+      this.currentSingleChoiche.risposta = newAnswer;
+      //console.log("sono dentro on answerchange");
+      this.testo=this.currentSingleChoiche.testo;
+    }
+    this.risposta = newAnswer;
+    this.isBottonDisabled=false;
+  }
+
+  // metodo per obbligare l'utente a modificare almeno uno dei due campi
+  isUpdated(): boolean {
+    console.log();
+    return this.isBottonDisabled;
+  }
+
+  updateSingleChoicheText() {
+
+    if (this.currentSingleChoiche) {
+      const newSingleChoicheData: singleChoice = {
+        id: this.currentSingleChoiche.id,
+        id_scenario: this.idScenario,
+        testo: this.testo,
+        risposta: this.risposta,
+        id_scenario_risposta_corretta: this.currentSingleChoiche.id_scenario_risposta_corretta,
+        id_scenario_risposta_sbagliata: this.currentSingleChoiche.id_scenario_risposta_sbagliata
+      };
+
+      console.log("i nuovi dati del'indovinello: " + JSON.stringify(newSingleChoicheData));
+
+
+      this.singleChoiceService.updateSingleChoice(newSingleChoicheData).subscribe({
+        next: (updatedSingleChoice) => {
+
+          this.singleChoiceService.changeSingleChoice(newSingleChoicheData);
+          console.log("Indovinello aggiornata con successo:", updatedSingleChoice);
+
+          this.router.navigateByUrl('/singlechoice').then(() => {
+            // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)
+            window.location.reload();
+          });
+        },
+        error: (error) => {
+
+          console.error("Errore durante l'aggiornamento della scelta multipla:", error);
+        }
+      });
+    }
+  }
 
 }

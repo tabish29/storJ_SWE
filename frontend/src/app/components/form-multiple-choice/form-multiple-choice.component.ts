@@ -10,6 +10,7 @@ import { storyObject } from '../../storyObject';
 import { RequiredService } from '../../services/required.service';
 import { storyObjectService } from '../../services/story-object.service';
 import { required } from '../../required';
+import { StoryService } from '../../services/story.service';
 
 
 @Component({
@@ -25,13 +26,23 @@ export class FormMultipleChoiceComponent {
   storyScenarios: scenario[] = [];
   storyObjects: storyObject[] = [];
   selectedObjectId: number = -1;
+  isInTextEditMode!: boolean;
+  currentMultipleChoiche!: multipleChoice | null;
 
-  constructor(private http: HttpClient, private multipleChoiceService: MultipleChoiceService, private scenarioService: ScenarioService, private router: Router, private requiredService: RequiredService, private storyObjectService: storyObjectService, private localStorageService: LocalStorageService) { }
+
+  constructor(private http: HttpClient, private multipleChoiceService: MultipleChoiceService, private scenarioService: ScenarioService, private router: Router, private requiredService: RequiredService, private storyObjectService: storyObjectService, private localStorageService: LocalStorageService, private storyService: StoryService) { }
 
   ngOnInit(): void {
     this.loadScenarioId();
-    this.loadStoryScenarios();
+    this.loadStoryScenarios(this.idScenario);
     this.loadStoryObjects();
+    this.isInTextEditMode = this.storyService.isStoryCompleted();
+    this.loadCurrentMultipleChoice();
+
+  }
+
+  loadCurrentMultipleChoice(): void {
+    this.currentMultipleChoiche = this.localStorageService.getItem("currentMultipleChoice");
 
   }
 
@@ -56,11 +67,11 @@ export class FormMultipleChoiceComponent {
     }
   }
 
-  loadStoryScenarios() {
+  loadStoryScenarios(idScenario: number) {
     const currentStoryId = this.localStorageService.getItem('currentStory')?.id;
     if (currentStoryId) {
       this.scenarioService.getScenarioByStoryId(currentStoryId).subscribe(scenarios => {
-        this.storyScenarios = scenarios;
+        this.storyScenarios = scenarios.filter(scenario => scenario.id !== idScenario);
       }, error => console.error(error));
     }
   }
@@ -87,17 +98,20 @@ export class FormMultipleChoiceComponent {
       (response: multipleChoice) => {
         this.multipleChoiceService.changemultipleChoice(response);
         alert("multiplechoice creato con successo!")
-        if(this.selectedObjectId != -1){
-          const objrequired: required={
+        if (this.selectedObjectId != -1) {
+          const objrequired: required = {
             id: 0,
             id_scelta: response.id,
             id_oggetto: this.selectedObjectId
           };
           this.saveRequired(objrequired);
-    
+
         }
 
-        this.router.navigateByUrl('/multiplechoice');
+        this.router.navigateByUrl('/multiplechoice').then(() => {
+          // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)
+          window.location.reload();
+        });
 
       },
       (error: HttpErrorResponse) => {
@@ -122,6 +136,53 @@ export class FormMultipleChoiceComponent {
     };
 
     this.savemultiplechoice(multiplechoiceData);
+  }
+
+  onTextChange(newTesto: string): void {
+    if (this.currentMultipleChoiche) {
+      this.currentMultipleChoiche.testo = newTesto; // Aggiorna il testo dello scenario corrente
+    }
+    this.testo = newTesto; // Aggiorna la variabile testo del componente
+  }
+
+  // metodo per obbligare l'utente a modificare 
+  isUpdated(): boolean {
+    return !this.testo.trim();
+  }
+
+  updateMultipleChoicheText() {
+
+    if (this.currentMultipleChoiche) {
+      const newMultipleChoicheData: multipleChoice = {
+        id: this.currentMultipleChoiche.id,
+        id_scenario: this.idScenario,
+        testo: this.testo,
+        id_scenario_successivo: this.currentMultipleChoiche.id_scenario_successivo
+      };
+
+      console.log("i nuovi dati della scelta multipla: "+JSON.stringify(newMultipleChoicheData));
+
+
+      this.multipleChoiceService.updateMultipleChoice(newMultipleChoicheData).subscribe({
+        next: (updatedMultipleChoice) => {
+
+          this.multipleChoiceService.changemultipleChoice(newMultipleChoicheData);
+          console.log("Scelta multpla aggiornata con successo:", updatedMultipleChoice);
+
+          this.router.navigateByUrl('/multiplechoice').then(() => {
+            // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)
+            window.location.reload();
+          });
+        },
+        error: (error) => {
+
+          console.error("Errore durante l'aggiornamento della scelta multipla:", error);
+        }
+      });
+
+
+    }
+
   }
 
 }

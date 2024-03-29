@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<div class="single-choice-container">
-    <h1>Inserisci le informazioni per l'indovinello</h1>
+<div class="single-choice-container" *ngIf="!isInTextEditMode">
+    <h1>Inserisci le informazioni dell'indovinello</h1>
     <form class="single-choice-form" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="testo">Testo dell'Indovinello:</label>
@@ -23,5 +23,30 @@
             </select>
         </div>
         <button type="submit" class="btn-creazione">Crea Indovinello</button>
+    </form>
+</div>
+
+
+<!--se mi trovo nella modalità di modifica testo scenario-->
+<div class="single-choice-container" *ngIf="isInTextEditMode">
+    <h1>Modifica le informazioni dell'indovinello</h1>
+    <form class="single-choice-form" (ngSubmit)="updateSingleChoicheText()">
+        <div class="form-group">
+            <label for="testo">Testo dell'Indovinello:</label>
+            <textarea *ngIf="currentSingleChoiche" id="testo" name="testo" required [ngModel]="currentSingleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="risposta">Risposta:</label>
+            <input *ngIf="currentSingleChoiche" type="text" id="risposta" name="risposta" required [ngModel]="currentSingleChoiche.risposta" (ngModelChange)="onAnswerChange($event)" placeholder="Inserisci la risposta corretta">
+        </div>
+        <div class="form-group">
+            <label for="idScenarioRispostaCorretta">ID Scenario Risposta Corretta:</label>
+            <input type="text" [value]="currentSingleChoiche?.id_scenario_risposta_corretta" readonly>
+        </div>
+        <div class="form-group">
+            <label for="idScenarioRispostaSbagliata">ID Scenario Risposta Sbagliata:</label>
+            <input type="text" [value]="currentSingleChoiche?.id_scenario_risposta_sbagliata" readonly>
+        </div>
+        <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Crea Indovinello</button>
     </form>
 </div>

@@ -45,6 +45,13 @@ button.btn-creazione {
     transition: background-color 0.3s ease;
 }
 
+.btn-creazione:disabled {
+    color: #cccccc;
+    background-color: #aaaaaa;
+    border: 1px solid #999999;
+    cursor: not-allowed;
+}
+
 button.btn-creazione:hover { 
     background-color: #0056b3;
 }
