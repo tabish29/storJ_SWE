@@ -1,64 +1,92 @@
-.login-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
     border-radius: 5px;
-    background-color: #f9f9f9;
 }
 
-h1 {
+#div-login {
+    display: inline;
     text-align: center;
+    width: 600px;
+    height: 300px;
+    margin-top: 10rem;
+    padding: 25px 25px;
+    background-color: rgb(244, 244, 244);
+    border-radius: 10px;
+    box-shadow: 10px 10px 5px #aaaaaa;
 }
 
-.login-form {
-    margin-top: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
+#title {
+    font-size: 18pt;
     font-weight: bold;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+span {
+    color: red;
+}
+
+#div-form {
+    display: inline-block;
+    text-align: left;
+    padding:0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    width: 40%;
+    gap: 2rem;
+}
+
+label:hover {
+    transition: color 0.5s;
+    color: darkred;
+}
+
+input {
+    font-size: 9pt;
     box-sizing: border-box;
-}
-
-button.btn-login {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-top: 0.5rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-button.btn-login:hover {
-    background-color: #0056b3;
+input:hover {
+    transition: border-color 0.5s;
+    border: 1px solid darkred;
 }
 
-.register-link {
-    text-align: center;
-    margin-top: 10px;
+button {
+    font-size: 10pt;
+    color: white;
+    width: 82.5%;
+    height: auto;
+    margin-bottom: 2rem;
+    padding: 7.5px 7.5px;
+    background-color: crimson;
+    border: none !important;
+    border-radius: 10px;
 }
 
-.register-link a {
-    color: #007bff;
+button:hover {
+    transition: background-color 0.5s;
+    background-color: darkred;
+}
+
+a {
     text-decoration: none;
+    color: red;
+    border-radius: none !important;
 }
 
-.register-link a:hover {
-    text-decoration: underline;
+a:hover {
+    transition: color 0.5s;
+    transition: border 0.5s;
+    color: darkred;
+    border-bottom: 1px solid darkred;
 }
