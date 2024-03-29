@@ -26,7 +26,7 @@ import { MultipleChoiceComponent } from './components/multiple-choice/multiple-c
 import { SingleChoiceComponent } from './components/single-choice/single-choice.component';
 import { FormMultipleChoiceComponent } from './components/form-multiple-choice/form-multiple-choice.component';
 import { FormSingleChoiceComponent } from './components/form-single-choice/form-single-choice.component';
-
+import { PlayPageComponent } from './components/play-page/play-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,8 @@ import { FormSingleChoiceComponent } from './components/form-single-choice/form-
     MultipleChoiceComponent,
     SingleChoiceComponent,
     FormMultipleChoiceComponent,
-    FormSingleChoiceComponent
+    FormSingleChoiceComponent,
+    PlayPageComponent
   ],
   imports: [
     BrowserModule,
