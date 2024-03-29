@@ -1,11 +1,53 @@
-.messaggio {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+.container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-    text-align: center;
+    justify-content: center;
+    width: 100%;
+    text-decoration: none;
+}
+
+.div-text {
+    font-family: Arial, sans-serif;
+    margin-top: 7.5rem;
+    padding: 40px 40px;
+    width: 30%;
+    background-color: rgb(244, 244, 244);
+    border-radius: 10px;
+    text-align: justify;
+    box-shadow: 10px 10px 5px #aaaaaa;
+}
+
+#title {
+    width: auto;
+    font-size: 27pt;
+    margin-bottom: 2rem;
+}
+
+p {
+    text-align: left;
+    font-size: 16px;
+}
+
+span {
+    color:red;
+}
+
+#div-button {
+    display: flex;
+    justify-content: left;
+    margin-top: 2.5rem;
+    gap: 1rem;
+}
+
+a {
+    padding: 12.5px 12.5px;
+    text-decoration: none;
+    color: white;
+    background-color: crimson;
+    border-radius: 10px;
+}
+
+a:hover {
+    transition: background-color 0.5s;
+    background-color: darkred;
 }
