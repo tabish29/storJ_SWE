@@ -1,35 +1,38 @@
 <app-navbar></app-navbar>
-<div class="scenario-container" *ngIf="!isInTextEditMode">
-    <h1>Inserisci le informazioni dello scenario</h1>
-    <form class="scenario-form" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="testo">Testo dello Scenario:</label>
-            <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="tipoRisposta">Tipo di Risposta:</label>
-            <select id="tipoRisposta" name="tipoRisposta" required [(ngModel)]="tipoRisposta">
-                <option value="INDOVINELLO">INDOVINELLO</option>
-                <option value="MULTIPLA">MULTIPLA</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="tipoScenario">Tipo di Scenario:</label>
-            <select id="tipoScenario" name="tipoScenario" required [(ngModel)]="tipoScenario">
-                <option value="INIZIALE">INIZIALE</option>
-                <option value="NORMALE">NORMALE</option>
-                <option value="FINALE">FINALE</option>
-            </select>
-        </div>
-        <!-- Sezione per la selezione di un oggetto -->
-        <div class="form-group">
-            <label for="objectSelect">Oggetto Droppato:</label>
-            <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
-                <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
-            </select>
-        </div>
-        <button type="submit" class="btn-creazione">Crea Scenario</button>
-    </form>
+<div class="container" *ngIf="!isInTextEditMode">
+    <div class="div-scenario"> 
+        <p id="title">Inserisci i <span>dati</span> dello <span>scenario</span></p>
+        <form (ngSubmit)="onSubmit()">
+            <div>
+                <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
+            </div>
+            <div class="div-select">
+                <label for="tipoRisposta">Risposta</label>
+                <select id="tipoRisposta" name="tipoRisposta" required [(ngModel)]="tipoRisposta">
+                    <option disabled>Tipologia di risposta</option>
+                    <option value="INDOVINELLO">Indovinello</option>
+                    <option value="MULTIPLA">Multipla</option>
+                </select>
+            </div>
+            <div class="div-select">
+                <label for="tipoScenario">Scenario</label>
+                <select id="tipoScenario" name="tipoScenario" required [(ngModel)]="tipoScenario">
+                    <option disabled>Tipologia di scenario</option>
+                    <option value="INIZIALE">Iniziale</option>
+                    <option value="NORMALE">Normale</option>
+                    <option value="FINALE">Finale</option>
+                </select>
+            </div>
+            <div>
+                <label for="objectSelect">Oggetto</label>
+                <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
+                    <option disabled>Tipologia di oggetto</option>
+                    <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-creazione">Crea Scenario</button>
+        </form>
+    </div>
 </div>
 
 

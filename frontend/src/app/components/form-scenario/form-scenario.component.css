@@ -1,63 +1,114 @@
-.scenario-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+* {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-h1 {
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
+
+.div-scenario {
+    display: inline;
     text-align: center;
+    width: 35%;
+    height: auto;
+    margin-top: 5rem;
+    padding: 25px 25px;
+    border-radius: 10px;
+    background-color: rgb(244, 244, 244);
+    box-shadow: 15px 10px 15px #aaaaaa;
 }
 
-.scenario-form {
-    margin-top: 20px;
+#title {
+    text-align: center;
+    width: auto;
+    font-size: 20pt;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
-.form-group {
-    margin-bottom: 15px;
+p {
+    text-align: left;
+    font-size: 16px;
+}
+
+span {
+    color:red;
+}
+
+.div-select {
+    display: inline-block;
+    text-align: left;
+    padding: 0.5rem;
+    width: 45%;
 }
 
 label {
     display: block;
-    font-weight: bold;
+    text-align: center;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-button.btn-creazione {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-creazione:disabled {
-    color: #cccccc;
-    background-color: #aaaaaa;
-    border: 1px solid #999999;
-    cursor: not-allowed;
-}
-
-button.btn-creazione:hover {
-    background-color: #0056b3;
+label:hover {
+    transition: color 0.5s;
+    color: darkred;
 }
 
 textarea {
-    width: 100%;
+    font-size: 8pt;
+    width: 93.5%;
     height: 150px;
     box-sizing: border-box;
     resize: none;
+}
+
+#tipoRisposta, #tipoScenario {
+    font-size: 9pt;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.div-object {
+    width: 45%;
+    border: 2px solid black;
+}
+
+#objectSelect {
+    font-size: 9pt;
+    box-sizing: border-box;
+    width: 93.5%;
+    margin-top: 0.5rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+#tipoRisposta:hover, #tipoScenario:hover, #objectSelect:hover {
+    transition: border 0.5s;
+    border: 1px solid darkred;
+}
+
+button {
+    font-size: 10pt;
+    color: white;
+    width: 93.5%;
+    height: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 7.5px 7.5px;
+    background-color: crimson;
+    border: none !important;
+    border-radius: 10px;
+}
+
+button:hover {
+    transition: background-color 0.5s;
+    background-color: darkred;
 }
