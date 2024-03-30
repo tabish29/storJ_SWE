@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './stor-jpage.component.html',
   styleUrl: './stor-jpage.component.css'
 })
-export class StorJPageComponent {
-
-}
+export class StorJPageComponent { }
