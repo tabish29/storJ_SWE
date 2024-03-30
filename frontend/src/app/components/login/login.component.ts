@@ -13,7 +13,6 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-
   
   constructor(private http: HttpClient,private userService: UserService,private authService:AuthService,private router: Router) { }
   
@@ -22,10 +21,8 @@ export class LoginComponent {
       (response: user) => {
         if(response.password === this.password){
           this.authService.setAuthStatus(true);
-          this.userService.changeUser(response); 
-          
-          //redirect to pagina storJPage!
-          this.router.navigateByUrl('/storJPage'); // Usa il Router per il redirect
+          this.userService.changeUser(response);           
+          this.router.navigateByUrl('/storJPage');
         }else{
           this.authService.setAuthStatus(false);
           alert("Credenziali di accesso errate!");
