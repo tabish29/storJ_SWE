@@ -23,21 +23,21 @@ export class LoginComponent {
         if(response.password === this.password){
           this.authService.setAuthStatus(true);
           this.userService.changeUser(response); 
-          alert("Ciao " + response.username);
+          
           //redirect to pagina storJPage!
           this.router.navigateByUrl('/storJPage'); // Usa il Router per il redirect
         }else{
           this.authService.setAuthStatus(false);
-          alert("Username o Password errata!");
+          alert("Credenziali di accesso errate!");
         }
       },
       (error: HttpErrorResponse) => {
         if(error.error.code == "UtenteNotFound"){
           this.authService.setAuthStatus(false);
-        alert(error.error.message);
+          alert(error.error.message);
         }else{
           this.authService.setAuthStatus(false);
-          alert(error.error.message);
+          alert("Riempi i campi prima di procedere!");
         }
       }
     );

@@ -1,15 +1,16 @@
 <app-navbar></app-navbar>
-<div class="story-container">
-    <h1>Inserisci le informazioni della storia</h1>
-    <form class="story-form" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="titolo">Titolo:</label>
-            <input type="text" id="titolo" name="titolo" required [(ngModel)]="titolo">
-        </div>
-        <div class="form-group">
-            <label for="categoria">Categoria:</label>
-            <input type="text" id="categoria" name="categoria" required [(ngModel)]="categoria">
-        </div>
-        <button type="submit" class="btn-creazione">Crea</button>
-    </form>
+<div class="container">
+    <div id="div-story">
+        <p id="title">Inserisci le informazioni <span>principali</span> della <span>storia</span></p>
+        <form (ngSubmit)="onSubmit()">
+            <div id="div-form">
+                <label for="titolo">Titolo</label>
+                <input type="text" placeholder="Inserisci titolo" name="titolo" [(ngModel)]="titolo" required>
+                <label for="categoria">Categoria</label>
+                <input type="text" placeholder="Inserisci la categoria" name="categoria" [(ngModel)]="categoria" required>
+            </div>
+            <button type="submit">Crea</button>
+        </form>
+        <p id="support-message">Non <span>demordere</span>... <br>Ci vorrà solo <span>qualche</span> passaggio in più!</p>
+    </div>
 </div>
