@@ -4,6 +4,7 @@
         <p id="title">Inserisci i <span>dati</span> dello <span>scenario</span></p>
         <form (ngSubmit)="onSubmit()">
             <div>
+                <label id="label-left" for="testo">Descrizione</label>
                 <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
             </div>
             <div class="div-select">
@@ -24,7 +25,7 @@
                 </select>
             </div>
             <div class="div-object">
-                <label for="objectSelect">Oggetto</label>
+                <label id="label-left" for="objectSelect">Oggetto</label>
                 <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
                     <option disabled>Tipologia di oggetto</option>
                     <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>

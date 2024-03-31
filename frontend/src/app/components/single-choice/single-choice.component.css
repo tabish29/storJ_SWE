@@ -1,28 +1,88 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px; 
+    align-items: center;
     justify-content: center;
-    margin-top: 30px; 
-    padding: 0 20px; 
+    width: 100%;
+    text-decoration: none;
 }
 
-.singleChoice-box {
-    border: 1px solid #ccc;
-    padding: 20px;
+.div-single-choice {
+    display: inline;
+    margin-top: 7.5rem;
+    padding: 40px 40px;
+    width: 30%;
+    height: 250px;
+    background-color: rgb(244, 244, 244);
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: calc(50% - 20px); 
-    box-sizing: border-box;
+    text-align: justify;
+    box-shadow: 10px 10px 5px #aaaaaa;
 }
 
-.info {
-    display: block; 
+#title {
+    font-size: 20pt;
+    font-weight: bold;
+    width: auto;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-.remove-button {
-    margin-top: auto; 
-    text-align: right; 
+p {
+    text-align: left;
+    font-size: 16px;
+}
+
+span {
+    color: red;
+}
+
+.div-inline {
+    display: inline-block;
+    justify-self: center;
+    text-align: left;
+    width: 45%;
+    height: 50%;
+    padding: 0.5rem;
+}
+
+#div-info {
+    padding-left: 0.5rem;
+    border-left: 2px solid rgb(204, 204, 204, 0.7);
+}
+
+#div-info:hover {
+    padding-left: 0.5rem;
+    border-left: 3px solid rgb(204, 204, 204, 0.7);
+}
+
+#span-header {
+    color: red;
+    font-weight: bold;
+}
+
+.span-text {
+    color: black;
+}
+
+.span-text:hover {
+    background-color: rgb(244, 244, 244, 0.5);
+    border-bottom: 1px solid black;
+}
+
+button {
+    color: white;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 8px;
+    background-color: crimson;
+    border: none !important;
+    border-radius: 10px;
+}
+
+button:hover {
+    transition: background-color 0.5s;
+    background-color: darkred;
 }

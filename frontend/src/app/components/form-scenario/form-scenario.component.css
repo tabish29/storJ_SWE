@@ -54,6 +54,11 @@ label:hover {
     color: darkred;
 }
 
+#label-left {
+    float: left;
+    margin-left: 1.2rem;
+}
+
 textarea {
     font-size: 8pt;
     width: 93.5%;

@@ -8,7 +8,8 @@
     justify-content: center;
     width: 100vw;
     gap: 20px; 
-    margin-top: 30px; 
+    margin-top: 2rem;
+    margin-bottom: 2rem; 
 }
 
 .div-title {
@@ -47,6 +48,16 @@ span {
 #div-info {
     float: left;
     height: 100px;
+}
+
+#div-text {
+    padding-left: 0.5rem;
+    border-left: 2px solid rgb(204, 204, 204, 0.7);
+}
+
+#div-text:hover {
+    padding-left: 0.5rem;
+    border-left: 3px solid rgb(204, 204, 204, 0.7);
 }
 
 .span-header {

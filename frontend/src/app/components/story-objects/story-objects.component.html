@@ -1,12 +1,17 @@
 <app-navbar></app-navbar>
-<div class="container"  *ngIf="!isInTextEditMode">
-    <div *ngFor="let item of storyObjects" class="story-object-box">
-        <div class="info">
-            <div><label>Id_oggetto: {{ item.id }}</label></div>
-            <div><label>Nome: {{ item.nome }}</label></div>
-            <div><label>Descrizione: {{ item.descrizione }}</label></div>
+<div class="container" *ngIf="!isInTextEditMode">
+    <div class="div-title">
+        <p id="title">I tuoi <span>magici</span> oggetti...</p>
+    </div>
+    <div class="div-objects" *ngFor="let item of storyObjects">
+        <div class="div-info">
+            <div id="div-text"><label><span class="span-header">Nome</span><br><span class="span-text">{{ item.nome }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Descrizione</span><br><span class="span-text">{{ item.descrizione }}</span></label></div>
         </div>
-        <div class="remove-button"><button (click)="removestoryObject(item.id)">Rimuovi</button></div>
+        <div class="div-button">
+            <div><button (click)="removestoryObject(item.id)">Rimuovi</button></div>
+        </div>
     </div>
 </div>
 

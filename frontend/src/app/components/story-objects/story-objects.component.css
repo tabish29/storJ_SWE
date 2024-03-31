@@ -1,29 +1,94 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
-    margin-top: 30px;
-    padding: 0 20px;
+    width: 100vw;
+    gap: 20px; 
+    margin-top: 2rem;
+    margin-bottom: 2rem; 
 }
 
-.story-object-box {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
+.div-title {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: calc(50% - 20px);
     box-sizing: border-box;
-    background-color: #f9f9f9;
+    text-align: center;
+    width: 78%; 
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+    padding: 20px;
+    border-bottom: 2px solid rgb(204, 204, 204, 0.7);
+    border-radius: none;
 }
 
-.info {
-    display: block;
+#title {
+    font-size: 20pt;
+    font-weight: bold;
 }
 
-.remove-button {
-    margin-top: auto;
-    text-align: right;
+span {
+    color: red;
+}
+
+.div-objects {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 25%; 
+    padding: 20px;
+    background-color: rgb(244, 244, 244);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #aaaa;
+}
+
+#div-info {
+    float: left;
+    height: 100px;
+}
+
+#div-text {
+    padding-left: 0.5rem;
+    border-left: 2px solid rgb(204, 204, 204, 0.7);
+}
+
+#div-text:hover {
+    padding-left: 0.5rem;
+    border-left: 3px solid rgb(204, 204, 204, 0.7);
+}
+
+.span-header {
+    font-weight: bold;
+    color: red;
+}
+
+.span-text {
+    font-weight: none !important;
+    color: black;
+}
+
+.span-text:hover {
+    border-bottom: 1px solid black;
+}
+
+.div-button {
+    text-align: right; 
+    margin-top: 1rem; 
+}
+
+button {
+    font-size: 9pt;
+    color: white;
+    padding: 7.5px 7.5px;
+    background-color: crimson;
+    border-radius: 5px;
+    border: none !important;
+}
+
+button:hover {
+    transition: background-color 0.5s;
+    background-color: darkred;
 }

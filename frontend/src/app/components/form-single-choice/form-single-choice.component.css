@@ -1,64 +1,106 @@
-.single-choice-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+* {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-h1 {
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
+
+.div-single-choice {
+    display: inline;
+    text-align: center !important;
+    width: 40%;
+    height: auto;
+    margin-top: 3rem;
+    padding: 25px 25px;
+    border-radius: 10px;
+    background-color: rgb(244, 244, 244);
+    box-shadow: 15px 10px 15px #aaaaaa;
+}
+
+div {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#title {
     text-align: center;
+    width: auto;
+    font-weight: bold;
+    font-size: 20pt;
+    margin-bottom: 2rem;
 }
 
-.single-choice-form {
-    margin-top: 20px;
+p {
+    text-align: left;
+    font-size: 16px;
 }
 
-.form-group {
-    margin-bottom: 15px;
+span {
+    color:red;
+}
+
+.div-select {
+    display: inline-block;
+    text-align: left;
+    padding: 0.5rem;
+    width: 45%;
 }
 
 label {
     display: block;
-    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
-input[type="text"],
-input[type="number"] { 
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+label:hover {
+    transition: color 0.5s;
+    color: darkred;
 }
 
-button.btn-creazione { 
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-creazione:disabled {
-    color: #cccccc;
-    background-color: #aaaaaa;
-    border: 1px solid #999999;
-    cursor: not-allowed;
-}
-
-button.btn-creazione:hover { 
-    background-color: #0056b3;
+#label-left {
+    float: left;
+    margin-left: 1.2rem;
 }
 
 textarea {
-    width: 100%;
-    height: 150px;
+    font-size: 8pt;
+    width: 93.5%;
+    height: 125px;
     box-sizing: border-box;
     resize: none;
+}
+
+select {
+    font-size: 8pt;
+    width: 100%;
+    padding: 8px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+select:hover {
+    transition: border 0.5s;
+    border: 1px solid darkred;
+}
+
+button {
+    font-size: 10pt;
+    color: white;
+    width: 93.5%;
+    height: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 7.5px 7.5px;
+    background-color: crimson;
+    border: none !important;
+    border-radius: 10px;
+}
+
+button:hover {
+    transition: background-color 0.5s;
+    background-color: darkred;
 }
