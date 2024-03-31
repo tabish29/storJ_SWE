@@ -16,6 +16,11 @@ export class ScenarioService {
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
+  public getScenarioById(idScenario: number): Observable<scenario> {
+
+    return this.http.get<scenario>(this.apiServerUrl + '/scenari/' + idScenario);
+  }
+
   public getScenarioByStoryId(idStoria: number): Observable<scenario[]> {
 
     return this.http.get<scenario[]>(this.apiServerUrl + '/storie/' + idStoria + '/scenari');

@@ -20,6 +20,10 @@ export class StoryService {
     return this.http.get<story[]>(this.apiServerUrl + '/utenti/' + idUser + '/storie');
   }
 
+  public getStoriesByStoryID(idStory: number): Observable<story> {
+    return this.http.get<story>(this.apiServerUrl + '/storie/' + idStory);
+  }
+
   public getAllstories(): Observable<story[]> {
     //mettere l'url del metodo get di tutte le storie
     return this.http.get<story[]>(this.apiServerUrl + '/storie');

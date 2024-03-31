@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ScenarioService } from '../../services/scenario.service';
 import { scenario } from '../../scenario';
 import { LocalStorageService } from '../../services/local-storage.service';
@@ -9,13 +9,17 @@ import { singleChoice } from '../../singleChoice';
 import { DropService } from '../../services/drop.service';
 import { RequiredService } from '../../services/required.service';
 import { storyObjectService } from '../../services/story-object.service';
+import { inventory } from '../../inventory';
+import { InventoryService } from '../../services/inventory.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatchService } from '../../services/match.service';
 
 @Component({
   selector: 'app-play-page',
   templateUrl: './play-page.component.html',
   styleUrl: './play-page.component.css'
 })
-export class PlayPageComponent implements OnInit {
+export class PlayPageComponent implements OnInit, OnChanges {
   scenarios: scenario[] | undefined = [];
   multipleChoices: multipleChoice[] | undefined = [];
   singleChoice!: singleChoice | undefined;
@@ -32,44 +36,59 @@ export class PlayPageComponent implements OnInit {
     private singleChoiceService: SingleChoiceService,
     private storyObjectService: storyObjectService,
     private dropService: DropService,
-    private requiredService: RequiredService
+    private requiredService: RequiredService,
+    private matchService: MatchService,
+    private inventoryService: InventoryService
   ) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("richiamo al meotod ngOnchanges");
+  }
 
   async ngOnInit() {
     await this.loadCurrentStory();
+    console.log("richiamo al meotod ngOnInit");
   }
 
   async loadCurrentStory() {
     const currentStory = this.localStorageService.getItem('currentStory');
     if (currentStory) {
       this.storyId = currentStory.id;
-      await this.loadScenarios(this.storyId);
+      const initialScenario = await this.scenarioService.getFirstScenario(this.storyId).toPromise();
+      this.loadInitialScenario(this.storyId, initialScenario);
+
+
     } else {
       console.error('Nessuna storia corrente trovata nel localStorage');
     }
   }
 
-  async loadScenarios(storyId: number): Promise<void> {
+
+  async loadInitialScenario(storyId: number, scenario: scenario[] | undefined): Promise<void> {
     try {
-      const scenarios = await this.scenarioService.getScenarioByStoryId(storyId).toPromise();
 
-      if (scenarios) {
-        this.scenarios = scenarios;
-        this.currentScenario = scenarios.find(scenario => scenario.tipo_scenario === 'INIZIALE');
-        this.loadDrop(scenarios);
-      }
+      if (scenario) {
+        this.currentScenario = scenario[0];
+        this.scenarioService.changeScenario(this.currentScenario);
+        await this.loadDrop(this.currentScenario);
+        this.loadScenarioChoices(this.currentScenario);
 
-      //(da fare )creare un  metodo che abbia questa logica di caricamento degli scenari
-      if (this.currentScenario) {
-        if (this.currentScenario.tipo_risposta === 'MULTIPLA') {
-          await this.loadMultipleChoices(this.currentScenario.id);
-        } else if (this.currentScenario.tipo_risposta === 'INDOVINELLO') {
-          await this.loadSingleChoice(this.currentScenario.id);
-        }
+      } else {
+        console.error('Scenario iniziale non trovato per la storia corrente');
       }
     } catch (error) {
       console.error('Errore nel caricamento degli scenari', error);
     }
+  }
+
+  async loadScenarioChoices(scenario: scenario) {
+    if (scenario) {
+      if (scenario.tipo_risposta === 'MULTIPLA') {
+        await this.loadMultipleChoices(scenario.id);
+      } else if (scenario.tipo_risposta === 'INDOVINELLO') {
+        await this.loadSingleChoice(scenario.id);
+      }
+    }
+
   }
 
   async loadMultipleChoices(scenarioId: number): Promise<void> {
@@ -95,53 +114,82 @@ export class PlayPageComponent implements OnInit {
     }
   }
 
-  async loadChoice(idScenarioSuccessivo: number): Promise<void> {
-    const nextScenario = this.scenarios?.find(scenario => scenario.id === idScenarioSuccessivo);
+  async loadUserChoice(idScenarioSuccessivo: number): Promise<void> {
+    this.scenarioService.getScenarioById(idScenarioSuccessivo);
 
-    if (nextScenario) {
-      this.currentScenario = nextScenario;
-      console.log('Scenario successivo caricato:', this.currentScenario);
+    this.scenarioService.getScenarioById(idScenarioSuccessivo).subscribe(async (nextScenario: scenario) => {
+
+      if (nextScenario) {
+        this.currentScenario = nextScenario;
+        console.log('Scenario caricato:', this.currentScenario);
+        await this.loadDrop(this.currentScenario);
+        // Carica le scelte associate allo scenario corrente
+        await this.loadScenarioChoices(this.currentScenario);
+
+        // Verifica se lo scenario ha un drop associato
+        const dropName = this.dropMap.get(this.currentScenario.id);
+        if (dropName && dropName !== "Nessun Drop") {
+          // Mostra un alert se lo scenario ha un oggetto associato
+          alert(`Complimenti! Hai ottenuto l'oggetto: ${dropName}.`);
+        }
+
+      } else {
+
+        console.error('Scenario successivo non trovato');
+      }
+    });
+  }
 
 
-      // Logica aggiuntiva per verificare il drop associato
-      const dropName = this.dropMap.get(this.currentScenario.id);
-      if (dropName && dropName !== "Nessun Drop") {
-        alert(`Complimenti! Hai ottenuto l'oggetto: ${dropName}.`);
+  //mettere l'aggiunta dell'oggetto nell'inventario(non sono riuscito a fare in modo che )
+  async loadDrop(scenario: scenario): Promise<void> {
+    try {
+      const drop = await this.dropService.getDropByScenarioId(scenario.id).toPromise();
+      if (!drop) {
+        this.dropMap.set(scenario.id, "Nessun Drop");
+        return;
       }
 
-      //(da fare )creare un  metodo che abbia questa logica di caricamento degli scenari(stessa logica di sopra nel metodo loadScenarios)
-      if (this.currentScenario.tipo_risposta === 'MULTIPLA') {
-        await this.loadMultipleChoices(this.currentScenario.id);
-      } else if (this.currentScenario.tipo_risposta === 'INDOVINELLO') {
-        await this.loadSingleChoice(this.currentScenario.id);
+      const currentMatch = this.matchService.getCurrentMatch();
+      if (!currentMatch) {
+        console.log("Nessuna partita corrente trovata.");
+        return;
       }
-    } else {
-      console.error('Scenario successivo non trovato');
+
+      const inventoryData: inventory = {
+        id: 0,
+        id_partita: currentMatch.id,
+        id_oggetto: drop.id_oggetto
+      };
+
+      this.saveInventory(inventoryData);
+
+      // Aggiorna la mappa dei drop con il nome dell'oggetto
+      const storyObject = await this.storyObjectService.getStoryObject(drop.id_oggetto).toPromise();
+      this.dropMap.set(scenario.id, storyObject ? storyObject.nome : "Oggetto non trovato");
+    } catch (error) {
+      console.error("Errore durante il caricamento del drop per lo scenario " + scenario.id, error);
     }
   }
 
-  async loadDrop(scenarios: scenario[]): Promise<void> {
-    for (const scenario of scenarios) {
-      try {
-        const drop = await this.dropService.getDropByScenarioId(scenario.id).toPromise();
-        if (drop) {
-          try {
-            const storyObject = await this.storyObjectService.getStoryObject(drop.id_oggetto).toPromise();
-            if (storyObject) {
-              this.dropMap.set(scenario.id, storyObject.nome);
-            }
+  saveInventory(inventory: inventory): void {
 
-          } catch (error) {
-            console.log("Errore nel caricamento del nome dell'oggetto da drop: " + error);
-          }
+    this.inventoryService.addinventory(inventory).subscribe(
+      (response: inventory) => {
+        this.inventoryService.changeinventory(response);
+        console.log("Oggetto aggiunto all'inventario!");
+
+      },
+      (error: HttpErrorResponse) => {
+        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
+        if (error.error.code == "UtenteAlreadySigned") {
+          alert(error.error.message);
         } else {
-          this.dropMap.set(scenario.id, "Nessun Drop");
+          alert("c'è stato un errore:" + error.error.message);
         }
-        console.log("avvenuto caricamento del drop dello scenariio: " + scenario.id);
-      } catch (error) {
-        console.log("Errore nel caricamento dei drop per lo scenario " + scenario.id + ": " + error);
       }
-    }
+    );
+
   }
 
   async loadRequired(multipleChoices: multipleChoice[]): Promise<void> {
@@ -161,7 +209,7 @@ export class PlayPageComponent implements OnInit {
         } else {
           this.requiredMap.set(multipleChoice.id, "Nessun oggetto richiesto");
         }
-        console.log("avvenuto caricamento del required della scelta: " + multipleChoice.id);
+        //console.log("avvenuto caricamento del required della scelta: " + multipleChoice.id);
       } catch (error) {
         console.log("Errore nel caricamento dei required per la scelta " + multipleChoice.id + ": " + error);
       }
@@ -177,12 +225,10 @@ export class PlayPageComponent implements OnInit {
 
       // in base all'esito viene preso l'id dello scenario
       const nextScenarioId = isCorrect ? this.singleChoice.id_scenario_risposta_corretta : this.singleChoice.id_scenario_risposta_sbagliata;
-      this.loadChoice(nextScenarioId);
+      this.loadUserChoice(nextScenarioId);
     }
 
     //resetto a stringa vuota così nei successivi indovinelli non si vede la ripsosta data precedentemente
     this.userAnswer = '';
   }
-
-
 }

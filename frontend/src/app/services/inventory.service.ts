@@ -18,9 +18,9 @@ export class InventoryService {
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService,private storyObjectService:storyObjectService,private matchService:MatchService) { }
 
-  public getInventoryByMatchId(idMatch: number): Observable<inventory> {
+  public getInventoryByMatchId(idMatch: number): Observable<inventory[]> {
 
-    return this.http.get<inventory>(this.apiServerUrl + '/partite/' + idMatch + '/oggetti');
+    return this.http.get<inventory[]>(this.apiServerUrl + '/partite/' + idMatch + '/oggetti');
   }
 
   public getinventory(idinventory: number): Observable<inventory> {

@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-
 <div class="container" *ngIf="currentScenario">
     <div class="scenario-box">
         <div class="info">
@@ -16,7 +15,6 @@
     </div>
 </div>
 
-
 <!-- Div per la visualizzazione delle scelte multiple dello scenario -->
 <div class="multipleChoiceContainer">
     <div *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA' && currentScenario?.tipo_scenario != 'FINALE'">
@@ -29,18 +27,13 @@
             </div>
             <div class="remove-button tooltip-container"
                 [class.disabled-tooltip-container]="requiredMap.get(item.id) !== 'Nessun oggetto richiesto'">
-                <button (click)="loadChoice(item.id_scenario_successivo)"
+                <button (click)="loadUserChoice(item.id_scenario_successivo)"
                     [disabled]="requiredMap.get(item.id) !== 'Nessun oggetto richiesto'">Scegli questo</button>
                 <span class="tooltiptext">Non possiedi l'oggetto per fare questa scelta</span>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
 
 <!-- Div per la visualizzazione del'indovinello dello scenario -->
 <div class="singleChoiceContainer">

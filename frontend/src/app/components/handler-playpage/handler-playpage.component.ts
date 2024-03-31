@@ -7,6 +7,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from '../../services/userservice';
 import { Observable, map } from 'rxjs';
 import { user } from '../../user';
+import { MatchService } from '../../services/match.service';
+import { match } from '../../match';
+import { scenario } from '../../scenario';
+import { ScenarioService } from '../../services/scenario.service';
 
 @Component({
   selector: 'app-handler-playpage',
@@ -18,12 +22,19 @@ import { user } from '../../user';
 
 export class HandlerPlaypageComponent {
   stories: story[] = [];
+  currentScenario!:scenario;
   filterType = '';
   filterValue = '';
   noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
   authorMap: Map<number, String | undefined> = new Map();
 
-  constructor(private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService, private userService: UserService) { }
+  constructor(
+    private storyService: StoryService,
+    private router: Router,
+    private localStorageService: LocalStorageService,
+    private userService: UserService,
+    private scenarioService:ScenarioService,
+    private matchService: MatchService) { }
 
   async ngOnInit(): Promise<void> {
     await this.loadStories();
@@ -47,24 +58,70 @@ export class HandlerPlaypageComponent {
     for (const story of stories) {
       try {
         const authorName = await this.userService.getUserById(story.id_creatore).toPromise();
+
         if (authorName) {
-
           this.authorMap.set(story.id, authorName.username);
-
         } else {
           this.authorMap.set(story.id, "Nessun Autore");
         }
+
       } catch (error) {
         console.log("Errore nel caricamento dei nome dell'autore per la storia " + story.id + ": " + error);
       }
     }
   }
 
-  playStory(story: story): void {
+  async loadInitialScenario(storyId: number): Promise<void> {
+    try {
+      const firstScenario = await this.scenarioService.getFirstScenario(storyId).toPromise();
+
+      if(firstScenario){
+        this.scenarioService.changeScenario(firstScenario[0]);
+      }
+
+    } catch (error) {
+      console.error('Errore nel caricamento degli scenari', error);
+    }
+  }
+
+
+  async  playStory(story: story): Promise<void> {
     this.storyService.changeStory(story);
+    await this.loadInitialScenario(story.id)
+    const currentUserId= this.userService.getCurrentUser()?.id;
+    const firstScenarioId=this.scenarioService.getCurrentScenario()?.id
+    if(currentUserId && firstScenarioId){
+    //mettere i valori corretti
+    const matchData: match = {
+      id: 0,
+      id_storia: story.id,
+      id_utente: currentUserId,
+      id_scenario_corrente: firstScenarioId
+    };
+    this.saveMatch(matchData);
+  }
 
     // Reindirizzamento all'URL di gioco della storia
     this.router.navigateByUrl(`playPage`);
+  }
+
+  public saveMatch(match: match): void {
+
+    this.matchService.addMatch(match).subscribe(
+      (response: match) => {
+        this.matchService.changeMatch(response);
+        console.log("Partita creata con successo!");
+
+      },
+      (error: HttpErrorResponse) => {
+        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
+        if (error.error.code == "UtenteAlreadySigned") {
+          alert(error.error.message);
+        } else {
+          alert("c'è stato un errore:" + error.error.message);
+        }
+      }
+    );
   }
 
   filterStories(filterType: string, filterValue: string): void {
