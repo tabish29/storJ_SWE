@@ -15,32 +15,25 @@ import { StoryService } from '../../services/story.service';
   styleUrl: './create-story.component.css'
 })
 export class CreateStoryComponent implements OnInit {
-
-  //Da modificare fare in modo che vengano visualizzate solo le storie dell'utente loggato
   scenarios: scenario[] = [];
   storyId!: number;
   dropMap: Map<number, string | undefined> = new Map();
   isInTextEditMode!: boolean;
 
-
   constructor(private scenarioService: ScenarioService, private dropService: DropService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
 
   async ngOnInit(): Promise<void> {
-    // Recupera l'ID della storia corrente dal localStorage
     const currentStory = this.localStorageService.getItem('currentStory');
     this.storyId = currentStory.id;
     await this.loadScenarios();
     await this.loadDrop(this.scenarios);
     this.isInTextEditMode = this.storyService.isStoryCompleted();
-
   }
-
 
   async loadScenarios(): Promise<void> {
     try {
       const scenarios = await (this.scenarioService.getScenarioByStoryId(this.storyId)).toPromise();
       if (scenarios) {
-        // Ordino gli scenari in base all'Id
         this.scenarios = scenarios.sort((a, b) => a.id - b.id);
       }
     } catch (error) {
@@ -74,7 +67,7 @@ export class CreateStoryComponent implements OnInit {
   removeScenario(scenarioId: number): void {
     this.scenarioService.deleteScenario(scenarioId);
     this.loadScenarios();
-    location.reload(); //per fare il refresh dell'applicazione
+    location.reload();
   }
 
   redirectToScenarioType(scenario: scenario, type: string): void {

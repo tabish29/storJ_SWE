@@ -1,14 +1,21 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
-    <div *ngFor="let item of scenarios" class="scenario-box">
-        <div class="info">
-            <div><label>Id: {{ item.id }}</label></div>
-            <div><label>Testo: {{ item.testo }}</label></div>
-            <div><label>Tipo_risposta: {{ item.tipo_risposta }}</label></div>
-            <div><label>Tipo_scenario: {{ item.tipo_scenario }}</label></div>
-            <div><label>Drop: {{ dropMap.get(item.id) }}</label></div>
-            <div class="remove-button"><button (click)="removeScenario(item.id)">Rimuovi</button></div>
-            <div class="remove-button"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">scelte</button>
+    <div class="div-title">
+        <p id="title">Divertiti e crea i più strepitosi <span>scenari</span></p>
+    </div>
+    <div class="div-scenario" *ngFor="let item of scenarios">
+        <div class="div-info">
+            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Tipologia scenario</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
+            <p></p>
+            <div class="div-button">
+                <div class="div-button-scenario"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Specifiche</button></div>
+            </div>
+            <div class="div-button">
+                <div class="div-button-scenario"><button (click)="removeScenario(item.id)">Rimuovi</button></div>
             </div>
         </div>
     </div>
