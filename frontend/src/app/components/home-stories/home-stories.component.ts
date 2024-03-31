@@ -11,9 +11,8 @@ import { StoryService } from '../../services/story.service';
   styleUrl: './home-stories.component.css'
 })
 export class HomeStoriesComponent {
-
   stories: story[] = [];
-  noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
+  noStoriesFound: boolean = false;
 
   constructor(private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService) { }
 

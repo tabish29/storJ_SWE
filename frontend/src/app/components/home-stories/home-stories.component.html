@@ -1,12 +1,14 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <div *ngFor="let item of stories" class="story-box">
-        <div class="info">
-            <div><label>Titolo: {{ item.titolo }}</label></div>
-            <div><label>Categoria: {{ item.categoria }}</label></div>
-            <div><label>Numero Scenari: {{ item.numero_scenari }}</label></div>
+    <div class="div-title">
+        <p id="title">Le <span>tue</span> più <span>incredibili</span> storie</p>
+    </div>
+    <div class="div-story" *ngFor="let item of stories">
+        <div id="div-info">
+            <div><label><span class="span-header">Titolo</span><br><span class="span-text">{{ item.titolo }}</span></label></div>
+            <div><label><span class="span-header">Categoria</span><br><span class="span-text">{{ item.categoria }}</span></label></div>
         </div>
-        <div class="edit-button" *ngIf="!item.statoCompletamento"><button (click)="editStory(item)">Modifica Storia</button></div>
-        <div class="edit-button" *ngIf="item.statoCompletamento"><button (click)="editStory(item)">Modifica Testo Storia</button></div>
+        <div class="div-button" *ngIf="!item.statoCompletamento"><button (click)="editStory(item)">Modifica Storia</button></div>
+        <div class="div-button" *ngIf="item.statoCompletamento"><button (click)="editStory(item)">Modifica Testo Storia</button></div>
     </div>
 </div>
