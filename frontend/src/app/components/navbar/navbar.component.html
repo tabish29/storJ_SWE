@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="logo">
-        <label *ngIf="currentUrl === '/home' || currentUrl === '/storJPage'" >storJ</label>
+        <label *ngIf="currentUrl === '/home' || currentUrl === '/storJPage'">storJ</label>
         <div class="arrow">
             <!-- Icona freccia indietro per utenti autenticati -->
             <button mat-button *ngIf="isAuthenticated() && currentUrl != '/storJPage'" (click)="goBack(currentUrl)">
@@ -18,9 +18,11 @@
         <button mat-button routerLink="/payment" *ngIf="currentUrl === '/storJPage' && showPaymentButton">Paga</button>
 
         <!-- Mostra il bottone "Crea Scenario" solo se l'utente è su "/createStory"-->
-        <button mat-button *ngIf="currentUrl === '/createStory' && isAuthenticated() && !isInTextEditMode" (click)="saveStory()">Salva
+        <button mat-button *ngIf="currentUrl === '/createStory' && isAuthenticated() && !isInTextEditMode"
+            (click)="saveStory()">Salva
             Storia</button>
-        <button mat-button routerLink="/formScenario" *ngIf="currentUrl === '/createStory' && isAuthenticated() && !isInTextEditMode">Crea
+        <button mat-button routerLink="/formScenario"
+            *ngIf="currentUrl === '/createStory' && isAuthenticated() && !isInTextEditMode">Crea
             Scenario</button>
         <button mat-button routerLink="/storyObjects"
             *ngIf="currentUrl === '/createStory' && isAuthenticated()">Oggetti</button>
@@ -37,7 +39,8 @@
             *ngIf="currentUrl === '/storJPage' && isAuthenticated()">Crea</button>
 
         <!-- Mostra questo pulsante solo se l'utente si trova in homestories-->
-        <button mat-button routerLink="/formStory" *ngIf="currentUrl === '/homeStories' && isAuthenticated()">Crea storia</button>
+        <button mat-button routerLink="/formStory" *ngIf="currentUrl === '/homeStories' && isAuthenticated()">Crea
+            storia</button>
 
         <!-- Mostra questo pulsante solo se l'utente si trova in formMultipleChoices-->
         <button mat-button routerLink="/formMultipleChoice"
@@ -45,8 +48,17 @@
 
         <!-- Mostra questo pulsante solo se l'utente si trova in formSingleChoice-->
         <button mat-button routerLink="/formSingleChoice"
-            *ngIf="currentUrl === '/singlechoice' && isAuthenticated() && !getIsSingleChoiceCreated() && !isInTextEditMode">Crea scelta</button>
-            
+            *ngIf="currentUrl === '/singlechoice' && isAuthenticated() && !getIsSingleChoiceCreated() && !isInTextEditMode">Crea
+            scelta</button>
+
+        <!-- Mostra questo pulsante solo se l'utente si trova in formSingleChoice-->
+        <button mat-button routerLink="/match" *ngIf="currentUrl === '/handlerPlaypage' && isAuthenticated()">Mie
+            Partite</button>
+
+        <!-- Mostra questo pulsante solo se l'utente si trova in playPage-->
+        <button mat-button (click)="openInventory()"
+            *ngIf="isAuthenticated() && currentUrl === '/playPage'">inventario</button>
+
         <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
     </div>
 </nav>

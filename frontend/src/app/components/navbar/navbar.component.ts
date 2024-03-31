@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/userservice';
@@ -9,6 +10,10 @@ import { StoryService } from '../../services/story.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SingleChoiceService } from '../../services/single-choice.service';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { InventoryService } from '../../services/inventory.service';
+import { MatchService } from '../../services/match.service';
+import { inventory } from '../../inventory';
+import { PopupComponent } from '../popup/popup.component';
 
 
 @Component({
@@ -24,8 +29,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   scenarioId!: number;
   isInTextEditMode!: boolean;
+  inventoryItems!: inventory[];
+  popUp?: PopupComponent
 
-  constructor(private router: Router, private authService: AuthService, private userService: UserService, private storyService: StoryService, private singleChoiceService: SingleChoiceService, private localStorageService: LocalStorageService) {
+  constructor(private router: Router, private authService: AuthService, private userService: UserService, private storyService: StoryService, private singleChoiceService: SingleChoiceService, private localStorageService: LocalStorageService, private matchService: MatchService, private inventoryService: InventoryService, private dialog: MatDialog) {
     this.currentUrl = router.url;
   }
 
@@ -43,7 +50,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     );
 
     this.userSub = this.userService.currentUser.subscribe((user: user | null) => {
-      if(user) {
+      if (user) {
         this.showPaymentButton = !user.statoPagamento;
       } else {
         this.showPaymentButton = false;
@@ -53,7 +60,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
 
     const currentscenario = this.localStorageService.getItem('currentScenario');
-    if(currentscenario) {
+    if (currentscenario) {
       this.scenarioId = currentscenario.id;
       this.isSingleChoiceCreated(this.scenarioId);
     }
@@ -76,10 +83,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   isSingleChoiceCreated(scenarioID: number): void {
-    if(scenarioID) {
+    if (scenarioID) {
       this.singleChoiceService.getSingleChoiceByScenarioId(scenarioID).subscribe({
         next: (response) => {
-          if(response) {
+          if (response) {
             this.singleChoiceService.setIsChoiceCreated(true);
           } else {
             this.singleChoiceService.setIsChoiceCreated(false);
@@ -121,13 +128,47 @@ export class NavbarComponent implements OnInit, OnDestroy {
         }
       });
 
-      this.router.navigateByUrl('/homeStories');
+    this.router.navigateByUrl('/homeStories');
   }
+
+  async openInventory() {
+    const currentMatch = this.matchService.getCurrentMatch();
+
+    if (currentMatch) {
+      await this.inventoryService.getInventoryByMatchId(currentMatch.id).subscribe({
+        next: (response) => {
+
+          if (response) {
+            this.inventoryItems = response;
+            this.dialog.open(PopupComponent, {
+              width: '400px', // regolare la grandezza
+              data: { inventoryItems: this.inventoryItems } // Passaggio dati 
+            });
+          } else {
+            console.log("non ci sono oggetti nell'inventario");
+          }
+        },
+        error: (error) => {
+          console.error('Errore nel metodo getSingleChoiceByScenarioId: ', error);
+          this.singleChoiceService.setIsChoiceCreated(false);
+        }
+      });
+
+    };
+
+  }
+
 
   goBack(page: string): void {
     switch (page) {
       case '/handlerPlaypage':
         this.router.navigateByUrl('storJPage');
+        break;
+      case '/playPage':
+        this.router.navigateByUrl('handlerPlaypage');
+        break;
+      case '/match':
+        this.router.navigateByUrl('handlerPlaypage');
         break;
       case '/homeStories':
         this.router.navigateByUrl('storJPage');
