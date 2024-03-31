@@ -11,10 +11,10 @@
 
 .div-scenario {
     display: inline;
-    text-align: center;
-    width: 35%;
+    text-align: center !important;
+    width: 40%;
     height: auto;
-    margin-top: 5rem;
+    margin-top: 3rem;
     padding: 25px 25px;
     border-radius: 10px;
     background-color: rgb(244, 244, 244);
@@ -24,8 +24,8 @@
 #title {
     text-align: center;
     width: auto;
+    font-weight: bold;
     font-size: 20pt;
-    margin-top: 1rem;
     margin-bottom: 2rem;
 }
 
@@ -47,7 +47,6 @@ span {
 
 label {
     display: block;
-    text-align: center;
 }
 
 label:hover {
@@ -75,8 +74,8 @@ textarea {
 }
 
 .div-object {
-    width: 45%;
-    border: 2px solid black;
+    justify-content: center;
+    width: 100%;
 }
 
 #objectSelect {
@@ -101,7 +100,7 @@ button {
     width: 93.5%;
     height: auto;
     margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     padding: 7.5px 7.5px;
     background-color: crimson;
     border: none !important;
