@@ -1,19 +1,21 @@
 <app-navbar></app-navbar>
-<div class="story-object-container" *ngIf="!isInTextEditMode">
-    <h1>Inserisci le informazioni dell'Oggetto Storia</h1>
-    <form class="story-object-form" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="nome">Nome dell'Oggetto:</label>
-            <input type="text" id="nome" name="nome" required [(ngModel)]="nome">
+<div class="container" *ngIf="!isInTextEditMode">
+    <div class="div-object">
+        <p id="title">Inserisci i <span>dati</span> dell'<span>oggetto</span></p>
+        <form (ngSubmit)="onSubmit()">
+        <div class="div-form">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" required [(ngModel)]="nome">
+                <label for="descrizione">Descrizione</label>
+                <textarea id="descrizione" name="descrizione" required [(ngModel)]="descrizione"></textarea>
+                <button type="submit">Crea</button>
+            </div>
+        </form>
+        <div class="message-support">
+            <p>La tua <span>storia</span> è in fase <span>conclusiva</span>!</p>
         </div>
-        <div class="form-group">
-            <label for="descrizione">Descrizione dell'Oggetto:</label>
-            <textarea id="descrizione" name="descrizione" required [(ngModel)]="descrizione"></textarea>
-        </div>
-        <button type="submit" class="btn-creazione">Crea Oggetto Storia</button>
-    </form>
+    </div>
 </div>
-
 
 <!--se mi trovo nella modalità di modifica testo oggetto-->
 <div class="story-object-container" *ngIf="isInTextEditMode">
