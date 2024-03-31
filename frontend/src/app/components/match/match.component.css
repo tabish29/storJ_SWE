@@ -1,0 +1,15 @@
+.matches-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.match-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.match-box button {
+    margin-right: 10px;
+}

@@ -19,9 +19,9 @@ export class MatchService {
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService, private scenarioService: ScenarioService, private userService: UserService) { }
 
-  public getMatchByUser(idUser: number): Observable<match> {
+  public getMatchByUser(idUser: number): Observable<match[]> {
 
-    return this.http.get<match>(this.apiServerUrl + '/utenti/' + idUser + '/partite');
+    return this.http.get<match[]>(this.apiServerUrl + '/utenti/' + idUser + '/partite');
   }
 
   public getMatch(idmatch: number): Observable<match> {

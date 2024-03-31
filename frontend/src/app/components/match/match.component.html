@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+<div *ngIf="userMatches.length > 0; else noMatches" class="matches-container">
+    <h2>Le tue partite</h2>
+    <div class="match-box" *ngFor="let match of userMatches">
+        <p>Partita ID: {{ match.id }}, Storia ID: {{ match.id_storia }}</p>
+        <button (click)="resumeMatch(match)">Riprendi Partita</button>
+        <button (click)="removeMatch(match)">Rimuovi</button>
+    </div>
+</div>
+<ng-template #noMatches>
+    <p>Non hai partite in corso.</p>
+</ng-template>
