@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,8 @@ import { SingleChoiceComponent } from './components/single-choice/single-choice.
 import { FormMultipleChoiceComponent } from './components/form-multiple-choice/form-multiple-choice.component';
 import { FormSingleChoiceComponent } from './components/form-single-choice/form-single-choice.component';
 import { PlayPageComponent } from './components/play-page/play-page.component';
+import { PopupComponent } from './components/popup/popup.component';
+import { MatchComponent } from './components/match/match.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { PlayPageComponent } from './components/play-page/play-page.component';
     SingleChoiceComponent,
     FormMultipleChoiceComponent,
     FormSingleChoiceComponent,
-    PlayPageComponent
+    PlayPageComponent,
+    PopupComponent,
+    MatchComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +62,8 @@ import { PlayPageComponent } from './components/play-page/play-page.component';
     HttpClientModule,
     FormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [
     provideClientHydration(),

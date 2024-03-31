@@ -19,6 +19,7 @@ import { SingleChoiceComponent } from './components/single-choice/single-choice.
 import { FormMultipleChoiceComponent } from './components/form-multiple-choice/form-multiple-choice.component';
 import { FormSingleChoiceComponent } from './components/form-single-choice/form-single-choice.component';
 import { PlayPageComponent } from './components/play-page/play-page.component';
+import { MatchComponent } from './components/match/match.component';
 
 
 const routes: Routes = [
@@ -49,7 +50,7 @@ const routes: Routes = [
     component: HomeStoriesComponent,
     canActivate: [accessGuard]
   },
-  
+
   {
     path: 'handlerPlaypage',
     component: HandlerPlaypageComponent,
@@ -106,13 +107,18 @@ const routes: Routes = [
     canActivate: [accessGuard]
   },
   {
-    path: '', 
+    path: 'match',
+    component: MatchComponent,
+    canActivate: [accessGuard]
+  },
+  {
+    path: '',
     redirectTo: 'home',
-     pathMatch: 'full'
+    pathMatch: 'full'
   },
   {
     //tutti i path che non rientrano tra quelli specificati sopra
-    path: '**', 
+    path: '**',
     component: NotFoundComponent,
   }
 ];

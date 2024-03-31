@@ -1,0 +1,11 @@
+<h2 class="popup-title">Inventario</h2>
+<div *ngIf="data && data.inventoryItems && data.inventoryItems.length > 0; else noItems">
+  <ul>
+    <li *ngFor="let item of data.inventoryItems">{{ item.nome }}</li>
+  </ul>
+</div>
+<ng-template #noItems>
+  <p>Non ci sono oggetti nell'inventario.</p>
+</ng-template>
+
+<button mat-button (click)="onClose()">Chiudi</button>
