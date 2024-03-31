@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
     <div class="div-title">
-        <p id="title">Divertiti e crea i più strepitosi <span>scenari</span></p>
+        <p id="title">Divertiti e crea i tuoi <span>scenari</span></p>
     </div>
     <div class="div-scenario" *ngFor="let item of scenarios">
         <div class="div-info">
@@ -11,8 +11,9 @@
             <p></p>
             <div id="div-text"><label><span class="span-header">Tipologia scenario</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
             <p></p>
+            <div id="div-text"><label><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
             <div class="div-button">
-                <div class="div-button-scenario"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Specifiche</button></div>
+                <div class="div-button-scenario"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Scelte</button></div>
             </div>
             <div class="div-button">
                 <div class="div-button-scenario"><button (click)="removeScenario(item.id)">Rimuovi</button></div>
