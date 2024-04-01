@@ -35,25 +35,25 @@
         </form>
     </div>
 </div>
-
-
-<!--se mi trovo nella modalità di modifica testo scenario-->
-<div class="scenario-container" *ngIf="isInTextEditMode">
-    <h1>Modifica il testo dello scenario</h1>
-    <form class="scenario-form" (ngSubmit)="updateScenarioText()">
-        <div class="form-group">
-            <label for="testo">Testo dello Scenario:</label>
-            <textarea *ngIf="currentScenario" id="testo" name="testo" required [ngModel]="currentScenario.testo"
+<!-- html attuato per modificare uno scenario -->
+<div class="container" *ngIf="isInTextEditMode">
+    <div class="div-scenario"> 
+        <p id="title">Aggiorna i <span>dati</span> dello <span>scenario</span></p>
+        <form (ngSubmit)="updateScenarioText()">
+            <div>
+                <label id="label-left" for="testo">Descrizione</label>
+                <textarea *ngIf="currentScenario" id="testo" name="testo" required [ngModel]="currentScenario.testo"
                 (ngModelChange)="onScenarioTextChange($event)"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="tipoRisposta">Tipo di Risposta:</label>
-            <input type="text" [value]="currentScenario?.tipo_risposta" readonly>
-        </div>
-        <div class="form-group">
-            <label for="tipoScenario">Tipo di Scenario:</label>
-            <input type="text" [value]="currentScenario?.tipo_scenario" readonly>
-        </div>
-        <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna Scenario</button>
-    </form>
+            </div>
+            <div class="div-select">
+                <label for="tipoRisposta">Risposta</label>
+                <input type="text" [value]="currentScenario?.tipo_risposta" readonly>
+            </div>
+            <div class="div-select">
+                <label for="tipoScenario">Scenario</label>
+                <input type="text" [value]="currentScenario?.tipo_scenario" readonly>
+            </div>
+            <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna</button>
+        </form>
+    </div>
 </div>

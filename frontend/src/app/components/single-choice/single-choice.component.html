@@ -23,16 +23,28 @@
         <div><button (click)="removeSingleChoice(singleChoice.id)">Rimuovi</button></div>
     </div>
 </div>
-
-<!--se mi trovo nella modalità di modifica testo storia--> 
+<!-- html attuato per garantire l'accesso alla modifica della scelta circoscritta --> 
 <div class="container" *ngIf="singleChoice && isInTextEditMode">
-    <div class="singleChoice-box">
-        <div class="info">
-            <div><label>id_scenario: {{ singleChoice.id_scenario }}</label></div>
-            <div><label>Testo: {{ singleChoice.testo }}</label></div>
-            <div><label>id scenario corretto: {{ singleChoice.id_scenario_risposta_corretta }}</label></div>
-            <div><label>id scenario sba: {{ singleChoice.id_scenario_risposta_sbagliata }}</label></div>
+    <div class="div-single-choice">
+        <p id="title">Il tuo <span>indovinello</span></p>
+        <div class="div-inline">
+            <div id="div-info">
+                <label><span id="span-header">Testo</span><br><span class="span-text">{{ singleChoice.testo }}</span></label><br>
+            </div>
+            <p></p>
+            <div id="div-info">
+                <label><span id="span-header">Id scenario</span><br><span class="span-text">{{ singleChoice.id_scenario }}</span></label><br>
+            </div>
         </div>
-        <div class="remove-button"><button (click)="editSingleChoicheText(singleChoice)">Modifica testo indovinello</button></div>
+        <div class="div-inline">
+            <div id="div-info">
+                <label><span id="span-header">Id destinazione corretta</span><br><span class="span-text">{{ singleChoice.id_scenario_risposta_corretta }}</span></label><br>
+            </div>
+            <p></p>
+            <div id="div-info">
+                <label><span id="span-header">Id destinazione errato</span><br><span class="span-text">{{ singleChoice.id_scenario_risposta_sbagliata }}</span></label><br>
+            </div>
+        </div>
+        <div><button (click)="editSingleChoicheText(singleChoice)">Modifica</button></div>
     </div>
 </div>

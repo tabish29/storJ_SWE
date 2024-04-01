@@ -1,25 +1,36 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
-    <div *ngFor="let item of multipleChoices" class="multipleChoice-box">
-        <div class="info">
-            <div><label>id_scenario: {{ item.id_scenario }}</label></div>
-            <div><label>Testo: {{ item.testo }}</label></div>
-            <div><label>id_scenario_successivo: {{ item.id_scenario_successivo }}</label></div>
-            <div><label>Oggetto richiesto: {{ requiredMap.get(item.id) }}</label></div>
+    <div class="div-title">
+        <p id="title">Le tue <span>scelte multiple</span></p>
+    </div>
+    <div class="div-multiple-choice" *ngFor="let item of multipleChoices">
+        <div class="div-info">
+            <div id="div-text"><label><span class="span-header">Scenario iniziale</span><br><span class="span-text">{{ item.id_scenario }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Scenario successivo</span><br><span class="span-text">{{ item.id_scenario_successivo }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Oggetto</span><br><span class="span-text">{{ requiredMap.get(item.id) }}</span></label></div>
+            <div class="div-button-multiple-choice"><button (click)="removeMultipleChoice(item.id)">Rimuovi</button></div>
         </div>
-        <div class="remove-button"><button (click)="removeMultipleChoice(item.id)">Rimuovi</button></div>
     </div>
 </div>
-
- <!--se mi trovo nella modalità di modifica testo storia--> 
+<!-- html attuato per modificare i campo di una scelta multipla --> 
 <div class="container" *ngIf="isInTextEditMode">
-    <div *ngFor="let item of multipleChoices" class="multipleChoice-box">
-        <div class="info">
-            <div><label>id_scenario: {{ item.id_scenario }}</label></div>
-            <div><label>Testo: {{ item.testo }}</label></div>
-            <div><label>id_scenario_successivo: {{ item.id_scenario_successivo }}</label></div>
-            <div><label>Oggetto richiesto: {{ requiredMap.get(item.id) }}</label></div>
+    <div class="div-title">
+        <p id="title">Le tue <span>scelte multiple</span></p>
+    </div>
+    <div class="div-multiple-choice" *ngFor="let item of multipleChoices">
+        <div class="div-info">
+            <div id="div-text"><label><span class="span-header">Scenario iniziale</span><br><span class="span-text">{{ item.id_scenario }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Scenario successivo</span><br><span class="span-text">{{ item.id_scenario_successivo }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Oggetto</span><br><span class="span-text">{{ requiredMap.get(item.id) }}</span></label></div>
+            <div class="div-button-multiple-choice"><button (click)="editMultipleChoicheText(item)">Modifica</button></div>
         </div>
-        <div class="remove-button"><button (click)="editMultipleChoicheText(item)">Aggiorna testo Scelta</button></div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
     <div class="div-single-choice">
-        <p id="title">Inserisci i dati dell'<span>indovinello</span></p>
+        <p id="title">Inserisci i <span>dati</span> dell'<span>indovinello</span></p>
         <form (ngSubmit)="onSubmit()">
             <div>
                 <label id="label-left" for="testo">Testo</label>
@@ -29,27 +29,28 @@
         </form>
     </div>
 </div>
-
-<!--se mi trovo nella modalità di modifica testo scenario-->
-<div class="single-choice-container" *ngIf="isInTextEditMode">
-    <h1>Modifica le informazioni dell'indovinello</h1>
-    <form class="single-choice-form" (ngSubmit)="updateSingleChoicheText()">
-        <div class="form-group">
-            <label for="testo">Testo dell'Indovinello:</label>
-            <textarea *ngIf="currentSingleChoiche" id="testo" name="testo" required [ngModel]="currentSingleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="risposta">Risposta:</label>
-            <input *ngIf="currentSingleChoiche" type="text" id="risposta" name="risposta" required [ngModel]="currentSingleChoiche.risposta" (ngModelChange)="onAnswerChange($event)" placeholder="Inserisci la risposta corretta">
-        </div>
-        <div class="form-group">
-            <label for="idScenarioRispostaCorretta">ID Scenario Risposta Corretta:</label>
-            <input type="text" [value]="currentSingleChoiche?.id_scenario_risposta_corretta" readonly>
-        </div>
-        <div class="form-group">
-            <label for="idScenarioRispostaSbagliata">ID Scenario Risposta Sbagliata:</label>
-            <input type="text" [value]="currentSingleChoiche?.id_scenario_risposta_sbagliata" readonly>
-        </div>
-        <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Crea Indovinello</button>
-    </form>
+<!-- html attuato per modificare i campo di una scelta -->
+<div class="container" *ngIf="isInTextEditMode">
+    <div class="div-single-choice">
+        <p id="title">Aggiorna i <span>dati</span> dell'<span>indovinello</span></p>
+        <form (ngSubmit)="updateSingleChoicheText()">
+            <div>
+                <label id="label-left" for="testo">Testo</label>
+                <textarea *ngIf="currentSingleChoiche" id="testo" name="testo" required [ngModel]="currentSingleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>
+            </div>
+            <div>
+                <label id="label-left" for="risposta">Risposta</label>
+                <textarea *ngIf="currentSingleChoiche" type="text" id="risposta" name="risposta" required [ngModel]="currentSingleChoiche.risposta" (ngModelChange)="onAnswerChange($event)" placeholder="Inserisci la risposta corretta"></textarea>
+            </div>
+            <div class="div-select">
+                <label for="idScenarioRispostaCorretta">Destinazione corretta</label>
+                <input type="text" [value]="currentSingleChoiche?.id_scenario_risposta_corretta" readonly>
+            </div>
+            <div class="div-select">
+                <label for="idScenarioRispostaSbagliata">Destinazione sbagliata</label>
+                <input type="text" [value]="currentSingleChoiche?.id_scenario_risposta_sbagliata" readonly>
+            </div>
+            <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna</button>
+        </form>
+    </div>
 </div>

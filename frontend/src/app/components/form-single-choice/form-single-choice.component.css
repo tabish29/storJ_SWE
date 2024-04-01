@@ -14,7 +14,7 @@
     text-align: center !important;
     width: 40%;
     height: auto;
-    margin-top: 3rem;
+    margin-top: 5rem;
     padding: 25px 25px;
     border-radius: 10px;
     background-color: rgb(244, 244, 244);
@@ -52,7 +52,6 @@ span {
 
 label {
     display: block;
-    margin-bottom: 0.5rem;
 }
 
 label:hover {
@@ -68,7 +67,7 @@ label:hover {
 textarea {
     font-size: 8pt;
     width: 93.5%;
-    height: 125px;
+    height: 112.5px;
     box-sizing: border-box;
     resize: none;
 }
@@ -82,7 +81,16 @@ select {
     border-radius: 5px;
 }
 
-select:hover {
+input {
+    font-size: 8pt;
+    width: 95%;
+    padding: 8px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+select:hover, input:hover {
     transition: border 0.5s;
     border: 1px solid darkred;
 }

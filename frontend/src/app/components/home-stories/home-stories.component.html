@@ -9,7 +9,7 @@
             <p></p>
             <div id="div-text"><label><span class="span-header">Categoria</span><br><span class="span-text">{{ item.categoria }}</span></label></div>
         </div>
-        <div class="div-button" *ngIf="!item.statoCompletamento"><button (click)="editStory(item)">Modifica Storia</button></div>
-        <div class="div-button" *ngIf="item.statoCompletamento"><button (click)="editStory(item)">Modifica Testo Storia</button></div>
+        <div class="div-button" *ngIf="!item.statoCompletamento"><button (click)="editStory(item)">Modifica</button></div>
+        <div class="div-button" *ngIf="item.statoCompletamento"><button (click)="editStory(item)">Modifica</button></div>
     </div>
 </div>

@@ -2,7 +2,7 @@
     <div class="logo">
         <label *ngIf="currentUrl === '/home' || currentUrl === '/storJPage'">storJ</label>
         <div class="arrow">
-            <!-- Icona freccia indietro per utenti autenticati -->
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <button mat-button *ngIf="isAuthenticated() && currentUrl != '/storJPage'" (click)="goBack(currentUrl)">
                 <mat-icon>arrow_back</mat-icon>
             </button>
@@ -17,7 +17,7 @@
         <!-- Mostra il bottone "Paga" solo se showPaymentButton è true -->
         <button mat-button routerLink="/payment" *ngIf="currentUrl === '/storJPage' && showPaymentButton">Paga</button>
 
-        <!-- Mostra il bottone "Crea Scenario" solo se l'utente è su "/createStory"-->
+        <!-- Mostra il bottone "Crea Scenario" solo se l'utente è su "/createStory" -->
         <button mat-button *ngIf="currentUrl === '/createStory' && isAuthenticated() && !isInTextEditMode"
             (click)="saveStory()">Salva
             Storia</button>
@@ -27,35 +27,35 @@
         <button mat-button routerLink="/storyObjects"
             *ngIf="currentUrl === '/createStory' && isAuthenticated()">Oggetti</button>
 
-        <!-- Mostra il bottone "Crea oggetto" solo se l'utente è su "/storyObjects"-->
+        <!-- Mostra il bottone "Crea oggetto" solo se l'utente è su "/storyObjects" -->
         <button mat-button routerLink="/formStoryObject"
-            *ngIf="currentUrl === '/storyObjects' && isAuthenticated() && !isInTextEditMode">Crea Oggeto</button>
+            *ngIf="currentUrl === '/storyObjects' && isAuthenticated() && !isInTextEditMode">Crea Oggetto</button>
 
-        <!-- Mostra questo pulsante solo se l'utente è autenticato e ha effettuato il pagamento  -->
+        <!-- Mostra questo pulsante solo se l'utente è autenticato e ha effettuato il pagamento -->
         <button mat-button routerLink="/handlerPlaypage"
             *ngIf="currentUrl === '/storJPage' &&  isAuthenticated() && !showPaymentButton">Gioca</button>
 
         <button mat-button routerLink="/homeStories"
             *ngIf="currentUrl === '/storJPage' && isAuthenticated()">Crea</button>
 
-        <!-- Mostra questo pulsante solo se l'utente si trova in homestories-->
+        <!-- Mostra questo pulsante solo se l'utente si trova in homestories -->
         <button mat-button routerLink="/formStory" *ngIf="currentUrl === '/homeStories' && isAuthenticated()">Crea
             storia</button>
 
-        <!-- Mostra questo pulsante solo se l'utente si trova in formMultipleChoices-->
+        <!-- Mostra questo pulsante solo se l'utente si trova in formMultipleChoices -->
         <button mat-button routerLink="/formMultipleChoice"
             *ngIf="currentUrl === '/multiplechoice' && isAuthenticated() && !isInTextEditMode">Crea scelta</button>
 
-        <!-- Mostra questo pulsante solo se l'utente si trova in formSingleChoice-->
+        <!-- Mostra questo pulsante solo se l'utente si trova in formSingleChoice -->
         <button mat-button routerLink="/formSingleChoice"
             *ngIf="currentUrl === '/singlechoice' && isAuthenticated() && !getIsSingleChoiceCreated() && !isInTextEditMode">Crea
             scelta</button>
 
-        <!-- Mostra questo pulsante solo se l'utente si trova in formSingleChoice-->
+        <!-- Mostra questo pulsante solo se l'utente si trova in formSingleChoice -->
         <button mat-button routerLink="/match" *ngIf="currentUrl === '/handlerPlaypage' && isAuthenticated()">Mie
             Partite</button>
 
-        <!-- Mostra questo pulsante solo se l'utente si trova in playPage-->
+        <!-- Mostra questo pulsante solo se l'utente si trova in playPage -->
         <button mat-button (click)="openInventory()"
             *ngIf="isAuthenticated() && currentUrl === '/playPage'">inventario</button>
 

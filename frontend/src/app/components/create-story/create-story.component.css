@@ -47,14 +47,14 @@ span {
 }
 
 .div-info {
-    float: left;
+    text-align: center;
     width: 100%;
     height: auto;
 }
 
 .div-button {
     display: inline-block;
-    text-align: left;
+    text-align: center;
     width: 50%;
     margin-top: 1rem;
 }
@@ -80,6 +80,8 @@ button:hover {
 }
 
 #div-text {
+    text-align: left;
+    margin-left: 0.5rem;
     padding-left: 0.5rem;
     border-left: 2px solid rgb(204, 204, 204, 0.7);
 }

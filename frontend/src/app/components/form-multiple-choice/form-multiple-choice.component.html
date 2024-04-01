@@ -1,42 +1,52 @@
 <app-navbar></app-navbar>
-<div class="multiple-choice-container" *ngIf="!isInTextEditMode">
-    <h1>Inserisci le informazioni della scelta multipla</h1>
-    <form class="multiple-choice-form" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="testo">Testo della Domanda:</label>
-            <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
+<div class="container" *ngIf="!isInTextEditMode">
+    <div class="div-multiple-choice">
+        <div class="div-title">
+            <p id="title">Inserisci i <span>dati</span> della <span>scelta multipla</span></p>
         </div>
-        <div class="form-group">
-            <label for="idScenarioSuccessivo">ID Scenario Successivo:</label>
-            <select id="idScenarioSuccessivo" name="idScenarioSuccessivo" required [(ngModel)]="idScenarioSuccessivo">
-                <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} (ID: {{scenario.id }})</option>
-            </select>
+        <div class="div-form">
+            <form (ngSubmit)="onSubmit()">
+                <div class="single-form">
+                    <label for="testo">Testo</label>
+                    <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
+                </div>
+                <div class="single-form">
+                    <label for="idScenarioSuccessivo">Scenario cenario</label>
+                    <select id="idScenarioSuccessivo" name="idScenarioSuccessivo" required [(ngModel)]="idScenarioSuccessivo">
+                        <option disabled>Id dello scenario successivo</option>
+                        <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} [ID: {{scenario.id }}]</option>
+                    </select>
+                </div>
+                <div class="single-form">
+                    <label for="objectSelect">Oggetto</label>
+                    <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
+                        <option disabled>Nome dell'oggetto</option>
+                        <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
+                    </select>
+                </div>    
+                <button type="submit">Crea</button>
+            </form>
         </div>
-         <!-- Sezione per la selezione di un oggetto -->
-         <div class="form-group">
-            <label for="objectSelect">Oggetto Richiesto:</label>
-            <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
-                <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
-            </select>
-        </div>
-       
-        <button type="submit" class="btn-creazione">Crea Scelta Multipla</button>
-    </form>
+    </div>
 </div>
-
-<!--se mi trovo nella modalità di modifica testo scenario-->
-<div class="multiple-choice-container" *ngIf="isInTextEditMode">
-    <h1>Aggiorna le informazioni della scelta multipla</h1>
-    <form class="multiple-choice-form" (ngSubmit)="updateMultipleChoicheText()">
-        <div class="form-group">
-            <label for="testo">Testo della Domanda:</label>
-            <textarea *ngIf="currentMultipleChoiche" id="testo" name="testo" required [ngModel]="currentMultipleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>  
+<!-- html attuato per modificare i campi di una scelta multipla-->
+<div class="container" *ngIf="isInTextEditMode">
+    <div class="div-multiple-choice">
+        <div class="div-title">
+            <p id="title">Aggiorna i <span>dati</span> della <span>scelta multipla</span></p>
         </div>
-        <div class="form-group">
-            <label for="idScenarioSuccessivo">ID Scenario Successivo:</label>
-            <input type="text" [value]="currentMultipleChoiche?.id_scenario_successivo" readonly>
+        <div class="div-form">
+            <form class="multiple-choice-form" (ngSubmit)="updateMultipleChoicheText()">
+                <div class="single-form">
+                    <label for="testo">Testo</label>
+                    <textarea *ngIf="currentMultipleChoiche" id="testo" name="testo" required [ngModel]="currentMultipleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>  
+                </div>
+                <div class="single-form">
+                    <label for="idScenarioSuccessivo">Scenario</label>
+                    <input type="text" [value]="currentMultipleChoiche?.id_scenario_successivo" readonly>
+                </div>
+            <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna</button>
+            </form>
         </div>
-       
-        <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna Scelta Multipla</button>
-    </form>
+    </div>
 </div>

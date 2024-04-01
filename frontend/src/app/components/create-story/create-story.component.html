@@ -21,18 +21,26 @@
         </div>
     </div>
 </div>
-
- <!--se mi trovo nella modalità di modifica testo storia--> 
+<!-- html per attuare modifiche alla storia --> 
 <div class="container" *ngIf="isInTextEditMode">
-    <div *ngFor="let item of scenarios" class="scenario-box">
-        <div class="info">
-            <div><label>Id: {{ item.id }}</label></div>
-            <div><label>Testo: {{ item.testo }}</label></div>
-            <div><label>Tipo_risposta: {{ item.tipo_risposta }}</label></div>
-            <div><label>Tipo_scenario: {{ item.tipo_scenario }}</label></div>
-            <div><label>Drop: {{ dropMap.get(item.id) }}</label></div>
-            <div class="editScenarioText-button"><button (click)="editScenarioText(item)">Modifica testo Scenario</button></div>
-            <div class="remove-button"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Modifica testo scelte</button>
+    <div class="div-title">
+        <p id="title">Divertiti e crea i tuoi <span>scenari</span></p>
+    </div>
+    <div class="div-scenario" *ngFor="let item of scenarios">
+        <div class="div-info">
+            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Tipologia scenario</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
+            <div class="div-button">
+                <div class="editScenarioText-button"><button (click)="editScenarioText(item)">Modifica scenario</button></div>
+            </div>
+            <div class="div-button">
+                <div class="remove-button"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Modifica scelte</button></div>
+            </div>
         </div>
     </div>
 </div>

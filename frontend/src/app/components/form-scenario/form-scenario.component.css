@@ -14,7 +14,7 @@
     text-align: center !important;
     width: 40%;
     height: auto;
-    margin-top: 3rem;
+    margin-top: 5rem;
     padding: 25px 25px;
     border-radius: 10px;
     background-color: rgb(244, 244, 244);
@@ -78,6 +78,17 @@ textarea {
     background-color: white;
 }
 
+input {
+    font-size: 9pt;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
 .div-object {
     justify-content: center;
     width: 100%;
@@ -94,7 +105,7 @@ textarea {
     background-color: white;
 }
 
-#tipoRisposta:hover, #tipoScenario:hover, #objectSelect:hover {
+input:hover, #tipoRisposta:hover, #tipoScenario:hover, #objectSelect:hover {
     transition: border 0.5s;
     border: 1px solid darkred;
 }
