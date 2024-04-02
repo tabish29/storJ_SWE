@@ -1,15 +1,107 @@
-.matches-container {
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100vw;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.div-title {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    width: 75%; 
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid rgb(204, 204, 204, 0.7);
+    border-radius: none;
 }
 
-.match-box {
-    border: 1px solid #ccc;
-    padding: 10px;
+#title {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+span {
+    color: red;
+}
+
+.div-matches {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 77%;
+}
+
+.div-single-match {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-size: 11pt;
+    width: 31%;
+    height: auto;
+    padding: 20px;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    background-color: rgb(244, 244, 244);
+    border: none !important;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #aaaa;
+}
+
+#div-info {
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid rgb(204, 204, 204, 0.7);
+}
+
+#div-info:hover {
+    padding-left: 0.5rem;
+    border-left: 3px solid rgb(204, 204, 204, 0.7);
+}
+
+#span-title {
+    font-weight: bold;
+    color: red;
+}
+
+#span-text {
+    color: black;
+}
+
+#span-text:hover {
+    border-bottom: 1px solid black;
+}
+
+.div-button {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.div-button-match {
+    display: inline-block;
+    width: 50%;
+}
+
+button {
+    font-size: 9pt;
+    color: white;
+    width: 95%;
+    padding: 7.5px 7.5px;
+    background-color: crimson;
     border-radius: 5px;
+    border: none !important;
 }
 
-.match-box button {
-    margin-right: 10px;
+button:hover {
+    transition: background-color 0.5s;
+    background-color: darkred;
 }
