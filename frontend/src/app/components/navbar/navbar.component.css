@@ -3,18 +3,25 @@
 }
 
 .navbar {
-  display: inline;
-  justify-content: space-between;
-  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
   height: auto;
-  padding: 15px;
-  background-color: white; 
+}
+
+.login {
+  text-decoration: none;
+  float: right;
+  width: 90%;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  gap: 0.5rem;
+  font-size: 18px;
 }
 
 .logo {
   float: left;
-  margin-top: 2rem;
-  margin-left: 2rem;
 }
 
 label {
@@ -26,19 +33,33 @@ label:hover {
   color: red;
 }
 
+#image {
+  float: left;
+  width: 50px;
+  height: auto;
+  transition: transform 0.5s;
+}
+
+#image:hover {
+  transform: scale(1.299);
+}
+
 .arrow {
   font-weight: bold;
   color: black;
 }
 
-.logo a, .arrow {
+.div-button {
+  float: right;
+}
+
+.arrow {
   color: #fff;
   font-size: 24px;
   font-weight: bold; 
 }
 
 button {
-  font-family: Arial, sans-serif;
   font-size: 9pt;
   font-weight: bold;
   width: auto;
@@ -50,13 +71,4 @@ button {
 button:hover {
   transform: border 2s;
   border-bottom: 1px solid black;
-}
-
-.login {
-  float: right;
-  text-decoration: none;
-  margin-top: 2rem;
-  margin-right: 1rem;
-  gap: 0.5rem;
-  font-size: 18px;
 }
