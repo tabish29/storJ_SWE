@@ -1,44 +1,149 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; 
     justify-content: center;
-    margin-top: 30px; 
-    padding: 0 20px; 
+    width: 100vw;
+    gap: 20px; 
+    margin-top: 5rem;
+    margin-bottom: 5rem; 
 }
 
-.story-box {
+.div-title {
+    text-align: center;
+    width: 78%;
+    border-bottom: 2px solid rgb(204, 204, 204, 0.7);
+}
+
+#title {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+span {
+    color: red;
+}
+
+.div-filter {
+    width: 78%;
+    margin-bottom: 0.5rem;
+    height: 25px;
+}
+
+input {
+    font-size: 10pt;
+    width: auto;
+    height: 100%;
+    margin-right: 0.5rem;
+    background-color: white;
     border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+select {
+    font-size: 10pt;
+    width: auto;
+    height: 28.5px;
+    margin-right: 0.5rem;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input:hover, select:hover {
+    transition: border 0.5s;
+    border: 1px solid darkred;
+}
+
+.div-no-stories {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-size: 11pt;
+    width: 38.5%; 
+    margin-top: 5rem;
     padding: 20px;
+    background-color: rgb(244, 244, 244);
     border-radius: 10px;
+    box-shadow: 5px 5px 5px #aaaa;
+}
+
+#message {
+    font-size: 12pt;
+}
+
+a {
+    padding: 3px 3px;
+    text-decoration: none;
+    color: white;
+    background-color: crimson;
+    border-radius: 5px;
+}
+
+.div-stories {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: calc(50% - 20px); 
     box-sizing: border-box;
-}
-
-.info {
-    display: block; 
-}
-
-.play-button {
-    margin-top: auto; 
-    text-align: right; 
-}
-
-.no-stories-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center; /* Centra il testo all'interno del div */
-    height: 50vh; /* Occupa metà dello spazio verticale disponibile */
-    font-size: 4vw; /* Adatta la dimensione del testo alla larghezza della viewport */
-  }
-  
-  /* Stili aggiuntivi per garantire che il messaggio sia visibile e leggibile */
-  .no-stories-message {
+    width: 38.5%; 
     padding: 20px;
-    border: 2px solid #000;
+    background-color: rgb(244, 244, 244);
     border-radius: 10px;
-  }
+    box-shadow: 5px 5px 5px #aaaa;
+}
+
+.div-info {
+    margin-bottom: 0.5rem;
+}
+
+#div-text {
+    text-align: left;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid rgb(204, 204, 204, 0.7);
+}
+
+#div-text:hover {
+    padding-left: 0.5rem;
+    border-left: 3px solid rgb(204, 204, 204, 0.7);
+}
+
+#span-title {
+    font-size: 11pt;
+    font-weight: bold;
+    color: red;
+}
+
+#span-text {
+    font-size: 11pt;
+    color: black;
+}
+
+#span-text:hover {
+    border-bottom: 1px solid black;
+}
+
+.div-button {
+    text-align: right;
+    margin-bottom: 0.25rem;
+}
+
+button {
+    text-align: center;
+    font-size: 10pt;
+    color: white;
+    width: 75px;
+    height: auto;
+    padding: 7.5px 7.5px;
+    background-color: crimson;
+    border: none !important;
+    border-radius: 5px;
+}
+
+a:hover, button:hover {
+    transition: background-color 0.5s;
+    background-color: darkred;
+}

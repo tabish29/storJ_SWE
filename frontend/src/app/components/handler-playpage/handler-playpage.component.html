@@ -1,28 +1,39 @@
 <app-navbar></app-navbar>
-
-<!--Div per il filtro-->
-<div class="filters">
-    <select [(ngModel)]="filterType">
-        <option value="Autore">Autore</option>
-        <option value="Categoria">Categoria</option>
-        <option value="Numero Scenari">Numero Scenari</option>
-    </select>
-    <input type="text" [(ngModel)]="filterValue" placeholder="Valore del filtro">
-    <button (click)="filterStories(filterType, filterValue)">Filtra</button>
-</div>
-<div *ngIf="noStoriesFound" class="no-stories-container">
-    <div class="no-stories-message">Nessuna storia trovata</div>
-</div>
-
-<!--Div per il box delle storie salvate-->
 <div class="container">
-    <div *ngFor="let item of stories" class="story-box">
-        <div class="info">
-            <div><label>Titolo: {{ item.titolo }}</label></div>
-            <div><label>Autore: {{ authorMap.get(item.id) }}</label></div>
-            <div><label>Categoria: {{ item.categoria }}</label></div>
-            <div><label>Numero Scenari: {{ item.numero_scenari }}</label></div>
+    <div class="div-title">
+       <p id="title">Seleziona, gioca e <span>divertiti</span>!</p> 
+    </div>
+    <!-- html attuato per definire il filtro -->
+    <div class="div-filter">
+        <input type="text" [(ngModel)]="filterValue" placeholder="Valore del filtro">
+        <select [(ngModel)]="filterType">
+            <option disabled>Campo per cui filtrare</option>
+            <option value="Autore">Autore</option>
+            <option value="Categoria">Categoria</option>
+            <option value="Numero Scenari">Numero Scenari</option>
+        </select>
+        <button (click)="filterStories(filterType, filterValue)">Filtra</button>
+    </div>
+    <!-- html definito per garantire la visualizzazione del messaggio in caso in cui non siano presenti storie che soddisfino i requisiti del filtro -->
+    <div class="div-no-stories" *ngIf="noStoriesFound">
+        <p id="title">Wow, come è <span>vuoto</span>...</p>
+        <p></p>
+        <p>sembra che non ci sia <span>nulla</span> che risponda alla tua <span>richiesta</span>.</p>
+        <p>Ritenta o <a href="handlerPlaypage">clicca qui</a> per tornare indietro.</p>
+    </div>
+    <!-- html attuato per visualizzare le storie giocabili -->
+    <div class="div-stories" *ngFor="let item of stories">
+        <div class="div-info">
+            <div id="div-text"><label><span id="span-title">Titolo</span><br><span id="span-text">{{ item.titolo }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span id="span-title">Autore</span><br><span id="span-text">{{ authorMap.get(item.id) }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span id="span-title">Categoria</span><br><span id="span-text">{{ item.categoria }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span id="span-title">Numero scenari</span><br><span id="span-text">{{ item.numero_scenari }}</span></label></div>
         </div>
-        <div class="play-button"><button (click)="playStory(item)"> Gioca Storia</button></div>
+        <div class="div-button">
+            <div class="button-play"><button (click)="playStory(item)">Gioca</button></div>
+        </div>
     </div>
 </div>
