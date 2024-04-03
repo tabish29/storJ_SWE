@@ -124,7 +124,6 @@ export class FormScenarioComponent implements OnInit {
       tipo_scenario: this.tipoScenario
     };
 
-    console.log("dati dello scenario: " + scenarioData.tipo_risposta);
     if (this.testo == ' ' || this.tipoRisposta == undefined || this.tipoScenario == undefined) {
       alert("Inserisci tutti i campi obbligatori (*)");
     } else {

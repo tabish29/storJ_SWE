@@ -77,11 +77,10 @@ export class FormStoryObjectComponent {
 
     if (this.nome == ' ' || this.descrizione == ' ') {
       alert("Inserisci tutti i campi obbligatori (*)");
-    }else{
+    } else {
       this.savestoryObject(storyObjectData);
     }
 
-    
   }
 
   onNameChange(newName: string): void {

@@ -21,14 +21,14 @@ export class FormSingleChoiceComponent {
   idScenario = 0;
   testo = '';
   risposta = '';
-  idScenarioRispostaCorretta = 0;
-  idScenarioRispostaSbagliata = 0;
+  idScenarioRispostaCorretta = -1;
+  idScenarioRispostaSbagliata = -1;
   storyScenarios: scenario[] = [];
   storyObjects: storyObject[] = [];
   selectedObjectId: number = -1;
   isInTextEditMode!: boolean;
   currentSingleChoiche!: singleChoice | null;
-  isBottonDisabled:boolean=true; //per il bottone dell'aggironameto dei campi testuali
+  isBottonDisabled: boolean = true; //per il bottone dell'aggironameto dei campi testuali
 
 
   constructor(private http: HttpClient, private singleChoiceService: SingleChoiceService, private scenarioService: ScenarioService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
@@ -112,7 +112,13 @@ export class FormSingleChoiceComponent {
       id_scenario_risposta_sbagliata: this.idScenarioRispostaSbagliata
     };
 
-    this.saveSingleChoice(singleChoiceData);
+    if (this.testo == ' ' || this.idScenarioRispostaCorretta == -1 || this.idScenarioRispostaSbagliata == -1) {
+      alert("Inserisci tutti i campi obbligatori (*)");
+    } else {
+      this.saveSingleChoice(singleChoiceData);
+    }
+
+   
   }
 
   onTextChange(newTesto: string): void {
@@ -121,18 +127,18 @@ export class FormSingleChoiceComponent {
       //console.log("sono dentro on textchange");
     }
     this.testo = newTesto;
-    this.isBottonDisabled=false;
-   //console.log("nuovo valore di testo: "+this.testo);
+    this.isBottonDisabled = false;
+    //console.log("nuovo valore di testo: "+this.testo);
   }
 
   onAnswerChange(newAnswer: string): void {
     if (this.currentSingleChoiche) {
       this.currentSingleChoiche.risposta = newAnswer;
       //console.log("sono dentro on answerchange");
-      this.testo=this.currentSingleChoiche.testo;
+      this.testo = this.currentSingleChoiche.testo;
     }
     this.risposta = newAnswer;
-    this.isBottonDisabled=false;
+    this.isBottonDisabled = false;
   }
 
   // metodo per obbligare l'utente a modificare almeno uno dei due campi

@@ -4,22 +4,22 @@
         <p id="title">Inserisci i <span>dati</span> dell'<span>indovinello</span></p>
         <form (ngSubmit)="onSubmit()">
             <div>
-                <label id="label-left" for="testo">Testo</label>
+                <label id="label-left" for="testo">Testo<span>*</span></label>
                 <textarea id="testo" name="testo" [(ngModel)]="testo" required></textarea>
             </div>
             <div>
-                <label id="label-left" for="risposta">Risposta</label>
+                <label id="label-left" for="risposta">Risposta<span>*</span></label>
                 <textarea id="risposta" name="risposta" [(ngModel)]="risposta" required></textarea>
             </div>
             <div class="div-select">
-                <label for="idScenarioRispostaCorretta">Destinazione risposta corretta</label>
+                <label for="idScenarioRispostaCorretta">Destinazione risposta corretta<span>*</span></label>
                 <select id="idScenarioRispostaCorretta" name="idScenarioRispostaCorretta" [(ngModel)]="idScenarioRispostaCorretta" required>
                     <option disabled>Identificativo dello scenario dopo la risposta corretta</option>
                     <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} [Id:{{scenario.id }}]</option>
                 </select>
             </div>
             <div class="div-select">
-                <label for="idScenarioRispostaSbagliata">Destinazione risposta sbagliata</label>
+                <label for="idScenarioRispostaSbagliata">Destinazione risposta sbagliata<span>*</span></label>
                 <select id="idScenarioRispostaSbagliata" name="idScenarioRispostaSbagliata" [(ngModel)]="idScenarioRispostaSbagliata" required>
                     <option disabled>Identificativo dello scenario dopo la risposta errata</option>
                     <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} [Id:{{scenario.id }}]</option>

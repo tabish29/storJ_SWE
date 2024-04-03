@@ -18,7 +18,7 @@
                     </select>
                 </div>
                 <div class="single-form">
-                    <label for="objectSelect">Oggetto Richiesto dalla scelta<span>*</span></label>
+                    <label for="objectSelect">Oggetto Richiesto dalla scelta</label>
                     <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
                         <option disabled>Nome dell'oggetto</option>
                         <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
