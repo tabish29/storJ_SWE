@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatchService } from '../../services/match.service';
 import { match } from '../../match';
 import { user } from '../../user';
+import { storyObject } from '../../storyObject';
 
 @Component({
   selector: 'app-play-page',
@@ -30,6 +31,7 @@ export class PlayPageComponent implements OnInit, OnChanges {
   userAnswer!: string;
   dropMap: Map<number, string | undefined> = new Map();
   requiredMap: Map<number, string | undefined> = new Map();
+  inventoryItems!: storyObject[];
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -60,7 +62,7 @@ export class PlayPageComponent implements OnInit, OnChanges {
         const initialScenario = await this.scenarioService.getFirstScenario(this.storyId).toPromise();
         this.loadInitialScenario(this.storyId, initialScenario);
       } else {
-        const currentScenario=this.localStorageService.getItem("currentScenario");
+        const currentScenario = this.localStorageService.getItem("currentScenario");
         this.loadUserChoice(currentScenario.id);
       }
 
@@ -192,17 +194,47 @@ export class PlayPageComponent implements OnInit, OnChanges {
         return;
       }
 
-      const inventoryData: inventory = {
-        id: 0,
-        id_partita: currentMatch.id,
-        id_oggetto: drop.id_oggetto
-      };
+      //mettere il controllo se l'oggetto è già presente o no nell'inventario
+      await this.inventoryService.getInventoryByMatchId(currentMatch.id);
+      this.inventoryService.getInventoryByMatchId(currentMatch.id).subscribe({
+        next: (inventoryObjects) => {
 
-      this.saveInventory(inventoryData);
+          const itemExists = inventoryObjects.some(item => item.id === drop.id_oggetto);
 
-      // Aggiorna la mappa dei drop con il nome dell'oggetto
-      const storyObject = await this.storyObjectService.getStoryObject(drop.id_oggetto).toPromise();
-      this.dropMap.set(scenario.id, storyObject ? storyObject.nome : "Oggetto non trovato");
+          if (!itemExists) {
+            this.inventoryItems = inventoryObjects;
+            const inventoryData: inventory = {
+              id: 0,
+              id_partita: currentMatch.id,
+              id_oggetto: drop.id_oggetto
+            };
+
+           
+            const obtainedObject = inventoryObjects.find(item => item.id === drop.id_oggetto);
+
+            if(obtainedObject) {
+              alert(`Complimenti! Hai ottenuto l'oggetto: ${obtainedObject.nome}.`);
+            } else {
+              
+              console.log('Errore: oggetto non trovato in inventoryItems.');
+            }
+
+            this.saveInventory(inventoryData);
+
+          } else {
+
+            console.log('Oggetto con id uguale a ', drop.id_oggetto, ' è già presente in inventario');
+          }
+
+        },
+        error: (err) => {
+          console.error('Error fetching inventory:', err);
+        }
+      });
+
+
+
+
     } catch (error) {
       console.error("Errore durante il caricamento del drop per lo scenario " + scenario.id, error);
     }
@@ -267,5 +299,5 @@ export class PlayPageComponent implements OnInit, OnChanges {
     //resetto a stringa vuota così nei successivi indovinelli non si vede la ripsosta data precedentemente
     this.userAnswer = '';
   }
-  
+
 }

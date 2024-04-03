@@ -5,6 +5,7 @@ import { LocalStorageService } from './local-storage.service';
 import { storyObjectService } from './story-object.service';
 import { MatchService } from './match.service';
 import { inventory } from '../inventory';
+import { storyObject } from '../storyObject';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,9 @@ export class InventoryService {
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService,private storyObjectService:storyObjectService,private matchService:MatchService) { }
 
-  public getInventoryByMatchId(idMatch: number): Observable<inventory[]> {
+  public getInventoryByMatchId(idMatch: number): Observable<storyObject[]> {
 
-    return this.http.get<inventory[]>(this.apiServerUrl + '/partite/' + idMatch + '/oggetti');
+    return this.http.get<storyObject[]>(this.apiServerUrl + '/partite/' + idMatch + '/oggetti');
   }
 
   public getinventory(idinventory: number): Observable<inventory> {

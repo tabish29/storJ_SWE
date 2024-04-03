@@ -14,6 +14,7 @@ import { InventoryService } from '../../services/inventory.service';
 import { MatchService } from '../../services/match.service';
 import { inventory } from '../../inventory';
 import { PopupComponent } from '../popup/popup.component';
+import { storyObject } from '../../storyObject';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   scenarioId!: number;
   isInTextEditMode!: boolean;
-  inventoryItems!: inventory[];
+  inventoryItems!: storyObject[];
   popUp?: PopupComponent
 
   constructor(private router: Router, private authService: AuthService, private userService: UserService, private storyService: StoryService, private singleChoiceService: SingleChoiceService, private localStorageService: LocalStorageService, private matchService: MatchService, private inventoryService: InventoryService, private dialog: MatDialog) {
