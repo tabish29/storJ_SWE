@@ -115,7 +115,10 @@ export class FormScenarioComponent implements OnInit {
   }
 
   onSubmit() {
-    //decidere se servono le infomazioni che vengono aggiunte direttamente dal backend(da decidere)
+    if (this.tipoScenario === 'FINALE') {
+      this.tipoRisposta = responseType.MULTIPLA;
+    }
+
     const scenarioData: scenario = {
       id: 0,
       id_storia: this.idStoria,

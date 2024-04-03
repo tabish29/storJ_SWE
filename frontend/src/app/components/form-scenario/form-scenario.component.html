@@ -7,7 +7,7 @@
                 <label id="label-left" for="testo">Testo<span>*</span></label>
                 <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
             </div>
-            <div class="div-select">
+            <div *ngIf="tipoScenario !== 'FINALE'" class="div-select">
                 <label for="tipoRisposta">Risposta<span>*</span></label>
                 <select id="tipoRisposta" name="tipoRisposta" required [(ngModel)]="tipoRisposta">
                     <option disabled>Tipologia di risposta</option>
@@ -24,7 +24,7 @@
                     <option value="FINALE">Finale</option>
                 </select>
             </div>
-            <div class="div-object">
+            <div *ngIf="tipoScenario !== 'FINALE'" class="div-object">
                 <label id="label-left" for="objectSelect">Nome Oggetto</label>
                 <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
                     <option disabled>Nome oggetto</option>
