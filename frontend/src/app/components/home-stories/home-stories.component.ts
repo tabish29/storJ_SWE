@@ -36,4 +36,10 @@ export class HomeStoriesComponent {
     this.storyService.changeStory(newStory);
     this.router.navigateByUrl('createStory');
   }
+
+  removeStory(storyId: number): void {
+    this.storyService.deleteStory(storyId);
+    this.loadStories();
+    location.reload();
+  }
 }

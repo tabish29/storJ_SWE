@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { story } from '../story';
@@ -34,6 +34,18 @@ export class StoryService {
     return this.http.post<story>(this.apiServerUrl + '/storie', story);
   }
 
+  deleteStory(storyId: number): void {
+    this.http.delete(this.apiServerUrl + '/storie/' + storyId).subscribe({
+      next: () => {
+        alert('Storia eliminata con successo');
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Errore durante eliminazione della storia', error.message);
+      }
+    });
+
+  }
+  
   public saveStory(): Observable<story> {
     const currentStory: story = this.localStorageService.getItem('currentStory');
     const url = this.apiServerUrl + '/storie/' + currentStory.id + '/save';

@@ -5,11 +5,15 @@
     </div>
     <div class="div-story" *ngFor="let item of stories">
         <div id="div-info">
-            <div id="div-text"><label><span class="span-header">Titolo</span><br><span class="span-text">{{ item.titolo }}</span></label></div>
-            <p></p>
-            <div id="div-text"><label><span class="span-header">Categoria</span><br><span class="span-text">{{ item.categoria }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">Titolo</span><br><span class="span-text">{{ item.titolo}}</span></label></div> <p></p>
+            <div id="div-text"><label><span class="span-header">Categoria</span><br><span class="span-text">{{item.categoria }}</span></label></div>
         </div>
-        <div class="div-button" *ngIf="!item.statoCompletamento"><button (click)="editStory(item)">Modifica</button></div>
-        <div class="div-button" *ngIf="item.statoCompletamento"><button (click)="editStory(item)">Modifica testo</button></div>
+        <div class="div-button" *ngIf="!item.statoCompletamento"><button (click)="editStory(item)">Modifica</button>
+        </div>
+        <div class="div-button" *ngIf="item.statoCompletamento"><button (click)="editStory(item)">Modifica testo</button>
+        </div>
+        <div class="div-button">
+            <div class="div-button-scenario" *ngIf="!item.statoCompletamento"><button (click)="removeStory(item.id)">Rimuovi</button></div>
+        </div>
     </div>
 </div>
