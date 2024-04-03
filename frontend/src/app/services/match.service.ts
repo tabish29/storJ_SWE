@@ -16,6 +16,7 @@ export class MatchService {
   private matchSource = new BehaviorSubject<match | null>(this.loadInitialMatch());
   currentMatch = this.matchSource.asObservable();
   matchMap: Map<number, string | undefined> = new Map();
+  isFirstMatch!: boolean;
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService, private scenarioService: ScenarioService, private userService: UserService) { }
 
@@ -32,6 +33,11 @@ export class MatchService {
   public addMatch(match: match): Observable<match> {
 
     return this.http.post<match>(this.apiServerUrl + '/partite', match);
+  }
+
+  public updateMatch(match: match): Observable<match> {
+
+    return this.http.put<match>(this.apiServerUrl + '/partite/' + match.id, match);
   }
 
   deleteMatch(matchId: number): void {
@@ -58,5 +64,13 @@ export class MatchService {
 
   getCurrentMatch(): match | null {
     return this.matchSource.value;
+  }
+
+  getIsFirstMatch(): boolean {
+    return this.isFirstMatch;
+  }
+  
+  setIsFirstMatch(value: boolean) {
+    this.isFirstMatch = value;
   }
 }

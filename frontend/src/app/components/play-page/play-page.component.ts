@@ -13,6 +13,8 @@ import { inventory } from '../../inventory';
 import { InventoryService } from '../../services/inventory.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatchService } from '../../services/match.service';
+import { match } from '../../match';
+import { user } from '../../user';
 
 @Component({
   selector: 'app-play-page',
@@ -53,9 +55,14 @@ export class PlayPageComponent implements OnInit, OnChanges {
     const currentStory = this.localStorageService.getItem('currentStory');
     if (currentStory) {
       this.storyId = currentStory.id;
-      const initialScenario = await this.scenarioService.getFirstScenario(this.storyId).toPromise();
-      this.loadInitialScenario(this.storyId, initialScenario);
 
+      if (this.matchService.getIsFirstMatch()) {
+        const initialScenario = await this.scenarioService.getFirstScenario(this.storyId).toPromise();
+        this.loadInitialScenario(this.storyId, initialScenario);
+      } else {
+        const currentScenario=this.localStorageService.getItem("currentScenario");
+        this.loadUserChoice(currentScenario.id);
+      }
 
     } else {
       console.error('Nessuna storia corrente trovata nel localStorage');
@@ -115,6 +122,8 @@ export class PlayPageComponent implements OnInit, OnChanges {
   }
 
   async loadUserChoice(idScenarioSuccessivo: number): Promise<void> {
+    const currentUser = this.localStorageService.getItem("currentUser");
+
     this.scenarioService.getScenarioById(idScenarioSuccessivo);
 
     this.scenarioService.getScenarioById(idScenarioSuccessivo).subscribe(async (nextScenario: scenario) => {
@@ -122,6 +131,8 @@ export class PlayPageComponent implements OnInit, OnChanges {
       if (nextScenario) {
         this.currentScenario = nextScenario;
         console.log('Scenario caricato:', this.currentScenario);
+        this.localStorageService.setItem('currentScenario', this.currentScenario);
+        this.scenarioService.changeScenario(this.currentScenario);
         await this.loadDrop(this.currentScenario);
         // Carica le scelte associate allo scenario corrente
         await this.loadScenarioChoices(this.currentScenario);
@@ -130,16 +141,41 @@ export class PlayPageComponent implements OnInit, OnChanges {
         const dropName = this.dropMap.get(this.currentScenario.id);
         if (dropName && dropName !== "Nessun Drop") {
           // Mostra un alert se lo scenario ha un oggetto associato
-          alert(`Complimenti! Hai ottenuto l'oggetto: ${dropName}.`);
+          alert(`Complimenti! Hai ottenuto l'oggetto: ${dropName}.`);//DA MODIFICARE LA POSIZIONE DELL'ALERT(DA FARE)
         }
 
-      } else {
+        this.updateMatch(currentUser, this.currentScenario);
 
+      } else {
         console.error('Scenario successivo non trovato');
       }
     });
   }
 
+  updateMatch(currentUser: user, nextScenario: scenario) {
+    const currentMatch = this.localStorageService.getItem("currentMatch");
+
+    const newMatchData: match = {
+      id: currentMatch.id,
+      id_storia: this.storyId,
+      id_utente: currentUser?.id,
+      id_scenario_corrente: nextScenario.id
+    };
+
+    this.matchService.updateMatch(newMatchData).subscribe({
+      next: (updatedMatch) => {
+
+        this.matchService.changeMatch(newMatchData);
+        console.log("Partita aggiornata con successo:", updatedMatch);
+      },
+      error: (error) => {
+
+        console.error("Errore durante l'aggiornamento della partita:", error);
+      }
+    });
+
+
+  }
 
   //mettere l'aggiunta dell'oggetto nell'inventario(non sono riuscito a fare in modo che )
   async loadDrop(scenario: scenario): Promise<void> {
@@ -231,4 +267,5 @@ export class PlayPageComponent implements OnInit, OnChanges {
     //resetto a stringa vuota così nei successivi indovinelli non si vede la ripsosta data precedentemente
     this.userAnswer = '';
   }
+  
 }

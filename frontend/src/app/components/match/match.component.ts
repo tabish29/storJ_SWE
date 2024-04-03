@@ -39,6 +39,7 @@ export class MatchComponent {
         // Qui impostiamo la storia corrente sul servizio di gestione delle storie
         this.storyService.changeStory(response);
         console.log(`Riprendi la partita con ID: ${match.id}`);
+        this.matchService.setIsFirstMatch(false);
         // Reindirizza l'utente alla pagina di gioco, passando eventualmente l'ID della partita o della storia come parametro
         this.router.navigateByUrl('/playPage');
       },

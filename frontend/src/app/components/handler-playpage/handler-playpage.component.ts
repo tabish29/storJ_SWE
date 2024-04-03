@@ -90,8 +90,10 @@ export class HandlerPlaypageComponent {
     await this.loadInitialScenario(story.id)
     const currentUserId = this.userService.getCurrentUser()?.id;
     const firstScenarioId = this.scenarioService.getCurrentScenario()?.id
+    this.matchService.setIsFirstMatch(true);
+
     if (currentUserId && firstScenarioId) {
-      //mettere i valori corretti
+
       const matchData: match = {
         id: 0,
         id_storia: story.id,
