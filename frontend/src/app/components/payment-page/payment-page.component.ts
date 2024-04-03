@@ -33,11 +33,11 @@ export class PaymentPageComponent {
       },
       (error: HttpErrorResponse) => {
 
-        const message = error.error.message; 
+        const message = error.error.message;
 
-      if (error.error.code === "PaymentFailed") {
+        if (error.error.code === "PaymentFailed") {
           alert(message);
-        }else{
+        } else {
           alert("errore diverso da UtenteAlreadySigned e PaymentFailed: " + message);
         }
       }
@@ -45,6 +45,13 @@ export class PaymentPageComponent {
   }
 
   onSubmit() {
+
+    const amountString = String(this.amount);
+
+    if (amountString.includes(',')) {
+      alert("Per i numeri decimali utilizzare il punto al posto della virgola.");
+      return;
+    }
 
     const paymentData: PaymentInfo = {
       amount: this.amount,
