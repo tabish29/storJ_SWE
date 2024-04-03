@@ -28,6 +28,7 @@
                 <label id="label-left" for="objectSelect">Nome Oggetto</label>
                 <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
                     <option disabled>Nome oggetto</option>
+                    <option [value] = "-1">---</option>
                     <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
                 </select>
             </div>

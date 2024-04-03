@@ -8,6 +8,7 @@
         <input type="text" [(ngModel)]="filterValue" placeholder="Valore del filtro">
         <select [(ngModel)]="filterType">
             <option disabled>Campo per cui filtrare</option>
+            <option [value]="-1">---</option>
             <option value="Autore">Autore</option>
             <option value="Categoria">Categoria</option>
             <option value="Numero Scenari">Numero Scenari</option>

@@ -22,8 +22,8 @@ import { ScenarioService } from '../../services/scenario.service';
 
 export class HandlerPlaypageComponent {
   stories: story[] = [];
-  currentScenario!:scenario;
-  filterType = '';
+  currentScenario!: scenario;
+  filterType = "-1";
   filterValue = '';
   noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
   authorMap: Map<number, String | undefined> = new Map();
@@ -33,7 +33,7 @@ export class HandlerPlaypageComponent {
     private router: Router,
     private localStorageService: LocalStorageService,
     private userService: UserService,
-    private scenarioService:ScenarioService,
+    private scenarioService: ScenarioService,
     private matchService: MatchService) { }
 
   async ngOnInit(): Promise<void> {
@@ -75,7 +75,7 @@ export class HandlerPlaypageComponent {
     try {
       const firstScenario = await this.scenarioService.getFirstScenario(storyId).toPromise();
 
-      if(firstScenario){
+      if (firstScenario) {
         this.scenarioService.changeScenario(firstScenario[0]);
       }
 
@@ -85,21 +85,21 @@ export class HandlerPlaypageComponent {
   }
 
 
-  async  playStory(story: story): Promise<void> {
+  async playStory(story: story): Promise<void> {
     this.storyService.changeStory(story);
     await this.loadInitialScenario(story.id)
-    const currentUserId= this.userService.getCurrentUser()?.id;
-    const firstScenarioId=this.scenarioService.getCurrentScenario()?.id
-    if(currentUserId && firstScenarioId){
-    //mettere i valori corretti
-    const matchData: match = {
-      id: 0,
-      id_storia: story.id,
-      id_utente: currentUserId,
-      id_scenario_corrente: firstScenarioId
-    };
-    this.saveMatch(matchData);
-  }
+    const currentUserId = this.userService.getCurrentUser()?.id;
+    const firstScenarioId = this.scenarioService.getCurrentScenario()?.id
+    if (currentUserId && firstScenarioId) {
+      //mettere i valori corretti
+      const matchData: match = {
+        id: 0,
+        id_storia: story.id,
+        id_utente: currentUserId,
+        id_scenario_corrente: firstScenarioId
+      };
+      this.saveMatch(matchData);
+    }
 
     // Reindirizzamento all'URL di gioco della storia
     this.router.navigateByUrl(`playPage`);
@@ -125,34 +125,36 @@ export class HandlerPlaypageComponent {
   }
 
   filterStories(filterType: string, filterValue: string): void {
-    this.filterType = filterType;
-    this.filterValue = filterValue;
-    this.storyService.filterStories(this.filterType, this.filterValue).subscribe(
-      stories => {
-        //In caso di successo aggiorna le storie visualizzate
-        this.stories = stories;
-        if (stories.length === 0) {
+    if (filterType != "-1") {
+      this.filterType = filterType;
+      this.filterValue = filterValue;
+      this.storyService.filterStories(this.filterType, this.filterValue).subscribe(
+        stories => {
+          //In caso di successo aggiorna le storie visualizzate
+          this.stories = stories;
+          if (stories.length === 0) {
+            this.noStoriesFound = true;
+          } else {
+            this.noStoriesFound = false;
+          }
+        },
+        (error: HttpErrorResponse) => {
+          this.stories = [];
           this.noStoriesFound = true;
-        } else {
-          this.noStoriesFound = false;
-        }
-      },
-      (error: HttpErrorResponse) => {
-        this.stories = [];
-        this.noStoriesFound = true;
-        // Inserire i vari codici di errore dell'api di Davide(da fare)
-        switch (error.error.code) {
-          case "UtenteNotFound":
-            //alert(error.error.message);
-            break;
-          default:
-            alert("Errore durante il filtraggio delle storie.");
-        }
+          // Inserire i vari codici di errore dell'api di Davide(da fare)
+          switch (error.error.code) {
+            case "UtenteNotFound":
+              //alert(error.error.message);
+              break;
+            default:
+              alert("Errore durante il filtraggio delle storie.");
+          }
 
-        //per vedere i codici di errore(da eliminare)
-        console.error('Errore HTTP:', error.error.code);
-      }
-    );
+          //per vedere i codici di errore(da eliminare)
+          console.error('Errore HTTP:', error.error.code);
+        }
+      );
+    }
   }
 
 

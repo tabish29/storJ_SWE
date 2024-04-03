@@ -21,6 +21,7 @@
                     <label for="objectSelect">Oggetto Richiesto dalla scelta</label>
                     <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
                         <option disabled>Nome dell'oggetto</option>
+                        <option [value] = "-1">---</option>
                         <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
                     </select>
                 </div>    
