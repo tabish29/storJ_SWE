@@ -11,7 +11,7 @@
                     <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
                 </div>
                 <div class="single-form">
-                    <label for="idScenarioSuccessivo">Scenario cenario</label>
+                    <label for="idScenarioSuccessivo">Scenario successivo alla risposta</label>
                     <select id="idScenarioSuccessivo" name="idScenarioSuccessivo" required [(ngModel)]="idScenarioSuccessivo">
                         <option disabled>Id dello scenario successivo</option>
                         <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} [ID: {{scenario.id }}]</option>

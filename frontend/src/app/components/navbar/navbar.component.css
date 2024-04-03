@@ -35,7 +35,7 @@ label:hover {
 
 #image {
   float: left;
-  width: 50px;
+  width: 75px;
   height: auto;
   transition: transform 0.5s;
 }

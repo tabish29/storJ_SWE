@@ -4,7 +4,7 @@
         <p id="title">Inserisci i <span>dati</span> dello <span>scenario</span></p>
         <form (ngSubmit)="onSubmit()">
             <div>
-                <label id="label-left" for="testo">Descrizione</label>
+                <label id="label-left" for="testo">Testo</label>
                 <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
             </div>
             <div class="div-select">
@@ -41,7 +41,7 @@
         <p id="title">Aggiorna i <span>dati</span> dello <span>scenario</span></p>
         <form (ngSubmit)="updateScenarioText()">
             <div>
-                <label id="label-left" for="testo">Descrizione</label>
+                <label id="label-left" for="testo">Testo</label>
                 <textarea *ngIf="currentScenario" id="testo" name="testo" required [ngModel]="currentScenario.testo"
                 (ngModelChange)="onScenarioTextChange($event)"></textarea>
             </div>

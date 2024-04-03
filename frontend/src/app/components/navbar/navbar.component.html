@@ -1,7 +1,7 @@
 <nav class="navbar">
     <div class="login">
         <div class="logo">
-            <label *ngIf="currentUrl === '/home' || currentUrl === '/storJPage'"><img id="image" src="../../../assets/image/storJ.png"></label>
+        <label routerLink="/home" *ngIf="currentUrl === '/home' || currentUrl === '/storJPage' || currentUrl === '/register' || currentUrl === '/login'"><img id="image" src="../../../assets/image/storJ.png"></label>
             <div class="arrow">
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
                 <button mat-button *ngIf="isAuthenticated() && currentUrl != '/storJPage'" (click)="goBack(currentUrl)">
@@ -42,7 +42,7 @@
             <button mat-button routerLink="/formStory" *ngIf="currentUrl === '/homeStories' && isAuthenticated()">Crea
                 storia</button>
 
-            <!-- Mostra questo pulsante solo se l'utente si trova in formMultipleChoices -->
+            <!-- Mostra questo pulsante solo se l'utente si trova in formMultipleChoice -->
             <button mat-button routerLink="/formMultipleChoice"
                 *ngIf="currentUrl === '/multiplechoice' && isAuthenticated() && !isInTextEditMode">Crea scelta</button>
 
@@ -59,7 +59,7 @@
             <button mat-button (click)="openInventory()"
                 *ngIf="isAuthenticated() && currentUrl === '/playPage'">inventario</button>
 
-            <button mat-button (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
+            <button mat-button (click)="logout()" *ngIf="isAuthenticated() && currentUrl != '/payment' && currentUrl != '/formStory' && currentUrl != '/formScenario' && currentUrl != '/formStoryObject' && currentUrl != '/formSingleChoice' && currentUrl != '/formMultipleChoice'">Logout</button>
         </div>
     </div>
 </nav>

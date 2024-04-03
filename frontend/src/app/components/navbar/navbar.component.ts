@@ -106,6 +106,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.storyService.saveStory().subscribe(
       (response: any) => {
         alert('salvataggio avvenuto con successo')
+        this.router.navigateByUrl('/homeStories');
       },
       (error: HttpErrorResponse) => {
         switch (error.error.code) {
@@ -126,9 +127,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
             alert(error.error.message);
             break;
         }
-      });
-
-    this.router.navigateByUrl('/homeStories');
+      }
+    );
   }
 
   async openInventory() {
@@ -157,7 +157,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     };
 
   }
-
 
   goBack(page: string): void {
     switch (page) {

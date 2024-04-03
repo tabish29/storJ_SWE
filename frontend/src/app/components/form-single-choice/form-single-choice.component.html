@@ -12,14 +12,14 @@
                 <textarea id="risposta" name="risposta" [(ngModel)]="risposta" required></textarea>
             </div>
             <div class="div-select">
-                <label for="idScenarioRispostaCorretta">Destinazione corretta</label>
+                <label for="idScenarioRispostaCorretta">Destinazione risposta corretta</label>
                 <select id="idScenarioRispostaCorretta" name="idScenarioRispostaCorretta" [(ngModel)]="idScenarioRispostaCorretta" required>
                     <option disabled>Identificativo dello scenario dopo la risposta corretta</option>
                     <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} [Id:{{scenario.id }}]</option>
                 </select>
             </div>
             <div class="div-select">
-                <label for="idScenarioRispostaSbagliata">Destinazione sbagliata</label>
+                <label for="idScenarioRispostaSbagliata">Destinazione risposta sbagliata</label>
                 <select id="idScenarioRispostaSbagliata" name="idScenarioRispostaSbagliata" [(ngModel)]="idScenarioRispostaSbagliata" required>
                     <option disabled>Identificativo dello scenario dopo la risposta errata</option>
                     <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} [Id:{{scenario.id }}]</option>
