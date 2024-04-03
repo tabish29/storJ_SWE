@@ -15,8 +15,8 @@ export class FormStoryObjectComponent {
   //inserire le variabili che servono nel form della creazione dello storyObject 
 
   idStoria = -1;
-  nome = '';
-  descrizione = '';
+  nome = ' ';
+  descrizione = ' ';
   isInTextEditMode!: boolean;
   currentStoryObject!: storyObject | null;
 
@@ -75,7 +75,13 @@ export class FormStoryObjectComponent {
       descrizione: this.descrizione
     };
 
-    this.savestoryObject(storyObjectData);
+    if (this.nome == ' ' || this.descrizione == ' ') {
+      alert("Inserisci tutti i campi obbligatori (*)");
+    }else{
+      this.savestoryObject(storyObjectData);
+    }
+
+    
   }
 
   onNameChange(newName: string): void {

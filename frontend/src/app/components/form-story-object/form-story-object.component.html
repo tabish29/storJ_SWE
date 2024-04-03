@@ -4,9 +4,9 @@
         <p id="title">Inserisci i <span>dati</span> dell'<span>oggetto</span></p>
         <form (ngSubmit)="onSubmit()">
             <div class="div-form">
-                <label for="nome">Nome</label>
+                <label for="nome">Nome<span>*</span></label>
                 <input type="text" id="nome" name="nome" required [(ngModel)]="nome">
-                <label for="descrizione">Descrizione</label>
+                <label for="descrizione">Descrizione<span>*</span></label>
                 <textarea id="descrizione" name="descrizione" required [(ngModel)]="descrizione"></textarea>
                 <button type="submit">Crea</button>
             </div>

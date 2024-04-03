@@ -11,8 +11,8 @@
         </div>
         <div class="div-button">
             <!-- Mostra questi pulsanti solo se l'utente NON è autenticato -->
-            <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Sign In</button>
-            <button mat-button routerLink="/register" *ngIf="!isAuthenticated()">Sign Up</button>
+            <button mat-button routerLink="/login" *ngIf="!isAuthenticated()">Log in</button>
+            <button mat-button routerLink="/register" *ngIf="!isAuthenticated()">Registrati</button>
 
             <!-- Mostra il bottone "Paga" solo se showPaymentButton è true -->
             <button mat-button routerLink="/payment" *ngIf="currentUrl === '/storJPage' && showPaymentButton">Paga</button>

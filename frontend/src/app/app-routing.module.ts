@@ -20,6 +20,7 @@ import { FormMultipleChoiceComponent } from './components/form-multiple-choice/f
 import { FormSingleChoiceComponent } from './components/form-single-choice/form-single-choice.component';
 import { PlayPageComponent } from './components/play-page/play-page.component';
 import { MatchComponent } from './components/match/match.component';
+import { PaymentAccessGuard } from './payment-access-guard.guard';
 
 
 const routes: Routes = [
@@ -43,7 +44,7 @@ const routes: Routes = [
   {
     path: 'payment',
     component: PaymentPageComponent,
-    canActivate: [accessGuard]
+    canActivate: [accessGuard,PaymentAccessGuard]
   },
   {
     path: 'homeStories',

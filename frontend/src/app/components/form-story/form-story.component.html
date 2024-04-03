@@ -4,9 +4,9 @@
         <p id="title">Inserisci i <span>dati</span> della <span>storia</span></p>
         <form (ngSubmit)="onSubmit()">
             <div id="div-form">
-                <label for="titolo">Titolo</label>
+                <label for="titolo">Titolo<span>*</span></label>
                 <input type="text" placeholder="Inserisci titolo" name="titolo" [(ngModel)]="titolo" required>
-                <label for="categoria">Categoria</label>
+                <label for="categoria">Categoria<span>*</span></label>
                 <input type="text" placeholder="Inserisci la categoria" name="categoria" [(ngModel)]="categoria" required>
             </div>
             <button type="submit">Crea</button>

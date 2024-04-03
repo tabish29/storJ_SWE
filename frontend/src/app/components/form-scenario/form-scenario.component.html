@@ -4,11 +4,11 @@
         <p id="title">Inserisci i <span>dati</span> dello <span>scenario</span></p>
         <form (ngSubmit)="onSubmit()">
             <div>
-                <label id="label-left" for="testo">Testo</label>
+                <label id="label-left" for="testo">Testo<span>*</span></label>
                 <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
             </div>
             <div class="div-select">
-                <label for="tipoRisposta">Risposta</label>
+                <label for="tipoRisposta">Risposta<span>*</span></label>
                 <select id="tipoRisposta" name="tipoRisposta" required [(ngModel)]="tipoRisposta">
                     <option disabled>Tipologia di risposta</option>
                     <option value="INDOVINELLO">Indovinello</option>
@@ -16,7 +16,7 @@
                 </select>
             </div>
             <div class="div-select">
-                <label for="tipoScenario">Scenario</label>
+                <label for="tipoScenario">Scenario<span>*</span></label>
                 <select id="tipoScenario" name="tipoScenario" required [(ngModel)]="tipoScenario">
                     <option disabled>Tipologia di scenario</option>
                     <option value="INIZIALE">Iniziale</option>
@@ -25,9 +25,9 @@
                 </select>
             </div>
             <div class="div-object">
-                <label id="label-left" for="objectSelect">Oggetto</label>
+                <label id="label-left" for="objectSelect">Nome Oggetto</label>
                 <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
-                    <option disabled>Tipologia di oggetto</option>
+                    <option disabled>Nome oggetto</option>
                     <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
                 </select>
             </div>
