@@ -32,6 +32,6 @@ export class AuthService {
 
   logout(): void {
     this.isLoggedIn = false;
-    localStorage.clear();
+    this.localStorageService.clear();
   }
 }

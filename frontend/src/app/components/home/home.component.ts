@@ -1,19 +1,17 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
-  username: string = '';
-  password: string = '';
-  registrationMessage: string = '';
-  httpClient= inject(HttpClient);
-  data: any[]=[];
+export class HomeComponent implements OnInit {
+
+  constructor(private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
-
+    this.localStorageService.clear();
   }
+  
 }
