@@ -42,7 +42,6 @@ export class MatchService {
   deleteMatch(matchId: number): void {
     this.http.delete(this.apiServerUrl + '/partite/' + matchId).subscribe({
       next: () => {
-        alert('partita eliminato con successo');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Errore durante eliminazione della partita', error.message);

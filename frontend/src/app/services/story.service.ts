@@ -37,7 +37,6 @@ export class StoryService {
   deleteStory(storyId: number): void {
     this.http.delete(this.apiServerUrl + '/storie/' + storyId).subscribe({
       next: () => {
-        alert('Storia eliminata con successo');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Errore durante eliminazione della storia', error.message);

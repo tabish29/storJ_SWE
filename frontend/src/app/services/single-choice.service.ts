@@ -36,7 +36,6 @@ export class SingleChoiceService {
   deleteSingleChoice(singleChoiceId: number): void {
     this.http.delete(this.apiServerUrl + '/scelte/' + singleChoiceId + '/indovinello').subscribe({
       next: () => {
-        alert('singleChoice eliminato con successo');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Errore durante eliminazione dello singleChoice', error.message);

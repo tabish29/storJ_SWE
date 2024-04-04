@@ -37,7 +37,6 @@ import { storyObject } from '../storyObject';
   deleteStoryObject(storyObjectId: number): void {
     this.http.delete(this.apiServerUrl + '/oggetti/' + storyObjectId).subscribe({
       next: () => {
-        alert('storyObject eliminato con successo');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Errore durante eliminazione dello storyObject', error.message);

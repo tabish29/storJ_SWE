@@ -35,7 +35,6 @@ export class MultipleChoiceService {
   deletemultipleChoice(multipleChoiceId: number): void {
     this.http.delete(this.apiServerUrl + '/scelte/' + multipleChoiceId+'/multipla').subscribe({ 
       next: () => {
-        alert('multipleChoice eliminato con successo');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Errore durante eliminazione dello multipleChoice', error.message);
