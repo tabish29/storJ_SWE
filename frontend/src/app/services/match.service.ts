@@ -11,7 +11,6 @@ import { match } from '../match';
 })
 export class MatchService {
 
-
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private matchSource = new BehaviorSubject<match | null>(this.loadInitialMatch());
   currentMatch = this.matchSource.asObservable();

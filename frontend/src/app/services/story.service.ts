@@ -45,7 +45,7 @@ export class StoryService {
     });
 
   }
-  
+
   public saveStory(): Observable<story> {
     const currentStory: story = this.localStorageService.getItem('currentStory');
     const url = this.apiServerUrl + '/storie/' + currentStory.id + '/save';
@@ -65,6 +65,9 @@ export class StoryService {
         break;
       case 'Numero Scenari':
         queryParams += `numScenari=${encodeURIComponent(filterValue)}`;
+        break;
+      case  '-1':
+        this.getAllstories();
         break;
       default:
         console.error('Tipo di filtro non supportato');

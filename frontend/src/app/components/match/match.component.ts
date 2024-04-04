@@ -3,7 +3,8 @@ import { match } from '../../match';
 import { MatchService } from '../../services/match.service';
 import { UserService } from '../../services/userservice';
 import { StoryService } from '../../services/story.service';
-import { Router } from '@angular/router';;
+import { Router } from '@angular/router';import { LocalStorageService } from '../../services/local-storage.service';
+;
 
 @Component({
   selector: 'app-match',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';;
 export class MatchComponent {
   userMatches: match[] = [];
 
-  constructor(private router:Router,private matchService: MatchService, private userService: UserService, private storyService: StoryService) { }
+  constructor(private router:Router,private matchService: MatchService, private userService: UserService, private storyService: StoryService,private localStorageService:LocalStorageService) { }
 
   ngOnInit() {
     this.loadUserMatches();
@@ -40,6 +41,7 @@ export class MatchComponent {
         this.storyService.changeStory(response);
         console.log(`Riprendi la partita con ID: ${match.id}`);
         this.matchService.setIsFirstMatch(false);
+        this.localStorageService.setItem('currentMatch', match);
         // Reindirizza l'utente alla pagina di gioco, passando eventualmente l'ID della partita o della storia come parametro
         this.router.navigateByUrl('/playPage');
       },

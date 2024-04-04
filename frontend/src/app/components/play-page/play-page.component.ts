@@ -15,23 +15,24 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatchService } from '../../services/match.service';
 import { match } from '../../match';
 import { user } from '../../user';
-import { storyObject } from '../../storyObject';
+import { drop } from '../../drop';
+
 
 @Component({
   selector: 'app-play-page',
   templateUrl: './play-page.component.html',
   styleUrl: './play-page.component.css'
 })
-export class PlayPageComponent implements OnInit, OnChanges {
+export class PlayPageComponent implements OnInit {
   scenarios: scenario[] | undefined = [];
   multipleChoices: multipleChoice[] | undefined = [];
   singleChoice!: singleChoice | undefined;
   storyId!: number;
-  currentScenario!: scenario | undefined;
+  currentScenario: scenario | undefined;
   userAnswer!: string;
   dropMap: Map<number, string | undefined> = new Map();
-  requiredMap: Map<number, string | undefined> = new Map();
-  inventoryItems!: storyObject[];
+  requiredMap: Map<number, number | undefined> = new Map();
+  inventoryItemsId: number[] = [];
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -44,13 +45,10 @@ export class PlayPageComponent implements OnInit, OnChanges {
     private matchService: MatchService,
     private inventoryService: InventoryService
   ) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log("richiamo al meotod ngOnchanges");
-  }
 
   async ngOnInit() {
     await this.loadCurrentStory();
-    console.log("richiamo al meotod ngOnInit");
+
   }
 
   async loadCurrentStory() {
@@ -63,7 +61,8 @@ export class PlayPageComponent implements OnInit, OnChanges {
         this.loadInitialScenario(this.storyId, initialScenario);
       } else {
         const currentScenario = this.localStorageService.getItem("currentScenario");
-        this.loadUserChoice(currentScenario.id);
+        this.resumeMatch(currentScenario.id);
+
       }
 
     } else {
@@ -126,30 +125,64 @@ export class PlayPageComponent implements OnInit, OnChanges {
   async loadUserChoice(idScenarioSuccessivo: number): Promise<void> {
     const currentUser = this.localStorageService.getItem("currentUser");
 
-    this.scenarioService.getScenarioById(idScenarioSuccessivo);
+    this.scenarioService.getScenarioById(idScenarioSuccessivo).subscribe({
+      next: async (nextScenario: scenario) => {
+        if (nextScenario) {
+          this.currentScenario = nextScenario;
+          console.log('Scenario caricato:', this.currentScenario);
+          this.localStorageService.setItem('currentScenario', this.currentScenario);
+          this.scenarioService.changeScenario(this.currentScenario);
+          await this.loadDrop(this.currentScenario);
+          // Carica le scelte associate allo scenario corrente
+          await this.loadScenarioChoices(this.currentScenario);
 
-    this.scenarioService.getScenarioById(idScenarioSuccessivo).subscribe(async (nextScenario: scenario) => {
-
-      if (nextScenario) {
-        this.currentScenario = nextScenario;
-        console.log('Scenario caricato:', this.currentScenario);
-        this.localStorageService.setItem('currentScenario', this.currentScenario);
-        this.scenarioService.changeScenario(this.currentScenario);
-        await this.loadDrop(this.currentScenario);
-        // Carica le scelte associate allo scenario corrente
-        await this.loadScenarioChoices(this.currentScenario);
-
-        // Verifica se lo scenario ha un drop associato
-        const dropName = this.dropMap.get(this.currentScenario.id);
-        if (dropName && dropName !== "Nessun Drop") {
-          // Mostra un alert se lo scenario ha un oggetto associato
-          alert(`Complimenti! Hai ottenuto l'oggetto: ${dropName}.`);//DA MODIFICARE LA POSIZIONE DELL'ALERT(DA FARE)
+          this.updateMatch(currentUser, this.currentScenario);
+        } else {
+          console.error('Scenario successivo non trovato');
         }
+      },
+      error: (error) => {
+        console.error('Errore durante il caricamento dello scenario:', error);
+      }
+    });
 
-        this.updateMatch(currentUser, this.currentScenario);
+  }
 
-      } else {
-        console.error('Scenario successivo non trovato');
+  async resumeMatch(idScenario: number) {
+    const currentUser = this.localStorageService.getItem("currentUser");
+    const currentMatch = this.localStorageService.getItem("currentMatch");
+
+    this.scenarioService.getScenarioById(idScenario).subscribe({
+      next: async (nextScenario: scenario) => {
+        if (nextScenario) {
+          this.currentScenario = nextScenario;
+          console.log('Scenario caricato:', this.currentScenario);
+          this.localStorageService.setItem('currentScenario', this.currentScenario);
+          this.scenarioService.changeScenario(this.currentScenario);
+
+          this.inventoryService.getInventoryByMatchId(currentMatch.id).subscribe({
+            next: (response) => {
+
+              response.forEach(item => {
+                this.inventoryItemsId.push(item.id);
+              });
+              console.log('Inventario caricato con successo:', this.inventoryItemsId);
+            },
+            error: (error) => {
+              console.error('Errore durante il caricamento dell\'inventario:', error);
+            }
+          });
+
+          // Carica le scelte associate allo scenario corrente
+          await this.loadScenarioChoices(this.currentScenario);
+
+
+        } else {
+          console.error('Scenario successivo non trovato');
+        }
+      },
+      error: (error) => {
+        console.error('Errore durante il caricamento dello scenario:', error);
       }
     });
   }
@@ -176,7 +209,6 @@ export class PlayPageComponent implements OnInit, OnChanges {
       }
     });
 
-
   }
 
   //mettere l'aggiunta dell'oggetto nell'inventario(non sono riuscito a fare in modo che )
@@ -186,58 +218,65 @@ export class PlayPageComponent implements OnInit, OnChanges {
       if (!drop) {
         this.dropMap.set(scenario.id, "Nessun Drop");
         return;
+      } else {
+        // Aggiorna la mappa dei drop con il nome dell'oggetto
+        const storyObject = await this.storyObjectService.getStoryObject(drop.id_oggetto).toPromise();
+        this.dropMap.set(scenario.id, storyObject ? storyObject.nome : "Nessun Drop");
+
       }
 
-      const currentMatch = this.matchService.getCurrentMatch();
+      const currentMatch = this.localStorageService.getItem("currentMatch");
+
       if (!currentMatch) {
         console.log("Nessuna partita corrente trovata.");
         return;
       }
 
       //mettere il controllo se l'oggetto è già presente o no nell'inventario
-      await this.inventoryService.getInventoryByMatchId(currentMatch.id);
-      this.inventoryService.getInventoryByMatchId(currentMatch.id).subscribe({
-        next: (inventoryObjects) => {
+      if (await this.hasStoryObject(drop)) {
 
-          const itemExists = inventoryObjects.some(item => item.id === drop.id_oggetto);
+        alert("oggetto già presente nell'inventario");
 
-          if (!itemExists) {
-            this.inventoryItems = inventoryObjects;
-            const inventoryData: inventory = {
-              id: 0,
-              id_partita: currentMatch.id,
-              id_oggetto: drop.id_oggetto
-            };
-
-           
-            const obtainedObject = inventoryObjects.find(item => item.id === drop.id_oggetto);
-
-            if(obtainedObject) {
-              alert(`Complimenti! Hai ottenuto l'oggetto: ${obtainedObject.nome}.`);
-            } else {
-              
-              console.log('Errore: oggetto non trovato in inventoryItems.');
-            }
-
-            this.saveInventory(inventoryData);
-
-          } else {
-
-            console.log('Oggetto con id uguale a ', drop.id_oggetto, ' è già presente in inventario');
-          }
-
-        },
-        error: (err) => {
-          console.error('Error fetching inventory:', err);
+      } else {
+        // Verifica se lo scenario ha un drop associato
+        const dropName = this.dropMap.get(scenario.id);
+        if (dropName !== "Nessun Drop") {
+          // Mostra un alert se lo scenario ha un oggetto associato
+          alert(`Complimenti! Hai ottenuto l'oggetto: ${dropName}.`);//DA MODIFICARE LA POSIZIONE DELL'ALERT(DA FARE)
         }
-      });
 
+        const inventoryData: inventory = {
+          id: 0,
+          id_partita: currentMatch.id,
+          id_oggetto: drop.id_oggetto
+        };
+        this.saveInventory(inventoryData);
+        this.inventoryItemsId.push(drop.id_oggetto);
 
-
+      }
 
     } catch (error) {
       console.error("Errore durante il caricamento del drop per lo scenario " + scenario.id, error);
     }
+  }
+
+  async hasStoryObject(drop: drop): Promise<boolean> {
+
+    const itemExists = this.inventoryItemsId.some(item => item === drop.id_oggetto);
+    return itemExists;
+
+  }
+
+  checkRequired(idMultipleChoiche: number) {
+    const objIdRequired = this.requiredMap.get(idMultipleChoiche);
+   
+    if (objIdRequired === -1) {
+      return true;
+    }
+    
+    const itemExists = this.inventoryItemsId.some(item => item === objIdRequired);
+    return itemExists;
+
   }
 
   saveInventory(inventory: inventory): void {
@@ -268,14 +307,14 @@ export class PlayPageComponent implements OnInit, OnChanges {
           try {
             const storyObject = await this.storyObjectService.getStoryObject(required.id_oggetto).toPromise();
             if (storyObject) {
-              this.requiredMap.set(multipleChoice.id, storyObject.nome);
+              this.requiredMap.set(multipleChoice.id, storyObject.id);
             }
 
           } catch (error) {
             console.log("Errore nel caricamento del nome dell'oggetto da required: " + error);
           }
         } else {
-          this.requiredMap.set(multipleChoice.id, "Nessun oggetto richiesto");
+          this.requiredMap.set(multipleChoice.id, -1);
         }
         //console.log("avvenuto caricamento del required della scelta: " + multipleChoice.id);
       } catch (error) {

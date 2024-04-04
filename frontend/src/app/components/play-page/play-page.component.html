@@ -26,9 +26,9 @@
                 <div><label>id_scenario_successivo: {{ item.id_scenario_successivo }}</label></div>
             </div>
             <div class="remove-button tooltip-container"
-                [class.disabled-tooltip-container]="requiredMap.get(item.id) !== 'Nessun oggetto richiesto'">
+                [class.disabled-tooltip-container]="!checkRequired(item.id)">
                 <button (click)="loadUserChoice(item.id_scenario_successivo)"
-                    [disabled]="requiredMap.get(item.id) !== 'Nessun oggetto richiesto'">Scegli questo</button>
+                    [disabled]="!checkRequired(item.id)">Scegli questo</button>
                 <span class="tooltiptext">Non possiedi l'oggetto per fare questa scelta</span>
             </div>
         </div>

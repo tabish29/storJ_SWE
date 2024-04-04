@@ -39,6 +39,7 @@ export class HandlerPlaypageComponent {
   async ngOnInit(): Promise<void> {
     await this.loadStories();
     await this.loadAuthorName(this.stories);
+
   }
 
   async loadStories(): Promise<void> {
@@ -92,6 +93,7 @@ export class HandlerPlaypageComponent {
     const firstScenarioId = this.scenarioService.getCurrentScenario()?.id
     this.matchService.setIsFirstMatch(true);
 
+
     if (currentUserId && firstScenarioId) {
 
       const matchData: match = {
@@ -100,16 +102,18 @@ export class HandlerPlaypageComponent {
         id_utente: currentUserId,
         id_scenario_corrente: firstScenarioId
       };
-      this.saveMatch(matchData);
+      this.localStorageService.setItem('currentMatch', matchData);
+      await this.saveMatch(matchData);
+      // Reindirizzamento all'URL di gioco della storia
+      this.router.navigateByUrl(`playPage`);
     }
 
-    // Reindirizzamento all'URL di gioco della storia
-    this.router.navigateByUrl(`playPage`);
+
   }
 
-  public saveMatch(match: match): void {
+  public async saveMatch(match: match): Promise<void> {
 
-    this.matchService.addMatch(match).subscribe(
+    await this.matchService.addMatch(match).subscribe(
       (response: match) => {
         this.matchService.changeMatch(response);
         console.log("Partita creata con successo!");
@@ -127,36 +131,36 @@ export class HandlerPlaypageComponent {
   }
 
   filterStories(filterType: string, filterValue: string): void {
-    if (filterType != "-1") {
-      this.filterType = filterType;
-      this.filterValue = filterValue;
-      this.storyService.filterStories(this.filterType, this.filterValue).subscribe(
-        stories => {
-          //In caso di successo aggiorna le storie visualizzate
-          this.stories = stories;
-          if (stories.length === 0) {
-            this.noStoriesFound = true;
-          } else {
-            this.noStoriesFound = false;
-          }
-        },
-        (error: HttpErrorResponse) => {
-          this.stories = [];
-          this.noStoriesFound = true;
-          // Inserire i vari codici di errore dell'api di Davide(da fare)
-          switch (error.error.code) {
-            case "UtenteNotFound":
-              //alert(error.error.message);
-              break;
-            default:
-              alert("Errore durante il filtraggio delle storie.");
-          }
 
-          //per vedere i codici di errore(da eliminare)
-          console.error('Errore HTTP:', error.error.code);
+    this.filterType = filterType;
+    this.filterValue = filterValue;
+    this.storyService.filterStories(this.filterType, this.filterValue).subscribe(
+      stories => {
+        //In caso di successo aggiorna le storie visualizzate
+        this.stories = stories;
+        if (stories.length === 0) {
+          this.noStoriesFound = true;
+        } else {
+          this.noStoriesFound = false;
         }
-      );
-    }
+      },
+      (error: HttpErrorResponse) => {
+        this.stories = [];
+        this.noStoriesFound = true;
+        // Inserire i vari codici di errore dell'api di Davide(da fare)
+        switch (error.error.code) {
+          case "UtenteNotFound":
+            //alert(error.error.message);
+            break;
+          default:
+            alert("Errore durante il filtraggio delle storie.");
+        }
+
+        //per vedere i codici di errore(da eliminare)
+        console.error('Errore HTTP:', error.error.code);
+      }
+    );
+
   }
 
 
