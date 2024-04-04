@@ -42,6 +42,7 @@ export class MatchComponent {
         console.log(`Riprendi la partita con ID: ${match.id}`);
         this.matchService.setIsFirstMatch(false);
         this.localStorageService.setItem('currentMatch', match);
+        this.localStorageService.setItem('currentScenarioID', match.id_scenario_corrente);
         // Reindirizza l'utente alla pagina di gioco, passando eventualmente l'ID della partita o della storia come parametro
         this.router.navigateByUrl('/playPage');
       },

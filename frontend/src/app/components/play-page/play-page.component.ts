@@ -60,8 +60,9 @@ export class PlayPageComponent implements OnInit {
         const initialScenario = await this.scenarioService.getFirstScenario(this.storyId).toPromise();
         this.loadInitialScenario(this.storyId, initialScenario);
       } else {
-        const currentScenario = this.localStorageService.getItem("currentScenario");
-        this.resumeMatch(currentScenario.id);
+        const currentScenarioID = this.localStorageService.getItem("currentScenarioID");
+        console.log("valore dell'id dello scenario successivo",currentScenarioID);
+        this.resumeMatch(currentScenarioID);
 
       }
 
