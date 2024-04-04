@@ -8,13 +8,13 @@
     justify-content: center;
     width: 100%;
     text-decoration: none;
-    margin-top: 15rem;
 }
 
 .div-welcome {
     font-family: Arial, sans-serif;
     padding: 40px 40px;
-    width: 35%;
+    width: 25%;
+    margin-top: 10rem;
     background-color: rgb(244, 244, 244);
     border-radius: 10px;
     text-align: justify;
@@ -26,6 +26,7 @@
     text-align: left;
     font-size: 20pt;
     margin-bottom: 2rem;
+    gap: 5px;
 }
 
 p {

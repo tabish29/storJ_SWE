@@ -79,7 +79,7 @@ button {
     padding: 8px;
     background-color: crimson;
     border: none !important;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 button:hover {

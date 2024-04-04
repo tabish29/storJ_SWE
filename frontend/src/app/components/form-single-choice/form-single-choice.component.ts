@@ -85,10 +85,7 @@ export class FormSingleChoiceComponent {
       (response: singleChoice) => {
         this.singleChoiceService.changeSingleChoice(response);
         this.singleChoiceService.setIsChoiceCreated(true);
-        alert("singleChoice creato con successo!");
-
         this.router.navigateByUrl('/singlechoice');
-
       },
       (error: HttpErrorResponse) => {
         //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)

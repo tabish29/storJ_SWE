@@ -82,7 +82,6 @@ export class FormMultipleChoiceComponent {
       (response: required) => {
         this.requiredService.changeRequired(response);
         console.log("required creato con successo!");
-
       },
       (error: HttpErrorResponse) => {
         //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
@@ -97,7 +96,6 @@ export class FormMultipleChoiceComponent {
     this.multipleChoiceService.addmultipleChoice(multiplechoice).subscribe(
       (response: multipleChoice) => {
         this.multipleChoiceService.changemultipleChoice(response);
-        alert("multiplechoice creato con successo!")
         if (this.selectedObjectId != -1) {
           const objrequired: required = {
             id: 0,
