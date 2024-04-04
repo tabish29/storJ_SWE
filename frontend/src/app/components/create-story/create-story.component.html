@@ -7,11 +7,11 @@
         <div class="div-info">
             <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
+            <div id="div-text" *ngIf="item.tipo_scenario !== 'FINALE'"><label><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
             <p></p>
             <div id="div-text"><label><span class="span-header">Tipologia scenario</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
+            <div id="div-text" *ngIf="item.tipo_scenario !== 'FINALE'"><label><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
             <div class="div-button">
                 <div class="div-button-scenario"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Scelte</button></div>
             </div>
@@ -30,11 +30,11 @@
         <div class="div-info">
             <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
+            <div id="div-text" *ngIf="item.tipo_scenario !== 'FINALE'"><label><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
             <p></p>
             <div id="div-text"><label><span class="span-header">Tipologia scenario</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
+            <div id="div-text" *ngIf="item.tipo_scenario !== 'FINALE'"><label><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
             <div class="div-button">
                 <div class="editScenarioText-button"><button (click)="editScenarioText(item)">Modifica scenario</button></div>
             </div>
