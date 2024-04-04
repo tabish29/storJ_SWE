@@ -89,6 +89,10 @@ button:hover {
     border-left: 3px solid rgb(204, 204, 204, 0.7);
 }
 
+#div-hidden {
+    visibility: hidden;
+}
+
 .span-header {
     font-weight: bold;
     color: red;
@@ -101,4 +105,8 @@ button:hover {
 
 .span-text:hover {
     border-bottom: 1px solid black;
+}
+
+#label-hidden {
+    visibility: hidden;
 }
