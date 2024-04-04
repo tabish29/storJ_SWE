@@ -44,6 +44,7 @@ span {
 }
 
 label {
+    font-size: 11pt;
     margin-top: 0.5rem;
 }
 
@@ -53,14 +54,14 @@ label:hover {
 }
 
 textarea {
-    font-size: 9pt;
+    font-size: 11pt;
     width: 98%;
     height: 112.5px;
     resize: none;
 }
 
 select {
-    font-size: 9pt;
+    font-size: 11pt;
     padding: 8px;
     width: 100%;
     background-color: white;
@@ -69,7 +70,7 @@ select {
 }
 
 input {
-    font-size: 9pt;
+    font-size: 11pt;
     padding: 8px;
     width: 96%;
     background-color: white;
@@ -90,7 +91,7 @@ button {
     padding: 8px;
     background-color: crimson;
     border: none !important;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 button:hover {

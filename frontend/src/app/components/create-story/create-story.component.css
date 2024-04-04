@@ -63,7 +63,6 @@ span {
 }
 
 button {
-    font-size: 9pt;
     color: white;
     width: 95%;
     padding: 7.5px 7.5px;
@@ -79,6 +78,14 @@ button:hover {
 
 #div-text {
     text-align: left;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid rgb(204, 204, 204, 0.7);
+}
+
+#div-text-hidden {
+    text-align: left;
+    visibility: hidden;
     margin-left: 0.5rem;
     padding-left: 0.5rem;
     border-left: 2px solid rgb(204, 204, 204, 0.7);
