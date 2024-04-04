@@ -1,52 +1,37 @@
 <app-navbar></app-navbar>
-<div class="container" *ngIf="currentScenario">
-    <div class="scenario-box">
-        <div class="info">
-            <div><label>Id: {{ currentScenario.id }}</label></div>
-            <div><label>Testo: {{ currentScenario.testo }}</label></div>
-            <div><label>Tipo_risposta: {{ currentScenario.tipo_risposta }}</label></div>
-            <div><label>Tipo_scenario: {{ currentScenario.tipo_scenario }}</label></div>
-        </div>
-    </div>
-
-    <!-- Messaggio di complimenti -->
-    <div *ngIf="currentScenario.tipo_scenario === 'FINALE'" class="final-message">
-        <h2>Complimenti, hai finito la storia!</h2>
-    </div>
-</div>
-
-<!-- Div per la visualizzazione delle scelte multiple dello scenario -->
-<div class="multipleChoiceContainer">
-    <div *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA' && currentScenario?.tipo_scenario != 'FINALE'">
-        <h2>Scelte multiple:</h2>
-        <div *ngFor="let item of multipleChoices" class="multipleChoice-box">
-            <div class="info">
-                <div><label>id_scenario: {{ item.id_scenario }}</label></div>
-                <div><label>Testo: {{ item.testo }}</label></div>
-                <div><label>id_scenario_successivo: {{ item.id_scenario_successivo }}</label></div>
-            </div>
-            <div class="remove-button tooltip-container"
-                [class.disabled-tooltip-container]="!checkRequired(item.id)">
-                <button (click)="loadUserChoice(item.id_scenario_successivo)"
-                    [disabled]="!checkRequired(item.id)">Scegli questo</button>
-                <span class="tooltiptext">Non possiedi l'oggetto per fare questa scelta</span>
+<div class="container">
+    <div class="div-current-scenario" *ngIf="currentScenario">
+        <div *ngIf="currentScenario.tipo_scenario !== 'FINALE'"><label id="label-scenario">{{ currentScenario.testo }}</label></div>
+        <!-- html attuato per visualizzare il messaggio conclusivo della storia -->
+        <div class="div-congrats" *ngIf="currentScenario.tipo_scenario === 'FINALE'">
+            <div id="div-text-congrats">
+                <p id="text-congrats">Complimenti! Hai <span>concluso</span> la storia!</p>
+                <p id="text-handler-playpage"><a href="/handlerPlaypage">Clicca qui</a> per giocare ad altre <span>emozionanti</span> storie.</p>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Div per la visualizzazione del'indovinello dello scenario -->
-<div class="singleChoiceContainer">
-    <div class="singleChoice-box" *ngIf="currentScenario?.tipo_risposta === 'INDOVINELLO' && singleChoice">
-        <h2>Rispondi all'indovinello</h2>
-        <div class="info">
-            <div><label>id_scenario: {{ singleChoice.id_scenario }}</label></div>
-            <div><label>Testo: {{ singleChoice.testo }}</label></div>
+    <!-- div adottato per la visualizzazione delle scelte multiple dello scenario -->
+    <div class="div-multiple-choices" *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA' && currentScenario?.tipo_scenario !== 'FINALE'">
+        <div class="div-title">
+            <p id="title">Scegli la tua <span>risposta</span></p>
         </div>
-        <form (submit)="submitUserAnswer()">
-            <input type="text" [(ngModel)]="userAnswer" name="userAnswer" required
-                placeholder="Inserisci la tua risposta qui...">
-            <button type="submit">Invia risposta</button>
-        </form>
+        <div class="div-choice-scenario" *ngFor="let item of multipleChoices">
+            <div class="container-tooltip remove-button" [class.disabled-tooltip-container]="!checkRequired(item.id)">
+                <button class="button-multiple-choice" (click)="loadUserChoice(item.id_scenario_successivo)" [disabled]="!checkRequired(item.id)">{{ item.testo }}</button>
+            </div>
+        </div>
+    </div>
+    <!-- html attuato per la visualizzazione degli indovinelli della storia selezionata -->
+    <div class="div-single-choice" *ngIf="currentScenario?.tipo_risposta === 'INDOVINELLO' && currentScenario?.tipo_scenario !== 'FINALE' && singleChoice">
+        <div class="div-title">
+            <p id="title">Rispondi all'<span>indovinello</span></p>
+        </div>
+        <div class="div-text-single"><label id="label-scenario">{{ singleChoice.testo }}</label></div>
+        <div class="div-form">
+            <form (submit)="submitUserAnswer()">
+                <textarea [(ngModel)]="userAnswer" name="userAnswer" required></textarea>
+                <div><button id="button-single-choice" type="submit">Invia risposta</button></div>
+            </form>
+        </div>
     </div>
 </div>

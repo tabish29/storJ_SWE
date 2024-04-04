@@ -234,15 +234,10 @@ export class PlayPageComponent implements OnInit {
 
       //mettere il controllo se l'oggetto è già presente o no nell'inventario
       if (await this.hasStoryObject(drop)) {
-
-        alert("oggetto già presente nell'inventario");
-
       } else {
         // Verifica se lo scenario ha un drop associato
         const dropName = this.dropMap.get(scenario.id);
         if (dropName !== "Nessun Drop") {
-          // Mostra un alert se lo scenario ha un oggetto associato
-          alert(`Complimenti! Hai ottenuto l'oggetto: ${dropName}.`);//DA MODIFICARE LA POSIZIONE DELL'ALERT(DA FARE)
         }
 
         const inventoryData: inventory = {

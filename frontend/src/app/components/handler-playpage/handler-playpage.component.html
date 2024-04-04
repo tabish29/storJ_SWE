@@ -9,19 +9,18 @@
         <select [(ngModel)]="filterType">
             <option disabled>Campo per cui filtrare</option>
             <option [value]="-1">---</option>
-            <option value="Titolo">Titolo</option>
             <option value="Autore">Autore</option>
             <option value="Categoria">Categoria</option>
             <option value="Numero Scenari">Numero Scenari</option>
         </select>
-        <button (click)="filterStories(filterType, filterValue)">Filtra</button>
+        <button class="button-filter" (click)="filterStories(filterType, filterValue)">Filtra</button>
     </div>
     <!-- html definito per garantire la visualizzazione del messaggio in caso in cui non siano presenti storie che soddisfino i requisiti del filtro -->
     <div class="div-no-stories" *ngIf="noStoriesFound">
         <p id="title">Wow, come è <span>vuoto</span>...</p>
         <p></p>
-        <p>sembra che non ci sia <span>nulla</span> che risponda alla tua <span>richiesta</span>.</p>
-        <p>Ritenta o <a href="handlerPlaypage">clicca qui</a> per tornare indietro.</p>
+        <p id="text-no-stories">sembra che non ci sia <span>nulla</span> che risponda alla tua <span>richiesta</span>.</p>
+        <p id="text-no-stories">Ritenta o <a href="handlerPlaypage">clicca qui</a> per tornare indietro.</p>
     </div>
     <!-- html attuato per visualizzare le storie giocabili -->
     <div class="div-stories" *ngFor="let item of stories">
@@ -36,8 +35,6 @@
         </div>
         <div class="div-button">
             <div class="button-play"><button (click)="playStory(item)">Gioca</button></div>
-            <div class="button-preview"><button (click)="openPreview(item)">Anteprima</button></div>
-         
         </div>
     </div>
 </div>

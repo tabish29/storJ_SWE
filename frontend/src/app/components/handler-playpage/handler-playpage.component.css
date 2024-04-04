@@ -34,9 +34,10 @@ span {
 }
 
 input {
-    font-size: 10pt;
+    font-size: 11pt;
     width: auto;
     height: 100%;
+    padding: 5px;
     margin-right: 0.5rem;
     background-color: white;
     border: 1px solid #ccc;
@@ -44,12 +45,25 @@ input {
 }
 
 select {
-    font-size: 10pt;
+    font-size: 11pt;
     width: auto;
-    height: 28.5px;
+    height: 37.5px;
+    padding: 5px;
     margin-right: 0.5rem;
     background-color: white;
     border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.button-filter {
+    font-size: 11pt;
+    text-align: center;
+    color: white;
+    width: 75px;
+    height: 40px;
+    padding: 12px 12px;
+    background-color: crimson;
+    border: none !important;
     border-radius: 5px;
 }
 
@@ -72,16 +86,27 @@ input:hover, select:hover {
     box-shadow: 5px 5px 5px #aaaa;
 }
 
+#text-no-stories {
+    font-size: 12pt;
+}
+
 #message {
     font-size: 12pt;
 }
 
 a {
-    padding: 3px 3px;
     text-decoration: none;
+    color: red;
+    padding: 5px 5px;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+
+a:hover {
+    transition: color 0.5s;
+    transition: background-color 0.5s;
     color: white;
     background-color: crimson;
-    border-radius: 5px;
 }
 
 .div-stories {
@@ -112,13 +137,11 @@ a {
 }
 
 #span-title {
-    font-size: 11pt;
     font-weight: bold;
     color: red;
 }
 
 #span-text {
-    font-size: 11pt;
     color: black;
 }
 
@@ -132,18 +155,18 @@ a {
 }
 
 button {
+    font-size: 11pt;
     text-align: center;
-    font-size: 10pt;
     color: white;
     width: 75px;
     height: auto;
-    padding: 7.5px 7.5px;
+    padding: 12px 12px;
     background-color: crimson;
     border: none !important;
     border-radius: 5px;
 }
 
-a:hover, button:hover {
+button:hover {
     transition: background-color 0.5s;
     background-color: darkred;
 }

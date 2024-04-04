@@ -1,95 +1,188 @@
-.container,
-.singleChoiceContainer {
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-around;
-    /* Modificato per distribuire equamente i box */
-    margin-top: 30px;
-    padding: 0 20px;
+    justify-content: center;
+    width: 100vw;
+    margin-top: 5rem;
 }
 
-.scenario-box,
-.multipleChoice-box,
-.singleChoice-box {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
+.div-current-scenario {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+
+#label-scenario {
+    font-size: 14pt;
+}
+
+.div-congrats {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: calc(50% - 40px);
-    box-sizing: border-box;
-    overflow: hidden;
-    word-wrap: break-word;
-}
-
-.info {
-    display: block;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
+    margin-top: 10rem;
 }
 
-.remove-button,
-.editScenarioText-button {
-    margin-top: auto;
-    text-align: right;
-    width: 100%;
+#div-text-congrats {
+    width: 50%;
+    height: 75px;
+    padding: 25px 15px;
+    background-color: rgb(244, 244, 244);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #aaaa;
 }
 
-/* Adattamenti per dispositivi con schermi più piccoli */
-@media (max-width: 768px) {
-
-    .scenario-box,
-    .multipleChoice-box,
-    .singleChoice-box {
-        width: calc(100% - 40px);
-        /* Occupano l'intera larghezza del container su schermi più piccoli */
-        flex-direction: column;
-        /* Migliora la leggibilità su dispositivi più piccoli */
-    }
+#text-congrats {
+    font-size: 16pt;
+    font-weight: bold;
 }
 
-.tooltip-container {
+span {
+    color: red;
+}
+
+#text-handler-playpage {
+    font-size: 12pt;
+}
+
+a {
+    text-decoration: none;
+    color: red;
+    padding: 5px 5px;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+
+a:hover {
+    transition: color 0.5s;
+    transition: background-color 0.5s;
+    color: white;
+    background-color: crimson;
+}
+
+.div-multiple-choices {
+    display: inline-block;
+    text-align: center;
+    margin-top: 2rem;
+    width: 85%;
+    border-top: 2px solid rgb(204, 204, 204, 0.7);
+}
+
+.div-title {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+#title {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.div-choice-scenario {
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
+    width: 50%;
+    margin-top: 2rem;
+    height: auto;
+    border: none !important;
+}
+
+.container-tooltip {
     position: relative;
     display: inline-block;
 }
 
-.disabled-tooltip-container:hover .tooltiptext {
+.remove-button {
+    text-align: center;
+    width: 100%;
+}
+
+.container-disabled-tooltip button:disabled {
+    cursor: not-allowed;
+}
+
+.container-disabled-tooltip:hover .span-tooltip {
     visibility: visible;
     opacity: 1;
 }
 
-.tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: black;
-    color: #fff;
+.button-multiple-choice {
+    font-size: 12pt;
+    font-weight: bold;
+    width: 94%;
+    height: 100px;
+    background-color: rgb(244, 244, 244);
+    border-radius: 5px;
+    border: none;
+    box-shadow: 5px 5px 5px #aaaa;
+    transition: 0.5s;
+}
+
+.div-single-choice {
+    display: grid;
     text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-
-    /* Posizionamento */
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -100px;
-
-    /* Transizioni per un'apparizione graduale */
-    opacity: 0;
-    transition: opacity 1.0s;
+    justify-content: center;
+    margin-top: 2rem;
+    width: 85%;
+    border-top: 2px solid rgb(204, 204, 204, 0.7);
 }
 
-.disabled-tooltip-container button:disabled {
-    cursor: not-allowed;
+.div-info {
+    margin-bottom: 2.5rem;
 }
 
+.label-text {
+    font-size: 14pt;
+}
 
-.final-message {
+.div-text-single {
+    margin-bottom: 2rem;
+}
+
+.div-form {
+    display: grid;
+    justify-content: center;
+    text-align: center;
     width: 100%;
-    text-align: center;
-    margin-top: 20px;
-    /* Aggiusta lo spazio dal contenitore precedente */
-    padding: 20px;
-    box-sizing: border-box;
+}
+
+#button-single-choice {
+    font-size: 11pt;
+    font-weight: bold;
+    color: black;
+    width: 150px;
+    height: 50px;
+    margin-top: 2.5rem;
+    background-color: rgb(244, 244, 244);
+    border: none;
+    box-shadow: 5px 5px 5px #aaaa;
+    transition: 0.5s;
+}
+
+#button-single-choice:hover {
+    transform: scale(1.019);
+    color: white;
+    background-color: crimson;
+    border: 2px solid rgb(0, 0, 0, 0.7);
+}
+
+textarea {
+    font-size: 11pt;
+    resize: none !important;
+    width: 500px;
+    height: 100px;
+}
+
+button:hover {
+    transform: scale(1.019);
+    color: white;
+    background-color: crimson;
+    border: 3px solid rgb(0, 0, 0, 0.7);
 }

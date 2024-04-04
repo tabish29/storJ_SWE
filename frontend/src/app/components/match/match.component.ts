@@ -51,11 +51,8 @@ export class MatchComponent {
     });
   }
 
-
   removeMatch(match: match) {
     this.matchService.deleteMatch(match.id);
     location.reload(); //per fare il refresh dell'applicazione
   }
-
-
 }
