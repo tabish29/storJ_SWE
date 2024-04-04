@@ -1,0 +1,48 @@
+.popup-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popup-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.scenario-preview,
+.multipleChoice-container,
+.singleChoice-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    word-wrap: break-word;
+    background-color: #f9f9f9;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    list-style-type: disc;
+    margin-bottom: 10px;
+}
+
+button {
+    align-self: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

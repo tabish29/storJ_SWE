@@ -142,9 +142,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
           if (response) {
             this.inventoryItems = response;
             this.dialog.open(PopupComponent, {
-              width: '400px', // regolare la grandezza
-              data: { inventoryItems: this.inventoryItems } // Passaggio dati 
+              width: '400px',
+              data: {
+                showPreview: false,
+                inventoryItems: this.inventoryItems
+              }
             });
+            
           } else {
             console.log("non ci sono oggetti nell'inventario");
           }

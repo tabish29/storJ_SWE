@@ -1,11 +1,43 @@
-<h2 class="popup-title">Inventario</h2>
-<div *ngIf="data && data.inventoryItems && data.inventoryItems.length > 0; else noItems">
-  <ul>
-    <li *ngFor="let item of data.inventoryItems">{{ item.nome }}</li>
-  </ul>
+<div *ngIf="!showPreview">
+  <h2 class="popup-title">Inventario</h2>
+  <div *ngIf="data && data.inventoryItems && data.inventoryItems.length > 0; else noItems">
+    <ul>
+      <li *ngFor="let item of data.inventoryItems">{{ item.nome }}</li>
+    </ul>
+  </div>
+  <ng-template #noItems>
+    <p>Non ci sono oggetti nell'inventario.</p>
+  </ng-template>
 </div>
-<ng-template #noItems>
-  <p>Non ci sono oggetti nell'inventario.</p>
-</ng-template>
+
+
+<div class="popup-container" *ngIf="showPreview">
+  <h2 class="popup-title">Anteprima della Storia</h2>
+  <!-- Visualizzazione delle informazioni dello scenario -->
+  <div class="scenario-preview">
+    <h3>Scenario</h3>
+    <p>Id: {{ currentScenario?.id }}</p>
+    <p>Testo: {{ currentScenario?.testo }}</p>
+    <p>Tipo di risposta: {{ currentScenario?.tipo_risposta }}</p>
+    <p>Tipo di scenario: {{ currentScenario?.tipo_scenario }}</p>
+  </div>
+
+  <!-- Visualizzazione delle scelte multiple, se presenti -->
+  <div *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA'">
+    <h3>Scelte Multiple:</h3>
+    <ul>
+      <li *ngFor="let choice of multipleChoices">
+        Testo Scelta: {{ choice.testo }} - Vai a scenario: {{ choice.id_scenario_successivo }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Visualizzazione dell'indovinello, se presente -->
+  <div *ngIf="currentScenario?.tipo_risposta === 'INDOVINELLO' && singleChoice">
+    <h3>Indovinello:</h3>
+    <p>{{ singleChoice.testo }}</p>
+  </div>
+</div>
+
 
 <button mat-button (click)="onClose()">Chiudi</button>

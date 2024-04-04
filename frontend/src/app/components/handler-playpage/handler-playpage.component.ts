@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from '../../services/userservice';
-import { Observable, map } from 'rxjs';
-import { user } from '../../user';
 import { MatchService } from '../../services/match.service';
 import { match } from '../../match';
 import { scenario } from '../../scenario';
 import { ScenarioService } from '../../services/scenario.service';
+import { PopupComponent } from '../popup/popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-handler-playpage',
@@ -34,7 +34,8 @@ export class HandlerPlaypageComponent {
     private localStorageService: LocalStorageService,
     private userService: UserService,
     private scenarioService: ScenarioService,
-    private matchService: MatchService) { }
+    private matchService: MatchService,
+    private dialog: MatDialog) { }
 
   async ngOnInit(): Promise<void> {
     await this.loadStories();
@@ -189,6 +190,16 @@ export class HandlerPlaypageComponent {
       );
     }
 
+  }
+
+  openPreview(story: story): void {
+    this.dialog.open(PopupComponent, {
+      width: '4000px',
+      data: {
+        showPreview: true, 
+        story: story
+      } 
+    });
   }
 
 
