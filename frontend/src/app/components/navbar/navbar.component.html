@@ -57,7 +57,7 @@
 
             <!-- Mostra questo pulsante solo se l'utente si trova in playPage -->
             <button mat-button (click)="openInventory()"
-                *ngIf="isAuthenticated() && currentUrl === '/playPage'">inventario</button>
+                *ngIf="isAuthenticated() && currentUrl === '/playPage'">Inventario</button>
 
             <button mat-button (click)="logout()" *ngIf="isAuthenticated() && currentUrl != '/payment' && currentUrl != '/formStory' && currentUrl != '/formScenario' && currentUrl != '/formStoryObject' && currentUrl != '/formSingleChoice' && currentUrl != '/formMultipleChoice'">Logout</button>
         </div>

@@ -1,53 +1,81 @@
-.payment-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    
+* {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-h1 {
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    margin-top: 5rem;
+}
+
+.div-payment {
+    display: inline;
+    text-align: center !important;
+    width: 40%;
+    height: auto;
+    padding: 25px 25px;
+    background-color: rgb(244, 244, 244);
+    border-radius: 10px;
+    box-shadow: 10px 10px 5px #aaaaaa;
+}
+
+.div-title {
+    margin-bottom: 3rem;
+}
+
+#title {
+    font-size: 20pt;
+    font-weight: bold;
     text-align: center;
 }
 
-.payment-form {
-    margin-top: 20px;
+span {
+    color: red;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.div-form {
+    display: inline-block;
+    text-align: left;
+    padding: 0.5rem;
+    width: 40%;
+    gap: 2rem;
 }
 
-label {
-    display: block;
-    font-weight: bold;
+label:hover {
+    transition: color 0.5s;
+    color: darkred;
 }
 
-input[type="amount"],
-input[type="cardHolder"],
-input[type="cardNumber"],
-input[type="cvv"] {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+input {
+    font-size: 9pt;
     box-sizing: border-box;
-}
-
-button.btn-payment {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-top: 0.5rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-button.btn-payment:hover {
-    background-color: #0056b3;
+input:hover {
+    transition: border-color 0.5s;
+    border: 1px solid darkred;
+}
+
+button {
+    font-size: 10pt;
+    color: white;
+    width: 82.5%;
+    height: auto;
+    margin-top: 1rem;
+    padding: 7.5px 7.5px;
+    background-color: crimson;
+    border: none !important;
+    border-radius: 10px;
+}
+
+button:hover {
+    transition: background-color 0.5s;
+    background-color: darkred;
 }

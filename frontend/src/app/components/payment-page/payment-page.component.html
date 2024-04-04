@@ -1,23 +1,27 @@
 <app-navbar></app-navbar>
-<div class="payment-container">
-    <h1>Form per il pagamento</h1>
-    <form class="payment-form" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="amount">Amount:</label>
-            <input type="amount" id="amount" name="amount" required [(ngModel)]="amount" >
+<div class="container">
+    <div class="div-payment">
+        <div class="div-title">
+            <p id="title">Inserisci i <span>dati</span> per il <span>pagamento</span></p>
         </div>
-        <div class="form-group">
-            <label for="cardHolder">Card Holder:</label>
-            <input type="cardHolder" id="cardHolder" name="cardHolder" required [(ngModel)]="cardHolder"required>
-        </div>
-        <div class="form-group">
-            <label for="cardNumber">Card Number:</label>
-            <input type="cardNumber" id="cardNumber" name="cardNumber" required [(ngModel)]="cardNumber">
-        </div>
-        <div class="form-group">
-            <label for="cvv">cvv:</label>
-            <input type="cvv" id="cvv" name="cvv" required [(ngModel)]="cvv">
-        </div>
-        <button type="submit" class="btn-payment">Paga</button>
-    </form>
+        <form (ngSubmit)="onSubmit()">
+            <div class="div-form">
+                <label for="amount">Ammontare<span>*</span></label>
+                <input type="amount" id="amount" name="amount" required [(ngModel)]="amount" >
+            </div>
+            <div class="div-form">
+                <label for="cardHolder">Titolare della carta<span>*</span></label>
+                <input type="cardHolder" id="cardHolder" name="cardHolder" required [(ngModel)]="cardHolder"required>
+            </div>
+            <div class="div-form">
+                <label for="cardNumber">Numero della carte<span>*</span></label>
+                <input type="cardNumber" id="cardNumber" name="cardNumber" required [(ngModel)]="cardNumber">
+            </div>
+            <div class="div-form">
+                <label for="cvv">CVV<span>*</span></label>
+                <input type="cvv" id="cvv" name="cvv" required [(ngModel)]="cvv">
+            </div>
+            <button type="submit">Paga</button>
+        </form>
+    </div>
 </div>

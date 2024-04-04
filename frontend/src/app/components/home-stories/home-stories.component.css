@@ -46,6 +46,7 @@ span {
 #div-info {
     float: left;
     height: 100px;
+    margin-left: 0.5rem;
 }
 
 #div-text {
@@ -72,14 +73,22 @@ span {
     border-bottom: 1px solid black;
 }
 
+.div-button-scenario {
+    display: inline;
+    padding: 10px;
+    margin-top: 1rem;
+}
+
 .div-button {
-    text-align: right; 
-    margin-top: auto; 
+    display: inline-block;
+    text-align: center;
+    width: 50%;
 }
 
 button {
     font-size: 9pt;
     color: white;
+    width: 100%;
     padding: 7.5px 7.5px;
     background-color: crimson;
     border-radius: 5px;

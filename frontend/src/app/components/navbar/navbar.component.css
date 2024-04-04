@@ -13,7 +13,7 @@
 .login {
   text-decoration: none;
   float: right;
-  width: 90%;
+  width: 100%;
   margin-top: 1rem;
   margin-right: 1rem;
   gap: 0.5rem;
@@ -22,6 +22,7 @@
 
 .logo {
   float: left;
+  margin-left: 2rem;
 }
 
 label {
