@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
+<p id="title">Il tuo <span>indovinello</span></p>
 <div class="container" *ngIf="singleChoice && !isInTextEditMode">
     <div class="div-single-choice">
-        <p id="title">Il tuo <span>indovinello</span></p>
-        <div class="div-inline">
+        <div class="div-inline" >
             <div id="div-info">
                 <label><span id="span-header">Testo</span><br><span class="span-text">{{ singleChoice.testo
                         }}</span></label><br>
@@ -30,7 +30,6 @@
 <!-- html attuato per garantire l'accesso alla modifica della scelta circoscritta -->
 <div class="container" *ngIf="singleChoice && isInTextEditMode">
     <div class="div-single-choice">
-        <p id="title">Il tuo <span>indovinello</span></p>
         <div class="div-inline">
             <div id="div-info">
                 <label><span id="span-header">Testo</span><br><span class="span-text">{{ singleChoice.testo
