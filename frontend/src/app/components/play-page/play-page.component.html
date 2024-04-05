@@ -18,7 +18,7 @@
         <div class="div-choice-scenario" *ngFor="let item of multipleChoices">
             <div class="container-tooltip remove-button" [class.disabled-tooltip-container]="!checkRequired(item.id)">
                 <button class="button-multiple-choice" (click)="loadUserChoice(item.id_scenario_successivo)" [disabled]="!checkRequired(item.id)">{{ item.testo }}</button>
-                <span class="tool-tip-text">Non possiedi l'oggetto per fare questa scelta</span>
+                <span class="tooltiptext">Non possiedi l'oggetto per fare questa scelta</span>
             </div>
         </div>
     </div>

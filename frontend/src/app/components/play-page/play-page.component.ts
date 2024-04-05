@@ -239,7 +239,7 @@ export class PlayPageComponent implements OnInit {
         const dropName = this.dropMap.get(scenario.id);
 
         if (dropName !== "Nessun Drop") {
-          alert(`Complimenti! Hai ottenuto: ${dropName}.`);
+          alert(`Complimenti! Hai ottenuto:${dropName}`);
         }
 
         const inventoryData: inventory = {
