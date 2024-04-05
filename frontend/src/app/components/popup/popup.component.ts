@@ -21,7 +21,6 @@ export class PopupComponent {
   multipleChoices?: multipleChoice[];
   singleChoice?: singleChoice;
 
-
   constructor(
     public dialogRef: MatDialogRef<PopupComponent>,
     private scenarioService: ScenarioService,
@@ -64,10 +63,7 @@ export class PopupComponent {
     }
   }
 
-
-
   onClose(): void {
     this.dialogRef.close(); 
   }
-
 }

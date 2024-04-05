@@ -191,7 +191,6 @@ export class HandlerPlaypageComponent {
 
   openPreview(story: story): void {
     this.dialog.open(PopupComponent, {
-      width: '4000px',
       data: {
         showPreview: true,
         story: story

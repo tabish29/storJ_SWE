@@ -14,8 +14,7 @@
 
 .div-title {
     text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-top: 0.5rem;
 }
 
 #title {
@@ -27,13 +26,13 @@ span {
     color: red;
 }
 
-#popup-text {
+#pop-up-text {
     margin-left: 0.5rem;
     padding-left: 5px;
     border-left: 2px solid rgb(204, 204, 204);
 }
 
-#popup-text:hover {
+#pop-up-text:hover {
     text-decoration: underline;
     transform: border 0.5s;
     margin-left: 0.75rem;
@@ -41,68 +40,43 @@ span {
     border-left: 3px solid rgb(204, 204, 204);
 }
 
-button {
+.button-close {
     font-weight: bold;
     width: 100%;
-    margin-top: 2rem;
     margin-bottom: 1rem;
     transition: 0.5s;
 }
 
-.container-story {
+.container-story-single {
     display: grid;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: auto;
+    width: 500px;
+    height: 300px;
     background-color: white;
 }
 
-.div-text-scenario {
+.div-text-scenario-single {
     text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
 }
 
-#text-scenario {
-    text-align: center;
-}
-
-.div-choice {
+.div-choice-single {
     display: inline;
     text-align: center;
-    margin-top: 2rem;
     width: 100%;
     border-top: 2px solid rgb(204, 204, 204, 0.7);
 }
 
-.div-title-choice {
+.div-title-single {
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 #title {
     font-size: 14pt;
     font-weight: bold;
-}
-
-.div-scenario-multiple {
-    display: inline-block;
-    justify-content: center;
-    text-align: center;
-    width: 50%;
-    height: auto;
-    border: none !important;
-}
-
-.button-multiple-choice {
-    font-size: 9pt;
-    font-weight: bold;
-    width: 250px;
-    height: 75px;
-    background-color: rgb(244, 244, 244);
-    border-radius: 5px;
-    border: none;
-    box-shadow: 5px 5px 5px #aaaa;
-    transition: 0.5s;
 }
 
 .div-scenario-single {
@@ -120,7 +94,8 @@ button {
     color: black;
     width: 150px;
     height: 50px;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
     background-color: rgb(244, 244, 244);
     border: none;
     border-radius: 5px;
@@ -128,10 +103,62 @@ button {
     transition: 0.5s;
 }
 
+.container-story-multiple {
+    display: inline;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    padding: 15px 15px;
+    margin-bottom: 1rem;
+}
+
+.div-title-multiple {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.div-text-scenario-multiple {
+    margin-bottom: 1rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid rgb(204, 204, 204, 0.7);
+}
+
+.div-scenario-multiple {
+    display: inline;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.div-title {
+    margin-bottom: 1.5rem !important;
+}
+
+.div-inline-button {
+    display: inline;
+    justify-content: center;
+    text-align: center;   
+    padding: 10px;
+}
+
+.button-multiple-choice {
+    font-size: 9pt;
+    font-weight: bold;
+    width: 40%;
+    height: 60px;
+    margin-bottom: 1rem;
+    background-color: rgb(244, 244, 244);
+    border-radius: 5px;
+    border: none;
+    box-shadow: 5px 5px 5px #aaaa;
+    transition: 0.5s;
+}
+
 button:hover {
     transition: color 0.5s;
     transition: backmultipleground-color 0.5s;
-    transition: border 0.5s;
+    transition: border 0.25s;
     color: white;
     background-color: crimson;
     border: 2.5px solid black;
