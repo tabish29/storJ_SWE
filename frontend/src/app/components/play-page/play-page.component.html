@@ -10,18 +10,6 @@
             </div>
         </div>
     </div>
-    <!-- div adottato per la visualizzazione delle scelte multiple dello scenario -->
-    <div class="div-multiple-choices" *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA' && currentScenario?.tipo_scenario !== 'FINALE'">
-        <div class="div-title">
-            <p id="title">Scegli la tua <span>risposta</span></p>
-        </div>
-        <div class="div-choice-scenario" *ngFor="let item of multipleChoices">
-            <div class="container-tooltip remove-button" [class.disabled-tooltip-container]="!checkRequired(item.id)">
-                <button class="button-multiple-choice" (click)="loadUserChoice(item.id_scenario_successivo)" [disabled]="!checkRequired(item.id)">{{ item.testo }}</button>
-                <span class="tooltiptext">Non possiedi l'oggetto per fare questa scelta</span>
-            </div>
-        </div>
-    </div>
     <!-- html attuato per la visualizzazione degli indovinelli della storia selezionata -->
     <div class="div-single-choice" *ngIf="currentScenario?.tipo_risposta === 'INDOVINELLO' && currentScenario?.tipo_scenario !== 'FINALE' && singleChoice">
         <div class="div-title">
@@ -33,6 +21,18 @@
                 <textarea [(ngModel)]="userAnswer" name="userAnswer" required></textarea>
                 <div><button id="button-single-choice" type="submit">Invia risposta</button></div>
             </form>
+        </div>
+    </div>
+    <!-- div adottato per la visualizzazione delle scelte multiple dello scenario -->
+    <div class="div-multiple-choices" *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA' && currentScenario?.tipo_scenario !== 'FINALE'">
+        <div class="div-title">
+            <p id="title">Scegli la tua <span>risposta</span></p>
+        </div>
+        <div class="div-choice-scenario" *ngFor="let item of multipleChoices">
+            <div class="container-tooltip remove-button" [class.disabled-tooltip-container]="!checkRequired(item.id)">
+                <button class="button-multiple-choice" (click)="loadUserChoice(item.id_scenario_successivo)" [disabled]="!checkRequired(item.id)">{{ item.testo }}</button>
+                <span class="tooltiptext">Non possiedi l'oggetto per fare questa scelta</span>
+            </div>
         </div>
     </div>
 </div>

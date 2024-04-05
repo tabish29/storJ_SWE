@@ -239,7 +239,7 @@ export class PlayPageComponent implements OnInit {
         const dropName = this.dropMap.get(scenario.id);
 
         if (dropName !== "Nessun Drop") {
-          alert(`Complimenti! Hai ottenuto:${dropName}`);
+          alert(`Hai ottenuto: ${dropName}`);
         }
 
         const inventoryData: inventory = {
@@ -282,7 +282,6 @@ export class PlayPageComponent implements OnInit {
       (response: inventory) => {
         this.inventoryService.changeInventory(response);
         console.log("Oggetto aggiunto all'inventario!");
-
       },
       (error: HttpErrorResponse) => {
         //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)

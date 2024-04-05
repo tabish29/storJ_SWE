@@ -66,6 +66,54 @@ a:hover {
     background-color: crimson;
 }
 
+.div-single-choice {
+    display: grid;
+    text-align: center;
+    justify-content: center;
+    margin-top: 2rem;
+    width: 85%;
+    border-top: 2px solid rgb(204, 204, 204, 0.7);
+}
+::-webkit-inner-spin-button
+
+.div-text-single {
+    margin-bottom: 2rem;
+}
+
+.div-form {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+textarea {
+    font-size: 11pt;
+    resize: none !important;
+    width: 500px;
+    height: 100px;
+}
+
+#button-single-choice {
+    font-size: 11pt;
+    font-weight: bold;
+    color: black;
+    width: 150px;
+    height: 50px;
+    margin-top: 2.5rem;
+    background-color: rgb(244, 244, 244);
+    border: none;
+    box-shadow: 5px 5px 5px #aaaa;
+    transition: 0.5s;
+}
+
+#button-single-choice:hover {
+    transform: scale(1.019);
+    color: white;
+    background-color: crimson;
+    border: 2px solid rgb(0, 0, 0, 0.7);
+}
+
 .div-multiple-choices {
     display: inline-block;
     text-align: center;
@@ -94,9 +142,9 @@ a:hover {
     border: none !important;
 }
 
-.remove-button {
-    text-align: center;
-    width: 100%;
+.container-tooltip {
+    display: inline-block;
+    position: relative;
 }
 
 .container-disabled-tooltip button:disabled {
@@ -104,6 +152,33 @@ a:hover {
 }
 
 .container-disabled-tooltip:hover .span-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.remove-button {
+    text-align: center;
+    width: 100%;
+}
+
+.disabled-tooltip-container .tooltiptext {
+    position: absolute;
+    text-align: center;
+    visibility: hidden;
+    z-index: 1;
+    width: 200px;
+    bottom: 100%;
+    left: 50%;
+    padding: 10px 10px;
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity 0.5s ease-in-out;
+}
+
+.disabled-tooltip-container:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
 }
@@ -120,59 +195,14 @@ a:hover {
     transition: 0.5s;
 }
 
-.div-single-choice {
-    display: grid;
+.button-multiple-choice:disabled {
+    cursor: not-allowed;
+}
+
+.tooltiptext {
+    position: absolute;
     text-align: center;
-    justify-content: center;
-    margin-top: 2rem;
-    width: 85%;
-    border-top: 2px solid rgb(204, 204, 204, 0.7);
-}
-
-.div-info {
-    margin-bottom: 2.5rem;
-}
-
-.label-text {
-    font-size: 14pt;
-}
-
-.div-text-single {
-    margin-bottom: 2rem;
-}
-
-.div-form {
-    display: grid;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-}
-
-#button-single-choice {
-    font-size: 11pt;
-    font-weight: bold;
-    color: black;
-    width: 150px;
-    height: 50px;
-    margin-top: 2.5rem;
-    background-color: rgb(244, 244, 244);
-    border: none;
-    box-shadow: 5px 5px 5px #aaaa;
-    transition: 0.5s;
-}
-
-#button-single-choice:hover {
-    transform: scale(1.019);
-    color: white;
-    background-color: crimson;
-    border: 2px solid rgb(0, 0, 0, 0.7);
-}
-
-textarea {
-    font-size: 11pt;
-    resize: none !important;
-    width: 500px;
-    height: 100px;
+    visibility: hidden;
 }
 
 button:hover {
@@ -180,57 +210,4 @@ button:hover {
     color: white;
     background-color: crimson;
     border: 3px solid rgb(0, 0, 0, 0.7);
-}
-
-.tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-
-  
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -100px;
-
-
-    opacity: 0;
-    transition: opacity 1.0s;
-}
-
-.container-tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.button-multiple-choice:disabled {
-    cursor: not-allowed;
-}
-
-.disabled-tooltip-container .tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    /* Transizioni per un'apparizione graduale */
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.disabled-tooltip-container:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
 }
