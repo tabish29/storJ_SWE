@@ -11,33 +11,37 @@
 </div>
 
 
-<div class="popup-container" *ngIf="showPreview">
+<div class="container" *ngIf="showPreview">
   <h2 class="popup-title">Anteprima della Storia</h2>
+
   <!-- Visualizzazione delle informazioni dello scenario -->
-  <div class="scenario-preview">
-    <h3>Scenario</h3>
-    <p>Id: {{ currentScenario?.id }}</p>
-    <p>Testo: {{ currentScenario?.testo }}</p>
-    <p>Tipo di risposta: {{ currentScenario?.tipo_risposta }}</p>
-    <p>Tipo di scenario: {{ currentScenario?.tipo_scenario }}</p>
+  <div class="div-current-scenario">
+    <div *ngIf="currentScenario?.tipo_scenario !== 'FINALE'">
+      <label id="label-scenario">{{ currentScenario?.testo }}</label>
+    </div>
   </div>
 
-  <!-- Visualizzazione delle scelte multiple, se presenti -->
-  <div *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA'">
-    <h3>Scelte Multiple:</h3>
-    <ul>
-      <li *ngFor="let choice of multipleChoices">
-        Testo Scelta: {{ choice.testo }} - Vai a scenario: {{ choice.id_scenario_successivo }}
-      </li>
-    </ul>
+  <!-- Visualizzazione delle scelte multiple dello scenario -->
+  <div class="div-multiple-choices"
+    *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA' && currentScenario?.tipo_scenario !== 'FINALE'">
+    <div class="div-choice-scenario" *ngFor="let item of multipleChoices">
+      <div class="container-tooltip remove-button">
+        <button class="button-multiple-choice">{{ item.testo }}</button>
+      </div>
+    </div>
   </div>
 
-  <!-- Visualizzazione dell'indovinello, se presente -->
-  <div *ngIf="currentScenario?.tipo_risposta === 'INDOVINELLO' && singleChoice">
-    <h3>Indovinello:</h3>
-    <p>{{ singleChoice.testo }}</p>
+  <!-- Visualizzazione dell'indovinello della storia selezionata -->
+  <div class="div-single-choice"
+    *ngIf="currentScenario?.tipo_risposta === 'INDOVINELLO' && currentScenario?.tipo_scenario !== 'FINALE' && singleChoice">
+    <div class="div-title">
+      <p id="title">Rispondi all'<span>indovinello</span></p>
+    </div>
+    <div class="div-text-single"><label id="label-scenario">{{ singleChoice.testo }}</label></div>
   </div>
+
 </div>
+
 
 
 <button mat-button (click)="onClose()">Chiudi</button>
