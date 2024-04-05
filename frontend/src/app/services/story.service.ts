@@ -24,12 +24,12 @@ export class StoryService {
     return this.http.get<story>(this.apiServerUrl + '/storie/' + idStory);
   }
 
-  public getAllstories(): Observable<story[]> {
+  public getAllStories(): Observable<story[]> {
     //mettere l'url del metodo get di tutte le storie
     return this.http.get<story[]>(this.apiServerUrl + '/storie');
   }
 
-  public addstory(story: story): Observable<story> {
+  public addStory(story: story): Observable<story> {
     //mettere l'url del metodo post 
     return this.http.post<story>(this.apiServerUrl + '/storie', story);
   }
@@ -65,8 +65,8 @@ export class StoryService {
       case 'Numero Scenari':
         queryParams += `numScenari=${encodeURIComponent(filterValue)}`;
         break;
-      case  '-1':
-        this.getAllstories();
+      case '-1':
+        this.getAllStories();
         break;
       default:
         console.error('Tipo di filtro non supportato');
@@ -99,4 +99,5 @@ export class StoryService {
       return false;
     }
   }
+
 }

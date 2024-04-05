@@ -8,13 +8,13 @@
             <form (ngSubmit)="onSubmit()">
                 <div class="single-form">
                     <label for="testo">Testo<span>*</span></label>
-                    <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
+                    <textarea id="testo" name="testo" maxlength="50" required [(ngModel)]="testo"></textarea>
                 </div>
                 <div class="single-form">
                     <label for="idScenarioSuccessivo">Scenario successivo alla risposta<span>*</span></label>
                     <select id="idScenarioSuccessivo" name="idScenarioSuccessivo" required [(ngModel)]="idScenarioSuccessivo">
-                        <option disabled>Id dello scenario successivo</option>
-                        <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} [ID: {{scenario.id }}]</option>
+                        <option disabled>Testo dello scenario successivo</option>
+                        <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }}</option>
                     </select>
                 </div>
                 <div class="single-form">

@@ -11,29 +11,29 @@ export class MultipleChoiceService {
 
 
   private apiServerUrl = 'http://localhost:8080/api/v1';
-  private multipleChoiceSource = new BehaviorSubject<multipleChoice | null>(this.loadInitialmultipleChoice());
+  private multipleChoiceSource = new BehaviorSubject<multipleChoice | null>(this.loadInitialMultipleChoice());
   currentmultipleChoice = this.multipleChoiceSource.asObservable();
 
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
-  public getmultipleChoiceByScenarioId(idScenario: number): Observable<multipleChoice[]> {
-   
+  public getMultipleChoiceByScenarioId(idScenario: number): Observable<multipleChoice[]> {
+
     return this.http.get<multipleChoice[]>(this.apiServerUrl + '/scenari/' + idScenario + '/scelte/multipla');
   }
 
-  public addmultipleChoice(multipleChoice: multipleChoice): Observable<multipleChoice> {
-    
+  public addMultipleChoice(multipleChoice: multipleChoice): Observable<multipleChoice> {
+
     return this.http.post<multipleChoice>(this.apiServerUrl + '/scelte/multipla', multipleChoice);
   }
 
   public updateMultipleChoice(multipleChoice: multipleChoice): Observable<multipleChoice> {
-    
-    return this.http.put<multipleChoice>(this.apiServerUrl + '/scelte/'+multipleChoice.id+'/multipla', multipleChoice);
+
+    return this.http.put<multipleChoice>(this.apiServerUrl + '/scelte/' + multipleChoice.id + '/multipla', multipleChoice);
   }
 
-  deletemultipleChoice(multipleChoiceId: number): void {
-    this.http.delete(this.apiServerUrl + '/scelte/' + multipleChoiceId+'/multipla').subscribe({ 
+  deleteMultipleChoice(multipleChoiceId: number): void {
+    this.http.delete(this.apiServerUrl + '/scelte/' + multipleChoiceId + '/multipla').subscribe({
       next: () => {
       },
       error: (error: HttpErrorResponse) => {
@@ -43,18 +43,16 @@ export class MultipleChoiceService {
 
   }
 
-
-  loadInitialmultipleChoice(): multipleChoice | null {
+  loadInitialMultipleChoice(): multipleChoice | null {
     return this.localStorageService.getItem('currentMultipleChoice');
   }
 
-  changemultipleChoice(newmultipleChoice: multipleChoice) {
+  changeMultipleChoice(newmultipleChoice: multipleChoice) {
     this.multipleChoiceSource.next(newmultipleChoice);
     this.localStorageService.setItem('currentMultipleChoice', newmultipleChoice);
-
   }
 
-  getCurrentmultipleChoice(): multipleChoice | null {
+  getCurrentMultipleChoice(): multipleChoice | null {
     return this.multipleChoiceSource.value;
   }
 }

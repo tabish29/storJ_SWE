@@ -21,7 +21,7 @@ import { StoryService } from '../../services/story.service';
 export class FormMultipleChoiceComponent {
   //inserire le variabili che servono nel form della creazione della multiplechoice 
   idScenario = -1;
-  testo = ' ';
+  testo = '';
   idScenarioSuccessivo = -1;
   storyScenarios: scenario[] = [];
   storyObjects: storyObject[] = [];
@@ -93,9 +93,9 @@ export class FormMultipleChoiceComponent {
 
   public savemultiplechoice(multiplechoice: multipleChoice): void {
 
-    this.multipleChoiceService.addmultipleChoice(multiplechoice).subscribe(
+    this.multipleChoiceService.addMultipleChoice(multiplechoice).subscribe(
       (response: multipleChoice) => {
-        this.multipleChoiceService.changemultipleChoice(response);
+        this.multipleChoiceService.changeMultipleChoice(response);
         if (this.selectedObjectId != -1) {
           const objrequired: required = {
             id: 0,
@@ -133,7 +133,7 @@ export class FormMultipleChoiceComponent {
       id_scenario_successivo: this.idScenarioSuccessivo
     };
 
-    if (this.testo == ' ' || this.idScenarioSuccessivo == -1) {
+    if (this.testo == '' || this.idScenarioSuccessivo == -1) {
       alert("Inserisci tutti i campi obbligatori (*)");
     } else {
       this.savemultiplechoice(multiplechoiceData);
@@ -163,13 +163,13 @@ export class FormMultipleChoiceComponent {
         id_scenario_successivo: this.currentMultipleChoiche.id_scenario_successivo
       };
 
-      console.log("i nuovi dati della scelta multipla: "+JSON.stringify(newMultipleChoicheData));
+      console.log("i nuovi dati della scelta multipla: " + JSON.stringify(newMultipleChoicheData));
 
 
       this.multipleChoiceService.updateMultipleChoice(newMultipleChoicheData).subscribe({
         next: (updatedMultipleChoice) => {
 
-          this.multipleChoiceService.changemultipleChoice(newMultipleChoicheData);
+          this.multipleChoiceService.changeMultipleChoice(newMultipleChoicheData);
           console.log("Scelta multpla aggiornata con successo:", updatedMultipleChoice);
 
           this.router.navigateByUrl('/multiplechoice').then(() => {

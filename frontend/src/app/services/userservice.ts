@@ -26,7 +26,6 @@ export class UserService {
     return this.http.post<user>(this.apiServerUrl + '/utenti', user);
   }
 
-
   private loadInitialUser(): user | null {
     // Usa il servizio LocalStorageService per recuperare i dati dell'utente
     return this.localStorageService.getItem('currentUser');
@@ -35,7 +34,6 @@ export class UserService {
   changeUser(newUser: user) {
     this.userSource.next(newUser);
     this.localStorageService.setItem('currentUser', newUser);
-
   }
 
   getCurrentUser(): user | null {
@@ -54,4 +52,5 @@ export class UserService {
       this.changeUser(updatedUser); // Aggiorna l'utente nel BehaviorSubject e in localStorage
     }
   }
+  
 }

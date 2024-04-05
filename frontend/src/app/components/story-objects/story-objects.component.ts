@@ -48,7 +48,7 @@ export class StoryObjectsComponent {
   }
 
   editStoryObjectText(newStoryObject: storyObject) {
-    this.storyObjectService.changestoryObject(newStoryObject);
+    this.storyObjectService.changeStoryObject(newStoryObject);
     this.router.navigateByUrl("/formStoryObject");
   }
 }

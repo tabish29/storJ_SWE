@@ -46,16 +46,6 @@ export class PaymentPageComponent {
 
   onSubmit() {
 
-    const amountString = String(this.amount);
-
-    if (amountString.includes(',')) {
-      alert("Per i numeri decimali utilizzare il punto al posto della virgola.");
-      return;
-    } else if (typeof this.amount != "number") {
-      alert("devi inserire un numero in ammontare");
-      return;
-    }
-
     const paymentData: PaymentInfo = {
       amount: this.amount,
       cardHolder: this.cardHolder,

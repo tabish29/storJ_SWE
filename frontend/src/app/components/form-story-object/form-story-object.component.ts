@@ -15,8 +15,8 @@ export class FormStoryObjectComponent {
   //inserire le variabili che servono nel form della creazione dello storyObject 
 
   idStoria = -1;
-  nome = ' ';
-  descrizione = ' ';
+  nome = '';
+  descrizione = '';
   isInTextEditMode!: boolean;
   currentStoryObject!: storyObject | null;
 
@@ -48,7 +48,7 @@ export class FormStoryObjectComponent {
 
     this.storyObjectService.addStoryObject(storyObject).subscribe(
       (response: storyObject) => {
-        this.storyObjectService.changestoryObject(response);
+        this.storyObjectService.changeStoryObject(response);
         alert("storyObject creato con successo!")
 
         this.router.navigateByUrl('/storyObjects');
@@ -75,7 +75,7 @@ export class FormStoryObjectComponent {
       descrizione: this.descrizione
     };
 
-    if (this.nome == ' ' || this.descrizione == ' ') {
+    if (this.nome == '' || this.descrizione == '') {
       alert("Inserisci tutti i campi obbligatori (*)");
     } else {
       this.savestoryObject(storyObjectData);
@@ -121,7 +121,7 @@ export class FormStoryObjectComponent {
 
           console.log("StoryObject aggiornato con successo:", updatedStoryObject);
 
-          this.storyObjectService.changestoryObject(newStoryObjectData);
+          this.storyObjectService.changeStoryObject(newStoryObjectData);
 
           this.router.navigateByUrl('/storyObjects').then(() => {
             // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)

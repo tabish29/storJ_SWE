@@ -102,7 +102,7 @@ export class PlayPageComponent implements OnInit {
 
   async loadMultipleChoices(scenarioId: number): Promise<void> {
     try {
-      const multipleChoices = await this.multipleChoiceService.getmultipleChoiceByScenarioId(scenarioId).toPromise();
+      const multipleChoices = await this.multipleChoiceService.getMultipleChoiceByScenarioId(scenarioId).toPromise();
 
       if (multipleChoices) {
         this.multipleChoices = multipleChoices;
@@ -277,9 +277,9 @@ export class PlayPageComponent implements OnInit {
 
   saveInventory(inventory: inventory): void {
 
-    this.inventoryService.addinventory(inventory).subscribe(
+    this.inventoryService.addInventory(inventory).subscribe(
       (response: inventory) => {
-        this.inventoryService.changeinventory(response);
+        this.inventoryService.changeInventory(response);
         console.log("Oggetto aggiunto all'inventario!");
 
       },

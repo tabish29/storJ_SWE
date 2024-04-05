@@ -13,7 +13,6 @@ export class ScenarioService {
   private scenarioSource = new BehaviorSubject<scenario | null>(this.loadInitialScenario());
   currentscenario = this.scenarioSource.asObservable();
 
-
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public getScenarioById(idScenario: number): Observable<scenario> {
@@ -30,7 +29,6 @@ export class ScenarioService {
 
     return this.http.get<scenario[]>(this.apiServerUrl + '/storie/' + idStoria + '/scenari?tipologia=INIZIALE');
   }
-
 
   public addScenario(scenario: scenario): Observable<scenario> {
 
@@ -54,7 +52,6 @@ export class ScenarioService {
 
   }
 
-  //cambiare la logica a seconda dei filtri che vogliamo usare
   public filterScenarios(filterAuthor?: string, filterCategory?: string): Observable<scenario[]> {
     let queryParams = '';
     if (filterAuthor) {
@@ -80,4 +77,5 @@ export class ScenarioService {
   getCurrentScenario(): scenario | null {
     return this.scenarioSource.value;
   }
+
 }

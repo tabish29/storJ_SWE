@@ -21,7 +21,7 @@ export class FormScenarioComponent implements OnInit {
   //inserire le variabili che servono nel form della creazione dello scenario 
 
   idStoria = -1;
-  testo = ' ';
+  testo = '';
   tipoRisposta!: responseType;
   tipoScenario!: scenarioType;
   storyObjects: storyObject[] = [];
@@ -127,7 +127,7 @@ export class FormScenarioComponent implements OnInit {
       tipo_scenario: this.tipoScenario
     };
 
-    if (this.testo == ' ' || this.tipoRisposta == undefined || this.tipoScenario == undefined) {
+    if (this.testo == '' || this.tipoRisposta == undefined || this.tipoScenario == undefined) {
       alert("Inserisci tutti i campi obbligatori (*)");
     } else {
       this.saveScenario(scenarioData);
