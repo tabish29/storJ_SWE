@@ -49,11 +49,11 @@
             </div>
             <div class="div-select">
                 <label for="idScenarioRispostaCorretta">Destinazione corretta</label>
-                <input type="text" [value]="currentSingleChoiche?.id_scenario_risposta_corretta" readonly>
+                <input type="text" [value]="textCorrectAnswer" readonly>
             </div>
             <div class="div-select">
                 <label for="idScenarioRispostaSbagliata">Destinazione sbagliata</label>
-                <input type="text" [value]="currentSingleChoiche?.id_scenario_risposta_sbagliata" readonly>
+                <input type="text" [value]="textWrongAnswer" readonly>
             </div>
             <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna</button>
         </form>

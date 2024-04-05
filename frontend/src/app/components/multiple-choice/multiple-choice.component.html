@@ -4,10 +4,10 @@
         <p id="title">Le tue <span>scelte multiple</span></p>
     </div>
     <div class="div-multiple-choice" *ngFor="let item of multipleChoices">
-        <div class="div-info">
-            <div id="div-text"><label><span class="span-header">Scenario di destinazione</span><br><span class="span-text">{{ item.id_scenario_successivo }}</span></label></div>
-            <p></p>
+        <div class="div-info">          
             <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Testo scenario di destinazione</span><br><span class="span-text">{{ scenarioTextMap.get(item.id) }}</span></label></div>
             <p></p>
             <div id="div-text"><label><span class="span-header">Oggetto</span><br><span class="span-text">{{ requiredMap.get(item.id) }}</span></label></div>
             <div class="div-button-multiple-choice"><button (click)="removeMultipleChoice(item.id)">Rimuovi</button></div>
@@ -21,9 +21,9 @@
     </div>
     <div class="div-multiple-choice" *ngFor="let item of multipleChoices">
         <div class="div-info">
-            <div id="div-text"><label><span class="span-header">Scenario successivo</span><br><span class="span-text">{{ item.id_scenario_successivo }}</span></label></div>
-            <p></p>
             <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
+            <p></p>
+            <div id="div-text"><label><span class="span-header">Testo scenario successivo</span><br><span class="span-text">{{ scenarioTextMap.get(item.id) }}</span></label></div>
             <p></p>
             <div id="div-text"><label><span class="span-header">Oggetto</span><br><span class="span-text">{{ requiredMap.get(item.id) }}</span></label></div>
             <div class="div-button-multiple-choice"><button (click)="editMultipleChoicheText(item)">Modifica</button></div>

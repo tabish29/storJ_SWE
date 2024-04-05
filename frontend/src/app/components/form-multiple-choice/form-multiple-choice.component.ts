@@ -28,7 +28,7 @@ export class FormMultipleChoiceComponent {
   selectedObjectId: number = -1;
   isInTextEditMode!: boolean;
   currentMultipleChoiche!: multipleChoice | null;
-
+  currentScenarioText!: string;
 
   constructor(private http: HttpClient, private multipleChoiceService: MultipleChoiceService, private scenarioService: ScenarioService, private router: Router, private requiredService: RequiredService, private storyObjectService: storyObjectService, private localStorageService: LocalStorageService, private storyService: StoryService) { }
 
@@ -43,6 +43,11 @@ export class FormMultipleChoiceComponent {
 
   loadCurrentMultipleChoice(): void {
     this.currentMultipleChoiche = this.localStorageService.getItem("currentMultipleChoice");
+
+    if (this.isInTextEditMode && this.currentMultipleChoiche) {
+      this.setScenarioText(this.currentMultipleChoiche.id_scenario_successivo);
+
+    }
 
   }
 
@@ -186,6 +191,19 @@ export class FormMultipleChoiceComponent {
 
     }
 
+  }
+
+  setScenarioText(idCorrectScenario: number): void {
+    this.scenarioService.getScenarioById(idCorrectScenario).subscribe({
+      next: (scenario) => {
+        this.currentScenarioText = scenario.testo;
+        console.log("Testo dello scenario corretto impostato con successo:", this.currentScenarioText);
+      },
+      error: (error) => {
+
+        console.error("Errore durante il recupero del testo dello scenario:", error);
+      }
+    });
   }
 
 }

@@ -28,7 +28,9 @@ export class FormSingleChoiceComponent {
   selectedObjectId: number = -1;
   isInTextEditMode!: boolean;
   currentSingleChoiche!: singleChoice | null;
-  isBottonDisabled: boolean = true; //per il bottone dell'aggironameto dei campi testuali
+  isBottonDisabled: boolean = true; 
+  textCorrectAnswer!: string;
+  textWrongAnswer!: string;
 
 
   constructor(private http: HttpClient, private singleChoiceService: SingleChoiceService, private scenarioService: ScenarioService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
@@ -44,6 +46,11 @@ export class FormSingleChoiceComponent {
 
   loadCurrentSingleChoice(): void {
     this.currentSingleChoiche = this.localStorageService.getItem("currentSingleChoice");
+
+    if(this.isInTextEditMode && this.currentSingleChoiche){
+      this.setTextCorrectAnswer(this.currentSingleChoiche.id_scenario_risposta_corretta);
+      this.setTextWrongAnswer(this.currentSingleChoiche.id_scenario_risposta_sbagliata);
+    }
 
   }
 
@@ -109,13 +116,12 @@ export class FormSingleChoiceComponent {
       id_scenario_risposta_sbagliata: this.idScenarioRispostaSbagliata
     };
 
-    if (this.testo == '' || this.risposta == ''|| this.idScenarioRispostaCorretta == -1 || this.idScenarioRispostaSbagliata == -1) {
+    if (this.testo == '' || this.risposta == '' || this.idScenarioRispostaCorretta == -1 || this.idScenarioRispostaSbagliata == -1) {
       alert("Inserisci tutti i campi obbligatori (*)");
     } else {
       this.saveSingleChoice(singleChoiceData);
     }
 
-   
   }
 
   onTextChange(newTesto: string): void {
@@ -176,6 +182,32 @@ export class FormSingleChoiceComponent {
         }
       });
     }
+  }
+
+  setTextCorrectAnswer(idCorrectScenario: number): void {
+    this.scenarioService.getScenarioById(idCorrectScenario).subscribe({
+      next: (scenario) => {
+        this.textCorrectAnswer = scenario.testo;
+        console.log("Testo dello scenario corretto impostato con successo:", this.textCorrectAnswer);
+      },
+      error: (error) => {
+
+        console.error("Errore durante il recupero del testo dello scenario:", error);
+      }
+    });
+  }
+
+  setTextWrongAnswer(idWrongScenario: number) {
+    this.scenarioService.getScenarioById(idWrongScenario).subscribe({
+      next: (scenario) => {
+        this.textWrongAnswer = scenario.testo;
+        console.log("Testo dello scenario sbagliato impostato con successo:", this.textWrongAnswer);
+      },
+      error: (error) => {
+
+        console.error("Errore durante il recupero del testo dello scenario:", error);
+      }
+    });
   }
 
 }

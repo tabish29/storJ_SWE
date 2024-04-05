@@ -6,6 +6,7 @@ import { multipleChoice } from '../../multipleChoice';
 import { RequiredService } from '../../services/required.service';
 import { storyObjectService } from '../../services/story-object.service';
 import { StoryService } from '../../services/story.service';
+import { ScenarioService } from '../../services/scenario.service';
 
 @Component({
   selector: 'app-multiple-choice',
@@ -17,15 +18,18 @@ export class MultipleChoiceComponent {
   multipleChoices: multipleChoice[] = [];
   scenarioId!: number;
   requiredMap: Map<number, string | undefined> = new Map();
+  scenarioTextMap: Map<number, string | undefined> = new Map();
   isInTextEditMode!: boolean;
 
-  constructor(private multipleChoiceService: MultipleChoiceService, private requiredService: RequiredService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
+
+  constructor(private multipleChoiceService: MultipleChoiceService, private requiredService: RequiredService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService, private scenarioService: ScenarioService) { }
 
   async ngOnInit(): Promise<void> {
     const currentscenario = this.localStorageService.getItem('currentScenario');
     this.scenarioId = currentscenario.id;
     await this.loadMultipleChoices()
     await this.loadRequired(this.multipleChoices);
+    await this.loadScenarioText(this.multipleChoices);
     this.isInTextEditMode = this.storyService.isStoryCompleted();
   }
 
@@ -65,6 +69,21 @@ export class MultipleChoiceComponent {
     }
   }
 
+  async loadScenarioText(multipleChoices: multipleChoice[]): Promise<void> {
+    for (const multipleChoice of multipleChoices) {
+      try {
+        const scenario = await this.scenarioService.getScenarioById(multipleChoice.id_scenario_successivo).toPromise();
+
+        if (scenario) {
+          this.scenarioTextMap.set(multipleChoice.id, scenario.testo);
+        }
+
+      } catch (error) {
+        console.log("Errore nel caricamento dello scenario per la scelta " + multipleChoice.id + ": " + error);
+      }
+    }
+  }
+
   removeMultipleChoice(multpliChoiceId: number): void {
     this.multipleChoiceService.deleteMultipleChoice(multpliChoiceId);
     this.loadMultipleChoices();
@@ -79,4 +98,6 @@ export class MultipleChoiceComponent {
   changeMultipleChoiche(newMultipleChoice: multipleChoice) {
     this.multipleChoiceService.changeMultipleChoice(newMultipleChoice);
   }
+
+
 }

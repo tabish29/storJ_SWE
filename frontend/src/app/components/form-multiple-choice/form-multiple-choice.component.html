@@ -43,8 +43,8 @@
                     <textarea *ngIf="currentMultipleChoiche" id="testo" name="testo" required [ngModel]="currentMultipleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>  
                 </div>
                 <div class="single-form">
-                    <label for="idScenarioSuccessivo">Scenario</label>
-                    <input type="text" [value]="currentMultipleChoiche?.id_scenario_successivo" readonly>
+                    <label for="idScenarioSuccessivo">Testo Scenario Successivo</label>
+                    <input type="text" [value]="currentScenarioText" readonly>
                 </div>
             <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna</button>
             </form>

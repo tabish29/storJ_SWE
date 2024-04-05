@@ -4,45 +4,53 @@
         <p id="title">Il tuo <span>indovinello</span></p>
         <div class="div-inline">
             <div id="div-info">
-                <label><span id="span-header">Testo</span><br><span class="span-text">{{ singleChoice.testo }}</span></label><br>
+                <label><span id="span-header">Testo</span><br><span class="span-text">{{ singleChoice.testo
+                        }}</span></label><br>
             </div>
             <p></p>
             <div id="div-info">
-                <label><span id="span-header">Id scenario</span><br><span class="span-text">{{ singleChoice.id_scenario }}</span></label><br>
+                <label><span id="span-header">Risposta Indovinello</span><br><span class="span-text">{{
+                        singleChoice.risposta }}</span></label><br>
             </div>
         </div>
         <div class="div-inline">
             <div id="div-info">
-                <label><span id="span-header">Id destinazione corretta</span><br><span class="span-text">{{ singleChoice.id_scenario_risposta_corretta }}</span></label><br>
+                <label *ngIf="textCorrectAnswer"><span id="span-header">Testo destinazione corretta</span><br><span
+                        class="span-text">{{ textCorrectAnswer }}</span></label><br>
             </div>
             <p></p>
             <div id="div-info">
-                <label><span id="span-header">Id destinazione errato</span><br><span class="span-text">{{ singleChoice.id_scenario_risposta_sbagliata }}</span></label><br>
+                <label *ngIf="textWrongAnswer"><span id="span-header">Testo destinazione errato</span><br><span
+                        class="span-text">{{ textWrongAnswer }}</span></label><br>
             </div>
         </div>
         <div><button (click)="removeSingleChoice(singleChoice.id)">Rimuovi</button></div>
     </div>
 </div>
-<!-- html attuato per garantire l'accesso alla modifica della scelta circoscritta --> 
+<!-- html attuato per garantire l'accesso alla modifica della scelta circoscritta -->
 <div class="container" *ngIf="singleChoice && isInTextEditMode">
     <div class="div-single-choice">
         <p id="title">Il tuo <span>indovinello</span></p>
         <div class="div-inline">
             <div id="div-info">
-                <label><span id="span-header">Testo</span><br><span class="span-text">{{ singleChoice.testo }}</span></label><br>
+                <label><span id="span-header">Testo</span><br><span class="span-text">{{ singleChoice.testo
+                        }}</span></label><br>
             </div>
             <p></p>
             <div id="div-info">
-                <label><span id="span-header">Id scenario</span><br><span class="span-text">{{ singleChoice.id_scenario }}</span></label><br>
+                <label><span id="span-header">Risposta Indovinello</span><br><span class="span-text">{{
+                        singleChoice.risposta }}</span></label><br>
             </div>
         </div>
         <div class="div-inline">
             <div id="div-info">
-                <label><span id="span-header">Id destinazione corretta</span><br><span class="span-text">{{ singleChoice.id_scenario_risposta_corretta }}</span></label><br>
+                <label><span id="span-header">Testo destinazione corretta</span><br><span class="span-text">{{
+                        textCorrectAnswer }}</span></label><br>
             </div>
             <p></p>
             <div id="div-info">
-                <label><span id="span-header">Id destinazione errato</span><br><span class="span-text">{{ singleChoice.id_scenario_risposta_sbagliata }}</span></label><br>
+                <label><span id="span-header">Testo destinazione errato</span><br><span class="span-text">{{
+                        textWrongAnswer }}</span></label><br>
             </div>
         </div>
         <div><button (click)="editSingleChoicheText(singleChoice)">Modifica</button></div>
