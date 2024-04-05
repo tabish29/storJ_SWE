@@ -45,7 +45,7 @@ export class HandlerPlaypageComponent {
 
   async loadStories(): Promise<void> {
     try {
-      const stories = await (this.storyService.getAllstories()).toPromise();
+      const stories = await (this.storyService.getAllStories()).toPromise();
       if (stories) {
         // Ordino gli scenari in base all'Id delle storie slavate
         this.stories = stories.sort((a, b) => a.id - b.id);

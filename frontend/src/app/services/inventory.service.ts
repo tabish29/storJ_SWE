@@ -13,28 +13,28 @@ import { storyObject } from '../storyObject';
 export class InventoryService {
 
   private apiServerUrl = 'http://localhost:8080/api/v1';
-  private inventorySource = new BehaviorSubject<inventory | null>(this.loadInitialinventory());
+  private inventorySource = new BehaviorSubject<inventory | null>(this.loadInitialInventory());
   currentInventory = this.inventorySource.asObservable();
   inventoryMap: Map<number, string | undefined> = new Map();
 
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService,private storyObjectService:storyObjectService,private matchService:MatchService) { }
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private storyObjectService: storyObjectService, private matchService: MatchService) { }
 
   public getInventoryByMatchId(idMatch: number): Observable<storyObject[]> {
 
     return this.http.get<storyObject[]>(this.apiServerUrl + '/partite/' + idMatch + '/oggetti');
   }
 
-  public getinventory(idinventory: number): Observable<inventory> {
+  public getInventory(idinventory: number): Observable<inventory> {
 
     return this.http.get<inventory>(this.apiServerUrl + '/inventari/' + idinventory);
   }
 
-  public addinventory(inventory: inventory): Observable<inventory> {
+  public addInventory(inventory: inventory): Observable<inventory> {
 
     return this.http.post<inventory>(this.apiServerUrl + '/inventari', inventory);
   }
 
-  deleteinventory(inventoryId: number): void {
+  deleteInventory(inventoryId: number): void {
     this.http.delete(this.apiServerUrl + '/inventari/' + inventoryId).subscribe({
       next: () => {
         alert('inventario eliminato con successo');
@@ -46,11 +46,11 @@ export class InventoryService {
 
   }
 
-  loadInitialinventory(): inventory | null {
+  loadInitialInventory(): inventory | null {
     return this.localStorageService.getItem('currentInventory');
   }
 
-  changeinventory(newinventory: inventory) {
+  changeInventory(newinventory: inventory) {
     this.inventorySource.next(newinventory);
     this.localStorageService.setItem('currentInventory', newinventory);
 
@@ -59,4 +59,5 @@ export class InventoryService {
   getCurrentinventory(): inventory | null {
     return this.inventorySource.value;
   }
+
 }

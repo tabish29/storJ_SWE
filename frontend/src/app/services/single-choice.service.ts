@@ -29,8 +29,8 @@ export class SingleChoiceService {
   }
 
   public updateSingleChoice(singleChoice: singleChoice): Observable<singleChoice> {
-    
-    return this.http.put<singleChoice>(this.apiServerUrl + '/scelte/'+singleChoice.id+'/indovinello', singleChoice);
+
+    return this.http.put<singleChoice>(this.apiServerUrl + '/scelte/' + singleChoice.id + '/indovinello', singleChoice);
   }
 
   deleteSingleChoice(singleChoiceId: number): void {
@@ -66,4 +66,5 @@ export class SingleChoiceService {
   getIsChoiceCreated() {
     return this.isChoiceCreated;
   }
+
 }

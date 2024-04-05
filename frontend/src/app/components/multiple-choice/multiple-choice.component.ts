@@ -32,7 +32,7 @@ export class MultipleChoiceComponent {
 
   async loadMultipleChoices(): Promise<void> {
     try {
-      const multipleChoices = await (this.multipleChoiceService.getmultipleChoiceByScenarioId(this.scenarioId)).toPromise();
+      const multipleChoices = await (this.multipleChoiceService.getMultipleChoiceByScenarioId(this.scenarioId)).toPromise();
       if (multipleChoices) {
         // Ordino in base all'Id delle sclete multiple
         this.multipleChoices = multipleChoices.sort((a, b) => a.id - b.id);
@@ -66,7 +66,7 @@ export class MultipleChoiceComponent {
   }
 
   removeMultipleChoice(multpliChoiceId: number): void {
-    this.multipleChoiceService.deletemultipleChoice(multpliChoiceId);
+    this.multipleChoiceService.deleteMultipleChoice(multpliChoiceId);
     this.loadMultipleChoices();
     location.reload();
   }
@@ -77,6 +77,6 @@ export class MultipleChoiceComponent {
   }
 
   changeMultipleChoiche(newMultipleChoice: multipleChoice) {
-    this.multipleChoiceService.changemultipleChoice(newMultipleChoice);
+    this.multipleChoiceService.changeMultipleChoice(newMultipleChoice);
   }
 }

@@ -55,7 +55,7 @@ export class PopupComponent {
   async loadScenarioChoices(scenarioId: number) {
     try {
       if (this.currentScenario?.tipo_risposta === 'MULTIPLA') {
-        this.multipleChoices = await this.multipleChoiceService.getmultipleChoiceByScenarioId(scenarioId).toPromise();
+        this.multipleChoices = await this.multipleChoiceService.getMultipleChoiceByScenarioId(scenarioId).toPromise();
       } else if (this.currentScenario?.tipo_risposta === 'INDOVINELLO') {
         this.singleChoice = await this.singleChoiceService.getSingleChoiceByScenarioId(scenarioId).toPromise();
       }

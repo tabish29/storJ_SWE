@@ -93,9 +93,9 @@ export class FormMultipleChoiceComponent {
 
   public savemultiplechoice(multiplechoice: multipleChoice): void {
 
-    this.multipleChoiceService.addmultipleChoice(multiplechoice).subscribe(
+    this.multipleChoiceService.addMultipleChoice(multiplechoice).subscribe(
       (response: multipleChoice) => {
-        this.multipleChoiceService.changemultipleChoice(response);
+        this.multipleChoiceService.changeMultipleChoice(response);
         if (this.selectedObjectId != -1) {
           const objrequired: required = {
             id: 0,
@@ -169,7 +169,7 @@ export class FormMultipleChoiceComponent {
       this.multipleChoiceService.updateMultipleChoice(newMultipleChoicheData).subscribe({
         next: (updatedMultipleChoice) => {
 
-          this.multipleChoiceService.changemultipleChoice(newMultipleChoicheData);
+          this.multipleChoiceService.changeMultipleChoice(newMultipleChoicheData);
           console.log("Scelta multpla aggiornata con successo:", updatedMultipleChoice);
 
           this.router.navigateByUrl('/multiplechoice').then(() => {

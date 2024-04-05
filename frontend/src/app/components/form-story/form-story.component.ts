@@ -31,7 +31,7 @@ export class FormStoryComponent implements OnInit {
   }
 
   public savestory(story: story): void {
-    this.storyService.addstory(story).subscribe(
+    this.storyService.addStory(story).subscribe(
       (response: story) => {
         this.storyService.changeStory(response);
         this.router.navigateByUrl('/createStory');

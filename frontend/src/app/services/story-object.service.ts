@@ -49,13 +49,14 @@ import { storyObject } from '../storyObject';
     return this.localStorageService.getItem('currentstoryObject');
   }
 
-  changestoryObject(newstoryObject: storyObject) {
+  changeStoryObject(newstoryObject: storyObject) {
     this.storyObjectSource.next(newstoryObject);
     this.localStorageService.setItem('currentstoryObject', newstoryObject);
 
   }
 
-  getCurrentstoryObject(): storyObject | null {
+  getCurrentStoryObject(): storyObject | null {
     return this.storyObjectSource.value;
   }
+
 }
