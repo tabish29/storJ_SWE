@@ -25,6 +25,7 @@
     width: auto;
     text-align: left;
     font-size: 20pt;
+    font-weight: bold;
     margin-bottom: 2rem;
     gap: 5px;
 }
