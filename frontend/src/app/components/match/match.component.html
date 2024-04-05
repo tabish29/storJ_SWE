@@ -5,9 +5,7 @@
     </div>
     <div class="div-matches" *ngIf="userMatches.length > 0; else noMatches" >
         <div class="div-single-match" *ngFor="let match of userMatches">
-            <div id="div-info"><label><span id="span-title">Id partita</span><br><span id="span-text">{{ match.id }}</span></label></div>
-            <p></p>
-            <div id="div-info"><label><span id="span-title">Id storia</span><br><span id="span-text">{{ match.id_storia }}</span></label></div>
+            <div id="div-info"><label><span id="span-title">Titolo storia</span><br><span id="span-text">{{ match.id_storia }}</span></label></div>
             <div class="div-button"> 
                 <div class="div-button-match"><button (click)="resumeMatch(match)">Riprendi</button></div>
                 <div class="div-button-match"><button (click)="removeMatch(match)">Rimuovi</button></div>
