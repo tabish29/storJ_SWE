@@ -27,11 +27,9 @@
             <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
             <p></p>
             <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
-            <div class="div-button">
-                <div class="div-button-scenario"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Scelte</button></div>
-            </div>
-            <div class="div-button">
-                <div class="div-button-scenario"><button (click)="removeScenario(item.id)">Rimuovi</button></div>
+            <p></p>
+            <div class="div-button-final">
+                <button id="button-final" (click)="removeScenario(item.id)">Rimuovi</button>
             </div>
         </div>
     </div>
@@ -65,11 +63,8 @@
             <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
             <p></p>
             <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
-            <div class="div-button">
-                <div class="editScenarioText-button"><button (click)="editScenarioText(item)">Modifica scenario</button></div>
-            </div>
-            <div class="div-button">
-                <div class="remove-button"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Modifica scelte</button></div>
+            <div class="div-button-final">
+                <button id="button-final" (click)="editScenarioText(item)">Modifica scenario</button>
             </div>
         </div>
     </div>
