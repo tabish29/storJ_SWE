@@ -46,7 +46,7 @@
                 <textarea *ngIf="currentScenario" id="testo" name="testo" required [ngModel]="currentScenario.testo"
                 (ngModelChange)="onScenarioTextChange($event)"></textarea>
             </div>
-            <div class="div-select">
+            <div class="div-select" *ngIf="currentScenario?.tipo_scenario !== 'FINALE'">
                 <label for="tipoRisposta">Risposta</label>
                 <input type="text" [value]="currentScenario?.tipo_risposta" readonly>
             </div>
