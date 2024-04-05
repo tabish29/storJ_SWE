@@ -24,6 +24,7 @@ export class StoryService {
     return this.http.get<story>(this.apiServerUrl + '/storie/' + idStory);
   }
 
+
   public getAllStories(): Observable<story[]> {
     //mettere l'url del metodo get di tutte le storie
     return this.http.get<story[]>(this.apiServerUrl + '/storie');
