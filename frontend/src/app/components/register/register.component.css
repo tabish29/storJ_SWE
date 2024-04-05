@@ -23,7 +23,7 @@
 }
 
 #title {
-    font-size: 18pt;
+    font-size: 20pt;
     font-weight: bold;
 }
 
@@ -41,13 +41,17 @@ span {
     gap: 2rem;
 }
 
+label {
+    font-size: 11pt;
+}
+
 label:hover {
     transition: color 0.5s;
     color: darkred;
 }
 
 input {
-    font-size: 9pt;
+    font-size: 11pt;
     box-sizing: border-box;
     width: 100%;
     margin-top: 0.5rem;
@@ -70,7 +74,7 @@ button {
     padding: 7.5px 7.5px;
     background-color: crimson;
     border: none !important;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 button:hover {
