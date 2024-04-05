@@ -163,7 +163,7 @@ export class FormMultipleChoiceComponent {
         id_scenario_successivo: this.currentMultipleChoiche.id_scenario_successivo
       };
 
-      console.log("i nuovi dati della scelta multipla: "+JSON.stringify(newMultipleChoicheData));
+      console.log("i nuovi dati della scelta multipla: " + JSON.stringify(newMultipleChoicheData));
 
 
       this.multipleChoiceService.updateMultipleChoice(newMultipleChoicheData).subscribe({
