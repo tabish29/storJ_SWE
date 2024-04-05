@@ -17,7 +17,7 @@
 <div class="container" *ngIf="isInTextEditMode">
     <div class="div-object">
         <p id="title">Aggiorna i <span>dati</span> dell'<span>oggetto</span></p>
-        <form (ngSubmit)="onSubmit()">
+        <form (ngSubmit)="updateStoryObjectText()">
             <div class="div-form">
                 <label for="nome">Nome</label>
                 <input *ngIf="currentStoryObject" type="text" id="nome" name="nome" required [ngModel]="currentStoryObject.nome" (ngModelChange)="onNameChange($event)"> 
