@@ -131,15 +131,12 @@ export class HandlerPlaypageComponent {
     );
   }
 
-  private searchStoriesByTitle(searchValue: string): void {
-    // Assicurati che le storie siano già caricate o carica tutte le storie prima di eseguire questa funzione
-    if (!this.stories || this.stories.length === 0) {
-      this.loadStories().then(() => {
-        this.filterByTitle(searchValue);
-      });
-    } else {
+  private async searchStoriesByTitle(searchValue: string): Promise<void> {
+    
+    await this.loadStories().then(() => {
       this.filterByTitle(searchValue);
-    }
+    });
+
   }
 
   private filterByTitle(searchValue: string): void {
@@ -196,9 +193,9 @@ export class HandlerPlaypageComponent {
     this.dialog.open(PopupComponent, {
       width: '4000px',
       data: {
-        showPreview: true, 
+        showPreview: true,
         story: story
-      } 
+      }
     });
   }
 
