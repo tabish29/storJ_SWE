@@ -61,7 +61,7 @@ export class PlayPageComponent implements OnInit {
         this.loadInitialScenario(this.storyId, initialScenario);
       } else {
         const currentScenarioID = this.localStorageService.getItem("currentScenarioID");
-        console.log("valore dell'id dello scenario successivo",currentScenarioID);
+        console.log("valore dell'id dello scenario successivo", currentScenarioID);
         this.resumeMatch(currentScenarioID);
 
       }
@@ -233,12 +233,13 @@ export class PlayPageComponent implements OnInit {
         return;
       }
 
-      //mettere il controllo se l'oggetto è già presente o no nell'inventario
       if (await this.hasStoryObject(drop)) {
       } else {
-        // Verifica se lo scenario ha un drop associato
+
         const dropName = this.dropMap.get(scenario.id);
+
         if (dropName !== "Nessun Drop") {
+          alert(`Complimenti! Hai ottenuto: ${dropName}.`);
         }
 
         const inventoryData: inventory = {
@@ -265,11 +266,11 @@ export class PlayPageComponent implements OnInit {
 
   checkRequired(idMultipleChoiche: number) {
     const objIdRequired = this.requiredMap.get(idMultipleChoiche);
-   
+
     if (objIdRequired === -1) {
       return true;
     }
-    
+
     const itemExists = this.inventoryItemsId.some(item => item === objIdRequired);
     return itemExists;
 

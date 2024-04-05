@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="div-current-scenario" *ngIf="currentScenario">
-        <div *ngIf="currentScenario.tipo_scenario !== 'FINALE'"><label id="label-scenario">{{ currentScenario.testo }}</label></div>
+        <div ><label id="label-scenario">{{ currentScenario.testo }}</label></div>
         <!-- html attuato per visualizzare il messaggio conclusivo della storia -->
         <div class="div-congrats" *ngIf="currentScenario.tipo_scenario === 'FINALE'">
             <div id="div-text-congrats">
