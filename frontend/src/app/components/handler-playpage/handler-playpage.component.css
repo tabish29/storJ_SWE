@@ -149,18 +149,24 @@ a:hover {
     border-bottom: 1px solid black;
 }
 
+.div-button-play-page {
+    display: inline;
+    padding: 10px;
+    margin-top: 1rem;
+}
+
 .div-button {
-    text-align: right;
-    margin-bottom: 0.25rem;
+    display: inline-block;
+    text-align: center;
+    width: 50%;
 }
 
 button {
     font-size: 11pt;
     text-align: center;
     color: white;
-    width: 75px;
-    height: auto;
-    padding: 12px 12px;
+    width: 97.5%;
+    padding: 10px 10px;
     background-color: crimson;
     border: none !important;
     border-radius: 5px;

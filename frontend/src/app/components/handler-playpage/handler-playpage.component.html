@@ -9,7 +9,6 @@
         <select [(ngModel)]="filterType">
             <option disabled>Campo per cui filtrare</option>
             <option [value]="-1">---</option>
-            <option value="Titolo">Titolo</option>
             <option value="Autore">Autore</option>
             <option value="Categoria">Categoria</option>
             <option value="Numero Scenari">Numero Scenari</option>
@@ -34,9 +33,13 @@
             <p></p>
             <div id="div-text"><label><span id="span-title">Numero scenari</span><br><span id="span-text">{{ item.numero_scenari }}</span></label></div>
         </div>
-        <div class="div-button">
-            <div class="button-play"><button (click)="playStory(item)">Gioca</button></div>
-            <div class="button-preview"><button (click)="openPreview(item)">Anteprima</button></div>
+        <div class="div-button-play-page">
+            <div class="div-button">
+                <div class="button-play"><button (click)="playStory(item)">Gioca</button></div>
+            </div>
+            <div class="div-button">
+                <div class="button-preview"><button (click)="openPreview(item)">Anteprima</button></div>
+            </div>
         </div>
     </div>
 </div>

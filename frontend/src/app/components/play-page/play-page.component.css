@@ -94,16 +94,43 @@ a:hover {
     border: none !important;
 }
 
-.remove-button {
-    text-align: center;
-    width: 100%;
-}
-
 .container-disabled-tooltip button:disabled {
     cursor: not-allowed;
 }
 
 .container-disabled-tooltip:hover .span-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.container-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.remove-button {
+    text-align: center;
+    width: 100%;
+}
+
+.disabled-tooltip-container, .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.disabled-tooltip-container:hover, .tooltiptext {
     visibility: visible;
     opacity: 1;
 }
@@ -118,6 +145,27 @@ a:hover {
     border: none;
     box-shadow: 5px 5px 5px #aaaa;
     transition: 0.5s;
+}
+
+.button-multiple-choice:disabled {
+    cursor: not-allowed;
+}
+
+.tool-tip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 1.0s;
 }
 
 .div-single-choice {
@@ -180,57 +228,4 @@ button:hover {
     color: white;
     background-color: crimson;
     border: 3px solid rgb(0, 0, 0, 0.7);
-}
-
-.tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-
-  
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -100px;
-
-
-    opacity: 0;
-    transition: opacity 1.0s;
-}
-
-.container-tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.button-multiple-choice:disabled {
-    cursor: not-allowed;
-}
-
-.disabled-tooltip-container .tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    /* Transizioni per un'apparizione graduale */
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.disabled-tooltip-container:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
 }

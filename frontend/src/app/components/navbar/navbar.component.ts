@@ -142,7 +142,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
           if (response) {
             this.inventoryItems = response;
             this.dialog.open(PopupComponent, {
-              width: '400px',
               data: {
                 showPreview: false,
                 inventoryItems: this.inventoryItems
