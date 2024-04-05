@@ -5,9 +5,11 @@
     </div>
     <div class="div-objects" *ngFor="let item of storyObjects">
         <div class="div-info">
-            <div id="div-text"><label><span class="span-header">Nome</span><br><span class="span-text">{{ item.nome }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">Nome</span><br><span class="span-text">{{ item.nome.length > 25 ? (item.nome | slice:0:25) + '...' : item.nome }}
+            </span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Descrizione</span><br><span class="span-text">{{ item.descrizione }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">Descrizione</span><br><span class="span-text">{{ item.descrizione.length > 25 ? (item.descrizione | slice:0:25) + '...' : item.descrizione }}
+            </span></label></div>
         </div>
         <div class="div-button">
             <div><button (click)="removestoryObject(item.id)">Rimuovi</button></div>
@@ -21,9 +23,9 @@
     </div>
     <div class="div-objects" *ngFor="let item of storyObjects">
         <div class="div-info">
-            <div id="div-text"><label><span class="span-header">Nome</span><br><span class="span-text">{{ item.nome }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">Nome</span><br><span class="span-text">{{ item.nome.length > 25 ? (item.nome | slice:0:25) + '...' : item.nome }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Descrizione</span><br><span class="span-text">{{ item.descrizione }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">Descrizione</span><br><span class="span-text">{{ item.descrizione.length > 25 ? (item.descrizione | slice:0:25) + '...' : item.descrizione }}</span></label></div>
         </div>
         <div class="div-button">
             <div class="remove-button"><button (click)="editStoryObjectText(item)">Modifica</button></div>

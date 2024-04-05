@@ -5,9 +5,9 @@
         <form (ngSubmit)="onSubmit()">
             <div class="div-form">
                 <label for="nome">Nome<span>*</span></label>
-                <input type="text" id="nome" name="nome" required [(ngModel)]="nome">
+                <input type="text" id="nome" name="nome" required [(ngModel)]="nome" maxlength="40">
                 <label for="descrizione">Descrizione<span>*</span></label>
-                <textarea id="descrizione" name="descrizione" required [(ngModel)]="descrizione"></textarea>
+                <textarea id="descrizione" name="descrizione" required [(ngModel)]="descrizione" maxlength="50"></textarea>
                 <button type="submit">Crea</button>
             </div>
         </form>

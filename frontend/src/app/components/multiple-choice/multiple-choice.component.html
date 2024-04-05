@@ -5,7 +5,8 @@
     </div>
     <div class="div-multiple-choice" *ngFor="let item of multipleChoices">
         <div class="div-info">          
-            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}
+</span></label></div>
             <p></p>
             <div id="div-text"><label><span class="span-header">Testo scenario di destinazione</span><br><span class="span-text">{{ scenarioTextMap.get(item.id) }}</span></label></div>
             <p></p>
@@ -21,7 +22,8 @@
     </div>
     <div class="div-multiple-choice" *ngFor="let item of multipleChoices">
         <div class="div-info">
-            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}
+</span></label></div>
             <p></p>
             <div id="div-text"><label><span class="span-header">Testo scenario successivo</span><br><span class="span-text">{{ scenarioTextMap.get(item.id) }}</span></label></div>
             <p></p>

@@ -33,8 +33,10 @@ export class SingleChoiceComponent {
     this.singleChoiceService.getSingleChoiceByScenarioId(this.scenarioId).subscribe(
       (singleChoice: singleChoice) => {
         this.singleChoice = singleChoice;
-        this.setTextCorrectAnswer(singleChoice.id_scenario_risposta_corretta);
-        this.setTextWrongAnswer(singleChoice.id_scenario_risposta_sbagliata);
+        if (this.singleChoice) {
+          this.setTextCorrectAnswer(singleChoice.id_scenario_risposta_corretta);
+          this.setTextWrongAnswer(singleChoice.id_scenario_risposta_sbagliata);
+        }
       },
       error => {
         console.error('Errore nel caricamento delle scelte', error);
