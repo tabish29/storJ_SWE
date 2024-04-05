@@ -13,16 +13,18 @@
             </div>
             <div class="div-select">
                 <label for="idScenarioRispostaCorretta">Destinazione risposta corretta<span>*</span></label>
-                <select id="idScenarioRispostaCorretta" name="idScenarioRispostaCorretta" [(ngModel)]="idScenarioRispostaCorretta" required>
+                <select id="idScenarioRispostaCorretta" name="idScenarioRispostaCorretta"
+                    [(ngModel)]="idScenarioRispostaCorretta" required>
                     <option disabled>Identificativo dello scenario dopo la risposta corretta</option>
-                    <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} [Id:{{scenario.id }}]</option>
+                    <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }}</option>
                 </select>
             </div>
             <div class="div-select">
                 <label for="idScenarioRispostaSbagliata">Destinazione risposta sbagliata<span>*</span></label>
-                <select id="idScenarioRispostaSbagliata" name="idScenarioRispostaSbagliata" [(ngModel)]="idScenarioRispostaSbagliata" required>
+                <select id="idScenarioRispostaSbagliata" name="idScenarioRispostaSbagliata"
+                    [(ngModel)]="idScenarioRispostaSbagliata" required>
                     <option disabled>Identificativo dello scenario dopo la risposta errata</option>
-                    <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }} [Id:{{scenario.id }}]</option>
+                    <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }}</option>
                 </select>
             </div>
             <button type="submit">Crea</button>
@@ -36,11 +38,14 @@
         <form (ngSubmit)="updateSingleChoicheText()">
             <div>
                 <label id="label-left" for="testo">Testo</label>
-                <textarea *ngIf="currentSingleChoiche" id="testo" name="testo" required [ngModel]="currentSingleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>
+                <textarea *ngIf="currentSingleChoiche" id="testo" name="testo" required
+                    [ngModel]="currentSingleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>
             </div>
             <div>
                 <label id="label-left" for="risposta">Risposta</label>
-                <textarea *ngIf="currentSingleChoiche" type="text" id="risposta" name="risposta" required [ngModel]="currentSingleChoiche.risposta" (ngModelChange)="onAnswerChange($event)" placeholder="Inserisci la risposta corretta"></textarea>
+                <textarea *ngIf="currentSingleChoiche" type="text" id="risposta" name="risposta" required
+                    [ngModel]="currentSingleChoiche.risposta" (ngModelChange)="onAnswerChange($event)"
+                    placeholder="Inserisci la risposta corretta"></textarea>
             </div>
             <div class="div-select">
                 <label for="idScenarioRispostaCorretta">Destinazione corretta</label>

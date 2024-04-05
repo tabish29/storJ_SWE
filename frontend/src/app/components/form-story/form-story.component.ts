@@ -12,8 +12,8 @@ import { LocalStorageService } from '../../services/local-storage.service';
 })
 export class FormStoryComponent implements OnInit {
   idCreatore = -1;
-  titolo = ' ';
-  categoria = ' ';
+  titolo = '';
+  categoria = '';
 
   constructor(private http: HttpClient, private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService) { }
 
@@ -53,7 +53,7 @@ export class FormStoryComponent implements OnInit {
       statoCompletamento: false
     };
 
-    if (this.titolo == ' ' || this.categoria == ' ') {
+    if (this.titolo == '' || this.categoria == '') {
       alert("Inserisci tutti i campi obbligatori (*)");
     }else{
       this.savestory(storyData);

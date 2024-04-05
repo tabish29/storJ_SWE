@@ -109,7 +109,7 @@ export class FormSingleChoiceComponent {
       id_scenario_risposta_sbagliata: this.idScenarioRispostaSbagliata
     };
 
-    if (this.testo == ' ' || this.idScenarioRispostaCorretta == -1 || this.idScenarioRispostaSbagliata == -1) {
+    if (this.testo == '' || this.risposta == ''|| this.idScenarioRispostaCorretta == -1 || this.idScenarioRispostaSbagliata == -1) {
       alert("Inserisci tutti i campi obbligatori (*)");
     } else {
       this.saveSingleChoice(singleChoiceData);

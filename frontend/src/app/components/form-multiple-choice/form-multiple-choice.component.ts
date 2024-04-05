@@ -21,7 +21,7 @@ import { StoryService } from '../../services/story.service';
 export class FormMultipleChoiceComponent {
   //inserire le variabili che servono nel form della creazione della multiplechoice 
   idScenario = -1;
-  testo = ' ';
+  testo = '';
   idScenarioSuccessivo = -1;
   storyScenarios: scenario[] = [];
   storyObjects: storyObject[] = [];
@@ -133,7 +133,7 @@ export class FormMultipleChoiceComponent {
       id_scenario_successivo: this.idScenarioSuccessivo
     };
 
-    if (this.testo == ' ' || this.idScenarioSuccessivo == -1) {
+    if (this.testo == '' || this.idScenarioSuccessivo == -1) {
       alert("Inserisci tutti i campi obbligatori (*)");
     } else {
       this.savemultiplechoice(multiplechoiceData);
