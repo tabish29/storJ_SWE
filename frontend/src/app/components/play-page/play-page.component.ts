@@ -58,7 +58,11 @@ export class PlayPageComponent implements OnInit {
 
       if (this.matchService.getIsFirstMatch()) {
         const initialScenario = await this.scenarioService.getFirstScenario(this.storyId).toPromise();
-        this.loadInitialScenario(this.storyId, initialScenario);
+        await this.loadInitialScenario(this.storyId, initialScenario);
+        if (initialScenario) {
+          await this.loadDrop(initialScenario[0]);
+        }
+
       } else {
         const currentScenarioID = this.localStorageService.getItem("currentScenarioID");
         console.log("valore dell'id dello scenario successivo", currentScenarioID);
@@ -78,7 +82,7 @@ export class PlayPageComponent implements OnInit {
       if (scenario) {
         this.currentScenario = scenario[0];
         this.scenarioService.changeScenario(this.currentScenario);
-        await this.loadDrop(this.currentScenario);
+        //await this.loadDrop(this.currentScenario);
         this.loadScenarioChoices(this.currentScenario);
 
       } else {

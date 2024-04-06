@@ -34,7 +34,7 @@ export class RequiredService {
   deleteRequired(idRequired: number): void {
     this.http.delete(this.apiServerUrl + '/required/' + idRequired).subscribe({
       next: () => {
-        alert('required eliminato con successo');
+        //alert('required eliminato con successo');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Errore durante eliminazione dello required', error.message);

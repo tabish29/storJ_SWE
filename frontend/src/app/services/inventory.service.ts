@@ -37,7 +37,7 @@ export class InventoryService {
   deleteInventory(inventoryId: number): void {
     this.http.delete(this.apiServerUrl + '/inventari/' + inventoryId).subscribe({
       next: () => {
-        alert('inventario eliminato con successo');
+        //alert('inventario eliminato con successo');
       },
       error: (error: HttpErrorResponse) => {
         console.error("Errore durante eliminazione del'inventario", error.message);

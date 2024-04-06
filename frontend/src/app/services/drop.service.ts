@@ -38,7 +38,7 @@ export class DropService {
   deleteDrop(dropId: number): void {
     this.http.delete(this.apiServerUrl + '/drop/' + dropId).subscribe({
       next: () => {
-        alert('drop eliminato con successo');
+        //alert('drop eliminato con successo');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Errore durante eliminazione dello drop', error.message);
