@@ -1,68 +1,68 @@
 <app-navbar></app-navbar>
-<p id="title">Il tuo <span>indovinello</span></p>
-<div class="container" *ngIf="singleChoice && !isInTextEditMode">
-    <div class="div-single-choice">
-        <div class="div-inline">
-            <div id="div-info">
-                <label><span id="span-header">Testo</span><br>
-                    <span class="span-text" matTooltip="{{singleChoice.testo}}" matTooltipPosition="right">
-                        {{ singleChoice.testo.length > 25 ? (singleChoice.testo | slice:0:25) + '...' :
-                        singleChoice.testo }}
-                    </span></label><br>
-
-            </div>
-            <p></p>
-            <div id="div-info">
-                <label><span id="span-header">Risposta Indovinello</span><br><span class="span-text" matTooltip="{{singleChoice.risposta}}" matTooltipPosition="right">{{
-                        singleChoice.risposta.length > 25 ? (singleChoice.risposta | slice:0:25) + '...' :
-                        singleChoice.risposta }}</span></label><br>
-            </div>
+<div class="container">
+    <div class="div-title">
+        <p id="title">Il tuo <span>indovinello</span></p>
+    </div>
+    <div class="div-single-choice" *ngIf="singleChoice && !isInTextEditMode">
+        <div id="div-info">
+            <label>
+                <span id="span-header">Testo</span><br>
+                <span class="span-text">{{ singleChoice.testo }}</span>
+            </label>
         </div>
-        <div class="div-inline">
-            <div id="div-info">
-                <label *ngIf="textCorrectAnswer"><span id="span-header">Testo destinazione corretta</span><br><span
-                        class="span-text" matTooltip="{{textCorrectAnswer}}" matTooltipPosition="right">{{ textCorrectAnswer.length > 25 ? (textCorrectAnswer | slice:0:25) + '...' :
-                        textCorrectAnswer }}
-                    </span></label><br>
-            </div>
-            <p></p>
-            <div id="div-info">
-                <label *ngIf="textWrongAnswer"><span id="span-header">Testo destinazione errato</span><br><span
-                        class="span-text" matTooltip="{{textWrongAnswer}}" matTooltipPosition="right">{{ textWrongAnswer.length > 25 ? (textWrongAnswer | slice:0:25) + '...' :
-                        textWrongAnswer }}
-                    </span></label><br>
-            </div>
+        <p></p>
+        <div id="div-info">
+            <label>
+                <span id="span-header">Risposta Indovinello</span><br>
+                <span class="span-text">{{ singleChoice.risposta }}</span>
+            </label>
+        </div>
+        <p></p>
+        <div id="div-info">
+            <label *ngIf="textCorrectAnswer">
+                <span id="span-header">Testo destinazione corretta</span><br>
+                <span class="span-text">{{ textCorrectAnswer }}</span>
+            </label>
+        </div>
+        <p></p>
+        <div id="div-info">
+            <label *ngIf="textWrongAnswer">
+                <span id="span-header">Testo destinazione errato</span><br>
+                <span class="span-text">{{ textWrongAnswer }}</span>
+            </label>
         </div>
         <div><button (click)="removeSingleChoice(singleChoice.id)">Rimuovi</button></div>
     </div>
-</div>
-<!-- html attuato per garantire l'accesso alla modifica della scelta circoscritta -->
-<div class="container" *ngIf="singleChoice && isInTextEditMode">
-    <div class="div-single-choice">
+    <!-- html attuato per garantire l'accesso alla modifica della scelta circoscritta -->
+    <div class="div-single-choice" *ngIf="singleChoice && isInTextEditMode">
         <div class="div-inline">
             <div id="div-info">
-                <label><span id="span-header">Testo</span><br><span class="span-text" matTooltip="{{singleChoice.testo}}" matTooltipPosition="right"> {{ singleChoice.testo.length > 25
-                        ? (singleChoice.testo | slice:0:25) + '...' :
-                        singleChoice.testo }}</span></label><br>
+                <label>
+                    <span id="span-header">Testo</span><br>
+                    <span class="span-text"> {{ singleChoice.testo }}</span>
+                </label>
             </div>
             <p></p>
             <div id="div-info">
-                <label><span id="span-header">Risposta Indovinello</span><br><span class="span-text" matTooltip="{{singleChoice.risposta}}" matTooltipPosition="right">{{
-                        singleChoice.risposta.length > 25 ? (singleChoice.risposta | slice:0:25) + '...' :
-                        singleChoice.risposta }}</span></label><br>
+                <label>
+                    <span id="span-header">Risposta Indovinello</span><br>
+                    <span class="span-text">{{ singleChoice.risposta }}</span>
+                </label>
             </div>
         </div>
         <div class="div-inline">
             <div id="div-info">
-                <label><span id="span-header">Testo destinazione corretta</span><br><span class="span-text" matTooltip="{{textCorrectAnswer}}" matTooltipPosition="right">{{
-                        textCorrectAnswer.length > 25 ? (textCorrectAnswer | slice:0:25) + '...' : textCorrectAnswer
-                        }}</span></label><br>
+                <label>
+                    <span id="span-header">Testo destinazione corretta</span><br>
+                    <span class="span-text">{{ textCorrectAnswer}}</span>
+                </label>
             </div>
             <p></p>
             <div id="div-info">
-                <label><span id="span-header">Testo destinazione errato</span><br><span class="span-text" matTooltip="{{textWrongAnswer}}" matTooltipPosition="right">{{
-                        textWrongAnswer.length > 25 ? (textWrongAnswer | slice:0:25) + '...' : textWrongAnswer
-                        }}</span></label><br>
+                <label>
+                    <span id="span-header">Testo destinazione errato</span><br>
+                    <span class="span-text">{{ textWrongAnswer }}</span>
+                </label>
             </div>
         </div>
         <div><button (click)="editSingleChoicheText(singleChoice)">Modifica</button></div>
