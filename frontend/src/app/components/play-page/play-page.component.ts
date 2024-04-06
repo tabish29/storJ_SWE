@@ -157,7 +157,6 @@ export class PlayPageComponent implements OnInit {
       next: async (nextScenario: scenario) => {
         if (nextScenario) {
           this.currentScenario = nextScenario;
-          console.log('Scenario caricato:', this.currentScenario);
           this.localStorageService.setItem('currentScenario', this.currentScenario);
           this.scenarioService.changeScenario(this.currentScenario);
 
@@ -167,7 +166,7 @@ export class PlayPageComponent implements OnInit {
               response.forEach(item => {
                 this.inventoryItemsId.push(item.id);
               });
-              console.log('Inventario caricato con successo:', this.inventoryItemsId);
+
             },
             error: (error) => {
               console.error('Errore durante il caricamento dell\'inventario:', error);
@@ -202,7 +201,7 @@ export class PlayPageComponent implements OnInit {
       next: (updatedMatch) => {
 
         this.matchService.changeMatch(newMatchData);
-        console.log("Partita aggiornata con successo:", updatedMatch);
+
       },
       error: (error) => {
 
@@ -212,7 +211,7 @@ export class PlayPageComponent implements OnInit {
 
   }
 
-  //mettere l'aggiunta dell'oggetto nell'inventario(non sono riuscito a fare in modo che )
+
   async loadDrop(scenario: scenario): Promise<void> {
     try {
       const drop = await this.dropService.getDropByScenarioId(scenario.id).toPromise();
@@ -220,7 +219,7 @@ export class PlayPageComponent implements OnInit {
         this.dropMap.set(scenario.id, "Nessun Drop");
         return;
       } else {
-        // Aggiorna la mappa dei drop con il nome dell'oggetto
+
         const storyObject = await this.storyObjectService.getStoryObject(drop.id_oggetto).toPromise();
         this.dropMap.set(scenario.id, storyObject ? storyObject.nome : "Nessun Drop");
 
@@ -281,7 +280,7 @@ export class PlayPageComponent implements OnInit {
     this.inventoryService.addInventory(inventory).subscribe(
       (response: inventory) => {
         this.inventoryService.changeInventory(response);
-        console.log("Oggetto aggiunto all'inventario!");
+
       },
       (error: HttpErrorResponse) => {
         //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
@@ -312,9 +311,9 @@ export class PlayPageComponent implements OnInit {
         } else {
           this.requiredMap.set(multipleChoice.id, -1);
         }
-        //console.log("avvenuto caricamento del required della scelta: " + multipleChoice.id);
+
       } catch (error) {
-        console.log("Errore nel caricamento dei required per la scelta " + multipleChoice.id + ": " + error);
+        console.error("Errore nel caricamento dei required per la scelta " + multipleChoice.id + ": " + error);
       }
     }
   }
@@ -322,16 +321,16 @@ export class PlayPageComponent implements OnInit {
   // Metodo per gestire l'invio della risposta negli indovinelli 
   submitUserAnswer(): void {
     if (this.singleChoice) {
-      // Verifica l'esito della risposta 
+
       const isCorrect = this.userAnswer === this.singleChoice.risposta;
       alert(`La risposta inserita è ${isCorrect ? 'corretta' : 'sbagliata'}.`);
 
-      // in base all'esito viene preso l'id dello scenario
+
       const nextScenarioId = isCorrect ? this.singleChoice.id_scenario_risposta_corretta : this.singleChoice.id_scenario_risposta_sbagliata;
       this.loadUserChoice(nextScenarioId);
     }
 
-    //resetto a stringa vuota così nei successivi indovinelli non si vede la ripsosta data precedentemente
+    //resetto a stringa vuota così nei successivi indovinelli non si vede la risposta data precedentemente
     this.userAnswer = '';
   }
 

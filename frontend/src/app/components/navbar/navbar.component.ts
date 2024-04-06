@@ -147,7 +147,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 inventoryItems: this.inventoryItems
               }
             });
-            
+
           } else {
             console.log("non ci sono oggetti nell'inventario");
           }
@@ -208,4 +208,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
         break;
     }
   }
+
 }

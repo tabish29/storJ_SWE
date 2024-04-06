@@ -36,7 +36,6 @@ export class MatchComponent {
     }
   }
 
-
   async loadStoryTitles(matches: match[]): Promise<void> {
     for (const match of matches) {
       try {
@@ -48,7 +47,7 @@ export class MatchComponent {
         }
 
       } catch (error) {
-        console.log(`Errore nel caricamento del titolo della storia per la partita ${match.id}: ${error}`);
+        console.error(`Errore nel caricamento del titolo della storia per la partita ${match.id}: ${error}`);
       }
     }
   }
@@ -56,13 +55,13 @@ export class MatchComponent {
   resumeMatch(match: match) {
     this.storyService.getStoriesByStoryID(match.id_storia).subscribe({
       next: (response) => {
-        // Qui impostiamo la storia corrente sul servizio di gestione delle storie
+
         this.storyService.changeStory(response);
-        console.log(`Riprendi la partita con ID: ${match.id}`);
         this.matchService.setIsFirstMatch(false);
         this.localStorageService.setItem('currentMatch', match);
         this.localStorageService.setItem('currentScenarioID', match.id_scenario_corrente);
-        // Reindirizza l'utente alla pagina di gioco, passando eventualmente l'ID della partita o della storia come parametro
+        this.matchService.changeMatch(match);
+
         this.router.navigateByUrl('/playPage');
       },
       error: (error) => {
@@ -73,6 +72,7 @@ export class MatchComponent {
 
   removeMatch(match: match) {
     this.matchService.deleteMatch(match.id);
-    location.reload(); //per fare il refresh dell'applicazione
+    location.reload();
   }
+
 }
