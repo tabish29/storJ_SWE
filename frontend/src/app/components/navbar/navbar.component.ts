@@ -168,7 +168,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('storJPage');
         break;
       case '/playPage':
-        this.router.navigateByUrl('handlerPlaypage');
+
+        if (this.matchService.getIsFirstMatch()) {
+          this.router.navigateByUrl('handlerPlaypage');
+        } else {
+          this.router.navigateByUrl('match');
+        }
+
         break;
       case '/match':
         this.router.navigateByUrl('handlerPlaypage');
