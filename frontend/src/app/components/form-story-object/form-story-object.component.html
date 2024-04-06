@@ -23,7 +23,7 @@
                 <input *ngIf="currentStoryObject" type="text" id="nome" name="nome"  maxlength="50"  required [ngModel]="currentStoryObject.nome"  (ngModelChange)="onNameChange($event)"> 
                 <label for="descrizione">Descrizione</label>
                 <textarea *ngIf="currentStoryObject" id="descrizione" name="descrizione" required [ngModel]="currentStoryObject.descrizione" (ngModelChange)="onDescriptionChange($event)" maxlength="255"></textarea>
-                <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna Oggetto Storia</button>
+                <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna</button>
             </div>
         </form>
     </div>

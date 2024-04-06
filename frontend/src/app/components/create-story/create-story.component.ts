@@ -49,8 +49,9 @@ export class CreateStoryComponent implements OnInit {
           try {
             const storyObject = await this.storyObjectService.getStoryObject(drop.id_oggetto).toPromise();
             if (storyObject) {
-              this.dropMap.set(scenario.id, storyObject.nome);
-            }
+              const trimmedName = storyObject.nome.length > 25 ? `${storyObject.nome.slice(0, 25)}...` : storyObject.nome;
+              this.dropMap.set(scenario.id, trimmedName);
+            }            
 
           } catch (error) {
             console.log("Errore nel caricamento del nome dell'oggetto da drop: " + error);

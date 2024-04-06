@@ -13,14 +13,14 @@
                 <div class="single-form">
                     <label for="idScenarioSuccessivo">Scenario successivo alla risposta<span>*</span></label>
                     <select id="idScenarioSuccessivo" name="idScenarioSuccessivo" required [(ngModel)]="idScenarioSuccessivo">
-                        <option disabled>Testo dello scenario successivo</option>
+                        <option disabled>Scenario successivo alla risposta</option>
                         <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }}</option>
                     </select>
                 </div>
                 <div class="single-form">
-                    <label for="objectSelect">Oggetto Richiesto dalla scelta</label>
+                    <label for="objectSelect">Oggetto richiesto</label>
                     <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
-                        <option disabled>Nome dell'oggetto</option>
+                        <option disabled>Oggetto richiesto</option>
                         <option [value] = "-1">---</option>
                         <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
                     </select>

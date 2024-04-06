@@ -5,7 +5,7 @@
         <form (ngSubmit)="onSubmit()">
             <div id="div-form">
                 <label for="titolo">Titolo<span>*</span></label>
-                <input type="text" placeholder="Inserisci titolo" name="titolo" maxlength="255" [(ngModel)]="titolo" required>
+                <input type="text" placeholder="Inserisci il titolo" name="titolo" maxlength="50" [(ngModel)]="titolo" required>
                 <label for="categoria">Categoria<span>*</span></label>
                 <input type="text" placeholder="Inserisci la categoria" name="categoria" maxlength="50" [(ngModel)]="categoria" required>
             </div>

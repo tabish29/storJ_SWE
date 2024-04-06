@@ -25,9 +25,9 @@
                 </select>
             </div>
             <div class="div-object" *ngIf="tipoScenario !== 'FINALE'">
-                <label id="label-left" for="objectSelect">Nome Oggetto</label>
+                <label id="label-left" for="objectSelect">Oggetto Rilasciato</label>
                 <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
-                    <option disabled>Nome oggetto</option>
+                    <option disabled>Oggetto rilasciato</option>
                     <option [value] = "-1">---</option>
                     <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
                 </select>

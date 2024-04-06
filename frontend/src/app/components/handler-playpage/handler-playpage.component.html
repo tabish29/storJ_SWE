@@ -9,6 +9,7 @@
         <select [(ngModel)]="filterType">
             <option disabled>Campo per cui filtrare</option>
             <option [value]="-1">---</option>
+            <option value="Titolo">Titolo</option>
             <option value="Autore">Autore</option>
             <option value="Categoria">Categoria</option>
             <option value="Numero Scenari">Numero Scenari</option>
@@ -25,11 +26,11 @@
     <!-- html attuato per visualizzare le storie giocabili -->
     <div class="div-stories" *ngFor="let item of stories">
         <div class="div-info">
-            <div id="div-text"><label><span id="span-title">Titolo</span><br><span id="span-text">{{ item.titolo }}</span></label></div>
+            <div id="div-text"><label><span id="span-title">Titolo</span><br><span id="span-text" matTooltip="{{item.titolo}}" matTooltipPosition="right">{{ item.titolo.length > 25 ? (item.titolo | slice:0:25) + '...' : item.titolo }}</span></label></div>
             <p></p>
             <div id="div-text"><label><span id="span-title">Autore</span><br><span id="span-text">{{ authorMap.get(item.id) }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span id="span-title">Categoria</span><br><span id="span-text">{{ item.categoria }}</span></label></div>
+            <div id="div-text"><label><span id="span-title">Categoria</span><br><span id="span-text" matTooltip="{{item.categoria}}" matTooltipPosition="right">{{ item.categoria.length > 25 ? (item.categoria | slice:0:25) + '...' : item.categoria }}</span></label></div>
             <p></p>
             <div id="div-text"><label><span id="span-title">Numero scenari</span><br><span id="span-text">{{ item.numero_scenari }}</span></label></div>
         </div>

@@ -86,7 +86,7 @@ export class FormScenarioComponent implements OnInit {
     this.scenarioService.addScenario(scenario).subscribe(
       (response: scenario) => {
         this.scenarioService.changeScenario(response);
-        alert("Scenario creato con successo!");
+      
 
         if (this.selectedObjectId != -1) {
           const objDrop: drop = {

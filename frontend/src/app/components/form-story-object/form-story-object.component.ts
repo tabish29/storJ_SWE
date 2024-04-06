@@ -49,7 +49,7 @@ export class FormStoryObjectComponent {
     this.storyObjectService.addStoryObject(storyObject).subscribe(
       (response: storyObject) => {
         this.storyObjectService.changeStoryObject(response);
-        alert("storyObject creato con successo!")
+        
 
         this.router.navigateByUrl('/storyObjects');
 

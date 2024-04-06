@@ -15,7 +15,7 @@
                 <label for="idScenarioRispostaCorretta">Destinazione risposta corretta<span>*</span></label>
                 <select id="idScenarioRispostaCorretta" name="idScenarioRispostaCorretta"
                     [(ngModel)]="idScenarioRispostaCorretta" required>
-                    <option disabled>Testo dello scenario dopo la risposta corretta</option>
+                    <option disabled>Scenario di destinazione dopo la risposta corretta</option>
                     <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }}</option>
                 </select>
             </div>
@@ -23,7 +23,7 @@
                 <label for="idScenarioRispostaSbagliata">Destinazione risposta sbagliata<span>*</span></label>
                 <select id="idScenarioRispostaSbagliata" name="idScenarioRispostaSbagliata"
                     [(ngModel)]="idScenarioRispostaSbagliata" required>
-                    <option disabled>Testo dello scenario dopo la risposta errata</option>
+                    <option disabled>Scenario di destinazione dopo la risposta sbagliata</option>
                     <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }}</option>
                 </select>
             </div>

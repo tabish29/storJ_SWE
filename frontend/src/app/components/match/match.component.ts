@@ -15,6 +15,7 @@ export class MatchComponent {
   userMatches: match[] = [];
   storyTitleMap: Map<number, string | undefined> = new Map();
 
+
   constructor(private router: Router, private matchService: MatchService, private userService: UserService, private storyService: StoryService, private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
@@ -43,8 +44,9 @@ export class MatchComponent {
         const story = await this.storyService.getStoriesByStoryID(match.id_storia).toPromise();
 
         if (story) {
-          this.storyTitleMap.set(match.id, story.titolo);
-        }
+          const trimmedTitle = story.titolo.length > 25 ? `${story.titolo.slice(0, 25)}...` : story.titolo;
+          this.storyTitleMap.set(match.id, trimmedTitle);
+        } 
 
       } catch (error) {
         console.error(`Errore nel caricamento del titolo della storia per la partita ${match.id}: ${error}`);

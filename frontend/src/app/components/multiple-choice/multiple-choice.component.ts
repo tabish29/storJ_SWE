@@ -53,10 +53,12 @@ export class MultipleChoiceComponent {
         if (required) {
           try {
             const storyObject = await this.storyObjectService.getStoryObject(required.id_oggetto).toPromise();
+            
             if (storyObject) {
-              this.requiredMap.set(multipleChoice.id, storyObject.nome);
-            }
-
+              const trimmedName = storyObject.nome.length > 25 ? `${storyObject.nome.slice(0, 25)}...` : storyObject.nome;
+              this.requiredMap.set(multipleChoice.id, trimmedName);
+            }  
+           
           } catch (error) {
             console.log("Errore nel caricamento del nome dell'oggetto da required: " + error);
           }
@@ -75,8 +77,9 @@ export class MultipleChoiceComponent {
         const scenario = await this.scenarioService.getScenarioById(multipleChoice.id_scenario_successivo).toPromise();
 
         if (scenario) {
-          this.scenarioTextMap.set(multipleChoice.id, scenario.testo);
-        }
+          const trimmedTile = scenario.testo.length > 25 ? `${scenario.testo.slice(0, 25)}...` : scenario.testo;
+          this.scenarioTextMap.set(multipleChoice.id, trimmedTile);
+        } 
 
       } catch (error) {
         console.log("Errore nel caricamento dello scenario per la scelta " + multipleChoice.id + ": " + error);

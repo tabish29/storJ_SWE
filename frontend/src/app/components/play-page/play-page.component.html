@@ -6,7 +6,7 @@
         <div class="div-congrats" *ngIf="currentScenario.tipo_scenario === 'FINALE'">
             <div id="div-text-congrats">
                 <p id="text-congrats">Complimenti! Hai <span>concluso</span> la storia!</p>
-                <p id="text-handler-playpage"><a href="/handlerPlaypage">Clicca qui</a> per giocare ad altre <span>emozionanti</span> storie.</p>
+                <p id="text-handler-playpage"><a href="/handlerPlaypage">Clicca qui</a>per giocare ad altre <span>emozionanti</span> storie.</p>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
         <div class="div-choice-scenario" *ngFor="let item of multipleChoices">
             <div class="container-tooltip remove-button" [class.disabled-tooltip-container]="!checkRequired(item.id)">
                 <button class="button-multiple-choice" (click)="loadUserChoice(item.id_scenario_successivo)" [disabled]="!checkRequired(item.id)">{{ item.testo }}</button>
-                <span class="tooltiptext">Non possiedi l'oggetto per fare questa scelta</span>
+                <span class="tooltiptext">Non possiedi l'oggetto richiesto per fare questa scelta</span>
             </div>
         </div>
     </div>
