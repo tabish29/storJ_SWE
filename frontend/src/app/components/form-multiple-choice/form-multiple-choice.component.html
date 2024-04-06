@@ -40,7 +40,7 @@
             <form class="multiple-choice-form" (ngSubmit)="updateMultipleChoicheText()">
                 <div class="single-form">
                     <label for="testo">Testo</label>
-                    <textarea *ngIf="currentMultipleChoiche" id="testo" name="testo" required [ngModel]="currentMultipleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>  
+                    <textarea *ngIf="currentMultipleChoiche" id="testo" name="testo" maxlength="50" required [ngModel]="currentMultipleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>  
                 </div>
                 <div class="single-form">
                     <label for="idScenarioSuccessivo">Testo Scenario Successivo</label>

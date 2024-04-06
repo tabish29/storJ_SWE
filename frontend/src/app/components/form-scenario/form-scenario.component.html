@@ -5,7 +5,7 @@
         <form (ngSubmit)="onSubmit()">
             <div>
                 <label id="label-left" for="testo">Testo<span>*</span></label>
-                <textarea id="testo" name="testo" required [(ngModel)]="testo"></textarea>
+                <textarea id="testo" name="testo" maxlength="255" required [(ngModel)]="testo"></textarea>
             </div>
             <div class="div-select">
                 <label for="tipoScenario">Scenario<span>*</span></label>
@@ -43,7 +43,7 @@
         <form (ngSubmit)="updateScenarioText()">
             <div>
                 <label id="label-left" for="testo">Testo</label>
-                <textarea *ngIf="currentScenario" id="testo" name="testo" required [ngModel]="currentScenario.testo"
+                <textarea *ngIf="currentScenario" id="testo" name="testo" maxlength="255" required [ngModel]="currentScenario.testo"
                 (ngModelChange)="onScenarioTextChange($event)"></textarea>
             </div>
             <div class="div-select" *ngIf="currentScenario?.tipo_scenario !== 'FINALE'">

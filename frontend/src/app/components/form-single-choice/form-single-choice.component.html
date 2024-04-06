@@ -38,12 +38,12 @@
         <form (ngSubmit)="updateSingleChoicheText()">
             <div>
                 <label id="label-left" for="testo">Testo</label>
-                <textarea *ngIf="currentSingleChoiche" id="testo" name="testo" required
+                <textarea *ngIf="currentSingleChoiche" id="testo" name="testo" maxlength="50" required
                     [ngModel]="currentSingleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>
             </div>
             <div>
                 <label id="label-left" for="risposta">Risposta</label>
-                <textarea *ngIf="currentSingleChoiche" type="text" id="risposta" name="risposta" required
+                <textarea *ngIf="currentSingleChoiche" type="text" id="risposta" name="risposta" maxlength="50" required
                     [ngModel]="currentSingleChoiche.risposta" (ngModelChange)="onAnswerChange($event)"
                     placeholder="Inserisci la risposta corretta"></textarea>
             </div>

@@ -5,11 +5,11 @@
         <form (ngSubmit)="onSubmit()">
             <div id="div-form">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Inserisci il tuo nickname" required [(ngModel)]="username">
+                <input type="text" id="username" name="username" placeholder="Inserisci il tuo nickname" maxlength="50" required [(ngModel)]="username">
             </div>
             <div id="div-form">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Inserisci la tua password"  [(ngModel)]="password">
+                <input type="password" id="password" name="password" placeholder="Inserisci la tua password" maxlength="50" required [(ngModel)]="password">
             </div>
             <button type="submit" class="btn-register">Registrati</button>
         </form>

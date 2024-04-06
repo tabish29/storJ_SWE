@@ -5,8 +5,8 @@
     </div>
     <div class="div-story" *ngFor="let item of stories">
         <div id="div-info">
-            <div id="div-text"><label><span class="span-header">Titolo</span><br><span class="span-text">{{ item.titolo}}</span></label></div> <p></p>
-            <div id="div-text"><label><span class="span-header">Categoria</span><br><span class="span-text">{{item.categoria }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">Titolo</span><br><span class="span-text">{{ item.titolo.length > 25 ? (item.titolo | slice:0:25) + '...' : item.titolo }}</span></label></div> <p></p>
+            <div id="div-text"><label><span class="span-header">Categoria</span><br><span class="span-text">{{ item.categoria.length > 25 ? (item.categoria | slice:0:25) + '...' : item.categoria }}</span></label></div>
         </div>
         <div class="div-button-scenario">
             <div class="div-button" *ngIf="!item.statoCompletamento">
