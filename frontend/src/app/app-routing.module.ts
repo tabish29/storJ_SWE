@@ -6,7 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { StorJPageComponent } from './components/stor-jpage/stor-jpage.component';
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
-import { accessGuard } from './access.guard';
+import { accessGuard } from './guards/access.guard';
 import { HandlerPlaypageComponent } from './components/handler-playpage/handler-playpage.component';
 import { CreateStoryComponent } from './components/create-story/create-story.component';
 import { HomeStoriesComponent } from './components/home-stories/home-stories.component';
@@ -20,7 +20,7 @@ import { FormMultipleChoiceComponent } from './components/form-multiple-choice/f
 import { FormSingleChoiceComponent } from './components/form-single-choice/form-single-choice.component';
 import { PlayPageComponent } from './components/play-page/play-page.component';
 import { MatchComponent } from './components/match/match.component';
-import { PaymentAccessGuard } from './payment-access-guard.guard';
+import { PaymentAccessGuard } from './guards/payment-access-guard.guard';
 
 
 const routes: Routes = [

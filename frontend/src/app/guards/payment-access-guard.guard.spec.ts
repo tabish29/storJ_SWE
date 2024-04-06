@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
 
-import { paymentAccessGuardGuard } from './payment-access-guard.guard';
+import { PaymentAccessGuard } from './payment-access-guard.guard';
 
 describe('paymentAccessGuardGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) => 
