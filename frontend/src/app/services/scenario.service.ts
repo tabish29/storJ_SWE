@@ -43,7 +43,7 @@ export class ScenarioService {
   deleteScenario(scenarioId: number): void {
     this.http.delete(this.apiServerUrl + '/scenari/' + scenarioId).subscribe({
       next: () => {
-        alert('Scenario eliminato con successo');
+        //alert('Scenario eliminato con successo');
       },
       error: (error: HttpErrorResponse) => {
         console.error('Errore durante eliminazione dello scenario', error.message);

@@ -106,7 +106,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   saveStory(): void {
     this.storyService.saveStory().subscribe(
       (response: any) => {
-        alert('salvataggio avvenuto con successo')
+        alert('Salvataggio avvenuto con successo!')
         this.router.navigateByUrl('/homeStories');
       },
       (error: HttpErrorResponse) => {
