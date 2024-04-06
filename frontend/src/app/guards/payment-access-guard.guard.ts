@@ -8,10 +8,11 @@ import { UserService } from '../services/userservice';
 })
 export class PaymentAccessGuard {
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) { }
 
   canActivate: CanActivateFn = (route, state) => {
     const currentUser = this.userService.getCurrentUser();
+
     if (currentUser && !currentUser.statoPagamento) {
       return true;
     } else {
@@ -19,4 +20,5 @@ export class PaymentAccessGuard {
       return false;
     }
   }
+
 }

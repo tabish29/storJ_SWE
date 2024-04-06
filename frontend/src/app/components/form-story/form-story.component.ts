@@ -30,14 +30,14 @@ export class FormStoryComponent implements OnInit {
     }
   }
 
-  public savestory(story: story): void {
+  savestory(story: story): void {
     this.storyService.addStory(story).subscribe(
       (response: story) => {
         this.storyService.changeStory(response);
         this.router.navigateByUrl('/createStory');
       },
       (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
+
         alert(error.error.message);
       }
     );
@@ -46,16 +46,16 @@ export class FormStoryComponent implements OnInit {
   onSubmit() {
     const storyData: story = {
       id: 0,
-      id_creatore: this.idCreatore, //dal localstorage
-      titolo: this.titolo, //dal form
-      categoria: this.categoria, //dal form
+      id_creatore: this.idCreatore,
+      titolo: this.titolo,
+      categoria: this.categoria,
       numero_scenari: 0,
       statoCompletamento: false
     };
 
     if (this.titolo == '' || this.categoria == '') {
       alert("Inserisci tutti i campi obbligatori (*)");
-    }else{
+    } else {
       this.savestory(storyData);
     }
   }

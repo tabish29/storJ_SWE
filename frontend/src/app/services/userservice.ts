@@ -27,7 +27,6 @@ export class UserService {
   }
 
   private loadInitialUser(): user | null {
-    // Usa il servizio LocalStorageService per recuperare i dati dell'utente
     return this.localStorageService.getItem('currentUser');
   }
 
@@ -48,9 +47,9 @@ export class UserService {
   updateUserPaymentStatus(isPaid: boolean): void {
     const currentUser = this.getCurrentUser();
     if (currentUser) {
-      const updatedUser = { ...currentUser, statoPagamento: isPaid }; // Aggiorna lo statoPagamento
-      this.changeUser(updatedUser); // Aggiorna l'utente nel BehaviorSubject e in localStorage
+      const updatedUser = { ...currentUser, statoPagamento: isPaid };
+      this.changeUser(updatedUser);
     }
   }
-  
+
 }

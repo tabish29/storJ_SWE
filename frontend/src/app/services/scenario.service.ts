@@ -8,7 +8,6 @@ import { scenario } from '../scenario';
   providedIn: 'root'
 })
 export class ScenarioService {
-
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private scenarioSource = new BehaviorSubject<scenario | null>(this.loadInitialScenario());
   currentscenario = this.scenarioSource.asObservable();
@@ -16,22 +15,18 @@ export class ScenarioService {
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public getScenarioById(idScenario: number): Observable<scenario> {
-
     return this.http.get<scenario>(this.apiServerUrl + '/scenari/' + idScenario);
   }
 
   public getScenarioByStoryId(idStoria: number): Observable<scenario[]> {
-
     return this.http.get<scenario[]>(this.apiServerUrl + '/storie/' + idStoria + '/scenari');
   }
 
   public getFirstScenario(idStoria: number): Observable<scenario[]> {
-
     return this.http.get<scenario[]>(this.apiServerUrl + '/storie/' + idStoria + '/scenari?tipologia=INIZIALE');
   }
 
   public addScenario(scenario: scenario): Observable<scenario> {
-
     return this.http.post<scenario>(this.apiServerUrl + '/scenari', scenario);
   }
 
@@ -71,7 +66,6 @@ export class ScenarioService {
   changeScenario(newscenario: scenario) {
     this.scenarioSource.next(newscenario);
     this.localStorageService.setItem('currentScenario', newscenario);
-
   }
 
   getCurrentScenario(): scenario | null {

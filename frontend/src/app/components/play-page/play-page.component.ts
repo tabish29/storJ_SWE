@@ -17,7 +17,6 @@ import { match } from '../../match';
 import { user } from '../../user';
 import { drop } from '../../drop';
 
-
 @Component({
   selector: 'app-play-page',
   templateUrl: './play-page.component.html',
@@ -34,17 +33,7 @@ export class PlayPageComponent implements OnInit {
   requiredMap: Map<number, number | undefined> = new Map();
   inventoryItemsId: number[] = [];
 
-  constructor(
-    private localStorageService: LocalStorageService,
-    private scenarioService: ScenarioService,
-    private multipleChoiceService: MultipleChoiceService,
-    private singleChoiceService: SingleChoiceService,
-    private storyObjectService: storyObjectService,
-    private dropService: DropService,
-    private requiredService: RequiredService,
-    private matchService: MatchService,
-    private inventoryService: InventoryService
-  ) { }
+  constructor(private localStorageService: LocalStorageService, private scenarioService: ScenarioService, private multipleChoiceService: MultipleChoiceService, private singleChoiceService: SingleChoiceService, private storyObjectService: storyObjectService, private dropService: DropService, private requiredService: RequiredService, private matchService: MatchService, private inventoryService: InventoryService) { }
 
   async ngOnInit() {
     await this.loadCurrentStory();
@@ -62,12 +51,10 @@ export class PlayPageComponent implements OnInit {
         if (initialScenario) {
           await this.loadDrop(initialScenario[0]);
         }
-
       } else {
         const currentScenarioID = this.localStorageService.getItem("currentScenarioID");
         console.log("valore dell'id dello scenario successivo", currentScenarioID);
         this.resumeMatch(currentScenarioID);
-
       }
 
     } else {
@@ -75,16 +62,12 @@ export class PlayPageComponent implements OnInit {
     }
   }
 
-
   async loadInitialScenario(storyId: number, scenario: scenario[] | undefined): Promise<void> {
     try {
-
       if (scenario) {
         this.currentScenario = scenario[0];
         this.scenarioService.changeScenario(this.currentScenario);
-        //await this.loadDrop(this.currentScenario);
         this.loadScenarioChoices(this.currentScenario);
-
       } else {
         console.error('Scenario iniziale non trovato per la storia corrente');
       }
@@ -101,7 +84,6 @@ export class PlayPageComponent implements OnInit {
         await this.loadSingleChoice(scenario.id);
       }
     }
-
   }
 
   async loadMultipleChoices(scenarioId: number): Promise<void> {
@@ -166,11 +148,9 @@ export class PlayPageComponent implements OnInit {
 
           this.inventoryService.getInventoryByMatchId(currentMatch.id).subscribe({
             next: (response) => {
-
               response.forEach(item => {
                 this.inventoryItemsId.push(item.id);
               });
-
             },
             error: (error) => {
               console.error('Errore durante il caricamento dell\'inventario:', error);
@@ -179,8 +159,6 @@ export class PlayPageComponent implements OnInit {
 
           // Carica le scelte associate allo scenario corrente
           await this.loadScenarioChoices(this.currentScenario);
-
-
         } else {
           console.error('Scenario successivo non trovato');
         }
@@ -203,18 +181,14 @@ export class PlayPageComponent implements OnInit {
 
     this.matchService.updateMatch(newMatchData).subscribe({
       next: (updatedMatch) => {
-
         this.matchService.changeMatch(newMatchData);
-
       },
       error: (error) => {
-
         console.error("Errore durante l'aggiornamento della partita:", error);
       }
     });
 
   }
-
 
   async loadDrop(scenario: scenario): Promise<void> {
     try {
@@ -223,14 +197,12 @@ export class PlayPageComponent implements OnInit {
         this.dropMap.set(scenario.id, "Nessun Drop");
         return;
       } else {
-
         const storyObject = await this.storyObjectService.getStoryObject(drop.id_oggetto).toPromise();
         this.dropMap.set(scenario.id, storyObject ? storyObject.nome : "Nessun Drop");
-
       }
 
       //const currentMatch = this.localStorageService.getItem("currentMatch");
-      const currentMatch=this.matchService.getCurrentMatch();
+      const currentMatch = this.matchService.getCurrentMatch();
 
       if (!currentMatch) {
         console.log("Nessuna partita corrente trovata.");
@@ -239,7 +211,6 @@ export class PlayPageComponent implements OnInit {
 
       if (await this.hasStoryObject(drop)) {
       } else {
-
         const dropName = this.dropMap.get(scenario.id);
 
         if (dropName !== "Nessun Drop") {
@@ -253,7 +224,6 @@ export class PlayPageComponent implements OnInit {
         };
         this.saveInventory(inventoryData);
         this.inventoryItemsId.push(drop.id_oggetto);
-
       }
 
     } catch (error) {
@@ -277,7 +247,6 @@ export class PlayPageComponent implements OnInit {
 
     const itemExists = this.inventoryItemsId.some(item => item === objIdRequired);
     return itemExists;
-
   }
 
   saveInventory(inventory: inventory): void {
@@ -288,7 +257,7 @@ export class PlayPageComponent implements OnInit {
 
       },
       (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
+
         if (error.error.code == "UtenteAlreadySigned") {
           alert(error.error.message);
         } else {
@@ -316,7 +285,6 @@ export class PlayPageComponent implements OnInit {
         } else {
           this.requiredMap.set(multipleChoice.id, -1);
         }
-
       } catch (error) {
         console.error("Errore nel caricamento dei required per la scelta " + multipleChoice.id + ": " + error);
       }
@@ -326,10 +294,8 @@ export class PlayPageComponent implements OnInit {
   // Metodo per gestire l'invio della risposta negli indovinelli 
   submitUserAnswer(): void {
     if (this.singleChoice) {
-
       const isCorrect = this.userAnswer === this.singleChoice.risposta;
       alert(`La risposta inserita è ${isCorrect ? 'corretta' : 'sbagliata'}.`);
-
 
       const nextScenarioId = isCorrect ? this.singleChoice.id_scenario_risposta_corretta : this.singleChoice.id_scenario_risposta_sbagliata;
       this.loadUserChoice(nextScenarioId);

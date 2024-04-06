@@ -12,7 +12,6 @@ import { StoryService } from '../../services/story.service';
   styleUrl: './form-story-object.component.css'
 })
 export class FormStoryObjectComponent {
-  //inserire le variabili che servono nel form della creazione dello storyObject 
 
   idStoria = -1;
   nome = '';
@@ -26,12 +25,10 @@ export class FormStoryObjectComponent {
     this.loadStoryId();
     this.isInTextEditMode = this.storyService.isStoryCompleted();
     this.loadCurrentStoryObject();
-
   }
 
   loadCurrentStoryObject(): void {
     this.currentStoryObject = this.localStorageService.getItem("currentstoryObject");
-
   }
 
   loadStoryId() {
@@ -43,19 +40,14 @@ export class FormStoryObjectComponent {
     }
   }
 
-
-  public savestoryObject(storyObject: storyObject): void {
-
+  savestoryObject(storyObject: storyObject): void {
     this.storyObjectService.addStoryObject(storyObject).subscribe(
       (response: storyObject) => {
         this.storyObjectService.changeStoryObject(response);
-        
 
         this.router.navigateByUrl('/storyObjects');
-
       },
       (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
         if (error.error.code == "UtenteAlreadySigned") {
           alert(error.error.message);
         } else {
@@ -66,8 +58,6 @@ export class FormStoryObjectComponent {
   }
 
   onSubmit() {
-
-    //decidere se tenere solo le informazioni necessarie per il back end(da decidere)
     const storyObjectData: storyObject = {
       id: 0,
       id_storia: this.idStoria,
@@ -89,7 +79,6 @@ export class FormStoryObjectComponent {
       this.descrizione = this.currentStoryObject.descrizione;
     }
     this.nome = newName;
-
   }
 
   onDescriptionChange(newDescription: string): void {
@@ -100,7 +89,6 @@ export class FormStoryObjectComponent {
     this.descrizione = newDescription;
   }
 
-  // metodo per obbligare l'utente a modificare almeno uno dei due campi
   isUpdated(): boolean {
     return !this.nome.trim() || !this.descrizione.trim();
   }
@@ -115,29 +103,20 @@ export class FormStoryObjectComponent {
         descrizione: this.descrizione
       };
 
-
       this.storyObjectService.updateStoryObject(newStoryObjectData).subscribe({
         next: (updatedStoryObject) => {
-
           console.log("StoryObject aggiornato con successo:", updatedStoryObject);
-
           this.storyObjectService.changeStoryObject(newStoryObjectData);
 
           this.router.navigateByUrl('/storyObjects').then(() => {
-            // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)
             window.location.reload();
           });
         },
         error: (error) => {
-
           console.error("Errore durante l'aggiornamento dello StoryObject:", error);
         }
       });
-
-
     }
-
   }
-
 
 }

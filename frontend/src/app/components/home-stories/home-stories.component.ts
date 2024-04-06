@@ -42,4 +42,5 @@ export class HomeStoriesComponent {
     this.loadStories();
     location.reload();
   }
+
 }

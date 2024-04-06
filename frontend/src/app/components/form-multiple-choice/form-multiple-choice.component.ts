@@ -19,7 +19,7 @@ import { StoryService } from '../../services/story.service';
   styleUrl: './form-multiple-choice.component.css'
 })
 export class FormMultipleChoiceComponent {
-  //inserire le variabili che servono nel form della creazione della multiplechoice 
+
   idScenario = -1;
   testo = '';
   idScenarioSuccessivo = -1;
@@ -82,14 +82,13 @@ export class FormMultipleChoiceComponent {
   }
 
   public saveRequired(required: required) {
-
     this.requiredService.addRequired(required).subscribe(
       (response: required) => {
         this.requiredService.changeRequired(response);
         console.log("required creato con successo!");
       },
       (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
+
         console.log("c'è stato un errore nella crezione del required" + error.error.message)
       }
     );
@@ -97,7 +96,6 @@ export class FormMultipleChoiceComponent {
 
 
   public savemultiplechoice(multiplechoice: multipleChoice): void {
-
     this.multipleChoiceService.addMultipleChoice(multiplechoice).subscribe(
       (response: multipleChoice) => {
         this.multipleChoiceService.changeMultipleChoice(response);
@@ -112,25 +110,23 @@ export class FormMultipleChoiceComponent {
         }
 
         this.router.navigateByUrl('/multiplechoice').then(() => {
-          // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)
+
           window.location.reload();
         });
-
       },
       (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
+
         if (error.error.code == "UtenteAlreadySigned") {
           alert(error.error.message);
         } else {
           alert("c'è stato un errore:" + error.error.message);
         }
+
       }
     );
   }
 
   onSubmit() {
-
-    //decidere se servono le infomazioni che vengono aggiunte direttamente dal backend(da decidere)
     const multiplechoiceData: multipleChoice = {
       id: 0,
       id_scenario: this.idScenario,
@@ -153,7 +149,7 @@ export class FormMultipleChoiceComponent {
     this.testo = newTesto; // Aggiorna la variabile testo del componente
   }
 
-  // metodo per obbligare l'utente a modificare 
+
   isUpdated(): boolean {
     return !this.testo.trim();
   }
@@ -170,7 +166,6 @@ export class FormMultipleChoiceComponent {
 
       console.log("i nuovi dati della scelta multipla: " + JSON.stringify(newMultipleChoicheData));
 
-
       this.multipleChoiceService.updateMultipleChoice(newMultipleChoicheData).subscribe({
         next: (updatedMultipleChoice) => {
 
@@ -178,7 +173,7 @@ export class FormMultipleChoiceComponent {
           console.log("Scelta multpla aggiornata con successo:", updatedMultipleChoice);
 
           this.router.navigateByUrl('/multiplechoice').then(() => {
-            // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)
+
             window.location.reload();
           });
         },
@@ -187,7 +182,6 @@ export class FormMultipleChoiceComponent {
           console.error("Errore durante l'aggiornamento della scelta multipla:", error);
         }
       });
-
 
     }
 
@@ -200,7 +194,6 @@ export class FormMultipleChoiceComponent {
         console.log("Testo dello scenario corretto impostato con successo:", this.currentScenarioText);
       },
       error: (error) => {
-
         console.error("Errore durante il recupero del testo dello scenario:", error);
       }
     });

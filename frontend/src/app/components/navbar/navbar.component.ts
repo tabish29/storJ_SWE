@@ -4,18 +4,16 @@ import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/userservice';
 import { user } from '../../user';
-import { Subscription, throwError } from 'rxjs';
-import { catchError, filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { StoryService } from '../../services/story.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SingleChoiceService } from '../../services/single-choice.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { InventoryService } from '../../services/inventory.service';
 import { MatchService } from '../../services/match.service';
-import { inventory } from '../../inventory';
 import { PopupComponent } from '../popup/popup.component';
 import { storyObject } from '../../storyObject';
-
 
 @Component({
   selector: 'app-navbar',
@@ -42,6 +40,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    //per tenere traccia dell'url
     this.subscription.add(
       this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
         if (event instanceof NavigationEnd) {
@@ -76,7 +75,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/login']); // Reindirizza l'utente alla pagina di login dopo il logout
+    this.router.navigate(['/login']);
   }
 
   getIsSingleChoiceCreated(): boolean {
@@ -124,7 +123,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
             alert(error.error.message);
             break;
           default:
-            //(Da controllare)
             alert(error.error.message);
             break;
         }
@@ -138,7 +136,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (currentMatch) {
       await this.inventoryService.getInventoryByMatchId(currentMatch.id).subscribe({
         next: (response) => {
-
           if (response) {
             this.inventoryItems = response;
             this.dialog.open(PopupComponent, {
@@ -147,7 +144,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 inventoryItems: this.inventoryItems
               }
             });
-
           } else {
             console.log("non ci sono oggetti nell'inventario");
           }

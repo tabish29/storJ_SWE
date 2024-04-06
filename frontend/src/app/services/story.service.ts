@@ -15,7 +15,6 @@ export class StoryService {
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
-
   public getStoriesByUsername(idUser: number): Observable<story[]> {
     return this.http.get<story[]>(this.apiServerUrl + '/utenti/' + idUser + '/storie');
   }
@@ -24,14 +23,11 @@ export class StoryService {
     return this.http.get<story>(this.apiServerUrl + '/storie/' + idStory);
   }
 
-
   public getAllStories(): Observable<story[]> {
-    //mettere l'url del metodo get di tutte le storie
     return this.http.get<story[]>(this.apiServerUrl + '/storie');
   }
 
   public addStory(story: story): Observable<story> {
-    //mettere l'url del metodo post 
     return this.http.post<story>(this.apiServerUrl + '/storie', story);
   }
 
@@ -43,13 +39,11 @@ export class StoryService {
         console.error('Errore durante eliminazione della storia', error.message);
       }
     });
-
   }
 
   public saveStory(): Observable<story> {
     const currentStory: story = this.localStorageService.getItem('currentStory');
     const url = this.apiServerUrl + '/storie/' + currentStory.id + '/save';
-
     return this.http.post<story>(url, null);
   }
 
@@ -72,7 +66,6 @@ export class StoryService {
       default:
         console.error('Tipo di filtro non supportato');
     }
-
     return this.http.get<story[]>(`${this.apiServerUrl}/storie?${queryParams}`);
   }
 
@@ -83,7 +76,6 @@ export class StoryService {
   changeStory(newStory: story) {
     this.storySource.next(newStory);
     this.localStorageService.setItem('currentStory', newStory);
-
   }
 
   getCurrentStory(): story | null {
@@ -91,7 +83,6 @@ export class StoryService {
   }
 
   public isStoryCompleted(): boolean {
-    // Recupero la storia corrente dal localStorage
     const currentStory: story = this.localStorageService.getItem('currentStory');
 
     if (currentStory && currentStory.statoCompletamento) {

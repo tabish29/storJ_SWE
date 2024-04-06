@@ -14,13 +14,11 @@ import { ScenarioService } from '../../services/scenario.service';
   styleUrl: './multiple-choice.component.css'
 })
 export class MultipleChoiceComponent {
-
   multipleChoices: multipleChoice[] = [];
   scenarioId!: number;
   requiredMap: Map<number, string | undefined> = new Map();
   scenarioTextMap: Map<number, string | undefined> = new Map();
   isInTextEditMode!: boolean;
-
 
   constructor(private multipleChoiceService: MultipleChoiceService, private requiredService: RequiredService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService, private scenarioService: ScenarioService) { }
 
@@ -32,7 +30,6 @@ export class MultipleChoiceComponent {
     await this.loadScenarioText(this.multipleChoices);
     this.isInTextEditMode = this.storyService.isStoryCompleted();
   }
-
 
   async loadMultipleChoices(): Promise<void> {
     try {
@@ -53,12 +50,11 @@ export class MultipleChoiceComponent {
         if (required) {
           try {
             const storyObject = await this.storyObjectService.getStoryObject(required.id_oggetto).toPromise();
-            
+
             if (storyObject) {
               const trimmedName = storyObject.nome.length > 25 ? `${storyObject.nome.slice(0, 25)}...` : storyObject.nome;
               this.requiredMap.set(multipleChoice.id, trimmedName);
-            }  
-           
+            }
           } catch (error) {
             console.log("Errore nel caricamento del nome dell'oggetto da required: " + error);
           }
@@ -79,8 +75,7 @@ export class MultipleChoiceComponent {
         if (scenario) {
           const trimmedTile = scenario.testo.length > 25 ? `${scenario.testo.slice(0, 25)}...` : scenario.testo;
           this.scenarioTextMap.set(multipleChoice.id, trimmedTile);
-        } 
-
+        }
       } catch (error) {
         console.log("Errore nel caricamento dello scenario per la scelta " + multipleChoice.id + ": " + error);
       }
@@ -101,6 +96,5 @@ export class MultipleChoiceComponent {
   changeMultipleChoiche(newMultipleChoice: multipleChoice) {
     this.multipleChoiceService.changeMultipleChoice(newMultipleChoice);
   }
-
 
 }

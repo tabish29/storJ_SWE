@@ -13,26 +13,26 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  
-  constructor(private http: HttpClient,private userService: UserService,private authService:AuthService,private router: Router) { }
-  
-  public getUser(): void {
+
+  constructor(private http: HttpClient, private userService: UserService, private authService: AuthService, private router: Router) { }
+
+  getUser(): void {
     this.userService.getUserByUsername(this.username).subscribe(
       (response: user) => {
-        if(response.password === this.password){
+        if (response.password === this.password) {
           this.authService.setAuthStatus(true);
-          this.userService.changeUser(response);           
+          this.userService.changeUser(response);
           this.router.navigateByUrl('/storJPage');
-        }else{
+        } else {
           this.authService.setAuthStatus(false);
           alert("Credenziali di accesso errate!");
         }
       },
       (error: HttpErrorResponse) => {
-        if(error.error.code == "UtenteNotFound"){
+        if (error.error.code == "UtenteNotFound") {
           this.authService.setAuthStatus(false);
           alert(error.error.message);
-        }else{
+        } else {
           this.authService.setAuthStatus(false);
           alert("Riempi i campi prima di procedere!");
         }
@@ -43,4 +43,5 @@ export class LoginComponent {
   onLogin() {
     this.getUser();
   }
+
 }

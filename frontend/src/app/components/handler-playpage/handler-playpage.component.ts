@@ -17,25 +17,15 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './handler-playpage.component.html',
   styleUrl: './handler-playpage.component.css'
 })
-
-//QUANDO CLICCI GIOCA CHIAMATA API PER PRENDERE TUTTE LE STORIE, DA CUI SI PRENDERANNO NOME, AUTORE, NUMERO SCENARI E BOTTONE --> GIOCA
-
 export class HandlerPlaypageComponent {
   stories: story[] = [];
   currentScenario!: scenario;
   filterType = "-1";
   filterValue = '';
-  noStoriesFound: boolean = false; //nel caso in cui l'array delle storie dopo il filtraggio fosse vuoto
+  noStoriesFound: boolean = false;
   authorMap: Map<number, String | undefined> = new Map();
 
-  constructor(
-    private storyService: StoryService,
-    private router: Router,
-    private localStorageService: LocalStorageService,
-    private userService: UserService,
-    private scenarioService: ScenarioService,
-    private matchService: MatchService,
-    private dialog: MatDialog) { }
+  constructor(private storyService: StoryService, private router: Router, private localStorageService: LocalStorageService, private userService: UserService, private scenarioService: ScenarioService, private matchService: MatchService, private dialog: MatDialog) { }
 
   async ngOnInit(): Promise<void> {
     await this.loadStories();
@@ -80,12 +70,10 @@ export class HandlerPlaypageComponent {
       if (firstScenario) {
         this.scenarioService.changeScenario(firstScenario[0]);
       }
-
     } catch (error) {
       console.error('Errore nel caricamento degli scenari', error);
     }
   }
-
 
   async playStory(story: story): Promise<void> {
     this.storyService.changeStory(story);
@@ -94,9 +82,7 @@ export class HandlerPlaypageComponent {
     const firstScenarioId = this.scenarioService.getCurrentScenario()?.id
     this.matchService.setIsFirstMatch(true);
 
-
     if (currentUserId && firstScenarioId) {
-
       const matchData: match = {
         id: 0,
         id_storia: story.id,
@@ -105,21 +91,19 @@ export class HandlerPlaypageComponent {
       };
       this.localStorageService.setItem('currentMatch', matchData);
       await this.saveMatch(matchData);
-      // Reindirizzamento all'URL di gioco della storia
+
       this.router.navigateByUrl(`playPage`);
     }
-
-
   }
 
-  public async saveMatch(match: match): Promise<void> {
+  async saveMatch(match: match): Promise<void> {
     try {
       const response = await this.matchService.addMatch(match);
       this.matchService.changeMatch(response);
       console.log("Partita creata con successo!");
     } catch (error) {
       if (error instanceof HttpErrorResponse) {
-     
+
         if (error.error.code == "UtenteAlreadySigned") {
           alert(error.error.message);
         } else {
@@ -132,11 +116,9 @@ export class HandlerPlaypageComponent {
   }
 
   private async searchStoriesByTitle(searchValue: string): Promise<void> {
-    
     await this.loadStories().then(() => {
       this.filterByTitle(searchValue);
     });
-
   }
 
   private filterByTitle(searchValue: string): void {
@@ -149,19 +131,15 @@ export class HandlerPlaypageComponent {
   }
 
   filterStories(filterType: string, filterValue: string): void {
-
     this.filterType = filterType;
     this.filterValue = filterValue;
 
-
-
     if (filterType === "Titolo") {
-      // Cerca nelle storie caricate quelle che contengono la stringa inserita dall'utente nel titolo
+      // Cerca nelle storie caricate quelle che contengono nel titolo la stringa inserita dall'utente 
       this.searchStoriesByTitle(filterValue);
     } else {
       this.storyService.filterStories(this.filterType, this.filterValue).subscribe(
         stories => {
-          //In caso di successo aggiorna le storie visualizzate
           this.stories = stories;
           if (stories.length === 0) {
             this.noStoriesFound = true;
@@ -172,7 +150,6 @@ export class HandlerPlaypageComponent {
         (error: HttpErrorResponse) => {
           this.stories = [];
           this.noStoriesFound = true;
-          // Inserire i vari codici di errore dell'api di Davide(da fare)
           switch (error.error.code) {
             case "UtenteNotFound":
               //alert(error.error.message);
@@ -180,8 +157,6 @@ export class HandlerPlaypageComponent {
             default:
               alert("Errore durante il filtraggio delle storie.");
           }
-
-          //per vedere i codici di errore(da eliminare)
           console.error('Errore HTTP:', error.error.code);
         }
       );
@@ -197,6 +172,5 @@ export class HandlerPlaypageComponent {
       }
     });
   }
-
 
 }

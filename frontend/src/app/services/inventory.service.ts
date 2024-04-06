@@ -11,7 +11,6 @@ import { storyObject } from '../storyObject';
   providedIn: 'root'
 })
 export class InventoryService {
-
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private inventorySource = new BehaviorSubject<inventory | null>(this.loadInitialInventory());
   currentInventory = this.inventorySource.asObservable();
@@ -20,17 +19,14 @@ export class InventoryService {
   constructor(private http: HttpClient, private localStorageService: LocalStorageService, private storyObjectService: storyObjectService, private matchService: MatchService) { }
 
   public getInventoryByMatchId(idMatch: number): Observable<storyObject[]> {
-
     return this.http.get<storyObject[]>(this.apiServerUrl + '/partite/' + idMatch + '/oggetti');
   }
 
   public getInventory(idinventory: number): Observable<inventory> {
-
     return this.http.get<inventory>(this.apiServerUrl + '/inventari/' + idinventory);
   }
 
   public addInventory(inventory: inventory): Observable<inventory> {
-
     return this.http.post<inventory>(this.apiServerUrl + '/inventari', inventory);
   }
 
@@ -43,7 +39,6 @@ export class InventoryService {
         console.error("Errore durante eliminazione del'inventario", error.message);
       }
     });
-
   }
 
   loadInitialInventory(): inventory | null {
@@ -53,7 +48,6 @@ export class InventoryService {
   changeInventory(newinventory: inventory) {
     this.inventorySource.next(newinventory);
     this.localStorageService.setItem('currentInventory', newinventory);
-
   }
 
   getCurrentinventory(): inventory | null {

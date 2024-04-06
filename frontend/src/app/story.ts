@@ -1,4 +1,5 @@
 export class story {
+
     constructor(
         public id: number,
         public id_creatore: number,
@@ -6,7 +7,6 @@ export class story {
         public categoria: string,
         public numero_scenari: number,
         public statoCompletamento: boolean
-    ) {
-
-    }
+    ) { }
+    
 }

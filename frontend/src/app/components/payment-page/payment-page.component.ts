@@ -19,20 +19,16 @@ export class PaymentPageComponent {
 
   constructor(private http: HttpClient, private paymentService: PaymentService, private router: Router, private userService: UserService) { }
 
-  public savePayment(paymentInfo: PaymentInfo): void {
+  savePayment(paymentInfo: PaymentInfo): void {
     this.paymentService.doPayment(paymentInfo).subscribe(
       (response: PaymentInfo) => {
         alert("Pagamento andato a buon fine")
         console.log(response)
-
-        // Aggiorna lo stato di pagamento dell'utente a true
         this.userService.updateUserPaymentStatus(true);
 
         this.router.navigateByUrl('/storJPage');
-
       },
       (error: HttpErrorResponse) => {
-
         const message = error.error.message;
 
         if (error.error.code === "PaymentFailed") {
@@ -45,7 +41,6 @@ export class PaymentPageComponent {
   }
 
   onSubmit() {
-
     const paymentData: PaymentInfo = {
       amount: this.amount,
       cardHolder: this.cardHolder,
@@ -63,4 +58,5 @@ export class PaymentPageComponent {
       alert("Inserisci tutti i campi");
     }
   }
+
 }

@@ -8,26 +8,21 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class RequiredService {
-
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private requiredSource = new BehaviorSubject<required | null>(this.loadInitialRequired());
   currentRequired = this.requiredSource.asObservable();
 
-
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public getRequiredByScenarioId(idChoiche: number): Observable<required> {
-
     return this.http.get<required>(this.apiServerUrl + '/scelte/' + idChoiche + '/required');
   }
 
   public getRequired(idRequired: number): Observable<required> {
-
     return this.http.get<required>(this.apiServerUrl + '/required/' + idRequired);
   }
 
   public addRequired(required: required): Observable<required> {
-
     return this.http.post<required>(this.apiServerUrl + '/required', required);
   }
 
@@ -40,7 +35,6 @@ export class RequiredService {
         console.error('Errore durante eliminazione dello required', error.message);
       }
     });
-
   }
 
   loadInitialRequired(): required | null {
@@ -50,7 +44,6 @@ export class RequiredService {
   changeRequired(newRequired: required) {
     this.requiredSource.next(newRequired);
     this.localStorageService.setItem('currentRequired', newRequired);
-
   }
 
   getCurrentRequired(): required | null {

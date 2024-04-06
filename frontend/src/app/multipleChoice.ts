@@ -4,5 +4,6 @@ export class multipleChoice {
         public id_scenario: number,
         public testo: string,
         public id_scenario_successivo: number
-    ) {}
+    ) { }
+
 }

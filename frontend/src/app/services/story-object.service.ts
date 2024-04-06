@@ -7,7 +7,6 @@ import { storyObject } from '../storyObject';
 @Injectable({
   providedIn: 'root'
 }) export class storyObjectService {
-
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private storyObjectSource = new BehaviorSubject<storyObject | null>(this.loadInitialStoryObject());
   currentstoryObject = this.storyObjectSource.asObservable();
@@ -15,17 +14,14 @@ import { storyObject } from '../storyObject';
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public getStoryObjectByStoryId(idStoria: number): Observable<storyObject[]> {
-
     return this.http.get<storyObject[]>(this.apiServerUrl + '/storie/' + idStoria + '/oggetti');
   }
 
   public getStoryObject(idStoryObject: number): Observable<storyObject> {
-
     return this.http.get<storyObject>(this.apiServerUrl + '/oggetti/' + idStoryObject);
   }
 
   public addStoryObject(storyObject: storyObject): Observable<storyObject> {
-
     return this.http.post<storyObject>(this.apiServerUrl + '/oggetti', storyObject);
   }
 
@@ -42,7 +38,6 @@ import { storyObject } from '../storyObject';
         console.error('Errore durante eliminazione dello storyObject', error.message);
       }
     });
-
   }
 
   loadInitialStoryObject(): storyObject | null {
@@ -52,7 +47,6 @@ import { storyObject } from '../storyObject';
   changeStoryObject(newstoryObject: storyObject) {
     this.storyObjectSource.next(newstoryObject);
     this.localStorageService.setItem('currentstoryObject', newstoryObject);
-
   }
 
   getCurrentStoryObject(): storyObject | null {

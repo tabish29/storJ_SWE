@@ -8,27 +8,21 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MultipleChoiceService {
-
-
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private multipleChoiceSource = new BehaviorSubject<multipleChoice | null>(this.loadInitialMultipleChoice());
   currentmultipleChoice = this.multipleChoiceSource.asObservable();
 
-
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public getMultipleChoiceByScenarioId(idScenario: number): Observable<multipleChoice[]> {
-
     return this.http.get<multipleChoice[]>(this.apiServerUrl + '/scenari/' + idScenario + '/scelte/multipla');
   }
 
   public addMultipleChoice(multipleChoice: multipleChoice): Observable<multipleChoice> {
-
     return this.http.post<multipleChoice>(this.apiServerUrl + '/scelte/multipla', multipleChoice);
   }
 
   public updateMultipleChoice(multipleChoice: multipleChoice): Observable<multipleChoice> {
-
     return this.http.put<multipleChoice>(this.apiServerUrl + '/scelte/' + multipleChoice.id + '/multipla', multipleChoice);
   }
 
@@ -55,4 +49,5 @@ export class MultipleChoiceService {
   getCurrentMultipleChoice(): multipleChoice | null {
     return this.multipleChoiceSource.value;
   }
+
 }

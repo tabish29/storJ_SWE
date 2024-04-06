@@ -8,28 +8,22 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SingleChoiceService {
-
-
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private singleChoiceSource = new BehaviorSubject<singleChoice | null>(this.loadInitialSingleChoice());
   private isChoiceCreated!: boolean;
   currentsingleChoice = this.singleChoiceSource.asObservable();
 
-
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public getSingleChoiceByScenarioId(idScenario: number): Observable<singleChoice> {
-
     return this.http.get<singleChoice>(this.apiServerUrl + '/scenari/' + idScenario + '/scelte/indovinello');
   }
 
   public addSingleChoice(singleChoice: singleChoice): Observable<singleChoice> {
-
     return this.http.post<singleChoice>(this.apiServerUrl + '/scelte/indovinello', singleChoice);
   }
 
   public updateSingleChoice(singleChoice: singleChoice): Observable<singleChoice> {
-
     return this.http.put<singleChoice>(this.apiServerUrl + '/scelte/' + singleChoice.id + '/indovinello', singleChoice);
   }
 
@@ -44,7 +38,6 @@ export class SingleChoiceService {
 
   }
 
-
   loadInitialSingleChoice(): singleChoice | null {
     return this.localStorageService.getItem('currentSingleChoice');
   }
@@ -52,7 +45,6 @@ export class SingleChoiceService {
   changeSingleChoice(newSingleChoice: singleChoice) {
     this.singleChoiceSource.next(newSingleChoice);
     this.localStorageService.setItem('currentSingleChoice', newSingleChoice);
-
   }
 
   getCurrentsingleChoice(): singleChoice | null {

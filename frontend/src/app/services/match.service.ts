@@ -10,7 +10,6 @@ import { match } from '../match';
   providedIn: 'root'
 })
 export class MatchService {
-
   private apiServerUrl = 'http://localhost:8080/api/v1';
   private matchSource = new BehaviorSubject<match | null>(this.loadInitialMatch());
   currentMatch = this.matchSource.asObservable();
@@ -20,12 +19,10 @@ export class MatchService {
   constructor(private http: HttpClient, private localStorageService: LocalStorageService, private scenarioService: ScenarioService, private userService: UserService) { }
 
   public getMatchByUser(idUser: number): Observable<match[]> {
-
     return this.http.get<match[]>(this.apiServerUrl + '/utenti/' + idUser + '/partite');
   }
 
   public getMatch(idmatch: number): Observable<match> {
-
     return this.http.get<match>(this.apiServerUrl + '/partite/' + idmatch);
   }
 
@@ -35,7 +32,6 @@ export class MatchService {
   }
 
   public updateMatch(match: match): Observable<match> {
-
     return this.http.put<match>(this.apiServerUrl + '/partite/' + match.id, match);
   }
 
@@ -47,7 +43,6 @@ export class MatchService {
         console.error('Errore durante eliminazione della partita', error.message);
       }
     });
-
   }
 
   loadInitialMatch(): match | null {
@@ -67,8 +62,9 @@ export class MatchService {
   getIsFirstMatch(): boolean {
     return this.isFirstMatch;
   }
-  
+
   setIsFirstMatch(value: boolean) {
     this.isFirstMatch = value;
   }
+
 }

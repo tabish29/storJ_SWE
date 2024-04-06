@@ -17,7 +17,6 @@ import { StoryService } from '../../services/story.service';
 })
 export class FormSingleChoiceComponent {
 
-  //inserire le variabili che servono nel form della creazione della singleChoice 
   idScenario = 0;
   testo = '';
   risposta = '';
@@ -28,10 +27,9 @@ export class FormSingleChoiceComponent {
   selectedObjectId: number = -1;
   isInTextEditMode!: boolean;
   currentSingleChoiche!: singleChoice | null;
-  isBottonDisabled: boolean = true; 
+  isBottonDisabled: boolean = true;
   textCorrectAnswer!: string;
   textWrongAnswer!: string;
-
 
   constructor(private http: HttpClient, private singleChoiceService: SingleChoiceService, private scenarioService: ScenarioService, private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
 
@@ -41,13 +39,12 @@ export class FormSingleChoiceComponent {
     this.loadStoryObjects();
     this.isInTextEditMode = this.storyService.isStoryCompleted();
     this.loadCurrentSingleChoice();
-
   }
 
   loadCurrentSingleChoice(): void {
     this.currentSingleChoiche = this.localStorageService.getItem("currentSingleChoice");
 
-    if(this.isInTextEditMode && this.currentSingleChoiche){
+    if (this.isInTextEditMode && this.currentSingleChoiche) {
       this.setTextCorrectAnswer(this.currentSingleChoiche.id_scenario_risposta_corretta);
       this.setTextWrongAnswer(this.currentSingleChoiche.id_scenario_risposta_sbagliata);
     }
@@ -86,8 +83,7 @@ export class FormSingleChoiceComponent {
   }
 
 
-  public saveSingleChoice(singleChoice: singleChoice): void {
-
+  saveSingleChoice(singleChoice: singleChoice): void {
     this.singleChoiceService.addSingleChoice(singleChoice).subscribe(
       (response: singleChoice) => {
         this.singleChoiceService.changeSingleChoice(response);
@@ -95,7 +91,6 @@ export class FormSingleChoiceComponent {
         this.router.navigateByUrl('/singlechoice');
       },
       (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
         if (error.error.code == "UtenteAlreadySigned") {
           alert(error.error.message);
         } else {
@@ -106,7 +101,6 @@ export class FormSingleChoiceComponent {
   }
 
   onSubmit() {
-    //decidere se servono le infomazioni che vengono aggiunte direttamente dal backend(da decidere)
     const singleChoiceData: singleChoice = {
       id: 0,
       id_scenario: this.idScenario,
@@ -144,7 +138,6 @@ export class FormSingleChoiceComponent {
     this.isBottonDisabled = false;
   }
 
-  // metodo per obbligare l'utente a modificare almeno uno dei due campi
   isUpdated(): boolean {
     console.log();
     return this.isBottonDisabled;
@@ -164,20 +157,16 @@ export class FormSingleChoiceComponent {
 
       console.log("i nuovi dati del'indovinello: " + JSON.stringify(newSingleChoicheData));
 
-
       this.singleChoiceService.updateSingleChoice(newSingleChoicheData).subscribe({
         next: (updatedSingleChoice) => {
-
           this.singleChoiceService.changeSingleChoice(newSingleChoicheData);
           console.log("Indovinello aggiornata con successo:", updatedSingleChoice);
 
           this.router.navigateByUrl('/singlechoice').then(() => {
-            // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)
             window.location.reload();
           });
         },
         error: (error) => {
-
           console.error("Errore durante l'aggiornamento della scelta multipla:", error);
         }
       });

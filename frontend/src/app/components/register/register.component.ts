@@ -13,20 +13,19 @@ export class RegisterComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient,private userService: UserService,private router: Router) { }
+  constructor(private http: HttpClient, private userService: UserService, private router: Router) { }
 
-  public saveUser(user: user): void{
+  saveUser(user: user): void {
     this.userService.addUser(user).subscribe(
       (response: user) => {
         alert("Registrazione andata a buon fine, " + response.username + "!")
-        //redirect login!
-        this.router.navigateByUrl('/login');
 
+        this.router.navigateByUrl('/login');
       },
       (error: HttpErrorResponse) => {
-        if(error.error.code == "UtenteAlreadySigned"){
+        if (error.error.code == "UtenteAlreadySigned") {
           alert(error.error.message);
-        }else{
+        } else {
           alert(error.error.message);
         }
       }
@@ -34,12 +33,11 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-      
     const userData: user = {
-        id: 0,
-        username: this.username,
-        password: this.password,
-        statoPagamento: false
+      id: 0,
+      username: this.username,
+      password: this.password,
+      statoPagamento: false
     };
 
     this.saveUser(userData);

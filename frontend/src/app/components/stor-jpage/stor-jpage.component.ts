@@ -7,7 +7,7 @@ import { user } from '../../user';
   styleUrl: './stor-jpage.component.css'
 })
 export class StorJPageComponent {
-  currentUser: user | null = null; // Potrebbe non esserci un utente loggato
+  currentUser: user | null = null;
   username: String | undefined = '';
 
   ngOnInit() {
@@ -21,8 +21,5 @@ export class StorJPageComponent {
       this.username = this.currentUser?.username;
     }
   }
-
-
-
 
 }

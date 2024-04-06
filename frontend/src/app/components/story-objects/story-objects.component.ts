@@ -12,8 +12,6 @@ import { StoryService } from '../../services/story.service';
   styleUrl: './story-objects.component.css'
 })
 export class StoryObjectsComponent {
-
-  //Da modificare fare in modo che vengano visualizzate solo le storie dell'utente loggato
   storyObjects: storyObject[] = [];
   storyId!: number;
   isInTextEditMode!: boolean;
@@ -21,12 +19,10 @@ export class StoryObjectsComponent {
   constructor(private storyObjectService: storyObjectService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
 
   ngOnInit(): void {
-    // Recupera l'ID della storia corrente dal localStorage
     const currentStory = this.localStorageService.getItem('currentStory');
     this.storyId = currentStory.id;
     this.loadstoryObjects();
     this.isInTextEditMode = this.storyService.isStoryCompleted();
-    
   }
 
   loadstoryObjects(): void {
@@ -44,11 +40,12 @@ export class StoryObjectsComponent {
   removestoryObject(storyObjectId: number): void {
     this.storyObjectService.deleteStoryObject(storyObjectId);
     this.loadstoryObjects();
-    location.reload(); //per fare il refresh dell'applicazione
+    location.reload();
   }
 
   editStoryObjectText(newStoryObject: storyObject) {
     this.storyObjectService.changeStoryObject(newStoryObject);
     this.router.navigateByUrl("/formStoryObject");
   }
+
 }

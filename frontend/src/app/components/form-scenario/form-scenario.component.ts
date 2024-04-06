@@ -18,7 +18,6 @@ import { StoryService } from '../../services/story.service';
   styleUrl: './form-scenario.component.css'
 })
 export class FormScenarioComponent implements OnInit {
-  //inserire le variabili che servono nel form della creazione dello scenario 
 
   idStoria = -1;
   testo = '';
@@ -28,8 +27,6 @@ export class FormScenarioComponent implements OnInit {
   selectedObjectId: number = -1;
   isInTextEditMode!: boolean;
   currentScenario!: scenario | null;
-
-
 
   constructor(private http: HttpClient, private scenarioService: ScenarioService, private storyObjectService: storyObjectService, private dropService: DropService, private router: Router, private localStorageService: LocalStorageService, private storyService: StoryService) { }
 
@@ -42,7 +39,6 @@ export class FormScenarioComponent implements OnInit {
 
   loadCurrentscenario(): void {
     this.currentScenario = this.localStorageService.getItem("currentScenario");
-
   }
 
   loadStoryId() {
@@ -61,32 +57,28 @@ export class FormScenarioComponent implements OnInit {
         (objects) => {
           this.storyObjects = objects;
         },
-        (error) => alert('Errore nel caricamento degli oggetti')//(Da modificare) 
+        (error) => alert('Errore nel caricamento degli oggetti')
       );
     }
   }
 
-  public saveDrop(drop: drop) {
-
+  saveDrop(drop: drop) {
     this.dropService.addDrop(drop).subscribe(
       (response: drop) => {
+
         this.dropService.changeDrop(response);
         console.log("Drop creato con successo!");
-
       },
       (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
         console.log("c'è stato un errore nella crezione del drop" + error.error.message)
       }
     );
   }
 
-  public saveScenario(scenario: scenario): void {
-
+  saveScenario(scenario: scenario): void {
     this.scenarioService.addScenario(scenario).subscribe(
       (response: scenario) => {
         this.scenarioService.changeScenario(response);
-      
 
         if (this.selectedObjectId != -1) {
           const objDrop: drop = {
@@ -97,14 +89,14 @@ export class FormScenarioComponent implements OnInit {
           this.saveDrop(objDrop);
 
         }
+
         this.router.navigateByUrl('/createStory').then(() => {
-          // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)
+
           window.location.reload();
         });
 
       },
       (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
         if (error.error.code == "UtenteAlreadySigned") {
           alert(error.error.message);
         } else {
@@ -142,7 +134,6 @@ export class FormScenarioComponent implements OnInit {
     this.testo = newTesto; // Aggiorna la variabile testo del componente
   }
 
-  // metodo per obbligare l'utente a modificare 
   isUpdated(): boolean {
     return !this.testo.trim();
   }
@@ -158,26 +149,20 @@ export class FormScenarioComponent implements OnInit {
         tipo_scenario: this.currentScenario.tipo_scenario
       };
 
-
       this.scenarioService.updateScenario(newscenarioData).subscribe({
         next: (updatedScenario) => {
-
           this.scenarioService.changeScenario(newscenarioData);
           console.log("Scenario aggiornato con successo:", updatedScenario);
 
           this.router.navigateByUrl('/createStory').then(() => {
-            // Ricarica la pagina dopo la navigazione(da implementare anche nello scenario,nel drop e nel required)
             window.location.reload();
           });
         },
         error: (error) => {
-
           console.error("Errore durante l'aggiornamento dello scenario:", error);
         }
       });
-
-
     }
-
   }
+
 }

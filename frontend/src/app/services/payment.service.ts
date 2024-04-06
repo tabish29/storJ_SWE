@@ -8,9 +8,7 @@ import { UserService } from './userservice';
   providedIn: 'root'
 })
 export class PaymentService {
-
   private apiServerUrl = 'http://localhost:8080/api/v1';
-
 
   constructor(private http: HttpClient, private userService: UserService) { }
 

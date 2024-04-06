@@ -13,7 +13,6 @@ import { ScenarioService } from '../../services/scenario.service';
   styleUrl: './single-choice.component.css'
 })
 export class SingleChoiceComponent {
-
   singleChoice!: singleChoice;
   scenarioId!: number;
   isInTextEditMode!: boolean;
@@ -67,7 +66,6 @@ export class SingleChoiceComponent {
         console.log("Testo dello scenario corretto impostato con successo:", this.textCorrectAnswer);
       },
       error: (error) => {
-
         console.error("Errore durante il recupero del testo dello scenario:", error);
       }
     });
@@ -80,7 +78,6 @@ export class SingleChoiceComponent {
         console.log("Testo dello scenario sbagliato impostato con successo:", this.textWrongAnswer);
       },
       error: (error) => {
-
         console.error("Errore durante il recupero del testo dello scenario:", error);
       }
     });
