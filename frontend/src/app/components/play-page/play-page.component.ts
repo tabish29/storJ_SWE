@@ -229,7 +229,8 @@ export class PlayPageComponent implements OnInit {
 
       }
 
-      const currentMatch = this.localStorageService.getItem("currentMatch");
+      //const currentMatch = this.localStorageService.getItem("currentMatch");
+      const currentMatch=this.matchService.getCurrentMatch();
 
       if (!currentMatch) {
         console.log("Nessuna partita corrente trovata.");

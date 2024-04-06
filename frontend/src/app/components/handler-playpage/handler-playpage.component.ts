@@ -113,22 +113,22 @@ export class HandlerPlaypageComponent {
   }
 
   public async saveMatch(match: match): Promise<void> {
-
-    await this.matchService.addMatch(match).subscribe(
-      (response: match) => {
-        this.matchService.changeMatch(response);
-        console.log("Partita creata con successo!");
-
-      },
-      (error: HttpErrorResponse) => {
-        //gestire i vari codici di errore che arrivano da parte della richiesta http(da fare)
+    try {
+      const response = await this.matchService.addMatch(match);
+      this.matchService.changeMatch(response);
+      console.log("Partita creata con successo!");
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) {
+     
         if (error.error.code == "UtenteAlreadySigned") {
           alert(error.error.message);
         } else {
           alert("c'è stato un errore:" + error.error.message);
         }
+      } else {
+        console.error("Errore durante la creazione della partita:", error);
       }
-    );
+    }
   }
 
   private async searchStoriesByTitle(searchValue: string): Promise<void> {

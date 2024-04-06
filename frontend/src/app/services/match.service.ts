@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { ScenarioService } from './scenario.service';
 import { UserService } from './userservice';
@@ -29,9 +29,9 @@ export class MatchService {
     return this.http.get<match>(this.apiServerUrl + '/partite/' + idmatch);
   }
 
-  public addMatch(match: match): Observable<match> {
-
-    return this.http.post<match>(this.apiServerUrl + '/partite', match);
+  public async addMatch(match: match): Promise<match> {
+    const result = await firstValueFrom(this.http.post<match>(`${this.apiServerUrl}/partite`, match));
+    return result;
   }
 
   public updateMatch(match: match): Observable<match> {
