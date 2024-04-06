@@ -52,7 +52,6 @@ span {
     align-items: center;
     justify-content: center;
     width: 500px;
-    height: 300px;
     background-color: white;
 }
 
@@ -84,6 +83,7 @@ span {
     justify-content: center;
     text-align: center;
     width: 100%;
+    margin-bottom: 1.5rem;
     height: auto;
     border: none !important;
 }
@@ -120,7 +120,7 @@ span {
 
 .div-text-scenario-multiple {
     margin-bottom: 1rem;
-    padding-bottom: 2rem;
+    padding-bottom: 0.5rem;
     border-bottom: 2px solid rgb(204, 204, 204, 0.7);
 }
 
@@ -139,7 +139,7 @@ span {
     display: inline;
     justify-content: center;
     text-align: center;   
-    padding: 10px;
+    padding: 0.5rem;
 }
 
 .button-multiple-choice {
