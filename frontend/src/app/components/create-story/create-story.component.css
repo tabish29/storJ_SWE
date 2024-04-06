@@ -74,6 +74,7 @@ span {
 }
 
 button {
+    font-size: 10pt;
     color: white;
     width: 95%;
     padding: 7.5px 7.5px;
