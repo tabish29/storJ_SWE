@@ -3,7 +3,7 @@
     <p id="title">Il tuo <span>inventario</span></p>
   </div>
   <div *ngIf="data && data.inventoryItems && data.inventoryItems.length > 0; else noItems">
-    <p id="pop-up-text" *ngFor="let item of data.inventoryItems">{{ item.nome }}</p>
+    <p id="pop-up-text" *ngFor="let item of data.inventoryItems" matTooltip="Descrizione: {{item.descrizione}}" matTooltipPosition="right">{{ item.nome }}</p>
     <p></p>
   </div>
   <ng-template #noItems>
