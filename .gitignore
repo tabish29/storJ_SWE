@@ -34,3 +34,10 @@ build/
 
 **/.DS_Store
 **/volumes
+
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.pdf
+*.synctex.gz
