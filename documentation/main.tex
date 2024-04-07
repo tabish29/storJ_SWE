@@ -686,7 +686,7 @@ Come è stato già citato prima, il progetto è stato concepito seguendo un'arch
     \item \textbf{Classi}, utilizzate per definire l'architettura interna dei vari oggetti manipolati dall'app, inerenti alla struttura del database di riferimento (ad esempio scenari, storie oppure partite)
 \end{itemize}
 
-\subsection*{Backend}
+\subsection{Backend}
 Per il backend è stato utilizzato il framework \textbf{Spring}, principalmente attuato per velocizzare le fasi di sviluppo. \textit{Spring} inoltre fornisce funzionalità molto comode per lo sviluppo di backend, come la facilità di sviluppo di \textbf{REST API} ed il collegamento ad un \textbf{database}. Inoltre, garantisce l'approccio relativo alla \textbf{Dependency Injection}, attraverso il quale il contenitore \textit{Spring} “inietta” oggetti in altre “dipendenze”. In poche parole, ciò consente un accoppiamento libero dei componenti e sposta la responsabilità della gestione dei componenti al framework.\vspace*{7pt}\\
 Passando all'implementazione delle \textit{API}, l'approccio utilizzato è \textit{Contract-First} secondo lo standard \textbf{OpenAPI 3.0}. Viene realizzata un'interfaccia, la quale permette ad un plugin di \textit{Spring} di generare automaticamente i diversi metodi che verranno sovrascritti per implementare le funzionalità volute. Sono state realizzate le \textbf{CRUD} di tutte le strutture collegate al \textit{database}, con alcune chiamate \textit{custom} per ottenere liste personalizzate da visualizzare nel frontend.\vspace*{7pt}\\
 Il collegamento con il \textit{database} è stato realizzato attraverso il plugin \textbf{Spring Data JPA}, il quale permette in maniera veloce di collegare il backend con la base di dati.\vspace*{7pt}\\
@@ -727,71 +727,672 @@ Il database viene avviato tramite il \textit{docker-compose.yml} utilizzato per 
 Per il servizio di pagamento è stato utilizzato l'applicativo fornito nelle specifiche tecniche, il quale espone una \textit{REST API} che simula il funzionamento di un pagamento. La chiamata \textit{API} è stata \textit{wrappata} all'interno delle chiamate del backend, permettendo una gestione più flessibile delle risposte ricevute. L’eseguibile viene eseguito grazie ad un Dockerfile, il quale permette di effettuare il \textit{build} della sua \textit{Docker image} e di essere eseguito con \textit{docker-compose}.
 
 \subsection{DevOps}
-Per quanto riguarda la parte di \textbf{Continuous Integration} (\textit{CI}) e di \textbf{Continuous Deployment} (\textit{CD}) sono state automatizzate le \textit{pipeline} attraverso \textbf{Jenkins}. L'esecuzione di \textit{Jenkins} avviene all'interno di una \textit{Virtual Machine} (Ubuntu Server).\vspace*{7pt}\\
+Per la sezione di \textbf{Continuous Integration} (\textit{CI}) e di \textbf{Continuous Deployment} (\textit{CD}) sono state automatizzate le \textit{pipeline} attraverso \textbf{Jenkins}. L'esecuzione di \textit{Jenkins} avviene all'interno di una \textit{Virtual Machine} (Ubuntu Server).\vspace*{7pt}\\
+\textit{Nota bene}: le pipeline ricoprono l’intero progetto ad esclusione della parte di frontend.\vspace*{7pt}\\
+\textit{Jenkins} permette di scrivere \textit{pipeline} in linguaggio \textbf{Groovy}. La seguente è divisa in diversi \textit{stage}, ognuno con step separati. Inoltre, inizialmente, vengono specificati i tool e le variabili d'ambiente adeguate all'interno della \textit{pipeline}.\vspace*{7pt}
+\begin{lstlisting}[language = JAVA]
+pipeline {
+    agent any
+    
+    tools {
+        maven "m3"
+    }
+    
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials("dockerhub-imolasportiva")
+        JENKINS_PATH = "/home/jenkins_home/jenkins/workspace/storj/CI_storj/storj_SWE"
+    }
+    
+    stages {
+        stage('Git') {
+            steps {
+                sh "cd /home/jenkins_home/jenkins/workspace/storj/CI_storj/ && git clone https://github.com/DavideDeRosa/storj_SWE"
+                sh "cd ${JENKINS_PATH} && git checkout ${branch} && git pull"
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                sh "cd ${JENKINS_PATH}/backend/ && mvn clean package"
+            }
+        }
+        
+        stage('Download Dockerfile') {
+            steps {
+                sh "curl --location 'https://raw.githubusercontent.com/DavideDeRosa/storJ_SWE/
+                                    develop/CI_CD/Dockerfile' --output ${JENKINS_PATH}/Dockerfile"
+            }
+        }
+        
+        stage('Copy .jar') {
+            steps {
+                sh "cp -r ${JENKINS_PATH}/backend/target/*.jar ${JENKINS_PATH}"
+                sh "cd ${JENKINS_PATH} && mv *.jar storj.jar"
+            }
+        }
+        
+        stage('Docker Login') {
+            steps {
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+            }
+        }
+        
+        stage('Docker Build and Push') {
+            steps {
+                script{
+                    sh "cd ${JENKINS_PATH} && docker build -t davidederosa24/storj:latest ."
+                    sh "docker push davidederosa24/storj:latest"
+                    
+                    sh "docker rmi -f davidederosa24/storj:latest"
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            sh "docker logout"
+            sh "rm -rf ${JENKINS_PATH}"
+        }
+    }
+}
+\end{lstlisting}
+Si osservano ora i singoli \textit{stage} che corrispondono alla \textit{pipeline} descritta:
+\begin{itemize}[label = {-}]
+    \itemsep0em
+    \item \textbf{Git}, viene clonata la repository in un path specifico, spostandosi sul \textit{branch} specificato nei parametri d'avvio della \textit{pipeline}
+    \item \textbf{Build}, viene eseguito \textit{Maven} per ottenere l'eseguibile del backend
+    \item \textbf{Download Docker}, viene scaricato un \textit{Dockerfile} per il \textit{build} della \textit{Docker image} (questo Dockerfile è differente dal Dockerfile di deploy)
+    \item \textbf{Copy .jar}, viene preso l'eseguibile dell'applicativo, rinominato e spostato in un path differente
+    \item \textbf{Docker login}, viene effettuato il login a \textit{DockerHub}, il quale permetterà di caricare la \textit{Docker image} in un repository. \textit{Image} sarà necessaria per la fase di \textit{CD}
+    \item \textbf{Docker Build and Push}, viene effettuato il \textit{build} ed il successivo \textit{push} della \textit{Docker image} sulla repository di \textit{DockerHub}, con successiva rimozione dell'\textit{image} per liberare spazio
+\end{itemize}
+Concludendo, nella sezione \textit{post} sono specificati i comandi da eseguire alla conclusione della \textit{pipeline}, in questa casistica avviene indipendentemente dall'esito.\vspace*{7pt}\\
+Successivamente è riportata la \textbf{Continuous Deployment} (\textit{CD}), sviluppata come segue:
+\begin{lstlisting}[language = JAVA]
+pipeline {
+    agent any
+    
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials("dockerhub-imolasportiva")
+        PASSWORD_VM = credentials("password_vm")
+        USERNAME_VM_DEPLOY = credentials("username_vm_deploy")
+        IP_VM_DEPLOY = credentials("ip_vm_deploy")
+        JENKINS_PATH = "/home/jenkins_home/jenkins/workspace/storj/CD_storj"
+    }
+    
+    stages {
+        stage('Git') {
+            steps {
+                git branch: "${branch}", url: "https://github.com/DavideDeRosa/storj_SWE"
+            }
+        }
+        
+        stage('Package') {
+            steps {
+                sh "rm -rf ${JENKINS_PATH}/backend"
+                sh "rm -rf ${JENKINS_PATH}/frontend"
+                sh "rm -rf ${JENKINS_PATH}/db"
+                sh "rm -rf ${JENKINS_PATH}/payment"
+                sh "rm -rf ${JENKINS_PATH}/.dockerignore"
+                sh "rm -rf ${JENKINS_PATH}/.gitignore"
+                sh "rm -rf ${JENKINS_PATH}/docker-compose.yml"
+                sh "rm -rf ${JENKINS_PATH}/README.md"
+                sh "cd ${JENKINS_PATH} && ls -la"
+                sh "cd ${JENKINS_PATH} && zip -r storj.zip CI_CD/*"
+            }
+        }
+        
+        stage('Sending zip') { 
+            steps { 
+                script { 
+                    def output = sh(script: 'sshpass -p "$PASSWORD_VM" scp ${JENKINS_PATH}/storj.zip $USERNAME_VM_DEPLOY@$IP_VM_DEPLOY:storj/', returnStdout: true) 
+                    echo output
+                } 
+            } 
+        }
+        
+        stage('Deploy') {
+            steps {
+                script {
+                    sh """sshpass -p $PASSWORD_VM ssh -p 22 $USERNAME_VM_DEPLOY@$IP_VM_DEPLOY << EOF 
+                    cd storj/
+                    rm -rf CI_CD/
+                    unzip -o storj.zip
+                    cd CI_CD/
+                    ls -la
+                    echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                    docker-compose up --build -d
+                    cd ..
+                    rm storj.zip
+                    exit
+                    EOF"""
+                }
+            }
+        }
+        
+        stage('House keeping') {
+            steps {
+                sh "rm -rf ${JENKINS_PATH}/*"
+            }
+        }
+    }
+}
+\end{lstlisting}
+Soffermandosi nuovamente sui differenti elementi, si osserva:
+\begin{itemize}[label = {-}]
+    \itemsep0em
+    \item \textbf{Git}, viene clonata la repository in un path specifico, spostandosi sul \textit{branch} specificato nei parametri d'avvio della \textit{pipeline}
+    \item \textbf{Package}, vengono rimossi tutti i file inutili, lasciando soltanto i file necessari al deploy della \textit{Virtual Machine} dedicata (sono stati realizzati file Docker e Docker-compose specifici per la fase di DevOps). Una volta ottenuti i dati richiesti, si crea un pacchetto compresso
+    \item \textbf{Sending zip}, collegamento in \textit{SSH} alla \textit{Virtual Machine}, a cui è inviato il paccjetto compresso
+    \item \textbf{Deploy}, collegandosi in \textit{SSH} alla \textit{Virtual Machine} è estratto il pacchetto in questione, affinchè sia possibile porsi al suo interno. Di seguito verrà eseguito il comando \textbf{docker-compose up --build -d}, il quale permetterà di avviare i diversi servizi attraverso \textit{docker-compose} in background (-d). Al termine, verrà rimosso il pacchetto compresso per liberare dello spazio
+    \item \textbf{House keeping}, fase di pulizia della \textit{Virtual Machine} di \textit{Jenkins}
+\end{itemize}
+Le seguenti \textit{pipeline} permettono il deploy su una \textit{macchina virtuale} dedicata all'applicativo di backend, con database e servizio di pagamento annessi.
 
-\newpage
-\subsection{Tavola media dei volumi}
-In questa sezione è specificato il numero stimato di istanze per ogni entità e relazione dello schema. I valori sono necessariamente approssimati, ma oltre tutto indicativi. Si prende come riferimento una realtà universitaria.
+\section{Dario del progetto}
 
+\subsection{Sprint 0}
+Prima dell'inizio vero e proprio dello sviluppo dell'applicativo, la scelta del gruppo è stata quella di svolgere un primo sprint in cui è stato scelto lo stack di sviluppo, sono stati realizzati i design model necessari ed infine è stato svolto il setup della repository GitHub. Grazie a questa scelta è stato possibile concentrarsi completamente sulla pianificazione dei compiti da svolgere e la suddivisione degli sprint successivi.
+
+\subsection{Sprint 1}
+Periodo: 02/03/2024 - 06/03/2024\vspace*{7pt}\\
+Ruoli:
+\begin{itemize}[label = { }]
+    \itemsep0em
+    \item Software Developer: Tabish Ghazanfar, Davide De Rosa
+    \item Product Owner: Matteo Canghiari
+    \item Scrum Master: Ossama Nadifi
+\end{itemize}
+Nel primo periodo di sviluppo sono state realizzate le funzioni base del'applicazione. Il focus è stato sulla realizzazione delle funzioni di autenticazione e pagamento. Suddividendole in business logic e interfaccia, il team di sviluppo ha completato le task osservabili sulla tabella di fine sprint.\vspace*{7pt}\\
 
 \begin{table}[h]
     \centering
     \begin{tabularx}{\textwidth}{|X|X|X|X|}
         \hline
-        \bf Concetto & \bf Tipo & \bf Volume \\
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
         \hline
-        Utente & Entità & 305 \\
+        & Registrazione [UC1] & & \\
         \hline
-        Studente & Entità & 300 \\
+        & Login [UC2] & & \\
         \hline
-        Docente & Entità & 5 \\
+        & Logout [UC3] & & \\
         \hline
-        Tabella\_Esercizio & Entità & 50 \\
-        \hline
-        Attributo & Entità & 200 \\
-        \hline
-        Test & Entità & 10 \\
-        \hline
-        Quesito & Entità & 100 \\
-        \hline
-        Domanda\_Chiusa & Entità & 50 \\
-        \hline
-        Opzione\_Risposta & Entità & 150 \\
-        \hline
-        Domanda\_Codice & Entità & 50 \\
-        \hline
-        Sketch\_Codice & Entità & 50 \\
-        \hline
-        Messaggio & Entità & 610 \\
-        \hline
-        Messaggio\_Studente & Entità & 600 \\
-        \hline
-        Creazione & Relazione & 50 \\
-        \hline
-        Completamento & Relazione & 3000 \\
-        \hline
-        Invio & Relazione & 18000 \\
-        \hline
-        Ricezione & Relazione & 10 \\
-        \hline
-        Pubblicazione & Relazione & 6100 \\
-        \hline
-        Risposta & Relazione & 30000 \\
-        \hline
-        Composizione & Relazione & 1000 \\
-        \hline
-        Afferenza & Relazione & 5000 \\
-        \hline
-        Combinazione & Relazione & 10000 \\
-        \hline
-        Vincolo Integrità & Relazione & 40000 \\
-        \hline
-        Disposizione & Relazione & 7500 \\
-        \hline
-        Soluzione & Relazione & 2500 \\
+        & Pagamento [UC4] &  &  \\
         \hline
     \end{tabularx}
-    \caption{Stima della tavola media dei volumi riferita al progetto svolto.}
+    \caption*{Tabella Sprint 1 - Fase 1 - 02/03/2024}
 \end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        Creazione bussness logic Registrazione [UC1] & & & \\
+        \hline
+        Creazione interfaccia grafica Registrazione [UC1] & & & \\
+        \hline
+        Creazione business logic Login [UC2] & & & \\
+        \hline
+        Creazione interfaccia grafica Login [UC2] & &  &  \\
+        \hline
+        Creazione business logic Logout [UC3] & &  &  \\
+        \hline
+        Creazione interfaccia grafica Logout [UC3] & &  &  \\
+        \hline
+        Creazione business logic Pagamento[UC4] & &  &  \\
+        \hline
+        Creazione interfaccia grafica Pagamento [UC4] & &  &  \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 1 - Fase 2 - 02/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & Creazione interfaccia grafica Logout [UC3] & Creazione business logic Registrazione [UC1] \\
+        \hline
+        & & & Creazione interfaccia grafica  Registrazione [UC1] \\
+        \hline
+        & & & Creazione business logic Login [UC2] \\
+        \hline
+        & & & Creazione interfaccia grafica Login [UC2] \\
+        \hline
+        & & & Creazione business logic Logout [UC3] \\
+        \hline
+        & & & Creazione business logic Pagamento [UC4] \\
+        \hline
+        & & & Creazione interfaccia grafica Pagamento [UC4] \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 1 - Fase Finale - 06/03/2024}
+\end{table}
+
+\newpage
+\subsection{Sprint 2}
+Periodo: 07/03/2024 - 11/03/2024\vspace*{7pt}\\
+Ruoli:
+\begin{itemize}[label = { }]
+    \itemsep0em
+    \item Software Developer: Matteo Canghiari, Davide De Rosa
+    \item Product Owner: Ossama Nadifi 
+    \item Scrum Master: Tabish Ghazanfar
+\end{itemize}
+Nel secondo sprint il team si è occupato della realizzazione della creazione storia, concentrandosi sulle task relative alla creazione dello scenario e le scelte, ed infine il salvataggio di essa.\vspace*{7pt}\\
+\textit{Nota bene}: per via di impegni esterni al progetto, il gruppo ha deciso di focalizzarsi su meno task rispetto a quanto voluto in modo da poter svolgere una pianificazione più efficiente.
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & Creazione scenario [UC5] & Creazione interfaccia grafica Logout [UC3] & \\
+        \hline
+        & Creazione scelta [UC6] & & \\
+        \hline
+        & Salvataggio storia [UC7] & & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 2 - Fase 1 - 07/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        Implementazione logica frontend creazione scenario [UC5] & & Creazione interfaccia grafica Logout [UC3] & \\
+        \hline
+        Implementazione grafica frontend creazione scenario [UC5] & & & \\
+        \hline
+        Implementazione logica backend creazione scenario [UC5] & & & \\
+        \hline
+        Implementazione logica frontend creazione scelta [UC6] & & & \\
+        \hline
+        Implementazione grafica frontend creazione scelta [UC6] & & & \\
+        \hline
+        mplementazione logica backend creazione scelta [UC6] & & & \\
+        \hline
+        Implementazione logica frontend salvataggio storia [UC7] & & & \\
+        \hline
+        Implementazione grafica frontend salvataggio storia [UC7] & & & \\
+        \hline
+        Implementazione logica backend salvataggio storia [UC7] & & & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 2 - Fase 2 - 07/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & Creazione interfaccia grafica Logout [UC3] & \\
+        \hline
+        & & Implementazione logica frontend creazione scenario [UC5] & \\
+        \hline
+        & & Implementazione grafica frontend creazione scenario [UC5] & \\
+        \hline
+        & & Implementazione logica backend creazione scenario [UC5] & \\
+        \hline
+        & & Implementazione logica frontend creazione scelta [UC6] & \\
+        \hline
+        & & Implementazione grafica frontend creazione scelta [UC6] & \\
+        \hline
+        & & Implementazione logica backend creazione scelta [UC6] & \\
+        \hline
+        & & Implementazione logica frontend salvataggio storia [UC7] & \\
+        \hline
+        & & Implementazione grafica frontend salvataggio storia [UC7] & \\
+        \hline
+        & & Implementazione logica backend salvataggio storia [UC7] & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 2 - Fase Finale - 11/03/2024}
+\end{table}
+
+\clearpage
+\subsection{Sprint 3}
+Periodo: 12/03/2024 - 16/03/2024\vspace*{7pt}\\
+Ruoli:
+\begin{itemize}[label = { }]
+    \itemsep0em
+    \item Software Developer: Tabish Ghazanfar, Davide De Rosa
+    \item Product Owner: Ossama Nadifi 
+    \item Scrum Master: Matteo Canghiari
+\end{itemize}
+Nel terzo sprint il team di sviluppo si è concentrato sulla conclusione di una prima parte del backend, sviluppando la maggior parte delle REST API necessarie. Sono state realizzate anche alcune schermate frontend per la parte di creazione storia, scenario e scelta.
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & Creazione interfaccia grafica Logout [UC3] & \\
+        \hline
+        & & Implementazione logica frontend creazione scenario [UC5] & \\
+        \hline
+        & & Implementazione grafica frontend creazione scenario [UC5] & \\
+        \hline
+        & & Implementazione logica backend creazione scenario [UC5] & \\
+        \hline
+        & & Implementazione logica frontend creazione scelta [UC6] & \\
+        \hline
+        & & Implementazione grafica frontend creazione scelta [UC6] & \\
+        \hline
+        & & Implementazione logica backend creazione scelta [UC6] & \\
+        \hline
+        & & Implementazione logica frontend salvataggio storia [UC7] & \\
+        \hline
+        & & Implementazione grafica frontend salvataggio storia [UC7] & \\
+        \hline
+        & & Implementazione logica backend salvataggio storia [UC7] & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 3 - Fase 1 - 12/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & Implementazione logica frontend creazione scenario [UC5] & Creazione interfaccia grafica Logout [UC3] \\
+        \hline
+        & & Implementazione grafica frontend creazione scenario [UC5] & Implementazione logica backend creazione scenario [UC5] \\
+        \hline
+        & & Implementazione logica frontend creazione scelta [UC6] & Implementazione logica backend creazione scelta [UC6] \\
+        \hline
+        & & Implementazione grafica frontend creazione scelta [UC6] & Implementazione logica backend salvataggio storia [UC7] \\
+        \hline
+        & & Implementazione logica frontend salvataggio storia [UC7] & \\
+        \hline
+        & & Implementazione grafica frontend salvataggio storia [UC7] & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 3 - Fase Finale - 16/03/2024}
+\end{table}
+
+\clearpage
+\subsection{Sprint 4}
+Periodo: 17/03/2024 - 21/03/2024\vspace*{7pt}\\
+Ruoli:
+\begin{itemize}[label = { }]
+    \itemsep0em
+    \item Software Developer: Tabish Ghazanfar, Ossama Nadifi 
+    \item Product Owner: Davide De Rosa
+    \item Scrum Master: Matteo Canghiari
+\end{itemize}
+Nel quarto sprint il team di sviluppo ha concluso tutta la parte di backend, realizzando le diverse REST API necessarie al funzionamento dell’applicativo, lasciando i Test Unitari per lo sprint successivo. Per quanto riguarda il frontend, sono state realizzate la maggior parte delle schermate della piattaforma.
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & Gestione scenario [UC8] & Implementazione logica frontend creazione scenario [UC5] & \\
+        \hline
+        & Gestione scelta [UC9] & Implementazione grafica frontend creazione scenario [UC5] & \\
+        \hline
+        & Gestione storia [UC10] & Implementazione logica frontend creazione scelta [UC6] & \\
+        \hline
+        & Giocare storia [UC11] & Implementazione grafica frontend creazione scelta [UC6] & \\
+        \hline
+        & Gestione partita [UC12] & Implementazione logica frontend salvataggio storia [UC7] & \\
+        \hline
+        & Creazione oggetto [UC13] &  & \\
+        \hline
+        & Gestione oggetto [UC14] &  & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 4 - Fase Finale - 17/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        Implementazione logica backend gestione scenario [UC8] & & Implementazione logica frontend creazione scenario [UC5] & \\
+        \hline
+        Implementazione logica frontend gestione scenario [UC8] & & Implementazione grafica frontend creazione scenario [UC5] & \\
+        \hline
+        Implementazione grafica frontend gestione scenario [UC8] & & Implementazione logica frontend creazione scelta [UC6] & \\
+        \hline
+        Implementazione logica backend gestione scelta[UC9] & & Implementazione grafica frontend creazione scelta [UC6] & \\
+        \hline
+        Implementazione logica frontend gestione scelta[UC9] & & Implementazione logica frontend salvataggio storia [UC7] & \\
+        \hline
+        Implementazione grafica frontend gestione scelta[UC9] & & & \\
+        \hline
+        Implementazione logica backend gestione storia [UC10] & & & \\
+        \hline
+        Implementazione logica frontend gestione storia [UC10] & & & \\
+        \hline
+        Implementazione grafica frontend gestione storia [UC10] & & & \\
+        \hline
+        Implementazione logica backend giocare storia [UC11] & & & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 4 - Fase 2 - 17/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        Implementazione logica frontend giocare storia [UC11] & & & \\
+        \hline
+        Implementazione grafica frontend giocare storia [UC11] & & & \\
+        \hline
+        Implementazione logica backend gestione partita [UC12] & & & \\
+        \hline
+        Implementazione logica frontend gestione partita [UC12] & & & \\
+        \hline
+        Implementazione grafica frontend gestione partita [UC12] & & & \\
+        \hline
+        Implementazione logica backend creazione oggetto [UC13] & & & \\
+        \hline
+        Implementazione logica frontend creazione oggetto [UC13] & & & \\
+        \hline
+        Implementazione grafica frontend creazione oggetto [UC13] & & & \\
+        \hline
+        Implementazione logica backend gestione oggetto [UC14] & & & \\
+        \hline
+        Implementazione logica frontend gestione oggetto [UC14] & & & \\
+        \hline
+        Implementazione grafica frontend gestione oggetto [UC14] & & & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 4 - Fase 2 - 17/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & Implementazione logica backend giocare storia [UC11] & Implementazione logica frontend creazione scenario [UC5] \\
+        \hline
+        & & Implementazione grafica frontend giocare storia [UC11] & Implementazione grafica frontend creazione scenario [UC5] \\
+        \hline
+        & & Implementazione logica frontend gestione partita [UC12] & Implementazione logica frontend creazione scelta [UC6] \\
+        \hline
+        & & Implementazione grafica frontend gestione partita [UC12] & Implementazione grafica frontend creazione scelta [UC6] \\
+        \hline
+        & & & Implementazione logica frontend salvataggio storia [UC7] \\
+        \hline
+        & & & Implementazione logica backend gestione scenario [UC8] \\
+        \hline
+        & & & Implementazione logica backend gestione scelta[UC9] \\
+        \hline
+        & & & Implementazione logica backend gestione storia [UC10] \\
+        \hline
+        & & & Implementazione logica backend giocare storia [UC11] \\
+        \hline
+        & & & Implementazione logica backend gestione partita [UC12] \\
+        \hline
+        & & & Implementazione logica backend creazione oggetto [UC13] \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 4 - Fase Finale - 17/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & & Implementazione logica backend gestione oggetto [UC14] \\
+        \hline
+        & & & Implementazione logica frontend gestione scenario [UC8] \\
+        \hline
+        & & & Implementazione grafica frontend gestione scenario [UC8] \\
+        \hline
+        & & & Implementazione logica frontend gestione scelta[UC9] \\
+        \hline
+        & & & Implementazione grafica frontend gestione scelta[UC9] \\
+        \hline
+        & & & Implementazione logica frontend gestione storia [UC10] \\
+        \hline
+        & & & Implementazione grafica frontend gestione storia [UC10] \\
+        \hline
+        & & & Implementazione logica frontend creazione oggetto [UC13] \\
+        \hline
+        & & & Implementazione grafica frontend creazione oggetto [UC13] \\
+        \hline
+        & & & Implementazione logica frontend gestione oggetto [UC14] \\
+        \hline
+        & & & Implementazione grafica frontend gestione oggetto [UC14] \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 4 - Fase Finale - 17/03/2024}
+\end{table}
+
+\clearpage
+\subsection{Sprint 5}
+Periodo: 22/03/2024 - 26/03/2024\vspace*{7pt}\\
+Ruoli:
+\begin{itemize}[label = { }]
+    \itemsep0em
+    \item Software Developer: Matteo Canghiari, Ossama Nadifi 
+    \item Product Owner: Tabish Ghazanfar
+    \item Scrum Master: Davide De Rosa
+\end{itemize}
+Nel quinto sprint sono stati completati i Test Unitari del backend ed è stata completata la parte di DevOps, implementando le pipelines di CI/CD. Per quanto riguarda il frontend, lo sviluppo è proseguito verso l'obiettivo del completamento delle task rimanenti.
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & Implementazione logica frontend giocare storia [UC11] & \\
+        \hline
+        & & Implementazione grafica frontend giocare storia [UC11] & \\
+        \hline
+        & & Implementazione logica frontend gestione partita [UC12] & \\
+        \hline
+        & & Implementazione grafica frontend gestione partita [UC12] & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 5 - Fase 1 - 22/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & Implementazione logica frontend giocare storia [UC11] & \\
+        \hline
+        & & Implementazione grafica frontend giocare storia [UC11] & \\
+        \hline
+        & & Implementazione logica frontend gestione partita [UC12] & \\
+        \hline
+        & & Implementazione grafica frontend gestione partita [UC12] & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 5 - Fase Finale - 26/03/2024}
+\end{table}
+
+\clearpage
+\subsection{Sprint 6}
+Periodo: 27/03/2024 - 31/03/2024\vspace*{7pt}\\
+Ruoli:
+\begin{itemize}[label = { }]
+    \itemsep0em
+    \item Software Developer: Matteo Canghiari, Ossama Nadifi 
+    \item Product Owner: Davide De Rosa
+    \item Scrum Master: Tabish Ghazanfar
+\end{itemize}
+Nel sesto sprint il team di sviluppo ha concluso la parte logica di frontend, lasciando per lo sprint finale l’abbellimento della parte grafica e per alcune piccole modifiche.
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & Implementazione logica frontend giocare storia [UC11] & \\
+        \hline
+        & & Implementazione grafica frontend giocare storia [UC11] & \\
+        \hline
+        & & Implementazione logica frontend gestione partita [UC12] & \\
+        \hline
+        & & Implementazione grafica frontend gestione partita [UC12] & \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 6 - Fase 1 - 27/03/2024}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|}
+        \hline
+        \bf Use-Case raffinati & \bf Product backlog & \bf Sprint backlog & \bf Task terminate \\
+        \hline
+        & & & Implementazione logica frontend giocare storia [UC11] \\
+        \hline
+        & & & Implementazione grafica frontend giocare storia [UC11] \\
+        \hline
+        & & & Implementazione logica frontend gestione partita [UC12] \\
+        \hline
+        & & & Implementazione grafica frontend gestione partita [UC12] \\
+        \hline
+    \end{tabularx}
+    \caption*{Tabella Sprint 5 - Fase Finale - 26/03/2024}
+\end{table}
+
+\clearpage
+\subsection{Sprint 7}
+Periodo: 02/04/2024 - 06/04/2024\vspace*{7pt}\\
+Ruoli:
+\begin{itemize}[label = { }]
+    \itemsep0em
+    \item Software Developer: Matteo Canghiari, Tabish Ghazanfar 
+    \item Product Owner: Ossama Nadifi 
+    \item Scrum Master: Davide De Rosa
+\end{itemize}
+Nel settimo ed ultimo sprint il team ha completato il progetto, terminando la parte grafica, logica del frontend e testando le varie schermate. Vengono effettuati ulteriori controlli sull'intero applicativo ed è stata realizzata la relazione finale.
 
 \end{document}
