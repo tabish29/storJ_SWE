@@ -22,6 +22,11 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{color}
+\usepackage{hyperref}
+
+\hypersetup{
+    pdfborder = {0 0 0}, % No border
+}
 
 \lstdefinelanguage{Java}{
   keywords={abstract,assert,boolean,break,byte,case,catch,char,class,const,continue,default,do,double,else,enum,extends,false,final,finally,float,for,goto,if,implements,import,instanceof,int,interface,long,native,new,null,package,private,protected,public,return,short,static,strictfp,super,switch,synchronized,this,throw,throws,transient,true,try,void,volatile,while},
@@ -60,13 +65,13 @@
     {\large{SCUOLA DI SCIENZE \\ Corso di Laurea in Informatica per il Management}}
 \end{center}
 
-\vspace{50px}
+\vspace{90px}
 
 \begin{center}
-    {\LARGE{{\bf storJ}}}\
+    \href{https://github.com/DavideDeRosa/storj_SWE}{\includegraphics[width=0.4\textwidth]{storJ.png}}
 \end{center}
 
-\vspace{115px}
+\vspace{100px}
 \par
 \noindent
 \begin{minipage}[t]{0.04\textwidth}
@@ -83,21 +88,22 @@
 ~
 \end{minipage}
 
-\vspace*{210px}
+\vspace*{200px}
 
 \begin{center}
+    \large{Ingegneria del Software}\\
     \large{Anno Accademico 2023/2024}
 \end{center}
 \end{titlepage}
 
-\section{Design Model}
+\section*{Design Model}
 
-\subsection{Modello di dominio} 
+\subsection*{Modello di dominio} 
 \begin{center}
     \includegraphics[width=0.9\textwidth]{foto1.png}
 \end{center}
 
-\subsection{Diagramma dei casi d'uso}
+\subsection*{Diagramma dei casi d'uso}
 \begin{center}
     \includegraphics[width=0.8\textwidth]{foto2.png}
 \end{center}
@@ -211,7 +217,7 @@
             \item Sistema salva lo stato Utente di pagamento
         \end{itemize}
 \end{itemize}
-\newpage
+
 \textbf{Creazione scenario}
 \begin{itemize}[label = { }]
     \itemsep0px
@@ -497,14 +503,14 @@
         \end{itemize}
 \end{itemize}
 
-\subsection{Burndown chart}
+\subsection*{Burndown chart}
 \large
 \begin{center}
     \includegraphics[width=0.8\textwidth]{foto3.png}
 \end{center}
 
 \newpage
-\section{Manuale dell'utente}
+\section*{Manuale dell'utente}
 \subsection*{Home}
 Sezione a cui si accede avviando l'applicativo. All'interno di questa è possibile ottenere una breve descrizione del progetto, visualizzare le specifiche e la repository GitHub, ed infine accedere alla relazione. Dalla navbar si può accedere alle schermate di \textit{Accedi} e \textit{Registrati}.
 \begin{center}
@@ -630,6 +636,7 @@ Attraverso la barra di navigazione sarà sempre possibile consultare l'\textit{i
     \includegraphics[width=0.8\textwidth]{foto25.png}
 \end{center}
 
+\newpage
 \subsection*{Partite giocate}
 Sezione in cui sono presenti le partite avviate dall'utente. Per ogni partita sarà possibile riprendere la storia dallo scenario in cui era stata interrotta oppure rimuovere i dati di gioco relativi ad essa.
 \begin{center}
@@ -639,12 +646,16 @@ Sezione in cui sono presenti le partite avviate dall'utente. Per ogni partita sa
 \clearpage
 \section*{Manuale dello sviluppatore}
 
-\subsection{Setup e deploy}
-Unico requisito per il deploy dell'applicativo è \textbf{Docker}. Una volta scaricata la \textit{repository} da \textit{GitHub}, sarà sufficiente eseguire all'interno della cartella il comando \textbf{docker-compose up --build}; quest ultimo permetterà a \textit{Docker} di eseguire la fase di \textit{build} e successivamente di \textit{avviare} i \textit{container} relativi ai diversi servizi che compongono l'applicativo.\vspace*{7pt}\\
+\subsection*{Setup e deploy}
+Unico requisito per il deploy dell'applicativo è \href{https://www.docker.com/get-started/}{\textbf{Docker}}. \\
+Una volta scaricata la \href{https://github.com/DavideDeRosa/storJ_SWE}{\textit{repository}} da \textit{GitHub}, sarà sufficiente eseguire all'interno della cartella il comando \textbf{docker-compose up --build}\\
+Quest'ultimo permetterà a \textit{Docker} di eseguire la fase di \textit{build} e successivamente di \textit{avviare} i \textit{container} relativi ai diversi servizi che compongono l'applicativo.\vspace*{7pt}\\
+Una volta terminata la fase di \textit{build} ed \textit{avviamento}, si potrà accedere alla piattaforma \textit{storJ} attraverso il link \href{http://localhost:4201/}{http://localhost:4201/} (è altamente consigliato l’utilizzo di \textit{Google Chrome} per un’esperienza migliore).\vspace*{7pt}\\
 Per terminare l'esecuzione, eseguire all'interno della cartella precedente il comando \textbf{docker-compose down}, il quale terminerà ed eliminerà i \textit{container} dell'applicazione.\vspace*{7pt}\\
 È stato scelto di utilizzare \textit{Docker} e \textit{Docker-Compose} per il deploy dell'applicativo per avere una maggiore facilità di \textit{deploy} e per permettere l'utilizzo del servizio senza dover installare in locale alcuna dipendenza software, come \textit{Maven}, \textit{NodeJS} o \textit{PostgreSQL}.\vspace*{7pt}\\
-È possibile osservare all'interno della repository i \textit{Dockerfile} inerenti ai vari servizi, i quali permettono a \textit{Docker} di avviare i \textit{container}. Per ottenere un avvio simultaneo di tutti i servizi viene utilizzato un file \textit{docker-compose.yml}, il quale permette l'avvio dell'applicativo con un singolo comando.\vspace*{7pt}\\
-Un esempio di \textit{Dockerfile} appartiene allo \textit{Spring Boot} del backend, il quale si suddivide in due fasi:
+È possibile osservare all'interno della repository i \textit{Dockerfile} inerenti ai vari servizi, i quali permettono a \textit{Docker} di avviare i \textit{container}.\\
+Per ottenere un avvio simultaneo di tutti i servizi viene utilizzato un file \textit{docker-compose.yml}, il quale permette l'avvio dell'applicativo con un singolo comando.\vspace*{7pt}\\
+Un esempio di \href{https://github.com/DavideDeRosa/storJ_SWE/blob/develop/backend/Dockerfile}{\textit{Dockerfile}} appartiene allo \textit{Spring Boot} del backend, il quale si suddivide in due fasi:
 \vspace*{7pt}
 \begin{lstlisting}[language = JAVA]
 FROM maven:3.8.3-openjdk-17 AS spring-builder
@@ -658,7 +669,8 @@ COPY --from=spring-builder /usr/src/app/target/storj-1.0.0.jar /opt/app/storj.ja
 EXPOSE 8080
 CMD ["java", "-jar", "/opt/app/storj.jar"]
 \end{lstlisting}
-La prima fase esegue il comando \textit{Maven} per ottenere il file \textit{.jar} eseguibile. La seconda avvia un \textit{container} eseguendo l'applicativo di backend.\vspace*{7pt}\\
+La prima fase esegue il comando \textit{Maven} per ottenere il file \textit{.jar} eseguibile.\\
+La seconda avvia un \textit{container} eseguendo l'applicativo di backend.\vspace*{130pt}\\
 Passando invece al \textit{docker-compose.yml}, la suddivisione è netta tra i servizi:\vspace*{7pt}
 \begin{lstlisting}[language = JAVA]
 version: '3'
@@ -714,14 +726,14 @@ networks:
 Come si può notare, vengono avviati quattro servizi, distinti in:
 \begin{itemize}[label = {-}]
     \itemsep0em
-    \item \textbf{Database}, servizio inerente al \textit{DBMS} scelto per la persistenza dei dati; in questa casistica ricade in \textit{PostgreSQL}. Vengono quindi configurati alcuni valori di \textit{environment} per permettere la creazione del database all'interno del \textit{container}. Vengono inoltre utilizzati i \textit{volumi} per garantire la persistenza dei dati e per creare lo schema del database al primo avvio del \textit{container}
-    \item \textbf{Paymentservice}, servizio di pagamento esterno richiesto dalla traccia. Viene avviato un \textit{container Docker} che avvia l'eseguibile fornito nelle specifiche, esponendo la chiamata \textit{API} per il pagamento
-    \item \textbf{App}, backend dell'applicativo, realizzato con \textit{Spring Boot}. L'\textit{image} relativa al suo \textit{container} viene realizzata attraverso il \textit{Dockerfile} osservato in precedenza
-    \item \textbf{Angular}, frontend dell'applicativo, realizzato con \textit{Angular}. Come avviene per il backend, l'\textit{image} relativa al suo \textit{container} viene realizzata attraverso un \textit{Dockerfile}, presente nella cartella del frontend
+    \item \textbf{db}, servizio inerente al \textit{DBMS} scelto per la persistenza dei dati; in questa casistica ricade in \textit{PostgreSQL}. Vengono quindi configurati alcuni valori di \textit{environment} per permettere la creazione del database all'interno del \textit{container}. Vengono inoltre utilizzati i \textit{volumi} per garantire la persistenza dei dati e per creare lo schema del database al primo avvio del \textit{container}
+    \item \textbf{paymentservice}, servizio di pagamento esterno richiesto dalla traccia. Viene avviato un \textit{container Docker} che avvia l'eseguibile fornito nelle specifiche, esponendo la chiamata \textit{API} per il pagamento
+    \item \textbf{app}, backend dell'applicativo, realizzato con \textbf{Spring Boot}. L'\textit{image} relativa al suo \textit{container} viene realizzata attraverso il \textit{Dockerfile} osservato in precedenza
+    \item \textbf{angular}, frontend dell'applicativo, realizzato con \textbf{Angular}. Come avviene per il backend, l'\textit{image} relativa al suo \textit{container} viene realizzata attraverso un \href{https://github.com/DavideDeRosa/storJ_SWE/blob/develop/frontend/Dockerfile}{\textit{Dockerfile}}, presente nella cartella del frontend
 \end{itemize}
 Si può notare infine l'utilizzo dei networks di \textit{Docker}, i quali permettono ai diversi container di comunicare tra loro. Vengono inoltre esposte diverse porte per permettere l'accesso ai servizi offerti dai \textit{container} sulla \textit{macchina host}.
 
-\subsection{Frontend}
+\subsection*{Frontend}
 Per il frontend è stato utilizzato il framework \textbf{Angular}, in grado di garantire un approccio orientato a facilitare lo sviluppo delle interfacce grafiche. \textit{Angular} fornisce un elevato livello di \textit{reusability} del codice, grazie alla suddivisione dell'architettura che lo contraddistingue in differenti \textit{componenti}; inoltre il framework è caratterizzato da un'ulteriore capacità, la quale consiste in azioni automatiche di \textit{sincronizzazione} tra la \textit{User Interface} e il modello dati. Infine, uno dei fattori principali è dettato dalla \textit{Dependency Injection}, poiché facilita la manipolazione dei legami posti tra \textit{componenti} e \textit{servizi} che compongono l'applicazione.\vspace*{7pt}\\
 Come è stato già citato prima, il progetto è stato concepito seguendo un'architettura modulare, che divide l'applicazione in \textit{componenti} e \textit{servizi}. Questo approccio favorisce la separazione delle responsabilità, migliorando la manutenibilità e la scalabilità del codice. Tuttavia, è bene individuare quali siano i punti salienti su cui occorre soffermarsi, descritti come segue:
 \begin{itemize}[label = {-}]
@@ -734,15 +746,17 @@ Come è stato già citato prima, il progetto è stato concepito seguendo un'arch
         \item \textbf{Pop-up}, entità grafica visualizzata esclusivamente all'interno della fase di gioco, utilizzata per mostrare informazioni inerenti alla storia selezionata
     \end{itemize}
     Oltre alle tre citate, sono molteplici le \textit{pagine} presenti, le quali non sono contraddistinte da mansioni specifiche ma possiedono un ruolo fondamentale, poiché illustrano tutti i \textit{componenti} definiti dai vari utenti
-    \item \textbf{Servizi}, tramite per acquisire i dati dal backend, posti all'interno del database e comunicati dalle \textit{API} (per ulteriori approfondimenti consultare sezione backend). Fungono da intermediari, sovrapposti tra i componenti e le \textit{API}, affinché i dati possano essere forniti e successivamente visualizzati a schermo
+    \item \textbf{Servizi}, tramite per acquisire i dati dal backend, posti all'interno del database e comunicati dalle \textit{API} (per ulteriori approfondimenti consultare sezione \textit{backend}). Fungono da intermediari, sovrapposti tra i componenti e le \textit{API}, affinché i dati possano essere forniti e successivamente visualizzati a schermo
     \item \textbf{LocalStorage}, strumento versatile, inerente non solo a fasi di sviluppo, principalmente attuato per azioni di \textit{debugging}, ma anche a funzionalità mirate alla persistenza dei dati, garantendo un'esperienza all’utente fluida e consistente. Uno degli utilizzi principi riguarda il controllo dell'autenticazione dell'utente, necessario per un corretto funzionamento delle guardie
     \item \textbf{Guardie}, funzionalità built-in del framework, stabilite per circoscrivere il reindirizzamento tra le pagine. Nell'applicazione sono presenti due tipologie di \textit{guardie}, in cui la prima, denominata \textbf{AccessGuard}, definisce se l'utente sia autenticato o meno; mentre la seconda, chiamata \textbf{PaymentAccessGuard}, impedisce all'utente di accedere al form \textit{payment-page}, qualora abbia già effettuato un pagamento andato a buon fine
     \item \textbf{Classi}, utilizzate per definire l'architettura interna dei vari oggetti manipolati dall'app, inerenti alla struttura del database di riferimento (ad esempio scenari, storie oppure partite)
 \end{itemize}
 
-\subsection{Backend}
-Per il backend è stato utilizzato il framework \textbf{Spring}, principalmente attuato per velocizzare le fasi di sviluppo. \textit{Spring} inoltre fornisce funzionalità molto comode per lo sviluppo di backend, come la facilità di sviluppo di \textbf{REST API} ed il collegamento ad un \textbf{database}. Inoltre, garantisce l'approccio relativo alla \textbf{Dependency Injection}, attraverso il quale il contenitore \textit{Spring} “inietta” oggetti in altre “dipendenze”. In poche parole, ciò consente un accoppiamento libero dei componenti e sposta la responsabilità della gestione dei componenti al framework.\vspace*{7pt}\\
-Passando all'implementazione delle \textit{API}, l'approccio utilizzato è \textit{Contract-First} secondo lo standard \textbf{OpenAPI 3.0}. Viene realizzata un'interfaccia, la quale permette ad un plugin di \textit{Spring} di generare automaticamente i diversi metodi che verranno sovrascritti per implementare le funzionalità volute. Sono state realizzate le \textbf{CRUD} di tutte le strutture collegate al \textit{database}, con alcune chiamate \textit{custom} per ottenere liste personalizzate da visualizzare nel frontend.\vspace*{7pt}\\
+\subsection*{Backend}
+Per il backend è stato utilizzato il framework \textbf{Spring}, il quale ci ha permesso di utilizzare un linguaggio già a noi familiare come Java, velocizzando le fasi di sviluppo. \textit{Spring} inoltre fornisce funzionalità molto comode per lo sviluppo di backend, come la facilità di sviluppo di \textbf{REST API} ed il collegamento ad un \textbf{database}.\\
+Inoltre, garantisce l'approccio relativo alla \textbf{Dependency Injection}, attraverso il quale il contenitore \textit{Spring} “inietta” oggetti in altre “dipendenze”. In poche parole, ciò consente un accoppiamento libero dei componenti e sposta la responsabilità della gestione dei componenti al framework.\vspace*{7pt}\\
+Passando all'implementazione delle \textit{API}, l'approccio utilizzato è \textit{Contract-First} secondo lo standard \textbf{OpenAPI 3.0}. Viene realizzata un'\href{https://github.com/DavideDeRosa/storJ_SWE/blob/develop/backend/src/main/resources/interfaces/storj.yml}{interfaccia}, la quale permette ad un plugin di \textit{Spring} di generare automaticamente i diversi metodi che verranno sovrascritti per implementare le funzionalità volute.\\
+Sono state realizzate le \textbf{CRUD} di tutte le strutture collegate al \textit{database}, con alcune chiamate \textit{custom} per ottenere liste personalizzate da visualizzare nel frontend.\vspace*{7pt}\\
 Il collegamento con il \textit{database} è stato realizzato attraverso il plugin \textbf{Spring Data JPA}, il quale permette in maniera veloce di collegare il backend con la base di dati.\vspace*{7pt}\\
 L'architettura delle chiamate API è la seguente:
 \begin{itemize}[label = {-}]
@@ -755,12 +769,17 @@ L'architettura delle chiamate API è la seguente:
     \item In conclusione, i metodi di ogni \textit{Business Logic} vengono richiamati dai \textbf{Controller}, ovvero le implementazioni delle interfacce generate dallo standard \textit{OpenAPI}. All'interno dei controller non c'è alcuna logica, delegata alle classi di \textit{Business Logic}
 \end{itemize}
 L'architettura delle \textit{API} si basa sul \textbf{Single Responsibility Principle}, il quale afferma che ogni elemento di un programma (classe, metodo oppure variabile) deve avere una sola responsabilità, e che tale responsabilità debba essere interamente incapsulata dall'elemento stesso.\vspace*{7pt}\\
-Infine, per la gestione degli errori possibili durante le chiamate \textit{API} è stato implementato un \textit{ExceptionHandlingController}, permettendo una gestione comoda e dinamica delle eccezioni.\vspace*{7pt}\\
-Si osserva ora la sezione dei \textbf{test unitari}. Per quanto riguarda la base di dati, è stato utilizzato il plugin \textbf{H2}, creando un \textbf{database in-memory} per eseguire tutti i test. Sono stati realizzati \textit{126 test unitari}, ottenendo un \textbf{code coverage} del \textit{97\%}. I test sono stati effettuati sulle due parti principali del backend, i \textbf{servizi} (che comprendono le classi di \textit{Business Logic} e di \textit{Service}, testano quindi tutta la logica di business e le query) ed i \textbf{mapper}. È stato inoltre utilizzato il plugin \textbf{Jacoco} per ottenere un semplice report:
-\textbf{METTERE LA FOTO}\vspace*{7pt}\\
+Infine, per la gestione degli errori possibili durante le chiamate \textit{API} è stato implementato un \href{https://github.com/DavideDeRosa/storJ_SWE/blob/develop/backend/src/main/java/com/grandel/storj/error/ExceptionHandlingController.java}{\textit{ExceptionHandlingController}}, permettendo una gestione comoda e dinamica delle eccezioni.\vspace*{7pt}\\
+Si osserva ora la sezione dei \textbf{Test Unitari}.\\
+Per quanto riguarda la base di dati, è stato utilizzato il plugin \textbf{H2}, creando un \textbf{database in-memory} per eseguire tutti i test.\\
+Sono stati realizzati \textit{\textbf{126} test unitari}, ottenendo un \textbf{code coverage} del \textbf{97\%}.\\
+I test sono stati effettuati sulle due parti principali del backend, i \textbf{servizi} (che comprendono le classi di \textit{Business Logic} e di \textit{Service}, testano quindi tutta la logica di business e le query) ed i \textbf{mapper}. È stato inoltre utilizzato il plugin \textbf{Jacoco} per ottenere un semplice report:
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{jacoco.png}
+\end{center}
 \textit{Nota bene}: non è stato possibile ottenere un \textit{code coverage} maggiore a causa della \textit{randomicità} del pagamento, vincolando i test inerenti a quella parte.
 
-\subsection{Database}
+\subsection*{Database}
 Per la persistenza dei dati della piattaforma è stato utilizzato un \textit{Database Relazionale}. Nel nostro caso abbiamo scelto \textbf{PostgreSQL}. La struttura segue di pari passo le \textit{API} descritte nella parte di backend.  Sono presenti le seguenti tabelle:
 \begin{itemize}[label = {-}]
     \itemsep0em
@@ -775,15 +794,17 @@ Per la persistenza dei dati della piattaforma è stato utilizzato un \textit{Dat
     \item \textbf{partita}, dati inerenti alla partita, come la \textit{storia} a cui si riferisce, l'\textit{utente} che la stia svolgendo e lo \textit{scenario corrente}
     \item \textbf{inventario}, struttura di supporto, la quale permette di comprendere la lista di oggetti appartenenti ad una partita. Definito da una \textit{partita} e da un \textit{oggetto}
 \end{itemize}
-Il database viene avviato tramite il \textit{docker-compose.yml} utilizzato per avviare tutti i servizi della piattaforma. Vengono inoltre utilizzati i \textit{volumi} per garantire la persistenza dei dati e per creare lo schema del database al primo avvio del \textit{container}. Per quest'ultima, si sfrutta il \textit{docker-entrypoint-initdb.d}, il quale avvia qualsiasi \textit{script SQL} nella directory selezionata. Questo permette la creazione dinamica del \textit{volume} del database al primo avvio del \textit{container}. 
+Il database viene avviato tramite il \href{https://github.com/DavideDeRosa/storJ_SWE/blob/develop/docker-compose.yml}{\textit{docker-compose.yml}} utilizzato per avviare tutti i servizi della piattaforma. Vengono inoltre utilizzati i \textit{volumi} per garantire la persistenza dei dati e per creare lo schema del database al primo avvio del \textit{container}. Per quest'ultima, si sfrutta il \textit{docker-entrypoint-initdb.d}, il quale avvia qualsiasi \textit{script SQL} nella directory selezionata. Questo permette la creazione dinamica del \textit{volume} del database al primo avvio del \textit{container}. 
 
-\subsection{Payment}
-Per il servizio di pagamento è stato utilizzato l'applicativo fornito nelle specifiche tecniche, il quale espone una \textit{REST API} che simula il funzionamento di un pagamento. La chiamata \textit{API} è stata \textit{wrappata} all'interno delle chiamate del backend, permettendo una gestione più flessibile delle risposte ricevute. L’eseguibile viene eseguito grazie ad un Dockerfile, il quale permette di effettuare il \textit{build} della sua \textit{Docker image} e di essere eseguito con \textit{docker-compose}.
+\subsection*{Payment}
+Per il servizio di pagamento è stato utilizzato l'applicativo fornito nelle specifiche tecniche, il quale espone una \textit{REST API} che simula il funzionamento di un pagamento.\\
+La chiamata \textit{API} è stata \textit{wrappata} all'interno delle chiamate del backend, permettendo una gestione più flessibile delle risposte ricevute. L’eseguibile viene eseguito grazie ad un \href{https://github.com/DavideDeRosa/storJ_SWE/blob/develop/payment/Dockerfile}{Dockerfile}, il quale permette di effettuare il \textit{build} della sua \textit{Docker image} e di essere eseguito con \textit{docker-compose}.
 
-\subsection{DevOps}
-Per la sezione di \textbf{Continuous Integration} (\textit{CI}) e di \textbf{Continuous Deployment} (\textit{CD}) sono state automatizzate le \textit{pipeline} attraverso \textbf{Jenkins}. L'esecuzione di \textit{Jenkins} avviene all'interno di una \textit{Virtual Machine} (Ubuntu Server).\vspace*{7pt}\\
-\textit{Nota bene}: le pipeline ricoprono l’intero progetto ad esclusione della parte di frontend.\vspace*{7pt}\\
-\textit{Jenkins} permette di scrivere \textit{pipeline} in linguaggio \textbf{Groovy}. La seguente è divisa in diversi \textit{stage}, ognuno con step separati. Inoltre, inizialmente, vengono specificati i tool e le variabili d'ambiente adeguate all'interno della \textit{pipeline}.\vspace*{7pt}
+\subsection*{DevOps}
+Per la sezione di \textbf{Continuous Integration} (\textit{CI}) e di \textbf{Continuous Deployment} (\textit{CD}) sono state automatizzate le \textit{pipeline} attraverso \textbf{Jenkins}. L'esecuzione di \textit{Jenkins} avviene all'interno di una \textbf{Virtual Machine} (\textit{Ubuntu Server}).\vspace*{7pt}\\
+\textit{Nota bene}: le pipeline ricoprono l’intero progetto ad esclusione della parte di frontend!\vspace*{7pt}\\
+\textit{Jenkins} permette di scrivere \textit{pipeline} in linguaggio \textbf{Groovy}. La seguente è divisa in diversi \textit{stage}, ognuno con step separati. Inoltre, inizialmente, vengono specificati i tool e le variabili d'ambiente adeguate all'interno della \textit{pipeline}.\vspace*{7pt}\\
+Iniziando con la parte di \textbf{Continuous Integration} (\textbf{CI}), si può osservare la seguente pipeline:
 \begin{lstlisting}[language = JAVA]
 pipeline {
     agent any
@@ -856,7 +877,7 @@ Si osservano ora i singoli \textit{stage} che corrispondono alla \textit{pipelin
     \itemsep0em
     \item \textbf{Git}, viene clonata la repository in un path specifico, spostandosi sul \textit{branch} specificato nei parametri d'avvio della \textit{pipeline}
     \item \textbf{Build}, viene eseguito \textit{Maven} per ottenere l'eseguibile del backend
-    \item \textbf{Download Docker}, viene scaricato un \textit{Dockerfile} per il \textit{build} della \textit{Docker image} (questo Dockerfile è differente dal Dockerfile di deploy)
+    \item \textbf{Download Docker}, viene scaricato un \textit{Dockerfile} per il \textit{build} della \textit{Docker image} (questo \href{https://github.com/DavideDeRosa/storJ_SWE/blob/develop/CI_CD/Dockerfile}{Dockerfile} è differente dal Dockerfile di deploy)
     \item \textbf{Copy .jar}, viene preso l'eseguibile dell'applicativo, rinominato e spostato in un path differente
     \item \textbf{Docker login}, viene effettuato il login a \textit{DockerHub}, il quale permetterà di caricare la \textit{Docker image} in un repository. \textit{Image} sarà necessaria per la fase di \textit{CD}
     \item \textbf{Docker Build and Push}, viene effettuato il \textit{build} ed il successivo \textit{push} della \textit{Docker image} sulla repository di \textit{DockerHub}, con successiva rimozione dell'\textit{image} per liberare spazio
@@ -937,7 +958,7 @@ Soffermandosi nuovamente sui differenti elementi, si osserva:
 \begin{itemize}[label = {-}]
     \itemsep0em
     \item \textbf{Git}, viene clonata la repository in un path specifico, spostandosi sul \textit{branch} specificato nei parametri d'avvio della \textit{pipeline}
-    \item \textbf{Package}, vengono rimossi tutti i file inutili, lasciando soltanto i file necessari al deploy della \textit{Virtual Machine} dedicata (sono stati realizzati file Docker e Docker-compose specifici per la fase di DevOps). Una volta ottenuti i dati richiesti, si crea un pacchetto compresso
+    \item \textbf{Package}, vengono rimossi tutti i file inutili, lasciando soltanto i file necessari al deploy della \textit{Virtual Machine} dedicata (sono stati realizzati file \textit{Docker} e \textit{Docker-Compose} \href{https://github.com/DavideDeRosa/storJ_SWE/tree/develop/CI_CD}{specifici} per la fase di DevOps). Una volta ottenuti i dati richiesti, si crea un pacchetto compresso
     \item \textbf{Sending zip}, collegamento in \textit{SSH} alla \textit{Virtual Machine}, a cui è inviato il paccjetto compresso
     \item \textbf{Deploy}, collegandosi in \textit{SSH} alla \textit{Virtual Machine} è estratto il pacchetto in questione, affinchè sia possibile porsi al suo interno. Di seguito verrà eseguito il comando \textbf{docker-compose up --build -d}, il quale permetterà di avviare i diversi servizi attraverso \textit{docker-compose} in background (-d). Al termine, verrà rimosso il pacchetto compresso per liberare dello spazio
     \item \textbf{House keeping}, fase di pulizia della \textit{Virtual Machine} di \textit{Jenkins}
@@ -945,12 +966,13 @@ Soffermandosi nuovamente sui differenti elementi, si osserva:
 Le seguenti \textit{pipeline} permettono il deploy su una \textit{macchina virtuale} dedicata all'applicativo di backend, con database e servizio di pagamento annessi.
 
 \clearpage
-\section{Dario del progetto}
+\section*{\href{https://github.com/users/DavideDeRosa/projects/2}{Diario del progetto}}
 
-\subsection{Sprint 0}
-Prima dell'inizio vero e proprio dello sviluppo dell'applicativo, la scelta del gruppo è stata quella di svolgere un primo sprint in cui è stato scelto lo stack di sviluppo, sono stati realizzati i design model necessari ed infine è stato svolto il setup della repository GitHub. Grazie a questa scelta è stato possibile concentrarsi completamente sulla pianificazione dei compiti da svolgere e la suddivisione degli sprint successivi.
+\subsection*{Sprint 0}
+Prima dell'inizio vero e proprio dello sviluppo dell'applicativo, la scelta del gruppo è stata quella di svolgere un primo sprint in cui è stato scelto lo stack di sviluppo, sono stati realizzati i design model necessari ed infine è stato svolto il setup della repository GitHub.\\
+Grazie a questa scelta è stato possibile concentrarsi completamente sulla pianificazione dei compiti da svolgere e la suddivisione degli sprint successivi.
 
-\subsection{Sprint 1}
+\subsection*{Sprint 1}
 Periodo: 02/03/2024 - 06/03/2024\vspace*{7pt}\\
 Ruoli:
 \begin{itemize}[label = { }]
@@ -1029,8 +1051,8 @@ Nel primo periodo di sviluppo sono state realizzate le funzioni base del'applica
     \caption*{Tabella Sprint 1 - Fase Finale - 06/03/2024}
 \end{table}
 
-\newpage
-\subsection{Sprint 2}
+\clearpage
+\subsection*{Sprint 2}
 Periodo: 07/03/2024 - 11/03/2024\vspace*{7pt}\\
 Ruoli:
 \begin{itemize}[label = { }]
@@ -1117,7 +1139,7 @@ Nel secondo sprint il team si è occupato della realizzazione della creazione st
 \end{table}
 
 \clearpage
-\subsection{Sprint 3}
+\subsection*{Sprint 3}
 Periodo: 12/03/2024 - 16/03/2024\vspace*{7pt}\\
 Ruoli:
 \begin{itemize}[label = { }]
@@ -1181,7 +1203,7 @@ Nel terzo sprint il team di sviluppo si è concentrato sulla conclusione di una 
 \end{table}
 
 \clearpage
-\subsection{Sprint 4}
+\subsection*{Sprint 4}
 Periodo: 17/03/2024 - 21/03/2024\vspace*{7pt}\\
 Ruoli:
 \begin{itemize}[label = { }]
@@ -1213,7 +1235,7 @@ Nel quarto sprint il team di sviluppo ha concluso tutta la parte di backend, rea
         & Gestione oggetto [UC14] &  & \\
         \hline
     \end{tabularx}
-    \caption*{Tabella Sprint 4 - Fase Finale - 17/03/2024}
+    \caption*{Tabella Sprint 4 - Fase 1 - 17/03/2024}
 \end{table}
 
 \begin{table}[h]
@@ -1343,7 +1365,7 @@ Nel quarto sprint il team di sviluppo ha concluso tutta la parte di backend, rea
 \end{table}
 
 \clearpage
-\subsection{Sprint 5}
+\subsection*{Sprint 5}
 Periodo: 22/03/2024 - 26/03/2024\vspace*{7pt}\\
 Ruoli:
 \begin{itemize}[label = { }]
@@ -1352,7 +1374,8 @@ Ruoli:
     \item Product Owner: Tabish Ghazanfar
     \item Scrum Master: Davide De Rosa
 \end{itemize}
-Nel quinto sprint sono stati completati i Test Unitari del backend ed è stata completata la parte di DevOps, implementando le pipelines di CI/CD. Per quanto riguarda il frontend, lo sviluppo è proseguito verso l'obiettivo del completamento delle task rimanenti.
+Nel quinto sprint sono stati completati i Test Unitari del backend ed è stata completata la parte di DevOps, implementando le pipelines di CI/CD.\\
+Per quanto riguarda il frontend, lo sviluppo è proseguito verso l'obiettivo del completamento delle task rimanenti.
 
 \begin{table}[h]
     \centering
@@ -1391,7 +1414,7 @@ Nel quinto sprint sono stati completati i Test Unitari del backend ed è stata c
 \end{table}
 
 \clearpage
-\subsection{Sprint 6}
+\subsection*{Sprint 6}
 Periodo: 27/03/2024 - 31/03/2024\vspace*{7pt}\\
 Ruoli:
 \begin{itemize}[label = { }]
@@ -1439,7 +1462,7 @@ Nel sesto sprint il team di sviluppo ha concluso la parte logica di frontend, la
 \end{table}
 
 \clearpage
-\subsection{Sprint 7}
+\subsection*{Sprint 7}
 Periodo: 02/04/2024 - 06/04/2024\vspace*{7pt}\\
 Ruoli:
 \begin{itemize}[label = { }]
