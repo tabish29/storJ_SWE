@@ -1,9 +1,9 @@
 <app-navbar></app-navbar>
 <div class="container">    
     <div class="div-welcome">
-        <p id="title">Ciao <span>{{ username }}</span>, bentornato su <span>storJ</span>!</p>
-        <p>Per poter giocare ad una <span>storia interattiva</span> clicca sul bottone <span id="span-button">Gioca</span>.</p>
-        <p>Attenzione, per poter giocare devi effettuare un <span>pagamento</span>, cliccando sul bottone <span id="span-button">Paga</span> posto sulla navbar in <span>alto</span>.</p>
-        <p>Per poter creare una <span>storia interattiva</span> clicca sul bottone <span id="span-button">Crea</span>.</p>
+        <p id="title">{{ 'hello' | translate }} <span>{{ username }}</span>, {{ 'welcome_back' | translate }} <span>storJ</span>!</p>
+        <p>{{ 'to_play' | translate }} <span>{{ 'interactive_stories' | translate }}</span> {{ 'click_button' | translate }} <span id="span-button">{{ 'play' | translate }}</span>.</p>
+        <p>{{ 'attention_payment' | translate }}  <span>{{ 'payment' | translate }}</span>, {{ 'by_clicking_the_button' | translate }} <span id="span-button">{{ 'pay' | translate }} </span>{{ 'placed_on_navbar' | translate }} <span>{{ 'top' | translate }}</span>.</p>
+        <p>{{ 'to_create' | translate }}<span> {{ 'interactive_stories' | translate }} </span> {{ 'click_the_button' | translate }} <span id="span-button">{{ 'create' | translate }}</span>.</p>
     </div>
 </div>

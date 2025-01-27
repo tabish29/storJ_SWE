@@ -1,27 +1,27 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="div-title">
-       <p id="title">Seleziona, gioca e <span>divertiti</span>!</p> 
+       <p id="title">{{ 'select_play_and' | translate }}<span> {{ 'have_fun' | translate }}</span>!</p> 
     </div>
     <!-- html attuato per definire il filtro -->
     <div class="div-filter">
-        <input type="text" [(ngModel)]="filterValue" placeholder="Valore del filtro">
+        <input type="text" [(ngModel)]="filterValue" placeholder="{{ 'placeholders.filter_value' | translate }}">
         <select [(ngModel)]="filterType">
-            <option disabled>Campo per cui filtrare</option>
+            <option disabled>{{ 'field_to_filter' | translate }}</option>
             <option [value]="-1">---</option>
-            <option value="Titolo">Titolo</option>
-            <option value="Autore">Autore</option>
-            <option value="Categoria">Categoria</option>
-            <option value="Numero Scenari">Numero Scenari</option>
+            <option value="Titolo">{{ 'title' | translate }}</option>
+            <option value="Autore">{{ 'author' | translate }}</option>
+            <option value="Categoria">{{ 'category' | translate }}</option>
+            <option value="Numero Scenari">{{ 'number_of_scenarios' | translate }} </option>
         </select>
-        <button class="button-filter" (click)="filterStories(filterType, filterValue)">Filtra</button>
+        <button class="button-filter" (click)="filterStories(filterType, filterValue)">{{ 'filter' | translate }}</button>
     </div>
     <!-- html definito per garantire la visualizzazione del messaggio in caso in cui non siano presenti storie che soddisfino i requisiti del filtro -->
     <div class="div-no-stories" *ngIf="noStoriesFound">
-        <p id="title">Wow, come è <span>vuoto</span>...</p>
+        <p id="title">{{ 'wow_how_is' | translate }} <span>{{ 'empty' | translate }}</span>...</p>
         <p></p>
-        <p id="text-no-stories">sembra che non ci sia <span>nulla</span> che risponda alla tua <span>richiesta</span>.</p>
-        <p id="text-no-stories">Ritenta o <a href="handlerPlaypage">clicca qui</a> per tornare indietro.</p>
+        <p id="text-no-stories">{{ 'it_seems_that' | translate }}<span> {{ 'nothing' | translate }}</span> {{ 'responding_to_your' | translate }} <span>{{ 'request' | translate }}</span>.</p>
+        <p id="text-no-stories">{{ 'retry_or' | translate }} <a href="handlerPlaypage">{{ 'click_here' | translate }}</a> {{ 'go_back' | translate }}.</p>
     </div>
     <!-- html attuato per visualizzare le storie giocabili -->
     <div class="div-stories" *ngFor="let item of stories">

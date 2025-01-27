@@ -1,12 +1,13 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="div-text">
-        <p id="title">Accedi e gioca a <span>storJ</span></p>
-        <p><span>storJ</span> è una web application che permette agli utenti <span>registrati</span> di scrivere e giocare storie interrattive.<br><br> Una <span>storia interattiva</span> è una narrazione in cui il giocatore può prendere decisioni che influenzano lo sviluppo della storia.</p>
+        <p id="title">{{ 'login_title' | translate }}</p>
+        <p>{{ 'description' | translate }}</p>
+        <p>{{ 'interactive_story' | translate }}</p>
         <div id="div-button">
-            <a href="https://docs.google.com/document/d/e/2PACX-1vQT60002z4ymBNlmkg-5S2xZ4z1RUGPX2GqMxegJK7sw6_dsQEfgzr_lN7A0EqXwLioOlCCS_aSB3rO/pub">Specifiche tecniche</a>
-            <a href="https://github.com/DavideDeRosa/storJ_SWE.git">Repository GitHub</a>
-            <a href="https://docs.google.com/document/d/12nX1O3r97rHYZSwVZxLQrNB4b6FamV1uYsX-1Ptvj4c">Relazione</a>
+            <a href="https://docs.google.com/document/d/e/2PACX-1vQT60002z4ymBNlmkg-5S2xZ4z1RUGPX2GqMxegJK7sw6_dsQEfgzr_lN7A0EqXwLioOlCCS_aSB3rO/pub">{{ 'technical_specifications' | translate }}</a>
+            <a href="https://github.com/DavideDeRosa/storJ_SWE.git">{{ 'github_repository' | translate }}</a>
+            <a href="https://docs.google.com/document/d/12nX1O3r97rHYZSwVZxLQrNB4b6FamV1uYsX-1Ptvj4c">{{ 'report' | translate }}</a>
         </div>
     </div>
 </div>

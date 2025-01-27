@@ -1,60 +1,60 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
     <div class="div-scenario"> 
-        <p id="title">Inserisci i <span>dati</span> dello <span>scenario</span></p>
+        <p id="title">{{ 'enter_the' | translate }}<span> {{ 'data' | translate }}</span> {{ 'of_the2' | translate }} <span>{{ 'scenery' | translate }}</span></p>
         <form (ngSubmit)="onSubmit()">
             <div>
-                <label id="label-left" for="testo">Testo<span>*</span></label>
+                <label id="label-left" for="testo">{{ 'text' | translate }}<span>*</span></label>
                 <textarea id="testo" name="testo" maxlength="255" required [(ngModel)]="testo"></textarea>
             </div>
             <div class="div-select">
-                <label for="tipoScenario">Scenario<span>*</span></label>
+                <label for="tipoScenario">{{ 'scenery' | translate }}<span>*</span></label>
                 <select id="tipoScenario" name="tipoScenario" required [(ngModel)]="tipoScenario">
-                    <option disabled>Tipologia di scenario</option>
-                    <option value="INIZIALE">Iniziale</option>
-                    <option value="NORMALE">Normale</option>
-                    <option value="FINALE">Finale</option>
+                    <option disabled>{{ 'scenario_type' | translate }}</option>
+                    <option value="INIZIALE">{{ 'initial' | translate }}</option>
+                    <option value="NORMALE">{{ 'normal' | translate }}</option>
+                    <option value="FINALE">{{ 'final' | translate }}</option>
                 </select>
             </div>
             <div class="div-select" *ngIf="tipoScenario !== 'FINALE'">
-                <label for="tipoRisposta">Risposta<span>*</span></label>
+                <label for="tipoRisposta">{{ 'response' | translate }}<span>*</span></label>
                 <select id="tipoRisposta" name="tipoRisposta" required [(ngModel)]="tipoRisposta">
-                    <option disabled>Tipologia di risposta</option>
-                    <option value="INDOVINELLO">Indovinello</option>
-                    <option value="MULTIPLA">Multipla</option>
+                    <option disabled>{{ 'response_type' | translate }}</option>
+                    <option value="INDOVINELLO">{{ 'riddle' | translate }}</option>
+                    <option value="MULTIPLA">{{ 'multiple' | translate }}</option>
                 </select>
             </div>
             <div class="div-object" *ngIf="tipoScenario !== 'FINALE'">
-                <label id="label-left" for="objectSelect">Oggetto Rilasciato</label>
+                <label id="label-left" for="objectSelect">{{ 'released_object' | translate }}</label>
                 <select id="objectSelect" name="objectSelect" [(ngModel)]="selectedObjectId">
-                    <option disabled>Oggetto rilasciato</option>
+                    <option disabled>{{ 'released_object' | translate }}</option>
                     <option [value] = "-1">---</option>
                     <option *ngFor="let obj of storyObjects" [value]="obj.id">{{ obj.nome }}</option>
                 </select>
             </div>
-            <button type="submit" class="btn-creazione">Crea Scenario</button>
+            <button type="submit" class="btn-creazione">{{ 'create_scenario' | translate }}</button>
         </form>
     </div>
 </div>
 <!-- html attuato per modificare uno scenario -->
 <div class="container" *ngIf="isInTextEditMode">
     <div class="div-scenario"> 
-        <p id="title">Aggiorna i <span>dati</span> dello <span>scenario</span></p>
+        <p id="title">{{ 'update_the' | translate }} <span>{{ 'data' | translate }}</span> {{ 'of_the2' | translate }} <span>{{ 'scenery' | translate }}</span></p>
         <form (ngSubmit)="updateScenarioText()">
             <div>
-                <label id="label-left" for="testo">Testo</label>
+                <label id="label-left" for="testo">{{ 'text' | translate }}</label>
                 <textarea *ngIf="currentScenario" id="testo" name="testo" maxlength="255" required [ngModel]="currentScenario.testo"
                 (ngModelChange)="onScenarioTextChange($event)"></textarea>
             </div>
             <div class="div-select" *ngIf="currentScenario?.tipo_scenario !== 'FINALE'">
-                <label for="tipoRisposta">Risposta</label>
+                <label for="tipoRisposta">{{ 'response' | translate }}</label>
                 <input type="text" [value]="currentScenario?.tipo_risposta" readonly>
             </div>
             <div class="div-select">
-                <label for="tipoScenario">Scenario</label>
+                <label for="tipoScenario">{{ 'scenery' | translate }}</label>
                 <input type="text" [value]="currentScenario?.tipo_scenario" readonly>
             </div>
-            <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna</button>
+            <button type="submit" class="btn-creazione" [disabled]="isUpdated()">{{ 'update' | translate }}</button>
         </form>
     </div>
 </div>

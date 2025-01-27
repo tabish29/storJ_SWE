@@ -1,61 +1,61 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
     <div class="div-single-choice">
-        <p id="title">Inserisci i <span>dati</span> dell'<span>indovinello</span></p>
+        <p id="title">{{ 'enter_the' | translate }} <span>{{ 'data' | translate }}</span> {{ 'of_the3' | translate }}<span> {{ 'riddle' | translate }}</span></p>
         <form (ngSubmit)="onSubmit()">
             <div>
-                <label id="label-left" for="testo">Testo<span>*</span></label>
+                <label id="label-left" for="testo">{{ 'text' | translate }}<span>*</span></label>
                 <textarea id="testo" name="testo" maxlength="50" [(ngModel)]="testo" required></textarea>
             </div>
             <div>
-                <label id="label-left" for="risposta">Risposta<span>*</span></label>
+                <label id="label-left" for="risposta">{{ 'response' | translate }}<span>*</span></label>
                 <textarea id="risposta" name="risposta" maxlength="50" [(ngModel)]="risposta" required></textarea>
             </div>
             <div class="div-select">
-                <label for="idScenarioRispostaCorretta">Destinazione risposta corretta<span>*</span></label>
+                <label for="idScenarioRispostaCorretta">{{ 'correct_response_destination' | translate }}<span>*</span></label>
                 <select id="idScenarioRispostaCorretta" name="idScenarioRispostaCorretta"
                     [(ngModel)]="idScenarioRispostaCorretta" required>
-                    <option disabled>Scenario di destinazione dopo la risposta corretta</option>
+                    <option disabled>{{ 'scenario_after_correct_response' | translate }}</option>
                     <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }}</option>
                 </select>
             </div>
             <div class="div-select">
-                <label for="idScenarioRispostaSbagliata">Destinazione risposta sbagliata<span>*</span></label>
+                <label for="idScenarioRispostaSbagliata">{{ 'wrong_response_destination' | translate }}<span>*</span></label>
                 <select id="idScenarioRispostaSbagliata" name="idScenarioRispostaSbagliata"
                     [(ngModel)]="idScenarioRispostaSbagliata" required>
-                    <option disabled>Scenario di destinazione dopo la risposta sbagliata</option>
+                    <option disabled>{{ 'scenario_after_wrong_response' | translate }}</option>
                     <option *ngFor="let scenario of storyScenarios" [value]="scenario.id">{{ scenario.testo }}</option>
                 </select>
             </div>
-            <button type="submit">Crea</button>
+            <button type="submit">{{ 'create' | translate }}</button>
         </form>
     </div>
 </div>
 <!-- html attuato per modificare i campo di una scelta -->
 <div class="container" *ngIf="isInTextEditMode">
     <div class="div-single-choice">
-        <p id="title">Aggiorna i <span>dati</span> dell'<span>indovinello</span></p>
+        <p id="title">{{ 'update_the' | translate }} <span>{{ 'data' | translate }}</span> {{ 'of_the3' | translate }}<span> {{ 'riddle' | translate }}</span></p>
         <form (ngSubmit)="updateSingleChoicheText()">
             <div>
-                <label id="label-left" for="testo">Testo</label>
+                <label id="label-left" for="testo">{{ 'text' | translate }}</label>
                 <textarea *ngIf="currentSingleChoiche" id="testo" name="testo" maxlength="50" required
                     [ngModel]="currentSingleChoiche.testo" (ngModelChange)="onTextChange($event)"></textarea>
             </div>
             <div>
-                <label id="label-left" for="risposta">Risposta</label>
+                <label id="label-left" for="risposta">{{ 'response' | translate }}</label>
                 <textarea *ngIf="currentSingleChoiche" type="text" id="risposta" name="risposta" maxlength="50" required
                     [ngModel]="currentSingleChoiche.risposta" (ngModelChange)="onAnswerChange($event)"
                     placeholder="Inserisci la risposta corretta"></textarea>
             </div>
             <div class="div-select">
-                <label for="idScenarioRispostaCorretta">Destinazione corretta</label>
+                <label for="idScenarioRispostaCorretta">{{ 'correct_destination' | translate }}</label>
                 <input type="text" [value]="textCorrectAnswer" readonly>
             </div>
             <div class="div-select">
-                <label for="idScenarioRispostaSbagliata">Destinazione sbagliata</label>
+                <label for="idScenarioRispostaSbagliata">{{ 'wrong_destination' | translate }}</label>
                 <input type="text" [value]="textWrongAnswer" readonly>
             </div>
-            <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna</button>
+            <button type="submit" class="btn-creazione" [disabled]="isUpdated()">{{ 'update' | translate }}</button>
         </form>
     </div>
 </div>

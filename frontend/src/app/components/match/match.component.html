@@ -1,24 +1,24 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="div-title">
-        <p id="title">Le tue <span>partite</span></p>
+        <p id="title">{{ 'your' | translate }}<span> {{ 'games' | translate }}</span></p>
     </div>
     <div class="div-matches" *ngIf="userMatches.length > 0; else noMatches" >
         <div class="div-single-match" *ngFor="let match of userMatches">
             <div id="div-info"><label><span id="span-title">Titolo storia</span><br><span id="span-text">{{ storyTitleMap.get(match.id) }}</span></label></div>
             <div class="div-button"> 
-                <div class="div-button-match"><button (click)="resumeMatch(match)">Riprendi</button></div>
-                <div class="div-button-match"><button (click)="removeMatch(match)">Rimuovi</button></div>
+                <div class="div-button-match"><button (click)="resumeMatch(match)">{{ 'resume' | translate }}</button></div>
+                <div class="div-button-match"><button (click)="removeMatch(match)">{{ 'remove' | translate }}</button></div>
             </div>
         </div>
     </div>
     <ng-template #noMatches>
         <div class="div-no-matches">
             <div class="div-text">
-                <p id="title">Wow, come è <span>vuoto</span>...</p>
+                <p id="title">{{ 'wow_how_is' | translate }} <span>{{ 'empty' | translate }}</span>...</p>
                 <p></p>
-                <p id="text-match">sembra che tu non abbia <span>nessuna</span> partita  <span>giocata</span>.</p>
-                <p id="text-match"><a href="handlerPlaypage">Clicca qui</a>e inizia a <span>giocare</span>.</p>
+                <p id="text-match">{{ 'it_seems_you_dont_have' | translate }} <span>{{ 'none' | translate }}</span> {{ 'game' | translate }}  <span>{{ 'played' | translate }}</span>.</p>
+                <p id="text-match"><a href="handlerPlaypage">{{ 'click_here' | translate }} </a>{{ 'and_start' | translate }} <span>{{ 'playing' | translate }}</span>.</p>
             </div>
         </div>
     </ng-template>

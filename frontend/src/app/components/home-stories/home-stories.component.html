@@ -1,22 +1,22 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="div-title">
-        <p id="title">Le tue <span>storie</span></p>
+        <p id="title">{{ 'your' | translate }} <span>{{ 'stories' | translate }}</span></p>
     </div>
     <div class="div-story" *ngFor="let item of stories">
         <div id="div-info">
-            <div id="div-text"><label><span class="span-header">Titolo</span><br><span class="span-text" matTooltip="{{item.titolo}}" matTooltipPosition="right">{{ item.titolo.length > 25 ? (item.titolo | slice:0:25) + '...' : item.titolo }}</span></label></div> <p></p>
-            <div id="div-text"><label><span class="span-header">Categoria</span><br><span class="span-text" matTooltip="{{item.categoria}}" matTooltipPosition="right">{{ item.categoria.length > 25 ? (item.categoria | slice:0:25) + '...' : item.categoria }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'title' | translate }}</span><br><span class="span-text" matTooltip="{{item.titolo}}" matTooltipPosition="right">{{ item.titolo.length > 25 ? (item.titolo | slice:0:25) + '...' : item.titolo }}</span></label></div> <p></p>
+            <div id="div-text"><label><span class="span-header">{{ 'category' | translate }}</span><br><span class="span-text" matTooltip="{{item.categoria}}" matTooltipPosition="right">{{ item.categoria.length > 25 ? (item.categoria | slice:0:25) + '...' : item.categoria }}</span></label></div>
         </div>
         <div class="div-button-scenario">
             <div class="div-button" *ngIf="!item.statoCompletamento">
-                <button (click)="editStory(item)">Modifica</button>
+                <button (click)="editStory(item)">{{ 'edit' | translate }}</button>
             </div>
             <div class="div-button" *ngIf="item.statoCompletamento">
-                <button (click)="editStory(item)">Modifica testo</button>
+                <button (click)="editStory(item)">{{ 'edit_text' | translate }} </button>
             </div>
             <div class="div-button">
-                <div class="div-button-scenario"><button (click)="removeStory(item.id)">Rimuovi</button></div>
+                <div class="div-button-scenario"><button (click)="removeStory(item.id)">{{ 'remove' | translate }}</button></div>
             </div>
         </div>
     </div>

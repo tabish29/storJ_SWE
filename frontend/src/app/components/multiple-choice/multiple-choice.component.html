@@ -1,34 +1,34 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
     <div class="div-title">
-        <p id="title">Le tue <span>scelte multiple</span></p>
+        <p id="title">{{ 'your' | translate }} <span>{{ 'multiple_choices' | translate }} </span></p>
     </div>
     <div class="div-multiple-choice" *ngFor="let item of multipleChoices">
         <div class="div-info">          
-            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}
+            <div id="div-text"><label><span class="span-header">{{ 'text' | translate }}</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}
 </span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Testo scenario di destinazione</span><br><span class="span-text">{{ scenarioTextMap.get(item.id) }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'next_scenario_text' | translate }}</span><br><span class="span-text">{{ scenarioTextMap.get(item.id) }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Oggetto richiesto</span><br><span class="span-text">{{ requiredMap.get(item.id) }}</span></label></div>
-            <div class="div-button-multiple-choice"><button (click)="removeMultipleChoice(item.id)">Rimuovi</button></div>
+            <div id="div-text"><label><span class="span-header">{{ 'required_item' | translate }}</span><br><span class="span-text">{{ requiredMap.get(item.id) }}</span></label></div>
+            <div class="div-button-multiple-choice"><button (click)="removeMultipleChoice(item.id)">{{ 'remove' | translate }}</button></div>
         </div>
     </div>
 </div>
 <!-- html attuato per modificare i campo di una scelta multipla --> 
 <div class="container" *ngIf="isInTextEditMode">
     <div class="div-title">
-        <p id="title">Le tue <span>scelte multiple</span></p>
+        <p id="title">{{ 'your' | translate }} <span>{{ 'multiple_choices' | translate }} </span></p>
     </div>
     <div class="div-multiple-choice" *ngFor="let item of multipleChoices">
         <div class="div-info">
-            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}
+            <div id="div-text"><label><span class="span-header">{{ 'text' | translate }}</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}
 </span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Testo scenario successivo</span><br><span class="span-text">{{ scenarioTextMap.get(item.id) }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'next_scenario_text' | translate }}</span><br><span class="span-text">{{ scenarioTextMap.get(item.id) }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Oggetto</span><br><span class="span-text">{{ requiredMap.get(item.id) }}</span></label></div>
-            <div class="div-button-multiple-choice"><button (click)="editMultipleChoicheText(item)">Modifica</button></div>
+            <div id="div-text"><label><span class="span-header">{{ 'item2' | translate }}</span><br><span class="span-text">{{ requiredMap.get(item.id) }}</span></label></div>
+            <div class="div-button-multiple-choice"><button (click)="editMultipleChoicheText(item)">{{ 'edit' | translate }}</button></div>
         </div>
     </div>
 </div>

@@ -5,33 +5,33 @@
         <!-- html attuato per visualizzare il messaggio conclusivo della storia -->
         <div class="div-congrats" *ngIf="currentScenario.tipo_scenario === 'FINALE'">
             <div id="div-text-congrats">
-                <p id="text-congrats">Complimenti! Hai <span>concluso</span> la storia!</p>
-                <p id="text-handler-playpage"><a href="/handlerPlaypage">Clicca qui</a>per giocare ad altre <span>emozionanti</span> storie.</p>
+                <p id="text-congrats">{{ 'congratulations' | translate }} <span>{{ 'finished' | translate }}</span> {{ 'the_story' | translate }}</p>
+                <p id="text-handler-playpage"><a href="/handlerPlaypage">{{ 'click_here' | translate }} </a>{{ 'to_play_more' | translate }} <span>{{ 'exciting' | translate }}</span> {{ 'stories2' | translate }}.</p>
             </div>
         </div>
     </div>
     <!-- html attuato per la visualizzazione degli indovinelli della storia selezionata -->
     <div class="div-single-choice" *ngIf="currentScenario?.tipo_risposta === 'INDOVINELLO' && currentScenario?.tipo_scenario !== 'FINALE' && singleChoice">
         <div class="div-title">
-            <p id="title">Rispondi all'<span>indovinello</span></p>
+            <p id="title">{{ 'answer_to' | translate }}<span>{{ 'riddle' | translate }}</span></p>
         </div>
         <div class="div-text-single"><label id="label-scenario">{{ singleChoice.testo }}</label></div>
         <div class="div-form">
             <form (submit)="submitUserAnswer()">
                 <textarea [(ngModel)]="userAnswer" name="userAnswer" required></textarea>
-                <div><button id="button-single-choice" type="submit">Invia risposta</button></div>
+                <div><button id="button-single-choice" type="submit">{{ 'send_response' | translate }}</button></div>
             </form>
         </div>
     </div>
     <!-- div adottato per la visualizzazione delle scelte multiple dello scenario -->
     <div class="div-multiple-choices" *ngIf="currentScenario?.tipo_risposta === 'MULTIPLA' && currentScenario?.tipo_scenario !== 'FINALE'">
         <div class="div-title">
-            <p id="title">Scegli la tua <span>risposta</span></p>
+            <p id="title">{{ 'choose_your' | translate }} <span>{{ 'response2' | translate }}</span></p>
         </div>
         <div class="div-choice-scenario" *ngFor="let item of multipleChoices">
             <div class="container-tooltip remove-button" [class.disabled-tooltip-container]="!checkRequired(item.id)">
                 <button class="button-multiple-choice" (click)="loadUserChoice(item.id_scenario_successivo)" [disabled]="!checkRequired(item.id)">{{ item.testo }}</button>
-                <span class="tooltiptext">Non possiedi l'oggetto richiesto per fare questa scelta</span>
+                <span class="tooltiptext">{{ 'missing_required_item' | translate }}</span>
             </div>
         </div>
     </div>

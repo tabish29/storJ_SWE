@@ -2,26 +2,26 @@
 <div class="container">
     <div class="div-payment">
         <div class="div-title">
-            <p id="title">Inserisci i <span>dati</span> per il <span>pagamento</span></p>
+            <p id="title">{{ 'insert_the' | translate }} <span>{{ 'data' | translate }}</span> {{ 'for_the' | translate }} <span>{{ 'payment' | translate }}</span></p>
         </div>
         <form (ngSubmit)="onSubmit()">
             <div class="div-form">
-                <label for="amount">Ammontare<span>*</span></label>
+                <label for="amount">{{ 'amount' | translate }}<span>*</span></label>
                 <input type="number" id="amount" name="amount" required [(ngModel)]="amount" >
             </div>
             <div class="div-form">
-                <label for="cardHolder">Titolare della carta<span>*</span></label>
+                <label for="cardHolder">{{ 'card_holder' | translate }}<span>*</span></label>
                 <input type="cardHolder" id="cardHolder" name="cardHolder" required [(ngModel)]="cardHolder"required>
             </div>
             <div class="div-form">
-                <label for="cardNumber">Numero della carta<span>*</span></label>
+                <label for="cardNumber">{{ 'card_number' | translate }}<span>*</span></label>
                 <input type="cardNumber" id="cardNumber" name="cardNumber" required [(ngModel)]="cardNumber">
             </div>
             <div class="div-form">
-                <label for="cvv">CVV<span>*</span></label>
+                <label for="cvv">{{ 'cvv' | translate }}<span>*</span></label>
                 <input type="cvv" id="cvv" name="cvv" required [(ngModel)]="cvv">
             </div>
-            <button type="submit">Paga</button>
+            <button type="submit">{{ 'pay' | translate }}</button>
         </form>
     </div>
 </div>

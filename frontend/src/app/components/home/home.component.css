@@ -35,6 +35,10 @@ span {
     color:red;
 }
 
+span.highlight {
+    color: red;
+}
+
 #div-button {
     display: flex;
     justify-content: left;

@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -31,6 +33,12 @@ import { FormSingleChoiceComponent } from './components/form-single-choice/form-
 import { PlayPageComponent } from './components/play-page/play-page.component';
 import { PopupComponent } from './components/popup/popup.component';
 import { MatchComponent } from './components/match/match.component';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
+
+// Funzione per il loader delle traduzioni
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -55,7 +63,8 @@ import { MatchComponent } from './components/match/match.component';
     FormSingleChoiceComponent,
     PlayPageComponent,
     PopupComponent,
-    MatchComponent
+    MatchComponent,
+    LanguageSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +74,14 @@ import { MatchComponent } from './components/match/match.component';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
 
   ],
   providers: [

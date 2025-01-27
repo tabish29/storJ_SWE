@@ -1,14 +1,14 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
     <div class="div-object">
-        <p id="title">Inserisci i <span>dati</span> dell'<span>oggetto</span></p>
+        <p id="title">{{ 'enter_the' | translate }} <span>{{ 'data' | translate }}</span> {{ 'of_the3' | translate }} <span>{{ 'item' | translate }}</span></p>
         <form (ngSubmit)="onSubmit()">
             <div class="div-form">
-                <label for="nome">Nome<span>*</span></label>
+                <label for="nome">{{ 'name' | translate }}<span>*</span></label>
                 <input type="text" id="nome" name="nome" required [(ngModel)]="nome" maxlength="50">
-                <label for="descrizione">Descrizione<span>*</span></label>
+                <label for="descrizione">{{ 'description_object' | translate }}<span>*</span></label>
                 <textarea id="descrizione" name="descrizione" required [(ngModel)]="descrizione" maxlength="255"></textarea>
-                <button type="submit">Crea</button>
+                <button type="submit">{{ 'create' | translate }}</button>
             </div>
         </form>
     </div>
@@ -16,14 +16,14 @@
 <!-- html attuato per aggiornare i campi di un oggetto -->
 <div class="container" *ngIf="isInTextEditMode">
     <div class="div-object">
-        <p id="title">Aggiorna i <span>dati</span> dell'<span>oggetto</span></p>
+        <p id="title">{{ 'update_the' | translate }} <span>{{ 'data' | translate }}</span> {{ 'of_the3' | translate }}'<span>{{ 'item' | translate }}</span></p>
         <form (ngSubmit)="updateStoryObjectText()">
             <div class="div-form">
-                <label for="nome">Nome</label>
+                <label for="nome">{{ 'name' | translate }}</label>
                 <input *ngIf="currentStoryObject" type="text" id="nome" name="nome"  maxlength="50"  required [ngModel]="currentStoryObject.nome"  (ngModelChange)="onNameChange($event)"> 
-                <label for="descrizione">Descrizione</label>
+                <label for="descrizione">{{ 'description_object' | translate }}</label>
                 <textarea *ngIf="currentStoryObject" id="descrizione" name="descrizione" required [ngModel]="currentStoryObject.descrizione" (ngModelChange)="onDescriptionChange($event)" maxlength="255"></textarea>
-                <button type="submit" class="btn-creazione" [disabled]="isUpdated()">Aggiorna</button>
+                <button type="submit" class="btn-creazione" [disabled]="isUpdated()">{{ 'update' | translate }}</button>
             </div>
         </form>
     </div>

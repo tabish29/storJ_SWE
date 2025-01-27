@@ -1,35 +1,35 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
     <div class="div-title">
-        <p id="title">Divertiti e crea i tuoi <span>scenari</span></p>
+        <p id="title">{{ 'have_fun_and_create_your' | translate }} <span>{{ 'scenarios' | translate }}</span></p>
     </div>
     <div class="div-scenario" *ngFor="let item of scenarios">
         <div class="div-info" *ngIf="item.tipo_scenario !== 'FINALE'">
-            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo  }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'text' | translate }}</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo  }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Tipologia risposta</span><br><span class="span-text" >{{ item.tipo_risposta }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'response_type' | translate }}</span><br><span class="span-text" >{{ item.tipo_risposta }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Tipologia scenario</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'scenario_type' | translate }}</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Oggetto rilasciato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'released_object' | translate }}</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
             <div class="div-button">
-                <div class="div-button-scenario"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Scelte</button></div>
+                <div class="div-button-scenario"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">{{ 'choices' | translate }}</button></div>
             </div>
             <div class="div-button">
-                <div class="div-button-scenario"><button (click)="removeScenario(item.id)">Rimuovi</button></div>
+                <div class="div-button-scenario"><button (click)="removeScenario(item.id)">{{ 'remove' | translate }}</button></div>
             </div>
         </div>
         <div class="div-info" *ngIf="item.tipo_scenario === 'FINALE'">
-            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'text' | translate }}</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Tipologia scenario</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'scenario_type' | translate }}</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
             <p></p>
-            <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
+            <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">{{ 'response_type' | translate }}</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
             <p></p>
-            <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">Oggetto rilasciato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
+            <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">{{ 'released_object' | translate }}</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
             <p></p>
             <div class="div-button-final">
-                <button id="button-final" (click)="removeScenario(item.id)">Rimuovi</button>
+                <button id="button-final" (click)="removeScenario(item.id)">{{ 'remove' | translate }}</button>
             </div>
         </div>
     </div>
@@ -37,34 +37,34 @@
 <!-- html per attuare modifiche alla storia --> 
 <div class="container" *ngIf="isInTextEditMode">
     <div class="div-title">
-        <p id="title">Divertiti e crea i tuoi <span>scenari</span></p>
+        <p id="title">{{ 'have_fun_and_create_your' | translate }} <span>{{ 'scenarios' | translate }}</span></p>
     </div>
     <div class="div-scenario" *ngFor="let item of scenarios">
         <div class="div-info" *ngIf="item.tipo_scenario !== 'FINALE'">
-            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'text' | translate }}</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'response_type' | translate }}</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Tipologia scenario</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'scenario_type' | translate }}</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'released_object' | translate }}</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
             <div class="div-button">
-                <div class="editScenarioText-button"><button (click)="editScenarioText(item)">Modifica scenario</button></div>
+                <div class="editScenarioText-button"><button (click)="editScenarioText(item)">{{ 'edit_scenario' | translate }}</button></div>
             </div>
             <div class="div-button">
-                <div class="remove-button"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">Modifica scelte</button></div>
+                <div class="remove-button"><button (click)="redirectToScenarioType(item,item.tipo_risposta)">{{ 'edit_choices' | translate }}</button></div>
             </div>
         </div>
         <div class="div-info" *ngIf="item.tipo_scenario === 'FINALE'">
-            <div id="div-text"><label><span class="span-header">Testo</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'text' | translate }}</span><br><span class="span-text" matTooltip="{{item.testo}}" matTooltipPosition="right">{{ item.testo.length > 25 ? (item.testo | slice:0:25) + '...' : item.testo }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Tipologia scenario</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'scenario_type' | translate }}</span><br><span class="span-text">{{ item.tipo_scenario }}</span></label></div>
             <p></p>
-            <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">Tipologia risposta</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
+            <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">{{ 'response_type' | translate }}</span><br><span class="span-text">{{ item.tipo_risposta }}</span></label></div>
             <p></p>
-            <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">Oggetto associato</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
+            <div id="div-text-hidden"><label id="label-hidden"><span class="span-header">{{ 'released_object' | translate }}</span><br><span class="span-text">{{ dropMap.get(item.id) }}</span></label></div>
             <div class="div-button-final">
-                <button id="button-final" (click)="editScenarioText(item)">Modifica scenario</button>
+                <button id="button-final" (click)="editScenarioText(item)">{{ 'edit_scenario' | translate }}</button>
             </div>
         </div>
     </div>

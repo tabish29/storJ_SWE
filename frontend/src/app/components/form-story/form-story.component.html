@@ -1,15 +1,15 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div id="div-story">
-        <p id="title">Inserisci i <span>dati</span> della <span>storia</span></p>
+        <p id="title">{{ 'enter_the' | translate }} <span>{{ 'data' | translate }}</span> {{ 'of_the' | translate }} <span>{{ 'story' | translate }}</span></p>
         <form (ngSubmit)="onSubmit()">
             <div id="div-form">
-                <label for="titolo">Titolo<span>*</span></label>
-                <input type="text" placeholder="Inserisci il titolo" name="titolo" maxlength="50" [(ngModel)]="titolo" required>
-                <label for="categoria">Categoria<span>*</span></label>
-                <input type="text" placeholder="Inserisci la categoria" name="categoria" maxlength="50" [(ngModel)]="categoria" required>
+                <label for="titolo">{{ 'title' | translate }}<span>*</span></label>
+                <input type="text" placeholder="{{ 'placeholders.enter_the_title' | translate }}" name="titolo" maxlength="50" [(ngModel)]="titolo" required>
+                <label for="categoria">{{ 'category' | translate }}<span>*</span></label>
+                <input type="text" placeholder="{{ 'placeholders.enter_the_category' | translate }}" name="categoria" maxlength="50" [(ngModel)]="categoria" required>
             </div>
-            <button type="submit">Crea</button>
+            <button type="submit">{{ 'create' | translate }}</button>
         </form>
     </div>
 </div>

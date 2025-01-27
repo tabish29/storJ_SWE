@@ -1,34 +1,34 @@
 <app-navbar></app-navbar>
 <div class="container" *ngIf="!isInTextEditMode">
     <div class="div-title">
-        <p id="title">I tuoi magici <span>oggetti</span></p>
+        <p id="title">{{ 'your_magical' | translate }} <span>{{ 'objects' | translate }}</span></p>
     </div>
     <div class="div-objects" *ngFor="let item of storyObjects">
         <div class="div-info">
-            <div id="div-text"><label><span class="span-header">Nome</span><br><span class="span-text" matTooltip="{{item.nome}}" matTooltipPosition="right">{{ item.nome.length > 25 ? (item.nome | slice:0:25) + '...' : item.nome }}
+            <div id="div-text"><label><span class="span-header">{{ 'name' | translate }}</span><br><span class="span-text" matTooltip="{{item.nome}}" matTooltipPosition="right">{{ item.nome.length > 25 ? (item.nome | slice:0:25) + '...' : item.nome }}
             </span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Descrizione</span><br><span class="span-text" matTooltip="{{item.descrizione}}" matTooltipPosition="right">{{ item.descrizione.length > 25 ? (item.descrizione | slice:0:25) + '...' : item.descrizione }}
+            <div id="div-text"><label><span class="span-header">{{ 'description_object' | translate }}</span><br><span class="span-text" matTooltip="{{item.descrizione}}" matTooltipPosition="right">{{ item.descrizione.length > 25 ? (item.descrizione | slice:0:25) + '...' : item.descrizione }}
             </span></label></div>
         </div>
         <div class="div-button">
-            <div><button (click)="removestoryObject(item.id)">Rimuovi</button></div>
+            <div><button (click)="removestoryObject(item.id)">{{ 'remove' | translate }}</button></div>
         </div>
     </div>
 </div>
 <!-- html attuato per modificare il contenuto di un oggetto --> 
 <div class="container" *ngIf="isInTextEditMode">
     <div class="div-title">
-        <p id="title">I tuoi magici <span>oggetti</span></p>
+        <p id="title">{{ 'your_magical' | translate }} <span>{{ 'objects' | translate }}</span></p>
     </div>
     <div class="div-objects" *ngFor="let item of storyObjects">
         <div class="div-info">
-            <div id="div-text"><label><span class="span-header">Nome</span><br><span class="span-text" matTooltip="{{item.nome}}" matTooltipPosition="right">{{ item.nome.length > 25 ? (item.nome | slice:0:25) + '...' : item.nome }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'name' | translate }}</span><br><span class="span-text" matTooltip="{{item.nome}}" matTooltipPosition="right">{{ item.nome.length > 25 ? (item.nome | slice:0:25) + '...' : item.nome }}</span></label></div>
             <p></p>
-            <div id="div-text"><label><span class="span-header">Descrizione</span><br><span class="span-text" matTooltip="{{item.descrizione}}" matTooltipPosition="right">{{ item.descrizione.length > 25 ? (item.descrizione | slice:0:25) + '...' : item.descrizione }}</span></label></div>
+            <div id="div-text"><label><span class="span-header">{{ 'description_object' | translate }}</span><br><span class="span-text" matTooltip="{{item.descrizione}}" matTooltipPosition="right">{{ item.descrizione.length > 25 ? (item.descrizione | slice:0:25) + '...' : item.descrizione }}</span></label></div>
         </div>
         <div class="div-button">
-            <div class="remove-button"><button (click)="editStoryObjectText(item)">Modifica</button></div>
+            <div class="remove-button"><button (click)="editStoryObjectText(item)">{{ 'edit' | translate }}</button></div>
         </div>
     </div>
 </div>

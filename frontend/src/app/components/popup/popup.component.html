@@ -1,19 +1,19 @@
 <div class="container-inventory" *ngIf="!showPreview">
   <div class="div-title">
-    <p id="title">Il tuo <span>inventario</span></p>
+    <p id="title">{{ 'your2' | translate }} <span>{{ 'inventory' | translate }}</span></p>
   </div>
   <div *ngIf="data && data.inventoryItems && data.inventoryItems.length > 0; else noItems">
     <p id="pop-up-text" *ngFor="let item of data.inventoryItems" matTooltip="Descrizione: {{item.descrizione}}" matTooltipPosition="right">{{ item.nome }}</p>
     <p></p>
   </div>
   <ng-template #noItems>
-    <p>Non hai alcun <span>oggetto</span>.</p>
+    <p>{{ 'you_do_not_have_any' | translate }} <span>{{ 'item' | translate }}</span>.</p>
   </ng-template>
-  <button class="button-close" mat-button (click)="onClose()">Chiudi</button>
+  <button class="button-close" mat-button (click)="onClose()">{{ 'close' | translate }}</button>
 </div>
 <div class="container-story-single" *ngIf="showPreview && currentScenario?.tipo_risposta === 'INDOVINELLO' && currentScenario?.tipo_scenario !== 'FINALE' && singleChoice">
   <div class="div-title-single">
-    <p id="title">Anteprima della <span>storia</span></p>
+    <p id="title">{{ 'preview_of' | translate }} <span>{{ 'story' | translate }}</span></p>
   </div>
   <!-- Visualizzazione delle informazioni dello scenario -->
   <div class="div-text-scenario-single">
@@ -22,19 +22,19 @@
   <!-- Visualizzazione dell'indovinello della storia selezionata -->
   <div class="div-choice-single">
     <div class="div-title-single">
-      <p id="title">Rispondi all'<span>indovinello</span></p>
+      <p id="title">{{ 'answer_to' | translate }}<span>{{ 'riddle' | translate }}</span></p>
     </div>
     <div class="div-scenario-single">
       <div class="div-text-single"><label id="label-scenario">{{ singleChoice.testo }}</label></div>
       <div>
-        <button class="button-single-choice">Invia risposta</button>
+        <button class="button-single-choice">{{ 'send_response' | translate }}</button>
       </div>
     </div>
   </div> 
 </div>
 <div class="container-story-multiple" *ngIf="showPreview && currentScenario?.tipo_risposta === 'MULTIPLA' && currentScenario?.tipo_scenario !== 'FINALE'">
   <div class="div-title-multiple">
-    <p id="title">Anteprima della <span>storia</span></p>
+    <p id="title">{{ 'preview_of' | translate }} <span>{{ 'story' | translate }}</span></p>
   </div>
   <!-- Visualizzazione delle informazioni dello scenario -->
   <div class="div-text-scenario-multiple">
@@ -42,7 +42,7 @@
   </div>
   <!-- Visualizzazione della scelta multipla della storia selezionata -->
   <div class="div-scenario-multiple">
-    <div class="div-title"><p id="title">Scegli la tua <span>risposta</span></p></div>
+    <div class="div-title"><p id="title">{{ 'choose_your' | translate }} <span>{{ 'response2' | translate }}</span></p></div>
     <div class="div-inline-button" *ngFor="let item of multipleChoices">
         <button class="button-multiple-choice">{{ item.testo }}</button>
     </div>

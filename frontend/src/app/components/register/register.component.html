@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div id="div-register">
-    <p id="title">Registrati e inizia a <span>giocare</span>!</p>
+    <p id="title">{{ 'register_and_start_to' | translate }} <span>{{'playing' | translate }}</span>!</p>
         <form (ngSubmit)="onSubmit()">
             <div id="div-form">
                 <label for="username">Username</label>
@@ -11,8 +11,8 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Inserisci la tua password" maxlength="50" required [(ngModel)]="password">
             </div>
-            <button type="submit" class="btn-register">Registrati</button>
+            <button type="submit" class="btn-register">{{ 'register' | translate }}</button>
         </form>
-        <p class="register-link">Hai già un account? <a href="/login">Clicca qui</a></p>
+        <p class="register-link">{{ 'already_have_an_account' | translate }} <a href="/login">{{ 'click_here' | translate }}</a></p>
     </div>
 </div>

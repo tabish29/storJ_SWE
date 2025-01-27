@@ -1,51 +1,51 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="div-title">
-        <p id="title">Il tuo <span>indovinello</span></p>
+        <p id="title">{{ 'your2' | translate }} <span>{{ 'riddle' | translate }}</span></p>
     </div>
     <div class="div-single-choice" *ngIf="singleChoice && !isInTextEditMode">
         <div id="div-info">
             <label>
-                <span id="span-header">Testo</span><br>
+                <span id="span-header">{{ 'text' | translate }}</span><br>
                 <span class="span-text">{{ singleChoice.testo }}</span>
             </label>
         </div>
         <p></p>
         <div id="div-info">
             <label>
-                <span id="span-header">Risposta Indovinello</span><br>
+                <span id="span-header">{{ 'riddle_response' | translate }}</span><br>
                 <span class="span-text">{{ singleChoice.risposta }}</span>
             </label>
         </div>
         <p></p>
         <div id="div-info">
             <label *ngIf="textCorrectAnswer">
-                <span id="span-header">Testo destinazione corretta</span><br>
+                <span id="span-header">{{ 'correct_destination_text' | translate }}</span><br>
                 <span class="span-text">{{ textCorrectAnswer }}</span>
             </label>
         </div>
         <p></p>
         <div id="div-info">
             <label *ngIf="textWrongAnswer">
-                <span id="span-header">Testo destinazione errato</span><br>
+                <span id="span-header">{{ 'wrong_destination_text' | translate }}</span><br>
                 <span class="span-text">{{ textWrongAnswer }}</span>
             </label>
         </div>
-        <div><button (click)="removeSingleChoice(singleChoice.id)">Rimuovi</button></div>
+        <div><button (click)="removeSingleChoice(singleChoice.id)">{{ 'remove' | translate }}</button></div>
     </div>
     <!-- html attuato per garantire l'accesso alla modifica della scelta circoscritta -->
     <div class="div-single-choice" *ngIf="singleChoice && isInTextEditMode">
         <div class="div-inline">
             <div id="div-info">
                 <label>
-                    <span id="span-header">Testo</span><br>
+                    <span id="span-header">{{ 'text' | translate }}</span><br>
                     <span class="span-text"> {{ singleChoice.testo }}</span>
                 </label>
             </div>
             <p></p>
             <div id="div-info">
                 <label>
-                    <span id="span-header">Risposta Indovinello</span><br>
+                    <span id="span-header">{{ 'riddle_response' | translate }}</span><br>
                     <span class="span-text">{{ singleChoice.risposta }}</span>
                 </label>
             </div>
@@ -53,18 +53,18 @@
         <div class="div-inline">
             <div id="div-info">
                 <label>
-                    <span id="span-header">Testo destinazione corretta</span><br>
+                    <span id="span-header">{{ 'correct_destination_text' | translate }}</span><br>
                     <span class="span-text">{{ textCorrectAnswer}}</span>
                 </label>
             </div>
             <p></p>
             <div id="div-info">
                 <label>
-                    <span id="span-header">Testo destinazione errato</span><br>
+                    <span id="span-header">{{ 'wrong_destination_text' | translate }}  </span><br>
                     <span class="span-text">{{ textWrongAnswer }}</span>
                 </label>
             </div>
         </div>
-        <div><button (click)="editSingleChoicheText(singleChoice)">Modifica</button></div>
+        <div><button (click)="editSingleChoicheText(singleChoice)">{{ 'edit' | translate }}</button></div>
     </div>
 </div>
