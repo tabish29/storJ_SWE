@@ -30,7 +30,14 @@ export class AuthService {
 
   logout(): void {
     this.isLoggedIn = false;
-    this.localStorageService.clear();
-  }
+
+    const selectedLanguage = localStorage.getItem('selectedLanguage');
+
+    localStorage.clear();
+
+    if (selectedLanguage) {
+      localStorage.setItem('selectedLanguage', selectedLanguage);
+    }
+    }
 
 }
